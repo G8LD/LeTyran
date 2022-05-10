@@ -5,4 +5,7 @@ module application.letyran {
 
     opens application to javafx.fxml;
     exports application;
+
+    opens application.controleur to javafx.fxml;
+    exports application.controleur;
 }

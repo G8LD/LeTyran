@@ -35,4 +35,8 @@ public class MapJeu {
             }
         }
     }
+
+    public int[][] getTabMap() {
+        return tabMap;
+    }
 }

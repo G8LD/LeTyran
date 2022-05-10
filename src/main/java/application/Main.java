@@ -11,7 +11,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             StackPane root = FXMLLoader.load(getClass().getResource("vue.fxml"));
-            Scene scene = new Scene(root, 27*48, 15*48);
+            Scene scene = new Scene(root);
             root.requestFocus();
             primaryStage.setTitle("Le Tyran");
             primaryStage.setResizable(false);
