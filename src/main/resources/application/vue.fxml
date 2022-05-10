@@ -10,14 +10,42 @@
    <children>
       <TilePane fx:id="tileSol" prefHeight="200.0" prefWidth="200.0" />
       <TilePane fx:id="tileDecors" prefHeight="200.0" prefWidth="200.0" />
-      <Pane fx:id="paneJoueur" prefHeight="200.0" prefWidth="200.0">
+      <Pane fx:id="paneJoueur" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;">
          <children>
-            <ImageView fx:id="spriteJoueur" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@droit_immobile.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
+            <StackPane fx:id="spritesJoueur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: blue;">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@perso/gauche_immobile.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@perso/gauche_mouvement2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@perso/gauche_mouvement1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@perso/droit_immobile.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@perso/droit_mouvement1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@perso/droit_immobile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+         </children></Pane>
    </children>
 </StackPane>

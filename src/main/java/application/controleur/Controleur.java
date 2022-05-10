@@ -1,7 +1,6 @@
 package application.controleur;
 
 import application.modele.Jeu;
-import application.modele.MapJeu;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -32,19 +31,20 @@ public class Controleur implements Initializable {
     @FXML private TilePane tileSol;
     @FXML private TilePane tileDecors;
     @FXML private Pane paneJoueur;
-    @FXML private ImageView spriteJoueur;
+    @FXML private StackPane spritesJoueur;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        jeu = new Jeu();
-        paneJoueur.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
-        tileSol.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
-        tileDecors.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
-        root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
-        root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(jeu));
-        construireMap();
-        construireDecor();
-        updatePerso();
+//        jeu = new Jeu();
+//        paneJoueur.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
+//        tileSol.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
+//        tileDecors.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
+//        root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
+//        root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(jeu));
+//        construireMap();
+//        construireDecor();
+//        construirePerso();
+
     }
 
     private void construireMap() {
@@ -101,9 +101,17 @@ public class Controleur implements Initializable {
         }
     }
 
+    private void construirePerso() {
+        for (int i = 0; i < spritesJoueur.getChildren().size(); i++)
+            spritesJoueur.getChildren().get(i).setVisible(false);
+        spritesJoueur.getChildren().get(4).setVisible(true);
+        updatePerso();
+    }
+
     public void updatePerso() {
-        spriteJoueur.setX(jeu.getPersonnage().getX()*TUILE_TAILLE);
-        spriteJoueur.setY(jeu.getPersonnage().getY()*TUILE_TAILLE);
+        spritesJoueur.setTranslateX(jeu.getPersonnage().getX()*TUILE_TAILLE);
+        spritesJoueur.setTranslateY(jeu.getPersonnage().getY()*TUILE_TAILLE);
+        System.out.println(spritesJoueur.getTranslateX() +"\t"+spritesJoueur.getTranslateY());
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
