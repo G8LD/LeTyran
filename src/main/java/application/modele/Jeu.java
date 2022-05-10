@@ -6,8 +6,8 @@ public class Jeu {
     private MapJeu mapJeu;
 
     public Jeu() {
-        personnage = new Personnage();
         mapJeu = new MapJeu();
+        personnage = new Personnage(mapJeu);
     }
 
     public Personnage getPersonnage() {

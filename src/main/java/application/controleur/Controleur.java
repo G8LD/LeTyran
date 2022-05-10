@@ -1,11 +1,14 @@
 package application.controleur;
 
+import application.modele.Jeu;
 import application.modele.MapJeu;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
@@ -23,20 +26,25 @@ import static application.modele.MapJeu.WIDTH;
 public class Controleur implements Initializable {
     public final static int TUILE_TAILLE = 32;
 
-    private MapJeu mapJeu;
+    private Jeu jeu;
 
     @FXML private StackPane root;
     @FXML private TilePane tileSol;
     @FXML private TilePane tileDecors;
-
+    @FXML private Pane paneJoueur;
+    @FXML private ImageView spriteJoueur;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        mapJeu = new MapJeu();
-        tileSol.setMaxSize(WIDTH*32,HEIGHT*32);
-        tileDecors.setMaxSize(WIDTH*32,HEIGHT*32);
+        jeu = new Jeu();
+        paneJoueur.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
+        tileSol.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
+        tileDecors.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
+        root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(jeu));
         construireMap();
         construireDecor();
+        updatePerso();
     }
 
     private void construireMap() {
@@ -44,7 +52,7 @@ public class Controleur implements Initializable {
         ImageView img;
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-                switch (mapJeu.getTabMap()[i][j]) {
+                switch (jeu.getMapJeu().getTabMap()[i][j]) {
                     case 0: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparant.png")); break;
                     case 2: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile001.png")); break;
                     case 17: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile016.png")); break;
@@ -90,6 +98,16 @@ public class Controleur implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void updatePerso() {
+        spriteJoueur.setX(jeu.getPersonnage().getX()*TUILE_TAILLE);
+        spriteJoueur.setY(jeu.getPersonnage().getY()*TUILE_TAILLE);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

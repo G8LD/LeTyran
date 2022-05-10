@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.TilePane?>
 
@@ -7,5 +10,14 @@
    <children>
       <TilePane fx:id="tileSol" prefHeight="200.0" prefWidth="200.0" />
       <TilePane fx:id="tileDecors" prefHeight="200.0" prefWidth="200.0" />
+      <Pane fx:id="paneJoueur" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="spriteJoueur" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@droit_immobile.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </StackPane>
