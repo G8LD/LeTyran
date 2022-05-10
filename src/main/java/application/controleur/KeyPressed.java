@@ -31,6 +31,5 @@ public class KeyPressed implements EventHandler<KeyEvent> {
             case D: jeu.getPersonnage().setDirection(Direction.Droit); jeu.getPersonnage().seDeplacer(); controleur.updatePerso(); break;
             default: break;
         }
-        System.out.print(event.getCode());
     }
 }

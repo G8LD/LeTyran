@@ -23,7 +23,7 @@ public class Personnage {
             case Droit: dX = 1; dY = 0; break;
             default: dX = 0; dY = 0; break;
         }
-        if (mapJeu.getTabMap()[y+dY][x+dX] == 0) {
+        if (x+dX >= 0 && x+dX < MapJeu.WIDTH && y+dY >= 0 && y+dY < MapJeu.HEIGHT && mapJeu.getTabMap()[y+dY][x+dX] == 0) {
             x += dX;
             y += dY;
             tomber();
