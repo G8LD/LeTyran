@@ -5,8 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,11 +31,12 @@ public class Controleur implements Initializable {
     }
 
     private void construireMap() {
+        tilePane.setBackground(Background.fill(Color.LIGHTBLUE));
         ImageView img;
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
                 switch (mapJeu.getTabMap()[i][j]) {
-                    case 0: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile008.png")); break;
+                    case 0: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparant.png")); break;
                     case 2: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile001.png")); break;
                     case 17: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile016.png")); break;
                     case 18: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile017.png")); break;
