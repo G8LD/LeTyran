@@ -17,6 +17,8 @@ public class Main extends Application {
             primaryStage.setResizable(false);
             primaryStage.setMaximized(true);
             primaryStage.setScene(scene);
+
+            //Jeu jeu = new Jeu(scene);
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

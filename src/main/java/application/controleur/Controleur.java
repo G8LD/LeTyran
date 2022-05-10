@@ -1,10 +1,13 @@
 package application.controleur;
 
+import application.modele.Direction;
 import application.modele.MapJeu;
+import application.modele.Personnage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
@@ -28,6 +31,19 @@ public class Controleur implements Initializable {
         tilePane.setMaxHeight(MapJeu.HEIGHT*32);
         tilePane.setMaxWidth(MapJeu.WIDTH*32);
         construireMap();
+        Personnage perso = new Personnage(0,0);
+
+
+        root.setOnKeyPressed(e -> {
+
+            System.out.println(e.getCode().toString());
+            if (e.getCode() == KeyCode.Q) {
+                perso.Deplacement(Direction.Gauche);
+            }
+
+            System.out.println(perso.getX());
+
+        });
     }
 
     private void construireMap() {
