@@ -21,15 +21,14 @@ import static application.modele.MapJeu.HEIGHT;
 import static application.modele.MapJeu.WIDTH;
 
 public class Controleur implements Initializable {
+    public final static int TUILE_TAILLE = 32;
 
     private MapJeu mapJeu;
 
-    @FXML
-    private StackPane root;
-    @FXML
-    private TilePane tileSol;
-    @FXML
-    private TilePane tileDecors;
+    @FXML private StackPane root;
+    @FXML private TilePane tileSol;
+    @FXML private TilePane tileDecors;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
