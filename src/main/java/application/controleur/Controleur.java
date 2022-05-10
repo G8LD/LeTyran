@@ -35,16 +35,15 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        jeu = new Jeu();
-//        paneJoueur.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
-//        tileSol.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
-//        tileDecors.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
-//        root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
-//        root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(jeu));
-//        construireMap();
-//        construireDecor();
-//        construirePerso();
-
+        jeu = new Jeu();
+        paneJoueur.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
+        tileSol.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
+        tileDecors.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
+        root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(jeu));
+        construireMap();
+        construireDecor();
+        construirePerso();
     }
 
     private void construireMap() {
@@ -104,7 +103,7 @@ public class Controleur implements Initializable {
     private void construirePerso() {
         for (int i = 0; i < spritesJoueur.getChildren().size(); i++)
             spritesJoueur.getChildren().get(i).setVisible(false);
-        spritesJoueur.getChildren().get(4).setVisible(true);
+        spritesJoueur.getChildren().get(3).setVisible(true);
         updatePerso();
     }
 
