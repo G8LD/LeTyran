@@ -10,8 +10,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static application.modele.MapJeu.HEIGHT;
+import static application.modele.MapJeu.WIDTH;
 
 public class Controleur implements Initializable {
 
@@ -20,22 +27,24 @@ public class Controleur implements Initializable {
     @FXML
     private StackPane root;
     @FXML
-    private TilePane tilePane;
+    private TilePane tileSol;
+    @FXML
+    private TilePane tileDecors;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mapJeu = new MapJeu();
-        tilePane.setMaxHeight(MapJeu.HEIGHT*32);
-        tilePane.setMaxWidth(MapJeu.WIDTH*32);
+        tileSol.setMaxSize(WIDTH*32,HEIGHT*32);
+        tileDecors.setMaxSize(WIDTH*32,HEIGHT*32);
         construireMap();
         construireDecor();
     }
 
     private void construireMap() {
-        tilePane.setBackground(Background.fill(Color.LIGHTBLUE));
+        tileSol.setBackground(Background.fill(Color.LIGHTBLUE));
         ImageView img;
-        for (int i = 0; i < MapJeu.HEIGHT; i++) {
-            for (int j = 0; j < MapJeu.WIDTH; j++) {
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
                 switch (mapJeu.getTabMap()[i][j]) {
                     case 0: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparant.png")); break;
                     case 2: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile001.png")); break;
@@ -53,12 +62,35 @@ public class Controleur implements Initializable {
                     case 51: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile050.png")); break;
                     default: img = null; break;
                 }
-                tilePane.getChildren().add(img);
+                tileSol.getChildren().add(img);
             }
         }
     }
 
     private void construireDecor() {
-
+        InputStream is = getClass().getResourceAsStream("/application/tiles/TileDecors.txt");
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        String line;
+        String[] tabLine;
+        ImageView img;
+        for (int i = 0; i < HEIGHT; i++) {
+            try {
+                line = br.readLine();
+                tabLine = line.split(" ");
+                for (int j = 0; j < WIDTH; j++) {
+                    switch (Integer.parseInt(tabLine[j])) {
+                        case 0: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparant.png")); break;
+                        case 1: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile000.png")); break;
+                        case 3: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile002.png")); break;
+                        case 5: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile004.png")); break;
+                        case 8: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile007.png")); break;
+                        default: img = null; break;
+                    }
+                    tileDecors.getChildren().add(img);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
