@@ -28,6 +28,7 @@ public class Controleur implements Initializable {
         tilePane.setMaxHeight(MapJeu.HEIGHT*32);
         tilePane.setMaxWidth(MapJeu.WIDTH*32);
         construireMap();
+        construireDecor();
     }
 
     private void construireMap() {
@@ -55,5 +56,9 @@ public class Controleur implements Initializable {
                 tilePane.getChildren().add(img);
             }
         }
+    }
+
+    private void construireDecor() {
+
     }
 }

@@ -17,7 +17,7 @@ public class MapJeu {
     }
 
     private void construireMap() {
-        InputStream is = getClass().getResourceAsStream("/application/TileMap.txt");
+        InputStream is = getClass().getResourceAsStream("/application/tiles/TileMap.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;
         String[] tabLine;
