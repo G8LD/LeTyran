@@ -17,19 +17,20 @@ public class KeyPressed implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent event) {
-        switch (event.getCode()) {
-            case Z:
-                switch (jeu.getPersonnage().getDirection()) {
-                    case Immobile: jeu.getPersonnage().setDirection(Direction.Haut); break;
-                    case Gauche: jeu.getPersonnage().setDirection(Direction.HautGauche); break;
-                    case Droit: jeu.getPersonnage().setDirection(Direction.HautDroit); break;
-                }
-                jeu.getPersonnage().seDeplacer();
-                controleur.updatePerso();
-                break;
-            case Q: jeu.getPersonnage().setDirection(Direction.Gauche); jeu.getPersonnage().seDeplacer(); controleur.updatePerso(); break;
-            case D: jeu.getPersonnage().setDirection(Direction.Droit); jeu.getPersonnage().seDeplacer(); controleur.updatePerso(); break;
-            default: break;
+        if (!controleur.getAnimationDeplacementJoueur().isRunning()) {
+            switch (event.getCode()) {
+                case Z:
+                    switch (jeu.getPersonnage().getDirection()) {
+                        case Immobile: jeu.getPersonnage().setDirection(Direction.Haut); break;
+                        case Gauche: jeu.getPersonnage().setDirection(Direction.HautGauche); break;
+                        case Droit: jeu.getPersonnage().setDirection(Direction.HautDroit); break;
+                    }
+                    jeu.getPersonnage().seDeplacer();
+                    break;
+                case Q: jeu.getPersonnage().setDirection(Direction.Gauche); jeu.getPersonnage().seDeplacer(); break;
+                case D: jeu.getPersonnage().setDirection(Direction.Droit); jeu.getPersonnage().seDeplacer(); break;
+                default: break;
+            }
         }
     }
 }

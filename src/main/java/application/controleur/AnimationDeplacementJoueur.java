@@ -20,8 +20,8 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
         this.jeu = jeu;
         this.spritesJoueur = SpritesJoueur;
         this.lastUpdate = 0;
-        this.latence = 75_000_000;
-        this.decalage = TUILE_TAILLE - TUILE_TAILLE/3;
+        this.latence = 25_000_000;
+        this.decalage = TUILE_TAILLE - TUILE_TAILLE/4;
         this.running = false;
     }
 
@@ -44,7 +44,7 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
             lastUpdate = now;
         } else if (decalage < 0) {
             immobile();
-            decalage = TUILE_TAILLE - TUILE_TAILLE/3;
+            decalage = TUILE_TAILLE - TUILE_TAILLE/4;
             stop();
         }
 
@@ -58,19 +58,17 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
         switch (jeu.getPersonnage().getDirection()) {
             case Gauche:
                 spritesJoueur.setTranslateX(jeu.getPersonnage().getX() * (TUILE_TAILLE) + decalage);
-                spritesJoueur.setTranslateY(jeu.getPersonnage().getY() * (TUILE_TAILLE));
                 if (i == 1) spritesJoueur.getChildren().get(2).setVisible(true);
                 else spritesJoueur.getChildren().get(1).setVisible(true);
                 break;
             case Droit:
                 spritesJoueur.setTranslateX(jeu.getPersonnage().getX() * (TUILE_TAILLE) - decalage);
-                spritesJoueur.setTranslateY(jeu.getPersonnage().getY() * (TUILE_TAILLE));
                 if (i == 4) spritesJoueur.getChildren().get(5).setVisible(true);
                 else spritesJoueur.getChildren().get(4).setVisible(true);
                 break;
             default: break;
         }
-        decalage-= TUILE_TAILLE/3;
+        decalage-= TUILE_TAILLE/4;
     }
 
     public void immobile() {

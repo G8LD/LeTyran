@@ -1,20 +1,18 @@
 package application.modele;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class Personnage {
-    private int x;
-    private int y;
+    private IntegerProperty xProperty;
+    private IntegerProperty yProperty;
     private Direction direction;
-    private BooleanProperty deplaceProperty;
     private MapJeu mapJeu;
 
     public Personnage(MapJeu mapjeu) {
-        x = 0;
-        y = 11;
+        xProperty = new SimpleIntegerProperty(0);
+        yProperty = new SimpleIntegerProperty(11);
         direction = Direction.Immobile;
-        deplaceProperty = new SimpleBooleanProperty(false);
         this.mapJeu = mapjeu;
     }
 
@@ -28,17 +26,17 @@ public class Personnage {
             case Droit: dX = 1; dY = 0; break;
             default: dX = 0; dY = 0; break;
         }
-        if (x+dX >= 0 && x+dX < MapJeu.WIDTH && y+dY >= 0 && y+dY < MapJeu.HEIGHT && mapJeu.getTabMap()[y+dY][x+dX] == 0) {
-            x += dX;
-            y += dY;
-            deplaceProperty.setValue(true);
+        if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && mapJeu.getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
+            xProperty.setValue(xProperty.getValue() + dX);
+            yProperty.setValue(yProperty.getValue() + dY);
+            System.out.println(xProperty.getValue() + "\t" + yProperty.getValue());
         }
     }
 
 
     private boolean tomber() {
-        if (mapJeu.getTabMap()[y+1][x] == 0) {
-            y++;
+        if (mapJeu.getTabMap()[yProperty.getValue() + 1][xProperty.getValue()] == 0) {
+            yProperty.setValue(yProperty.getValue() + 1);
             return true;
         }
         return false;
@@ -53,22 +51,26 @@ public class Personnage {
     }
 
     public int getX() {
-        return x;
+        return xProperty.getValue();
+    }
+
+    public IntegerProperty getXProperty() {
+        return xProperty;
+    }
+
+    public void setX(int x) {
+        this.xProperty.set(x);
     }
 
     public int getY() {
-        return y;
+        return yProperty.getValue();
     }
 
-    public final boolean isDeplaceProperty() {
-        return deplaceProperty.get();
+    public IntegerProperty getYProperty() {
+        return yProperty;
     }
 
-    public final BooleanProperty getDeplaceProperty() {
-        return deplaceProperty;
-    }
-
-    public void setDeplaceProperty(boolean deplaceProperty) {
-        this.deplaceProperty.set(deplaceProperty);
+    public void setyProperty(int yProperty) {
+        this.yProperty.set(yProperty);
     }
 }

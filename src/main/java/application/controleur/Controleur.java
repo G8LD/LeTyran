@@ -1,7 +1,6 @@
 package application.controleur;
 
 import application.modele.Jeu;
-import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -39,16 +38,16 @@ public class Controleur implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         jeu = new Jeu();
         animationDeplacementJoueur = new AnimationDeplacementJoueur(jeu, spritesJoueur);
+
         paneJoueur.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
         tileSol.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
         tileDecors.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
-        root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(jeu));
-        jeu.getPersonnage()
-        construireMap();
-        construireDecor();
-        construirePerso();
+        root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, jeu));
+        jeu.getPersonnage().getXProperty().addListener(new DeplaceListener(jeu, animationDeplacementJoueur));
+
+        construireMap(); construireDecor(); construirePerso();
     }
 
     private void construireMap() {
@@ -109,11 +108,11 @@ public class Controleur implements Initializable {
         for (int i = 0; i < spritesJoueur.getChildren().size(); i++)
             spritesJoueur.getChildren().get(i).setVisible(false);
         spritesJoueur.getChildren().get(3).setVisible(true);
-        updatePerso();
+        spritesJoueur.setTranslateX(jeu.getPersonnage().getX() * TUILE_TAILLE);
+        spritesJoueur.setTranslateY(jeu.getPersonnage().getY() * TUILE_TAILLE);
     }
 
-    public void updatePerso() {
-        spritesJoueur.setTranslateX(jeu.getPersonnage().getX()*TUILE_TAILLE);
-        spritesJoueur.setTranslateY(jeu.getPersonnage().getY()*TUILE_TAILLE);
+    public AnimationDeplacementJoueur getAnimationDeplacementJoueur() {
+        return animationDeplacementJoueur;
     }
 }
