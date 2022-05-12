@@ -45,6 +45,9 @@ public class Controleur implements Initializable {
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, jeu));
+        root.addEventHandler(KeyEvent.KEY_RELEASED, new InventaireControleur(root, jeu));
+
+
         jeu.getPersonnage().getXProperty().addListener(new DeplaceListener(jeu, animationDeplacementJoueur));
 
         construireMap(); construireDecor(); construirePerso();
@@ -114,5 +117,9 @@ public class Controleur implements Initializable {
 
     public AnimationDeplacementJoueur getAnimationDeplacementJoueur() {
         return animationDeplacementJoueur;
+    }
+
+    public void afficherInventaire() {
+
     }
 }
