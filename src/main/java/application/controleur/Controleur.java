@@ -110,11 +110,5 @@ public class Controleur implements Initializable {
     public void updatePerso() {
         spritesJoueur.setTranslateX(jeu.getPersonnage().getX()*TUILE_TAILLE);
         spritesJoueur.setTranslateY(jeu.getPersonnage().getY()*TUILE_TAILLE);
-        System.out.println(spritesJoueur.getTranslateX() +"\t"+spritesJoueur.getTranslateY());
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }

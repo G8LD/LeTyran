@@ -30,6 +30,7 @@ public class Personnage {
         }
     }
 
+
     private void tomber() {
         while (mapJeu.getTabMap()[y+1][x] == 0) y++;
     }
