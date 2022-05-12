@@ -1,6 +1,7 @@
 package application.controleur;
 
 import application.modele.Jeu;
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -26,6 +27,7 @@ public class Controleur implements Initializable {
     public final static int TUILE_TAILLE = 32;
 
     private Jeu jeu;
+    private AnimationDeplacementJoueur animationDeplacementJoueur;
 
     @FXML private StackPane root;
     @FXML private TilePane tileSol;
@@ -36,11 +38,14 @@ public class Controleur implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         jeu = new Jeu();
+        animationDeplacementJoueur = new AnimationDeplacementJoueur(jeu, spritesJoueur);
         paneJoueur.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
         tileSol.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
         tileDecors.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
+
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(jeu));
+        jeu.getPersonnage()
         construireMap();
         construireDecor();
         construirePerso();
