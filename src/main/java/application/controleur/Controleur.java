@@ -3,6 +3,7 @@ package application.controleur;
 import application.modele.Jeu;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -33,6 +34,9 @@ public class Controleur implements Initializable {
     @FXML private TilePane tileDecors;
     @FXML private Pane paneJoueur;
     @FXML private StackPane spritesJoueur;
+    @FXML private TilePane inventaireJoueur;
+
+    private boolean inventaireAffiche = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -121,5 +125,25 @@ public class Controleur implements Initializable {
 
     public void afficherInventaire() {
 
+    }
+
+    public void afficherInventaire() {
+        System.out.println("Affichage de l'inventaire");
+
+        if(!inventaireAffiche) {
+            inventaireJoueur = new TilePane();
+            inventaireJoueur.setAlignment(Pos.CENTER);
+            inventaireJoueur.setPrefColumns(4);
+
+            for (int i = 1; i < 10; i++) {
+                inventaireJoueur.getChildren().add(new ImageView(new Image("file:src/main/resources/application/pack1/inv_slot.png")));
+            }
+            root.getChildren().add(inventaireJoueur);
+        }
+        else {
+            root.getChildren().remove(inventaireJoueur);
+        }
+
+        inventaireAffiche = !inventaireAffiche;
     }
 }
