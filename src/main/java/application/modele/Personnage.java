@@ -33,7 +33,12 @@ public class Personnage {
         }
     }
 
-
+    public void sauter(int nbSaut) {
+        if (nbSaut <= 3 && yProperty.getValue() - 1 > 0 && mapJeu.getTabMap()[yProperty.getValue()-1][xProperty.getValue()] == 0) {
+            yProperty.setValue(yProperty.getValue() - 1);
+            sauter(nbSaut+1);
+        }
+    }
     private boolean tomber() {
         if (mapJeu.getTabMap()[yProperty.getValue() + 1][xProperty.getValue()] == 0) {
             yProperty.setValue(yProperty.getValue() + 1);

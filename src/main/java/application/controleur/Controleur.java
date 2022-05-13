@@ -1,6 +1,7 @@
 package application.controleur;
 
 import application.modele.Jeu;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -11,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,7 +29,9 @@ public class Controleur implements Initializable {
 
     private Jeu jeu;
     private AnimationDeplacementJoueur animationDeplacementJoueur;
+    private TranslateTransition tt;
     private KeyReleased keyReleased;
+
     @FXML private StackPane root;
     @FXML private TilePane tileSol;
     @FXML private TilePane tileDecors;
@@ -38,6 +42,8 @@ public class Controleur implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         jeu = new Jeu();
         animationDeplacementJoueur = new AnimationDeplacementJoueur(this, jeu, spritesJoueur);
+        tt = new TranslateTransition();
+        tt.setNode(spritesJoueur);
 
         paneJoueur.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
         tileSol.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
@@ -46,8 +52,8 @@ public class Controleur implements Initializable {
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
         keyReleased = new KeyReleased(this, jeu);
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
-        jeu.getPersonnage().getXProperty().addListener(new DeplaceListener(jeu, animationDeplacementJoueur));
-
+        jeu.getPersonnage().getXProperty().addListener(new DeplaceListener(this, jeu));
+        jeu.getPersonnage().getYProperty().addListener(new DeplaceListener(this, jeu));
         construireMap(); construireDecor(); construirePerso();
     }
 
@@ -119,5 +125,17 @@ public class Controleur implements Initializable {
 
     public KeyReleased getKeyReleased() {
         return keyReleased;
+    }
+
+    public boolean pasAnimations() {
+        return !animationDeplacementJoueur.isRunning() && tt.getCurrentRate() == 0;
+    }
+
+    public void animationSaut() {
+        if (pasAnimations()) {
+            tt.setByY(-TUILE_TAILLE);
+            tt.setByX(0);
+            tt.play();
+        }
     }
 }
