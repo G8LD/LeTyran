@@ -1,5 +1,6 @@
 package application.controleur;
 
+import application.modele.Direction;
 import application.modele.Jeu;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -50,7 +51,6 @@ public class Controleur implements Initializable {
         keyReleased = new KeyReleased(this, jeu);
         tt = new TranslateTransition();
         tt.setNode(spritesJoueur);
-        tt.setDuration(Duration.millis(350));
 
         paneJoueur.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
@@ -185,14 +185,18 @@ public class Controleur implements Initializable {
     public void animationSaut(int hauteurSaut) {
         tt.setByY(-TUILE_TAILLE * hauteurSaut);
         tt.setByX(0);
+        tt.setDuration(Duration.millis(hauteurSaut * 100));
         tt.setOnFinished(event -> {
+            jeu.getPersonnage().setDirection(Direction.Immobile);
             jeu.getPersonnage().tomber();
         });
         tt.play();
     }
     public void animationChute(int hauteurChut) {
+        System.out.println("hauteur chut : " + hauteurChut);
         tt.setByY(TUILE_TAILLE * hauteurChut);
         tt.setByX(0);
+        tt.setDuration(Duration.millis(hauteurChut * 100));
         tt.play();
     }
 }

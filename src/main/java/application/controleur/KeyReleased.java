@@ -23,8 +23,8 @@ public class KeyReleased implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent event) {
         toucheLachee = event.getCode();
-        if (controleur.pasAnimations())
-            gestionToucheLachee();
+//        if (controleur.pasAnimations())
+//            gestionToucheLachee();
     }
 
     public void gestionToucheLachee() {
