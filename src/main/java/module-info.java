@@ -8,4 +8,6 @@ module application.letyran {
 
     opens application.controleur to javafx.fxml;
     exports application.controleur;
+    exports application.modele;
+    opens application.modele to javafx.fxml;
 }

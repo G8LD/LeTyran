@@ -60,6 +60,7 @@ public class Controleur implements Initializable {
                     case 49: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile048.png")); break;
                     case 50: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile049.png")); break;
                     case 51: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile050.png")); break;
+
                     default: img = null; break;
                 }
                 tileSol.getChildren().add(img);
