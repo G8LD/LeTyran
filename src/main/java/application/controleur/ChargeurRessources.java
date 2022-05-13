@@ -1,4 +1,4 @@
-package application.modele;
+package application.controleur;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

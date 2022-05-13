@@ -1,6 +1,5 @@
 package application.controleur;
 
-import application.modele.ChargeurRessources;
 import application.modele.Jeu;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
