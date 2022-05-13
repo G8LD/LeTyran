@@ -3,6 +3,7 @@ package application.controleur;
 import application.controleur.controls.InvSlot;
 import application.modele.Inventaire;
 import application.modele.Jeu;
+import application.vue.InventaireVue;
 import javafx.event.EventHandler;
 
 import javafx.geometry.Pos;
@@ -28,7 +29,9 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
     private Inventaire inv;
 
 
-    private InvSlot objPrit;
+    private InventaireVue invVue;
+
+
     private ImageView imgHovered = null;
 
     private Pane invPane;
@@ -36,19 +39,19 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
     public InventaireControleur(StackPane root, Jeu jeu) {
         this.root = root;
         this.jeu = jeu;
-        this.slotImg = new Image("file:src/main/resources/application/inventaire/slot.png");
+
         this.inv = this.jeu.getPersonnage().getInventaire();
+
+        this.invVue = new InventaireVue(inv);
     }
     @Override
     public void handle(KeyEvent keyEvent) {
         if(keyEvent.getCode() == KeyCode.I) {
-            afficherInventaire();
+            this.invVue.afficherInventaire();
         }
     }
 
-    public void definirObjetPrit(InvSlot obj) {
-        this.objPrit = obj;
-    }
+
 
     public void lacherObjet() {
         if(this.invPane != null) {
@@ -77,44 +80,4 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
             this.objPrit = null;
         }
     }
-
-    public void afficherInventaire() {
-        affiche = !affiche;
-        int size = 64;
-        if(affiche) {
-            ColorInput color = new ColorInput();
-            color.setPaint(Color.RED);
-
-            this.invPane = new Pane();
-
-            for(int i = 0; i < 10; i++) {
-
-                ImageView imgv = new ImageView(this.slotImg);
-                imgv.setFitWidth(48);
-                imgv.setFitHeight(48);
-                imgv.setX(48 * i);
-                this.invPane.getChildren().add(imgv);
-
-                imgv.setOnMouseEntered(mouseDragEvent -> {
-                    System.out.println(this.objPrit);
-                    if(this.objPrit != null) {
-                        System.out.println("la souris entre");
-                    }
-                });
-
-                if (i < inv.getObjets().size()) {
-                    InvSlot slot = new InvSlot(this, inv.getObjets().get(i), imgv);
-                    slot.setPrefWidth(32);
-                    slot.setPrefHeight(32);
-
-                    this.invPane.getChildren().add(slot);
-                }
-            }
-
-            root.getChildren().add(this.invPane);
-        }else {
-            root.getChildren().remove(this.invPane);
-        }
-    }
-
 }
