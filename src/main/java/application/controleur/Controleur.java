@@ -1,5 +1,6 @@
 package application.controleur;
 
+import application.modele.ChargeurRessources;
 import application.modele.Jeu;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,6 +41,7 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ChargeurRessources.charger();
         jeu = new Jeu();
         animationDeplacementJoueur = new AnimationDeplacementJoueur(jeu, spritesJoueur);
 
@@ -62,23 +64,8 @@ public class Controleur implements Initializable {
         ImageView img;
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-                switch (jeu.getMapJeu().getTabMap()[i][j]) {
-                    case 0: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparant.png")); break;
-                    case 2: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile001.png")); break;
-                    case 17: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile016.png")); break;
-                    case 18: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile017.png")); break;
-                    case 19: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile018.png")); break;
-                    case 21: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile020.png")); break;
-                    case 22: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile021.png")); break;
-                    case 23: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile022.png")); break;
-                    case 33: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile032.png")); break;
-                    case 34: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile033.png")); break;
-                    case 35: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile034.png")); break;
-                    case 49: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile048.png")); break;
-                    case 50: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile049.png")); break;
-                    case 51: img = new ImageView(new Image("file:src/main/resources/application/pack1/tile050.png")); break;
-                    default: img = null; break;
-                }
+                int index = jeu.getMapJeu().getTabMap()[i][j];
+                img = new ImageView(ChargeurRessources.tileMapAssets.get(index));
                 tileSol.getChildren().add(img);
             }
         }
@@ -123,9 +110,6 @@ public class Controleur implements Initializable {
         return animationDeplacementJoueur;
     }
 
-    public void afficherInventaire() {
-
-    }
 
     public void afficherInventaire() {
         System.out.println("Affichage de l'inventaire");

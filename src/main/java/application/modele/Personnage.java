@@ -17,6 +17,7 @@ public class Personnage {
         this.mapJeu = mapjeu;
 
         this.inventaire = new Inventaire();
+        inventaire.ajouterObjet();
     }
 
     public Inventaire getInventaire() {
