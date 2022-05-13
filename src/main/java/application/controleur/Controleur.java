@@ -114,9 +114,7 @@ public class Controleur implements Initializable {
         spritesJoueur.setTranslateX(jeu.getPersonnage().getX() * TUILE_TAILLE);
         spritesJoueur.setTranslateY(jeu.getPersonnage().getY() * TUILE_TAILLE);
     }
-    private void construireVie(){
 
-    }
 
     public AnimationDeplacementJoueur getAnimationDeplacementJoueur() {
         return animationDeplacementJoueur;
