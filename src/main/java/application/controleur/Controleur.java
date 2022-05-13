@@ -27,7 +27,7 @@ public class Controleur implements Initializable {
 
     private Jeu jeu;
     private AnimationDeplacementJoueur animationDeplacementJoueur;
-
+    private KeyReleased keyReleased;
     @FXML private StackPane root;
     @FXML private TilePane tileSol;
     @FXML private TilePane tileDecors;
@@ -37,14 +37,15 @@ public class Controleur implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         jeu = new Jeu();
-        animationDeplacementJoueur = new AnimationDeplacementJoueur(jeu, spritesJoueur);
+        animationDeplacementJoueur = new AnimationDeplacementJoueur(this, jeu, spritesJoueur);
 
         paneJoueur.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
         tileSol.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
         tileDecors.setMaxSize(WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
-        root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, jeu));
+        keyReleased = new KeyReleased(this, jeu);
+        root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         jeu.getPersonnage().getXProperty().addListener(new DeplaceListener(jeu, animationDeplacementJoueur));
 
         construireMap(); construireDecor(); construirePerso();
@@ -114,5 +115,9 @@ public class Controleur implements Initializable {
 
     public AnimationDeplacementJoueur getAnimationDeplacementJoueur() {
         return animationDeplacementJoueur;
+    }
+
+    public KeyReleased getKeyReleased() {
+        return keyReleased;
     }
 }

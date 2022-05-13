@@ -1,5 +1,6 @@
 package application.controleur;
 
+import application.modele.Direction;
 import application.modele.Jeu;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.StackPane;
@@ -10,13 +11,14 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
 
     private Jeu jeu;
     private StackPane spritesJoueur;
-
+    private Controleur controleur;
     private long lastUpdate;
     private long latence;
     private double decalage;
     private boolean running;
 
-    public AnimationDeplacementJoueur(Jeu jeu, StackPane SpritesJoueur) {
+    public AnimationDeplacementJoueur(Controleur controleur, Jeu jeu, StackPane SpritesJoueur) {
+        this.controleur = controleur;
         this.jeu = jeu;
         this.spritesJoueur = SpritesJoueur;
         this.lastUpdate = 0;
@@ -35,6 +37,10 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
     public void stop() {
         super.stop();
         running = false;
+        if (controleur.getKeyReleased().getToucheLachee() != null) {
+            immobile();
+            controleur.getKeyReleased().gestionToucheLachee();
+        }
     }
 
     @Override
@@ -47,7 +53,6 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
             decalage = TUILE_TAILLE - TUILE_TAILLE/4;
             stop();
         }
-
     }
 
     private void animation() {
