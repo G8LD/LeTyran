@@ -25,8 +25,12 @@ public class KeyReleased implements EventHandler<KeyEvent> {
                         case Gauche: jeu.getPersonnage().setDirection(Direction.Gauche); break;
                         case Droit: jeu.getPersonnage().setDirection(Direction.Droit); break;
                     }
+                    controleur.getAnimationDeplacementJoueur().immobile();
                 case Q:
-                case D: jeu.getPersonnage().setDirection(Direction.Immobile); break;
+                case D:
+                    jeu.getPersonnage().setDirection(Direction.Immobile);
+                    controleur.getAnimationDeplacementJoueur().immobile();
+                    break;
                 default: break;
             }
         }
