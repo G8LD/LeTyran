@@ -33,6 +33,8 @@ public class Controleur implements Initializable {
     @FXML private TilePane tileDecors;
     @FXML private Pane paneJoueur;
     @FXML private StackPane spritesJoueur;
+    @FXML private StackPane viePane;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -111,6 +113,9 @@ public class Controleur implements Initializable {
         spritesJoueur.getChildren().get(3).setVisible(true);
         spritesJoueur.setTranslateX(jeu.getPersonnage().getX() * TUILE_TAILLE);
         spritesJoueur.setTranslateY(jeu.getPersonnage().getY() * TUILE_TAILLE);
+    }
+    private void construireVie(){
+
     }
 
     public AnimationDeplacementJoueur getAnimationDeplacementJoueur() {

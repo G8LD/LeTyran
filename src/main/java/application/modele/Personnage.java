@@ -8,12 +8,18 @@ public class Personnage {
     private IntegerProperty yProperty;
     private Direction direction;
     private MapJeu mapJeu;
+    private int pv;
+    private int defense;
+    private int attaque;
 
-    public Personnage(MapJeu mapjeu) {
+    public Personnage(MapJeu mapjeu, int pv , int defense, int attaque) {
         xProperty = new SimpleIntegerProperty(0);
         yProperty = new SimpleIntegerProperty(11);
         direction = Direction.Immobile;
         this.mapJeu = mapjeu;
+        this.pv = pv;
+        this.attaque=attaque;
+        this.defense=defense;
     }
 
     public void seDeplacer() {
@@ -32,6 +38,17 @@ public class Personnage {
             System.out.println(xProperty.getValue() + "\t" + yProperty.getValue());
         }
     }
+    public int subirDegat(int attaque){
+        this.pv-= (attaque-this.defense);
+        return this.pv;
+    }
+
+    public int seSoigner(int nbPvRendu){
+        this.pv+=nbPvRendu;
+        return this.pv;
+    }
+
+
 
 
     private boolean tomber() {

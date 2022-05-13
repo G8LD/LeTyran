@@ -11,6 +11,7 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
 
     private Jeu jeu;
     private StackPane spritesJoueur;
+    private StackPane spritesVie;
     private Controleur controleur;
     private long lastUpdate;
     private long latence;
