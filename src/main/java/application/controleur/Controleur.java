@@ -182,9 +182,16 @@ public class Controleur implements Initializable {
         return !animationDeplacementJoueur.isRunning() && tt.getCurrentRate() == 0;
     }
 
-    public void animationSaut() {
-        System.out.println(jeu.getPersonnage().getHauteurSaut());
-        tt.setByY(-TUILE_TAILLE * jeu.getPersonnage().getHauteurSaut());
+    public void animationSaut(int hauteurSaut) {
+        tt.setByY(-TUILE_TAILLE * hauteurSaut);
+        tt.setByX(0);
+        tt.setOnFinished(event -> {
+            jeu.getPersonnage().tomber();
+        });
+        tt.play();
+    }
+    public void animationChute(int hauteurChut) {
+        tt.setByY(TUILE_TAILLE * hauteurChut);
         tt.setByX(0);
         tt.play();
     }
