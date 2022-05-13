@@ -20,7 +20,9 @@ public class DeplaceListener implements ChangeListener {
     public void changed(ObservableValue observableValue, Object o, Object t1) {
         if (jeu.getPersonnage().getDirection() == Direction.Gauche || jeu.getPersonnage().getDirection() == Direction.Droit)
             controleur.getAnimationDeplacementJoueur().start();
-        else if (jeu.getPersonnage().getDirection() == Direction.Haut)
+        else if (jeu.getPersonnage().getDirection() == Direction.Haut) {
             controleur.animationSaut();
+        }
+
     }
 }

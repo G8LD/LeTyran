@@ -6,12 +6,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class Personnage {
     private IntegerProperty xProperty;
     private IntegerProperty yProperty;
+    private int hauteurSaut;
     private Direction direction;
     private MapJeu mapJeu;
 
     public Personnage(MapJeu mapjeu) {
         xProperty = new SimpleIntegerProperty(0);
         yProperty = new SimpleIntegerProperty(11);
+        hauteurSaut = 0;
         direction = Direction.Immobile;
         this.mapJeu = mapjeu;
     }
@@ -33,11 +35,13 @@ public class Personnage {
         }
     }
 
-    public void sauter(int nbSaut) {
-        if (nbSaut <= 3 && yProperty.getValue() - 1 > 0 && mapJeu.getTabMap()[yProperty.getValue()-1][xProperty.getValue()] == 0) {
-            yProperty.setValue(yProperty.getValue() - 1);
-            sauter(nbSaut+1);
+    public void sauter() {
+        hauteurSaut = 0;
+        while (hauteurSaut < 3 && yProperty.getValue() - hauteurSaut - 1 > 0 && mapJeu.getTabMap()[yProperty.getValue() - hauteurSaut - 1][xProperty.getValue()] == 0) {
+            hauteurSaut++;
         }
+        yProperty.setValue(yProperty.getValue() - hauteurSaut);
+        System.out.println(xProperty.getValue() + "\t" + yProperty.getValue());
     }
     private boolean tomber() {
         if (mapJeu.getTabMap()[yProperty.getValue() + 1][xProperty.getValue()] == 0) {
@@ -77,5 +81,9 @@ public class Personnage {
 
     public void setyProperty(int yProperty) {
         this.yProperty.set(yProperty);
+    }
+
+    public int getHauteurSaut() {
+        return hauteurSaut;
     }
 }

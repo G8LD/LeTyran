@@ -49,7 +49,6 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
             animation();
             lastUpdate = now;
         } else if (decalage < 0) {
-            //immobile();
             decalage = TUILE_TAILLE - TUILE_TAILLE/4;
             stop();
         }

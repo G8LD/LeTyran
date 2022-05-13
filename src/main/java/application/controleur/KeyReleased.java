@@ -23,9 +23,12 @@ public class KeyReleased implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent event) {
         toucheLachee = event.getCode();
+        if (controleur.pasAnimations())
+            gestionToucheLachee();
     }
 
     public void gestionToucheLachee() {
+        System.out.println("gestionToucheLachee appelé");
         switch (toucheLachee) {
             case Z:
                 switch (jeu.getPersonnage().getDirection()) {
