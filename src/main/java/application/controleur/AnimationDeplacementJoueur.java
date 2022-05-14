@@ -37,8 +37,7 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
     public void stop() {
         super.stop();
         running = false;
-        if (controleur.getKeyReleased().getToucheLachee() != null)
-            controleur.getKeyReleased().gestionToucheLachee();
+        controleur.getKeyReleased().gestionToucheLachee();
     }
 
     @Override

@@ -187,7 +187,7 @@ public class Controleur implements Initializable {
         tt.setByX(0);
         tt.setDuration(Duration.millis(hauteurSaut * 100));
         tt.setOnFinished(event -> {
-            jeu.getPersonnage().setDirection(Direction.Immobile);
+            keyReleased.gestionToucheLachee();
             jeu.getPersonnage().tomber();
         });
         tt.play();

@@ -3,6 +3,7 @@ package application.controleur;
 import application.modele.Direction;
 import application.modele.Jeu;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class KeyPressed implements EventHandler<KeyEvent> {
