@@ -1,5 +1,6 @@
 package application.controleur;
 
+import application.vue.ChargeurRessources;
 import application.modele.Jeu;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

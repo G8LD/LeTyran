@@ -1,6 +1,8 @@
-package application.controleur.controls;
+package application.vue.controls;
 
 import application.controleur.InventaireControleur;
+import application.modele.ObjetJeu;
+import application.vue.InventaireVue;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
@@ -19,15 +21,15 @@ public class InvSlot extends Pane {
     private ImageView imgVObjet;
     private ImageView viewParent;
 
-    private Integer Objet;
+    private ObjetJeu Objet;
 
-    InventaireControleur invControl;
-
+    private InventaireVue invVue;
     private boolean dragActive =false;
 
-    public InvSlot(InventaireControleur invControl, Integer obj, ImageView viewParent) {
 
-        this.invControl = invControl;
+    public InvSlot(InventaireVue invVue, ObjetJeu obj, ImageView viewParent) {
+
+        this.invVue = invVue;
         this.Objet = obj;
         this.viewParent = viewParent;
         this.imgVObjet = new ImageView(new Image("file:src/main/resources/application/inventaire/food/apple.png"));
@@ -54,13 +56,13 @@ public class InvSlot extends Pane {
         });
 
         this.stackPane.setOnMousePressed(mouseEvent -> {
-            invControl.definirObjetPrit(this);
+            this.invVue.definirObjetPrit(this);
             dragActive = true;
         });
 
         this.stackPane.setOnMouseReleased(mouseEvent -> {
             dragActive = true;
-            invControl.lacherObjet();
+            this.invVue.lacherObjet();
         });
 
         this.stackPane.setOnMouseDragged(mouseEvent ->
@@ -80,6 +82,14 @@ public class InvSlot extends Pane {
 
         this.getChildren().add(stackPane);
 
+    }
+
+    public ImageView getViewParent() {
+        return this.viewParent;
+    }
+
+    public ObjetJeu getObjet() {
+        return this.Objet;
     }
     private void mouseEntered() {
         this.imgVObjet.setEffect(color);

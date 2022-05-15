@@ -1,6 +1,7 @@
 module application.letyran {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
 
 
     opens application to javafx.fxml;
@@ -10,4 +11,6 @@ module application.letyran {
     exports application.controleur;
     exports application.modele;
     opens application.modele to javafx.fxml;
+    exports application.vue;
+    opens application.vue to javafx.fxml;
 }

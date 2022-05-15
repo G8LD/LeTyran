@@ -6,16 +6,20 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
 public class Inventaire {
-    private ObservableList<Integer> objets = FXCollections.observableArrayList();
+    private ObservableList<ObjetJeu> objets = FXCollections.observableArrayList();
 
-    public ObservableList<Integer> getObjets(){
+    public ObservableList<ObjetJeu> getObjets(){
         return objets;
     }
 
     public void ajouterObjet() {
-        objets.add(1);
-        objets.add(15);
-        objets.add(10);
+        ArrayList<String> nom = new ArrayList<>();
+        nom.add("Viande");
+        nom.add("Bois");
+        nom.add("Epee");
+        for(int i = 1; i < 15; i++) {
+            objets.add(new ObjetJeu(1, nom.get((int)(Math.random() * nom.size()) ), 2));
+        }
     }
 
     public void retirerObjet() {

@@ -1,4 +1,4 @@
-package application.controleur;
+package application.vue;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
