@@ -37,7 +37,7 @@ public class Controleur implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         jeu = new Jeu();
         keyReleased = new KeyReleased(this, jeu);
-        personnageVue = new PersonnageVue(jeu.getPersonnage(), spritesJoueur, paneJoueur, new AnimationDeplacementJoueur(this, jeu, spritesJoueur));
+        personnageVue = new PersonnageVue(jeu.getPersonnage(), spritesJoueur, paneJoueur);
         mapVue = new MapVue(jeu.getMapJeu().getTabMap(), tileSol, tileDecors);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));

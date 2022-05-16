@@ -1,5 +1,6 @@
 package application.vue.vuePerso;
 
+import application.modele.Direction;
 import application.modele.Personnage;
 import javafx.animation.TranslateTransition;
 import javafx.scene.layout.Pane;
@@ -16,14 +17,12 @@ public class PersonnageVue {
     private Personnage personnage;
     private StackPane spritesJoueur;
     private Pane paneJoueur;
-    private AnimationDeplacementJoueur animationDeplacementJoueur;
     private TranslateTransition tt;
 
-    public PersonnageVue(Personnage personnage, StackPane spritesJoueur, Pane paneJoueur, AnimationDeplacementJoueur animationDeplacementJoueur) {
+    public PersonnageVue(Personnage personnage, StackPane spritesJoueur, Pane paneJoueur) {
         this.personnage = personnage;
         this.spritesJoueur = spritesJoueur;
         this.paneJoueur = paneJoueur;
-        this.animationDeplacementJoueur = animationDeplacementJoueur;
 
         paneJoueur.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         tt = new TranslateTransition();
@@ -44,7 +43,27 @@ public class PersonnageVue {
     }
 
     public boolean pasAnimations() {
-        return !animationDeplacementJoueur.isRunning() && tt.getCurrentRate() == 0;
+        return tt.getCurrentRate() == 0;
+    }
+
+    public void animationHorizontale() {
+        int i = 0;
+        while (!spritesJoueur.getChildren().get(i).isVisible()) i++;
+        spritesJoueur.getChildren().get(i).setVisible(false);
+
+        tt.setByY(0);
+        if (personnage.getDirection() == Direction.Droit) {
+            if (i == 4) spritesJoueur.getChildren().get(5).setVisible(true);
+            else spritesJoueur.getChildren().get(4).setVisible(true);
+            tt.setByX(TUILE_TAILLE);
+        }
+        else {
+            if (i == 1) spritesJoueur.getChildren().get(2).setVisible(true);
+            else spritesJoueur.getChildren().get(1).setVisible(true);
+            tt.setByX(-TUILE_TAILLE);
+        }
+        tt.setDuration(Duration.millis(100));
+        tt.play();
     }
 
     //animation du saut
@@ -57,7 +76,15 @@ public class PersonnageVue {
         tt.play();
     }
 
-    public AnimationDeplacementJoueur getAnimationDeplacementJoueur() {
-        return animationDeplacementJoueur;
+    //met l'image du personnage immobile selon sa direction
+    public void immobile() {
+        for (int i = 0; i  < spritesJoueur.getChildren().size(); i++)
+            spritesJoueur.getChildren().get(i).setVisible(false);
+
+        switch (personnage.getDirection()) {
+            case Gauche : spritesJoueur.getChildren().get(0).setVisible(true); break;
+            case Droit : spritesJoueur.getChildren().get(3).setVisible(true); break;
+            default: break;
+        }
     }
 }

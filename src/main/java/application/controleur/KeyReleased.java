@@ -41,7 +41,7 @@ public class KeyReleased implements EventHandler<KeyEvent> {
                     break;
                 case Q:
                 case D:
-                    controleur.getPersonnageVue().getAnimationDeplacementJoueur().immobile();
+                    controleur.getPersonnageVue().immobile();
                     jeu.getPersonnage().setDirection(Direction.Immobile);
                     break;
                 default: break;
