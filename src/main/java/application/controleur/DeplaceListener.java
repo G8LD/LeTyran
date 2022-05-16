@@ -1,17 +1,16 @@
 package application.controleur;
 
 import application.modele.Direction;
-import application.modele.Jeu;
-import javafx.animation.TranslateTransition;
+import application.modele.Environnement;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 public class DeplaceListener implements ChangeListener {
 
     private Controleur controleur;
-    private Jeu jeu;
+    private Environnement jeu;
 
-    public DeplaceListener(Controleur controleur, Jeu jeu) {
+    public DeplaceListener(Controleur controleur, Environnement jeu) {
         this.controleur = controleur;
         this.jeu = jeu;
     }

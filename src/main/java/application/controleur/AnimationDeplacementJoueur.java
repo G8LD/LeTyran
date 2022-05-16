@@ -1,7 +1,6 @@
 package application.controleur;
 
-import application.modele.Direction;
-import application.modele.Jeu;
+import application.modele.Environnement;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.StackPane;
 
@@ -9,7 +8,7 @@ import static application.controleur.Controleur.TUILE_TAILLE;
 
 public class AnimationDeplacementJoueur extends AnimationTimer {
 
-    private Jeu jeu;
+    private Environnement jeu;
     private StackPane spritesJoueur;
     private StackPane spritesVie;
     private Controleur controleur;
@@ -18,7 +17,7 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
     private double decalage;
     private boolean running;
 
-    public AnimationDeplacementJoueur(Controleur controleur, Jeu jeu, StackPane SpritesJoueur) {
+    public AnimationDeplacementJoueur(Controleur controleur, Environnement jeu, StackPane SpritesJoueur) {
         this.controleur = controleur;
         this.jeu = jeu;
         this.spritesJoueur = SpritesJoueur;

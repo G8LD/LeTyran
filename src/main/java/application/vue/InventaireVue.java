@@ -85,7 +85,7 @@ public class InventaireVue {
 
             //System.out.println("index : " + nouvellePlace);
 
-            /*new EventHandler<ActionEvent>() {
+            /*new EventHandler<ActionEvent>() {MapJeu
                 @Override
                 public void handle(ActionEvent event) {
                     objPrit.fireEvent(new InventaireObjetLacheEvent(InventaireObjetLacheEvent.SAUVEGARDER_OBJET, objPrit));

@@ -10,11 +10,18 @@ public class Personnage {
     private MapJeu mapJeu;
     private Inventaire inventaire;
 
-    public Personnage(MapJeu mapjeu) {
+    private IntegerProperty pv;
+    private int defense;
+    private int attaque;
+
+    public Personnage(MapJeu mapjeu, int pv, int defense, int attaque) {
         xProperty = new SimpleIntegerProperty(0);
         yProperty = new SimpleIntegerProperty(11);
         direction = Direction.Immobile;
         this.mapJeu = mapjeu;
+        this.pv = new SimpleIntegerProperty(pv);
+        this.attaque = attaque;
+        this.defense = defense;
 
         this.inventaire = new Inventaire();
         inventaire.ajouterObjet();
@@ -27,14 +34,32 @@ public class Personnage {
     public void seDeplacer() {
         int dX, dY;
         switch (direction) {
-            case Haut: dX = 0; dY = -3; break;
-            case HautGauche: dX = -1; dY = -3; break;
-            case HautDroit: dX = 1; dY = -3; break;
-            case Gauche: dX = -1; dY = 0; break;
-            case Droit: dX = 1; dY = 0; break;
-            default: dX = 0; dY = 0; break;
+            case Haut:
+                dX = 0;
+                dY = -3;
+                break;
+            case HautGauche:
+                dX = -1;
+                dY = -3;
+                break;
+            case HautDroit:
+                dX = 1;
+                dY = -3;
+                break;
+            case Gauche:
+                dX = -1;
+                dY = 0;
+                break;
+            case Droit:
+                dX = 1;
+                dY = 0;
+                break;
+            default:
+                dX = 0;
+                dY = 0;
+                break;
         }
-        if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && mapJeu.getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
+        if (xProperty.getValue() + dX >= 0 && xProperty.getValue() + dX < MapJeu.WIDTH && yProperty.getValue() + dY >= 0 && yProperty.getValue() + dY < MapJeu.HEIGHT && mapJeu.getTabMap()[yProperty.getValue() + dY][xProperty.getValue() + dX] == 0) {
             xProperty.setValue(xProperty.getValue() + dX);
             yProperty.setValue(yProperty.getValue() + dY);
             System.out.println(xProperty.getValue() + "\t" + yProperty.getValue());
@@ -47,11 +72,27 @@ public class Personnage {
             hauteurSaut++;
         yProperty.setValue(yProperty.getValue() - hauteurSaut);
     }
+
     public void tomber() {
         int hauteurChute = 0;
         while (hauteurChute < 3 && yProperty.getValue() + hauteurChute + 1 < MapJeu.HEIGHT && mapJeu.getTabMap()[yProperty.getValue() + hauteurChute + 1][xProperty.getValue()] == 0)
             hauteurChute++;
         yProperty.setValue(yProperty.getValue() + hauteurChute);
+    }
+
+    public IntegerProperty subirDegat(int attaque) {
+        this.pv.setValue(this.pv.getValue() - (attaque - this.defense));
+        return this.pv ;
+    }
+
+    public IntegerProperty getPv() {
+        return this.pv;
+    }
+
+    public IntegerProperty seSoigner(int nbPvRendu) {
+        this.pv.setValue(this.pv.getValue()+nbPvRendu);
+        return this.pv;
+
     }
 
     public Direction getDirection() {

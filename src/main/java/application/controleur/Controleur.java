@@ -1,7 +1,7 @@
 package application.controleur;
 
-import application.modele.Direction;
-import application.modele.Jeu;
+import application.modele.Environnement;
+import application.vue.controls.VieVue;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,7 +28,7 @@ import static application.modele.MapJeu.WIDTH;
 public class Controleur implements Initializable {
     public final static int TUILE_TAILLE = 32;
 
-    private Jeu jeu;
+    private Environnement jeu;
     private AnimationDeplacementJoueur animationDeplacementJoueur;
     private TranslateTransition tt;
     private KeyReleased keyReleased;
@@ -46,7 +46,7 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        jeu = new Jeu();
+        jeu = new Environnement();
         animationDeplacementJoueur = new AnimationDeplacementJoueur(this, jeu, spritesJoueur);
         keyReleased = new KeyReleased(this, jeu);
         tt = new TranslateTransition();
@@ -60,11 +60,17 @@ public class Controleur implements Initializable {
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         jeu.getPersonnage().getXProperty().addListener(new DeplaceListener(this, jeu));
         jeu.getPersonnage().getYProperty().addListener(new DeplaceListener(this, jeu));
+        root.addEventHandler(KeyEvent.KEY_PRESSED,new InventaireControleur(root,jeu));
+
+        VieVue vie= new VieVue(root);
+        vie.afficherVie(80);
 
         construireMap();
         construireDecor();
         construirePerso();
     }
+
+
 
     private void construireMap() {
         tileSol.setBackground(Background.fill(Color.LIGHTBLUE));
