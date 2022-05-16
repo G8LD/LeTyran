@@ -1,5 +1,6 @@
-package application.controleur;
+package application.vue.vuePerso;
 
+import application.controleur.Controleur;
 import application.modele.Direction;
 import application.modele.Jeu;
 import javafx.animation.AnimationTimer;

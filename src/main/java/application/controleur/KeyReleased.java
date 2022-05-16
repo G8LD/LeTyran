@@ -24,7 +24,7 @@ public class KeyReleased implements EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         toucheLachee = event.getCode();
         System.out.println(toucheLachee);
-        if (controleur.pasAnimations())
+        if (controleur.getPersonnageVue().pasAnimations())
             gestionToucheLachee();
     }
 
@@ -41,16 +41,12 @@ public class KeyReleased implements EventHandler<KeyEvent> {
                     break;
                 case Q:
                 case D:
-                    controleur.getAnimationDeplacementJoueur().immobile();
+                    controleur.getPersonnageVue().getAnimationDeplacementJoueur().immobile();
                     jeu.getPersonnage().setDirection(Direction.Immobile);
                     break;
                 default: break;
             }
             toucheLachee = null;
         }
-    }
-
-    public void setToucheLachee(KeyCode toucheLachee) {
-        this.toucheLachee = toucheLachee;
     }
 }

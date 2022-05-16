@@ -1,4 +1,4 @@
-package application.vue;
+package application.vue.vuePerso;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

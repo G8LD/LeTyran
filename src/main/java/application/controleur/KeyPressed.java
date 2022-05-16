@@ -18,7 +18,7 @@ public class KeyPressed implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent event) {
-        if (controleur.pasAnimations()) {
+        if (controleur.getPersonnageVue().pasAnimations()) {
             switch (event.getCode()) {
                 case Z:
                     switch (jeu.getPersonnage().getDirection()) {

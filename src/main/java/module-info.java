@@ -13,4 +13,6 @@ module application.letyran {
     opens application.modele to javafx.fxml;
     exports application.vue;
     opens application.vue to javafx.fxml;
+    exports application.vue.vuePerso;
+    opens application.vue.vuePerso to javafx.fxml;
 }

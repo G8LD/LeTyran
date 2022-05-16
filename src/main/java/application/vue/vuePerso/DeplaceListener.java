@@ -1,5 +1,6 @@
-package application.controleur;
+package application.vue.vuePerso;
 
+import application.controleur.Controleur;
 import application.modele.Direction;
 import application.modele.Jeu;
 import javafx.animation.TranslateTransition;
@@ -19,10 +20,8 @@ public class DeplaceListener implements ChangeListener {
     @Override
     public void changed(ObservableValue observableValue, Object o, Object t1) {
         if (jeu.getPersonnage().getDirection() == Direction.Gauche || jeu.getPersonnage().getDirection() == Direction.Droit)
-            controleur.getAnimationDeplacementJoueur().start();
+            controleur.getPersonnageVue().getAnimationDeplacementJoueur().start();
         else if (jeu.getPersonnage().getDirection() == Direction.Haut)
-            controleur.animationSaut((Integer) o - (Integer) t1);
-        else
-            controleur.animationChute((Integer) t1 - (Integer) o);
+            controleur.getPersonnageVue().animationSaut((Integer) o - (Integer) t1);
     }
 }

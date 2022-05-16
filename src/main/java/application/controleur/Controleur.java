@@ -1,9 +1,10 @@
 package application.controleur;
 
-import application.modele.Direction;
 import application.modele.Jeu;
-import application.vue.ChargeurRessources;
-import javafx.animation.TranslateTransition;
+import application.vue.vuePerso.AnimationDeplacementJoueur;
+import application.vue.vuePerso.ChargeurRessources;
+import application.vue.vuePerso.DeplaceListener;
+import application.vue.vuePerso.PersonnageVue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -14,7 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,9 +30,8 @@ public class Controleur implements Initializable {
     public final static int TUILE_TAILLE = 32;
 
     private Jeu jeu;
-    private AnimationDeplacementJoueur animationDeplacementJoueur;
-    private TranslateTransition tt;
     private KeyReleased keyReleased;
+    private PersonnageVue personnageVue;
 
     @FXML
     private StackPane root;
@@ -48,10 +47,8 @@ public class Controleur implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         jeu = new Jeu();
-        animationDeplacementJoueur = new AnimationDeplacementJoueur(this, jeu, spritesJoueur);
+        personnageVue = new PersonnageVue(spritesJoueur, new AnimationDeplacementJoueur(this, jeu, spritesJoueur));
         keyReleased = new KeyReleased(this, jeu);
-        tt = new TranslateTransition();
-        tt.setNode(spritesJoueur);
 
         paneJoueur.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
@@ -130,40 +127,11 @@ public class Controleur implements Initializable {
         spritesJoueur.setTranslateY(jeu.getPersonnage().getY() * TUILE_TAILLE);
     }
 
-    public AnimationDeplacementJoueur getAnimationDeplacementJoueur() {
-        return animationDeplacementJoueur;
+    public PersonnageVue getPersonnageVue() {
+        return personnageVue;
     }
 
     public KeyReleased getKeyReleased() {
         return keyReleased;
-    }
-
-    public boolean pasAnimations() {
-        return !animationDeplacementJoueur.isRunning() && tt.getCurrentRate() == 0;
-    }
-
-
-    //animation du saut
-    //translate transion correspondant à la hauteur du saut
-    //appelle la méthode tomber à la fin du translate
-    public void animationSaut(int hauteurSaut) {
-        tt.setByY(-TUILE_TAILLE * hauteurSaut);
-        tt.setByX(0);
-        tt.setDuration(Duration.millis(hauteurSaut * 100));
-        tt.setOnFinished(event -> {
-            keyReleased.gestionToucheLachee();
-            jeu.getPersonnage().tomber();
-        });
-        tt.play();
-    }
-
-    //animation de la chute
-    //translate transion correspondant à la hauteur de la chute
-    public void animationChute(int hauteurChut) {
-        System.out.println("hauteur chut : " + hauteurChut);
-        tt.setByY(TUILE_TAILLE * hauteurChut);
-        tt.setByX(0);
-        tt.setDuration(Duration.millis(hauteurChut * 100));
-        tt.play();
     }
 }
