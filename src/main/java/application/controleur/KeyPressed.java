@@ -3,6 +3,7 @@ package application.controleur;
 import application.modele.Direction;
 import application.modele.Jeu;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class KeyPressed implements EventHandler<KeyEvent> {
@@ -17,7 +18,7 @@ public class KeyPressed implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent event) {
-        if (!controleur.getAnimationDeplacementJoueur().isRunning()) {
+        if (controleur.pasAnimations()) {
             switch (event.getCode()) {
                 case Z:
                     switch (jeu.getPersonnage().getDirection()) {
@@ -25,7 +26,7 @@ public class KeyPressed implements EventHandler<KeyEvent> {
                         case Gauche: jeu.getPersonnage().setDirection(Direction.HautGauche); break;
                         case Droit: jeu.getPersonnage().setDirection(Direction.HautDroit); break;
                     }
-                    jeu.getPersonnage().seDeplacer();
+                    jeu.getPersonnage().sauter();
                     break;
                 case Q: jeu.getPersonnage().setDirection(Direction.Gauche); jeu.getPersonnage().seDeplacer(); break;
                 case D: jeu.getPersonnage().setDirection(Direction.Droit); jeu.getPersonnage().seDeplacer(); break;

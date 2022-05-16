@@ -38,10 +38,7 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
     public void stop() {
         super.stop();
         running = false;
-        if (controleur.getKeyReleased().getToucheLachee() != null) {
-            immobile();
-            controleur.getKeyReleased().gestionToucheLachee();
-        }
+        controleur.getKeyReleased().gestionToucheLachee();
     }
 
     @Override
@@ -50,7 +47,6 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
             animation();
             lastUpdate = now;
         } else if (decalage < 0) {
-            //immobile();
             decalage = TUILE_TAILLE - TUILE_TAILLE/4;
             stop();
         }

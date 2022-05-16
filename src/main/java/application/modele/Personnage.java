@@ -8,18 +8,20 @@ public class Personnage {
     private IntegerProperty yProperty;
     private Direction direction;
     private MapJeu mapJeu;
-    private int pv;
-    private int defense;
-    private int attaque;
+    private Inventaire inventaire;
 
-    public Personnage(MapJeu mapjeu, int pv , int defense, int attaque) {
+    public Personnage(MapJeu mapjeu) {
         xProperty = new SimpleIntegerProperty(0);
         yProperty = new SimpleIntegerProperty(11);
         direction = Direction.Immobile;
         this.mapJeu = mapjeu;
-        this.pv = pv;
-        this.attaque=attaque;
-        this.defense=defense;
+
+        this.inventaire = new Inventaire();
+        inventaire.ajouterObjet();
+    }
+
+    public Inventaire getInventaire() {
+        return this.inventaire;
     }
 
     public void seDeplacer() {
@@ -38,25 +40,18 @@ public class Personnage {
             System.out.println(xProperty.getValue() + "\t" + yProperty.getValue());
         }
     }
-    public int subirDegat(int attaque){
-        this.pv-= (attaque-this.defense);
-        return this.pv;
+
+    public void sauter() {
+        int hauteurSaut = 0;
+        while (hauteurSaut < 3 && yProperty.getValue() - hauteurSaut - 1 > 0 && mapJeu.getTabMap()[yProperty.getValue() - hauteurSaut - 1][xProperty.getValue()] == 0)
+            hauteurSaut++;
+        yProperty.setValue(yProperty.getValue() - hauteurSaut);
     }
-
-    public int seSoigner(int nbPvRendu){
-        this.pv+=nbPvRendu;
-        return this.pv;
-    }
-
-
-
-
-    private boolean tomber() {
-        if (mapJeu.getTabMap()[yProperty.getValue() + 1][xProperty.getValue()] == 0) {
-            yProperty.setValue(yProperty.getValue() + 1);
-            return true;
-        }
-        return false;
+    public void tomber() {
+        int hauteurChute = 0;
+        while (hauteurChute < 3 && yProperty.getValue() + hauteurChute + 1 < MapJeu.HEIGHT && mapJeu.getTabMap()[yProperty.getValue() + hauteurChute + 1][xProperty.getValue()] == 0)
+            hauteurChute++;
+        yProperty.setValue(yProperty.getValue() + hauteurChute);
     }
 
     public Direction getDirection() {
@@ -90,4 +85,5 @@ public class Personnage {
     public void setyProperty(int yProperty) {
         this.yProperty.set(yProperty);
     }
+
 }
