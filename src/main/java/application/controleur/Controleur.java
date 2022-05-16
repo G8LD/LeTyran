@@ -2,7 +2,6 @@ package application.controleur;
 
 import application.modele.Jeu;
 import application.vue.vueMap.MapVue;
-import application.vue.vuePerso.AnimationDeplacementJoueur;
 import application.vue.vuePerso.PersonnageVue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
