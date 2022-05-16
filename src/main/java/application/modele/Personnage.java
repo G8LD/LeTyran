@@ -8,12 +8,20 @@ public class Personnage {
     private IntegerProperty yProperty;
     private Direction direction;
     private MapJeu mapJeu;
+    private Inventaire inventaire;
 
     public Personnage(MapJeu mapjeu) {
         xProperty = new SimpleIntegerProperty(0);
         yProperty = new SimpleIntegerProperty(11);
         direction = Direction.Immobile;
         this.mapJeu = mapjeu;
+
+        this.inventaire = new Inventaire();
+        inventaire.ajouterObjet();
+    }
+
+    public Inventaire getInventaire() {
+        return this.inventaire;
     }
 
     public void seDeplacer() {
