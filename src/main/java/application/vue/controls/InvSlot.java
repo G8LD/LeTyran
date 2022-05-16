@@ -24,6 +24,8 @@ public class InvSlot extends Pane {
     private ObjetJeu Objet;
 
     private InventaireVue invVue;
+
+    //Permet de vérifier si on est entrain de porter un objet
     private boolean dragActive =false;
 
 

@@ -12,22 +12,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.media.AudioClip;
 
-class InventoryPos {
-    private int x;
-    private int y;
-    public InventoryPos(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getX() {
-        return this.x;
-    }
-
-    public int getY() {
-        return this.y;
-    }
-}
 public class InventaireVue {
     private Inventaire inv;
 
@@ -55,6 +39,7 @@ public class InventaireVue {
 
 
     }
+
     public void lacherObjet() {
         if(this.invPaneConteneur != null) {
 
@@ -85,6 +70,7 @@ public class InventaireVue {
                 index++;
             }
 
+            //Permet de placer l'objet à la même position que l'image view la plus proche
             this.objPrit.setLayoutX(selectedImg.getX() + 8);
             this.objPrit.setLayoutY(selectedImg.getY() + 8);
 
@@ -97,7 +83,7 @@ public class InventaireVue {
             }
 
 
-            System.out.println("index : " + nouvellePlace);
+            //System.out.println("index : " + nouvellePlace);
 
             /*new EventHandler<ActionEvent>() {
                 @Override
@@ -106,10 +92,12 @@ public class InventaireVue {
                 }
             };*/
 
-            //Corrige
+
             this.controleur.objetLache(objPrit, nouvellePlace + 1);
 
             this.objPrit = null;
+
+            //On baisse le son de l'audio
             sound.setVolume(1./30.);
             sound.play();
         }
@@ -136,11 +124,13 @@ public class InventaireVue {
                     //Ajouter un autre conteneur pour les items
                     this.invPaneConteneur.getChildren().add(imgv);
 
+                    //On vérifie que l'index ne dépasse pas le nombre d'objets actuellement portés
                     if (indexItem < inv.getObjets().size()) {
                         ObjetJeu objetJeu = inv.getObjets().get(indexItem);
                         int placeInventaire = objetJeu.getPlaceInventaire() - 1;
 
                         //System.out.println(objetJeu.getPlaceInventaire());
+
                         InvSlot slot = new InvSlot(this, inv.getObjets().get(indexItem), imgv);
                         slot.setPrefWidth(32);
                         slot.setPrefHeight(32);

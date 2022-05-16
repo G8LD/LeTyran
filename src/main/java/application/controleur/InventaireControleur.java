@@ -42,6 +42,7 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
         }
     }
 
+
     public void objetLache(InvSlot objetInventaire, int nouvellePlace) {
         //System.out.println(objetInventaire.getObjet() + " " + nouvellePlace);
         objetInventaire.getObjet().setPlaceInventaire(nouvellePlace);
