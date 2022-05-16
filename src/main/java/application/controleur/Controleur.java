@@ -63,8 +63,6 @@ public class Controleur implements Initializable {
         jeu.getPersonnage().getYProperty().addListener(new DeplaceListener(this, jeu));
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, jeu));
 
-
-
         construireMap();
         construireDecor();
         construirePerso();
@@ -123,6 +121,7 @@ public class Controleur implements Initializable {
         }
     }
 
+    //initialise les sprites du joueur_le met à la bonne position et met rend le bon sprite visible
     private void construirePerso() {
         for (int i = 0; i < spritesJoueur.getChildren().size(); i++)
             spritesJoueur.getChildren().get(i).setVisible(false);
@@ -143,6 +142,10 @@ public class Controleur implements Initializable {
         return !animationDeplacementJoueur.isRunning() && tt.getCurrentRate() == 0;
     }
 
+
+    //animation du saut
+    //translate transion correspondant à la hauteur du saut
+    //appelle la méthode tomber à la fin du translate
     public void animationSaut(int hauteurSaut) {
         tt.setByY(-TUILE_TAILLE * hauteurSaut);
         tt.setByX(0);
@@ -153,6 +156,9 @@ public class Controleur implements Initializable {
         });
         tt.play();
     }
+
+    //animation de la chute
+    //translate transion correspondant à la hauteur de la chute
     public void animationChute(int hauteurChut) {
         System.out.println("hauteur chut : " + hauteurChut);
         tt.setByY(TUILE_TAILLE * hauteurChut);
