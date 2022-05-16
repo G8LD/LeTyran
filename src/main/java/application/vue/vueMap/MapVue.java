@@ -1,6 +1,5 @@
-package application.vue;
+package application.vue.vueMap;
 
-import application.vue.vuePerso.ChargeurRessources;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;

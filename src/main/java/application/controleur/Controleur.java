@@ -1,31 +1,18 @@
 package application.controleur;
 
 import application.modele.Jeu;
-import application.vue.MapVue;
+import application.vue.vueMap.MapVue;
 import application.vue.vuePerso.AnimationDeplacementJoueur;
-import application.vue.vuePerso.ChargeurRessources;
-import application.vue.vuePerso.DeplaceListener;
 import application.vue.vuePerso.PersonnageVue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static application.modele.MapJeu.HEIGHT;
-import static application.modele.MapJeu.WIDTH;
 
 public class Controleur implements Initializable {
     public final static int TUILE_TAILLE = 32;

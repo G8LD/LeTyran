@@ -1,4 +1,4 @@
-package application.vue.vuePerso;
+package application.vue.vueMap;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,7 +19,7 @@ public class ChargeurRessources {
 
         tileMapAssets.add(0, new Image("file:src/main/resources/application/pack1/tile_transparant.png"));
         tileMapAssets.add(2, new Image("file:src/main/resources/application/pack1/tile001.png"));
-        for (int i = 2; i < 51; i++) {
+        for (int i = 2; i <= 51; i++) {
             String fileName = "0" + (i-1);
             if(i < 10) {
                 fileName = "00" + (i-1);
