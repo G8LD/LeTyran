@@ -7,7 +7,7 @@ public class Environnement {
 
     public Environnement() {
         mapJeu = new MapJeu();
-        personnage = new Personnage(mapJeu,10,4,3);
+        personnage = new Personnage(mapJeu,50,4,3);
     }
 
     public Personnage getPersonnage() {

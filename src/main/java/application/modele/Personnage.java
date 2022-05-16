@@ -27,6 +27,16 @@ public class Personnage {
         inventaire.ajouterObjet();
     }
 
+    public void perdrePV(){
+            this.pv.setValue(this.pv.getValue()-10);
+    }
+    public int getPv(){
+       return this.pv.getValue();
+    }
+
+
+
+
     public Inventaire getInventaire() {
         return this.inventaire;
     }
@@ -85,7 +95,7 @@ public class Personnage {
         return this.pv ;
     }
 
-    public IntegerProperty getPv() {
+    public IntegerProperty getPvProperty() {
         return this.pv;
     }
 
@@ -123,7 +133,7 @@ public class Personnage {
         return yProperty;
     }
 
-    public void setyProperty(int yProperty) {
+    public void setyPropertyProperty(int yProperty) {
         this.yProperty.set(yProperty);
     }
 

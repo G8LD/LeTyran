@@ -1,6 +1,8 @@
 package application.controleur;
 
 import application.modele.Environnement;
+import application.modele.MapJeu;
+import application.modele.Personnage;
 import application.vue.controls.VieVue;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -61,15 +63,15 @@ public class Controleur implements Initializable {
         jeu.getPersonnage().getXProperty().addListener(new DeplaceListener(this, jeu));
         jeu.getPersonnage().getYProperty().addListener(new DeplaceListener(this, jeu));
         root.addEventHandler(KeyEvent.KEY_PRESSED,new InventaireControleur(root,jeu));
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new VieVue(root));
 
         VieVue vie= new VieVue(root);
-        vie.afficherVie(50);
+        vie.afficherVie(jeu.getPersonnage().getPv());
 
         construireMap();
         construireDecor();
         construirePerso();
     }
-
 
 
     private void construireMap() {
