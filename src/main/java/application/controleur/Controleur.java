@@ -48,8 +48,8 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        keyReleased = new KeyReleased(this, jeu);
         jeu = new Jeu();
+        keyReleased = new KeyReleased(this, jeu);
         personnageVue = new PersonnageVue(jeu.getPersonnage(), spritesJoueur, paneJoueur, new AnimationDeplacementJoueur(this, jeu, spritesJoueur));
         mapVue = new MapVue(jeu.getMapJeu().getTabMap(), tileSol, tileDecors);
 
