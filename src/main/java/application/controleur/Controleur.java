@@ -63,7 +63,7 @@ public class Controleur implements Initializable {
         root.addEventHandler(KeyEvent.KEY_PRESSED,new InventaireControleur(root,jeu));
 
         VieVue vie= new VieVue(root);
-        vie.afficherVie(80);
+        vie.afficherVie(50);
 
         construireMap();
         construireDecor();

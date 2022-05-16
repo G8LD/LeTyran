@@ -16,10 +16,10 @@ public class VieVue extends Pane {
     public VieVue(StackPane root){
         this.rootPane=root;
         this.viePane=new Pane();
-        this.viePane.setMaxWidth(100);
-        this.viePane.setMaxHeight(15);
-        this.viePane.setLayoutX(500);
-        this.viePane.setLayoutY(100);
+        this.viePane.setMaxWidth(0);
+        this.viePane.setMaxHeight(0);
+        this.viePane.setLayoutX(0);
+        this.viePane.setLayoutY(0);
         this.viePane.setVisible(true);
         this.rootPane.getChildren().add(this.viePane);
     }
@@ -40,8 +40,10 @@ public class VieVue extends Pane {
         else {
             image = new ImageView(new Image("file:src/main/resources/application/Vie/tres_low_hp.png"));
         }
-        image.setFitHeight(100);
-        image.setFitWidth(200);
+        image.setFitHeight(70);
+        image.setFitWidth(170);
+        image.setX(310);
+        image.setY(-330);
         this.viePane.getChildren().add(image);
     }
 
