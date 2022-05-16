@@ -60,6 +60,7 @@ public class Controleur implements Initializable {
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         jeu.getPersonnage().getXProperty().addListener(new DeplaceListener(this, jeu));
         jeu.getPersonnage().getYProperty().addListener(new DeplaceListener(this, jeu));
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, jeu));
 
         construireMap();
         construireDecor();
