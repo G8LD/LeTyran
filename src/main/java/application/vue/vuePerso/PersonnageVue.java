@@ -3,6 +3,8 @@ package application.vue.vuePerso;
 import application.modele.Direction;
 import application.modele.Personnage;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -31,6 +33,12 @@ public class PersonnageVue {
 
         personnage.getXProperty().addListener(new DeplaceListener(personnage, this));
         personnage.getYProperty().addListener(new DeplaceListener(personnage, this));
+        personnage.getAvanceProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                if (!t1) immobile();
+            }
+        });
     }
 
     //initialise les sprites du joueur_le met à la bonne position et met rend le bon sprite visible
@@ -62,7 +70,7 @@ public class PersonnageVue {
             else spritesJoueur.getChildren().get(1).setVisible(true);
             tt.setByX(-TUILE_TAILLE);
         }
-        tt.setDuration(Duration.millis(100));
+        tt.setDuration(Duration.millis(125));
         tt.play();
     }
 

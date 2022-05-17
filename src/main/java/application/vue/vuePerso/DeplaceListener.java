@@ -17,9 +17,12 @@ public class DeplaceListener implements ChangeListener {
 
     @Override
     public void changed(ObservableValue observableValue, Object o, Object t1) {
-        if (personnage.getDirection() == Direction.Gauche || personnage.getDirection() == Direction.Droit)
-            personnageVue.animationHorizontale();
-        else if (personnage.getDirection() == Direction.Haut)
+        if (personnage.getSaute()) {
+            System.out.println((Integer) o - (Integer) t1);
             personnageVue.animationSaut((Integer) o - (Integer) t1);
+            personnage.setSaute(false);
+        }
+        else if (personnage.getAvance())
+            personnageVue.animationHorizontale();
     }
 }

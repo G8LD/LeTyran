@@ -19,23 +19,9 @@ public class KeyReleased implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent event) {
         switch (event.getCode()) {
-            case Z:
-                switch (jeu.getPersonnage().getDirection()) {
-                    case Haut:
-                        jeu.getPersonnage().setDirection(Direction.Immobile);
-                        break;
-                    case Gauche:
-                        jeu.getPersonnage().setDirection(Direction.Gauche);
-                        break;
-                    case Droit:
-                        jeu.getPersonnage().setDirection(Direction.Droit);
-                        break;
-                }
-                break;
             case Q:
             case D:
-                controleur.getPersonnageVue().immobile();
-                jeu.getPersonnage().setDirection(Direction.Immobile);
+                jeu.getPersonnage().setAvance(false);
                 break;
             default:
                 break;
