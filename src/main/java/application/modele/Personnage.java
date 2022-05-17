@@ -17,7 +17,7 @@ public class Personnage {
     public Personnage(Environnement env) {
         saute = false;
         avanceProperty = new SimpleBooleanProperty(false);
-        xProperty = new SimpleIntegerProperty(0);
+        xProperty = new SimpleIntegerProperty(1);
         yProperty = new SimpleIntegerProperty(11);
         direction = Direction.Droit;
         this.env = env;
@@ -50,20 +50,24 @@ public class Personnage {
         while (hauteurSaut < 3 && yProperty.getValue() - hauteurSaut - 1 > 0
                 && env.getMapJeu().getTabMap()[yProperty.getValue() - hauteurSaut - 1][xProperty.getValue()] == 0)
             hauteurSaut++;
-        yProperty.setValue(yProperty.getValue() - hauteurSaut);
+        if (hauteurSaut == 0) saute = false;
+        else
+            yProperty.setValue(yProperty.getValue() - hauteurSaut);
     }
 
     public void tomber() {
         int hauteurChute = 0;
-        while (hauteurChute < 3 && yProperty.getValue() - hauteurChute + 1 > MapJeu.HEIGHT
-                && env.getMapJeu().getTabMap()[yProperty.getValue() - hauteurChute + 1][xProperty.getValue()] == 0)
+        while (yProperty.getValue() + hauteurChute + 1 < MapJeu.HEIGHT
+                && env.getMapJeu().getTabMap()[yProperty.getValue() + hauteurChute + 1][xProperty.getValue()] == 0)
             hauteurChute++;
-        yProperty.setValue(yProperty.getValue() - hauteurChute);
+        if (hauteurChute > 0) System.out.println("hauteur chute = " + hauteurChute);
+        yProperty.setValue(yProperty.getValue() + hauteurChute);
     }
 
     public void update() {
         if (saute) sauter();
         if (avanceProperty.getValue()) seDeplacer();
+        tomber();
     }
 
 //region Getter & Setter

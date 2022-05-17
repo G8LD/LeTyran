@@ -21,8 +21,13 @@ public class DeplaceListener implements ChangeListener {
             System.out.println((Integer) o - (Integer) t1);
             personnageVue.animationSaut((Integer) o - (Integer) t1);
             personnage.setSaute(false);
+            System.out.println("saute");
         }
         else if (personnage.getAvance())
             personnageVue.animationHorizontale();
+        else {
+            personnageVue.animationChute((Integer) t1 - (Integer) o);
+            System.out.println("tombe");
+        }
     }
 }

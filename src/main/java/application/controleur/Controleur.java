@@ -59,6 +59,8 @@ public class Controleur implements Initializable {
                 Duration.seconds(0.017),
                 (ev ->{
                     if (personnageVue.pasAnimations())
+
+                    if (personnageVue.pasAnimations())
                         env.getPersonnage().update();
 
                 })

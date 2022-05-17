@@ -76,12 +76,25 @@ public class PersonnageVue {
 
     //animation du saut
     //translate transion correspondant à la hauteur du saut
-    //appelle la méthode tomber à la fin du translate
     public void animationSaut(int hauteurSaut) {
+        System.out.println("hauteurSaut : " + hauteurSaut);
         tt.setByY(-TUILE_TAILLE * hauteurSaut);
         tt.setByX(0);
         tt.setDuration(Duration.millis(hauteurSaut * 100));
         tt.play();
+    }
+
+    //animation de la chute
+    //translate transion correspondant à la hauteur de la chute
+    public void animationChute(int hauteurChute) {
+        tt.setOnFinished(actionEvent -> {
+            tt.setOnFinished(actionEvent1 -> {});
+            tt.setByY(TUILE_TAILLE * hauteurChute);
+            tt.setByX(0);
+            tt.setDuration(Duration.millis(hauteurChute * 100));
+            tt.play();
+        }
+        );
     }
 
     //met l'image du personnage immobile selon sa direction
