@@ -12,10 +12,11 @@ public class Personnage {
     private Environnement env;
     private Inventaire inventaire;
     private boolean saute;
+    private boolean tombe;
     private BooleanProperty avanceProperty;
 
     public Personnage(Environnement env) {
-        saute = false;
+        saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
         xProperty = new SimpleIntegerProperty(1);
         yProperty = new SimpleIntegerProperty(11);
@@ -60,8 +61,10 @@ public class Personnage {
         while (yProperty.getValue() + hauteurChute + 1 < MapJeu.HEIGHT
                 && env.getMapJeu().getTabMap()[yProperty.getValue() + hauteurChute + 1][xProperty.getValue()] == 0)
             hauteurChute++;
-        if (hauteurChute > 0) System.out.println("hauteur chute = " + hauteurChute);
-        yProperty.setValue(yProperty.getValue() + hauteurChute);
+        if (hauteurChute > 0) {
+            tombe = true;
+            yProperty.setValue(yProperty.getValue() + hauteurChute);
+        }
     }
 
     public void update() {
@@ -121,6 +124,14 @@ public class Personnage {
 
     public void setAvance(boolean avance) {
         this.avanceProperty.setValue(avance);
+    }
+
+    public boolean getTombe() {
+        return tombe;
+    }
+
+    public void setTombe(boolean tombe) {
+        this.tombe = tombe;
     }
 
     //endregion

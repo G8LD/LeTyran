@@ -87,6 +87,7 @@ public class PersonnageVue {
     //animation de la chute
     //translate transion correspondant à la hauteur de la chute
     public void animationChute(int hauteurChute) {
+        System.out.println("hauteurChute : " + hauteurChute);
         tt.setOnFinished(actionEvent -> {
             tt.setOnFinished(actionEvent1 -> {});
             tt.setByY(TUILE_TAILLE * hauteurChute);

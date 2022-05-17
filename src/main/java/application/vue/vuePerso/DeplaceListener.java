@@ -17,7 +17,12 @@ public class DeplaceListener implements ChangeListener {
 
     @Override
     public void changed(ObservableValue observableValue, Object o, Object t1) {
-        if (personnage.getSaute()) {
+        if (personnage.getTombe()) {
+            personnageVue.animationChute((Integer) t1 - (Integer) o);
+            personnage.setTombe(false);
+            System.out.println("tombe");
+        }
+        else if (personnage.getSaute()) {
             System.out.println((Integer) o - (Integer) t1);
             personnageVue.animationSaut((Integer) o - (Integer) t1);
             personnage.setSaute(false);
@@ -25,9 +30,5 @@ public class DeplaceListener implements ChangeListener {
         }
         else if (personnage.getAvance())
             personnageVue.animationHorizontale();
-        else {
-            personnageVue.animationChute((Integer) t1 - (Integer) o);
-            System.out.println("tombe");
-        }
     }
 }
