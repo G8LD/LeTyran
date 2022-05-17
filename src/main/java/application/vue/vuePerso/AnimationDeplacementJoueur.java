@@ -1,11 +1,13 @@
 package application.controleur;
 
-import application.modele.Environnement;
+import application.modele.Direction;
+import application.modele.Jeu;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.StackPane;
 
 import static application.controleur.Controleur.TUILE_TAILLE;
 
+//animation du déplacement du joueur de gauche à droite
 public class AnimationDeplacementJoueur extends AnimationTimer {
 
     private Environnement jeu;
@@ -50,6 +52,7 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
         }
     }
 
+    //animation déplacement déplace les sprites et met alterne les sprites
     private void animation() {
         int i = 0;
         while (!spritesJoueur.getChildren().get(i).isVisible()) i++;
@@ -71,6 +74,7 @@ public class AnimationDeplacementJoueur extends AnimationTimer {
         decalage-= TUILE_TAILLE/4;
     }
 
+    //met l'image du personnage immobile selon sa direction
     public void immobile() {
         for (int i = 0; i  < spritesJoueur.getChildren().size(); i++)
             spritesJoueur.getChildren().get(i).setVisible(false);
