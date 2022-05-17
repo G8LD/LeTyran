@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="LeTyran" target="18" />
+      <module name="LeTyran" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
