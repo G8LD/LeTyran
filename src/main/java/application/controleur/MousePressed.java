@@ -24,7 +24,7 @@ public class MousePressed implements EventHandler<MouseEvent> {
         System.out.println("x : " + x + " y " + y + " bloc numéro : " + id);
 
 
-        //this.env.getMapJeu().getTabMap()[x][y] = 0;
+        this.env.getMapJeu().getTabMap()[x][y] = 0;
         this.controleur.getMapVue().supprimerBloc(id);
     }
 }
