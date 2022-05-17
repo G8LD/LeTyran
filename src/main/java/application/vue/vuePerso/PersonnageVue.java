@@ -3,6 +3,8 @@ package application.vue.vuePerso;
 import application.modele.Direction;
 import application.modele.Personnage;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -31,6 +33,12 @@ public class PersonnageVue {
 
         personnage.getXProperty().addListener(new DeplaceListener(personnage, this));
         personnage.getYProperty().addListener(new DeplaceListener(personnage, this));
+        personnage.getAvanceProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                if (!t1) immobile();
+            }
+        });
     }
 
     //initialise les sprites du joueur_le met à la bonne position et met rend le bon sprite visible
@@ -62,18 +70,32 @@ public class PersonnageVue {
             else spritesJoueur.getChildren().get(1).setVisible(true);
             tt.setByX(-TUILE_TAILLE);
         }
-        tt.setDuration(Duration.millis(100));
+        tt.setDuration(Duration.millis(125));
         tt.play();
     }
 
     //animation du saut
     //translate transion correspondant à la hauteur du saut
-    //appelle la méthode tomber à la fin du translate
     public void animationSaut(int hauteurSaut) {
+        System.out.println("hauteurSaut : " + hauteurSaut);
         tt.setByY(-TUILE_TAILLE * hauteurSaut);
         tt.setByX(0);
         tt.setDuration(Duration.millis(hauteurSaut * 100));
         tt.play();
+    }
+
+    //animation de la chute
+    //translate transion correspondant à la hauteur de la chute
+    public void animationChute(int hauteurChute) {
+        System.out.println("hauteurChute : " + hauteurChute);
+        tt.setOnFinished(actionEvent -> {
+            tt.setOnFinished(actionEvent1 -> {});
+            tt.setByY(TUILE_TAILLE * hauteurChute);
+            tt.setByX(0);
+            tt.setDuration(Duration.millis(hauteurChute * 100));
+            tt.play();
+        }
+        );
     }
 
     //met l'image du personnage immobile selon sa direction

@@ -20,15 +20,10 @@ public class KeyPressed implements EventHandler<KeyEvent> {
         if (controleur.getPersonnageVue().pasAnimations()) {
             switch (event.getCode()) {
                 case Z:
-                    switch (jeu.getPersonnage().getDirection()) {
-                        case Immobile: jeu.getPersonnage().setDirection(Direction.Haut); break;
-                        case Gauche: jeu.getPersonnage().setDirection(Direction.HautGauche); break;
-                        case Droit: jeu.getPersonnage().setDirection(Direction.HautDroit); break;
-                    }
-                    jeu.getPersonnage().sauter();
+                    jeu.getPersonnage().setSaute(true);
                     break;
-                case Q: jeu.getPersonnage().setDirection(Direction.Gauche); jeu.getPersonnage().seDeplacer(); break;
-                case D: jeu.getPersonnage().setDirection(Direction.Droit); jeu.getPersonnage().seDeplacer(); break;
+                case Q: jeu.getPersonnage().setDirection(Direction.Gauche); jeu.getPersonnage().setAvance(true); break;
+                case D: jeu.getPersonnage().setDirection(Direction.Droit); jeu.getPersonnage().setAvance(true); break;
                 default: break;
             }
         }

@@ -1,6 +1,8 @@
 package application.modele;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Personnage {
@@ -9,11 +11,16 @@ public class Personnage {
     private Direction direction;
     private Environnement env;
     private Inventaire inventaire;
+    private boolean saute;
+    private boolean tombe;
+    private BooleanProperty avanceProperty;
 
     public Personnage(Environnement env) {
-        xProperty = new SimpleIntegerProperty(0);
+        saute = false; tombe = false;
+        avanceProperty = new SimpleBooleanProperty(false);
+        xProperty = new SimpleIntegerProperty(1);
         yProperty = new SimpleIntegerProperty(11);
-        direction = Direction.Immobile;
+        direction = Direction.Droit;
         this.env = env;
 
         this.inventaire = new Inventaire();
@@ -27,13 +34,11 @@ public class Personnage {
     public void seDeplacer() {
         int dX, dY;
         switch (direction) {
-            case Haut: dX = 0; dY = -3; break;
-            case HautGauche: dX = -1; dY = -3; break;
-            case HautDroit: dX = 1; dY = -3; break;
             case Gauche: dX = -1; dY = 0; break;
             case Droit: dX = 1; dY = 0; break;
             default: dX = 0; dY = 0; break;
         }
+
         if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
             xProperty.setValue(xProperty.getValue() + dX);
             yProperty.setValue(yProperty.getValue() + dY);
@@ -43,17 +48,32 @@ public class Personnage {
 
     public void sauter() {
         int hauteurSaut = 0;
-        while (hauteurSaut < 3 && yProperty.getValue() - hauteurSaut - 1 > 0 && env.getMapJeu().getTabMap()[yProperty.getValue() - hauteurSaut - 1][xProperty.getValue()] == 0)
+        while (hauteurSaut < 3 && yProperty.getValue() - hauteurSaut - 1 > 0
+                && env.getMapJeu().getTabMap()[yProperty.getValue() - hauteurSaut - 1][xProperty.getValue()] == 0)
             hauteurSaut++;
-        yProperty.setValue(yProperty.getValue() - hauteurSaut);
-    }
-    public void tomber() {
-        int hauteurChute = 0;
-        while (hauteurChute < 3 && yProperty.getValue() + hauteurChute + 1 < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() + hauteurChute + 1][xProperty.getValue()] == 0)
-            hauteurChute++;
-        yProperty.setValue(yProperty.getValue() + hauteurChute);
+        if (hauteurSaut == 0) saute = false;
+        else
+            yProperty.setValue(yProperty.getValue() - hauteurSaut);
     }
 
+    public void tomber() {
+        int hauteurChute = 0;
+        while (yProperty.getValue() + hauteurChute + 1 < MapJeu.HEIGHT
+                && env.getMapJeu().getTabMap()[yProperty.getValue() + hauteurChute + 1][xProperty.getValue()] == 0)
+            hauteurChute++;
+        if (hauteurChute > 0) {
+            tombe = true;
+            yProperty.setValue(yProperty.getValue() + hauteurChute);
+        }
+    }
+
+    public void update() {
+        if (saute) sauter();
+        if (avanceProperty.getValue()) seDeplacer();
+        tomber();
+    }
+
+//region Getter & Setter
     public Direction getDirection() {
         return direction;
     }
@@ -86,4 +106,33 @@ public class Personnage {
         this.yProperty.set(yProperty);
     }
 
+    public boolean getSaute() {
+        return saute;
+    }
+
+    public void setSaute(boolean saute) {
+        this.saute = saute;
+    }
+
+    public final boolean getAvance() {
+        return avanceProperty.getValue();
+    }
+
+    public final BooleanProperty getAvanceProperty() {
+        return avanceProperty;
+    }
+
+    public void setAvance(boolean avance) {
+        this.avanceProperty.setValue(avance);
+    }
+
+    public boolean getTombe() {
+        return tombe;
+    }
+
+    public void setTombe(boolean tombe) {
+        this.tombe = tombe;
+    }
+
+    //endregion
 }
