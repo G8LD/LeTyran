@@ -68,9 +68,9 @@ public class Personnage {
     }
 
     public void update() {
+        tomber();
         if (saute) sauter();
         if (avanceProperty.getValue()) seDeplacer();
-        tomber();
     }
 
 //region Getter & Setter

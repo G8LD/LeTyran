@@ -71,7 +71,7 @@ public class PersonnageVue {
             tt.setByX(-TUILE_TAILLE);
         }
         tt.setDuration(Duration.millis(125));
-        tt.play();
+        lancerAnimation();
     }
 
     //animation du saut
@@ -81,28 +81,38 @@ public class PersonnageVue {
         tt.setByY(-TUILE_TAILLE * hauteurSaut);
         tt.setByX(0);
         tt.setDuration(Duration.millis(hauteurSaut * 100));
-        tt.play();
+        lancerAnimation();
     }
 
     //animation de la chute
     //translate transion correspondant à la hauteur de la chute
     public void animationChute(int hauteurChute) {
-        System.out.println("hauteurChute : " + hauteurChute);
-        if (tt.getCurrentRate() == 0) {
-            tt.setByY(TUILE_TAILLE * hauteurChute);
-            tt.setByX(0);
-            tt.setDuration(Duration.millis(hauteurChute * 100));
-            tt.play();
-        }
-        else {
+        if (personnage.getAvance() && tt.getCurrentRate() != 0) {
             tt.setOnFinished(actionEvent -> {
                 tt.setOnFinished(actionEvent1 -> {});
+                System.out.println("hauteurChute : " + hauteurChute);
                 tt.setByY(TUILE_TAILLE * hauteurChute);
                 tt.setByX(0);
                 tt.setDuration(Duration.millis(hauteurChute * 100));
+                lancerAnimation();
+            });
+        } else {
+            System.out.println("hauteurChute : " + hauteurChute);
+            tt.setByY(TUILE_TAILLE * hauteurChute);
+            tt.setByX(0);
+            tt.setDuration(Duration.millis(hauteurChute * 100));
+            lancerAnimation();
+        }
+    }
+
+    private void lancerAnimation() {
+        if (tt.getCurrentRate() == 0) {
+            tt.play();
+        } else {
+            tt.setOnFinished(actionEvent -> {
+                tt.setOnFinished(actionEvent1 -> {});
                 tt.play();
-            }
-            );
+            });
         }
     }
 
