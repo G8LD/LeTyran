@@ -88,14 +88,22 @@ public class PersonnageVue {
     //translate transion correspondant à la hauteur de la chute
     public void animationChute(int hauteurChute) {
         System.out.println("hauteurChute : " + hauteurChute);
-        tt.setOnFinished(actionEvent -> {
-            tt.setOnFinished(actionEvent1 -> {});
+        if (tt.getCurrentRate() == 0) {
             tt.setByY(TUILE_TAILLE * hauteurChute);
             tt.setByX(0);
             tt.setDuration(Duration.millis(hauteurChute * 100));
             tt.play();
         }
-        );
+        else {
+            tt.setOnFinished(actionEvent -> {
+                tt.setOnFinished(actionEvent1 -> {});
+                tt.setByY(TUILE_TAILLE * hauteurChute);
+                tt.setByX(0);
+                tt.setDuration(Duration.millis(hauteurChute * 100));
+                tt.play();
+            }
+            );
+        }
     }
 
     //met l'image du personnage immobile selon sa direction
