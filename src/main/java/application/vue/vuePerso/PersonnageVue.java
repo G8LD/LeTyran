@@ -71,28 +71,6 @@ public class PersonnageVue {
             tt.setByX(-TUILE_TAILLE);
         }
         tt.setDuration(Duration.millis(125));
-        lancerAnimation();
-    }
-
-    //animation du saut
-    //translate transion correspondant à la hauteur du saut
-    public void animationSaut(int hauteurSaut) {
-        tt.setByY(-TUILE_TAILLE * hauteurSaut);
-        tt.setByX(0);
-        tt.setDuration(Duration.millis(hauteurSaut * 100));
-        lancerAnimation();
-    }
-
-    //animation de la chute
-    //translate transion correspondant à la hauteur de la chute
-    public void animationChute(int hauteurChute) {
-        tt.setByY(TUILE_TAILLE * hauteurChute);
-        tt.setByX(0);
-        tt.setDuration(Duration.millis(hauteurChute * 100));
-        lancerAnimation();
-    }
-
-    private void lancerAnimation() {
         if (tt.getCurrentRate() == 0) {
             tt.play();
         } else {
@@ -101,6 +79,25 @@ public class PersonnageVue {
                 tt.play();
             });
         }
+    }
+
+    //animation du saut
+    //translate transion correspondant à la hauteur du saut
+    public void animationSaut(int hauteurSaut) {
+        System.out.println(hauteurSaut);
+        tt.setByY(-TUILE_TAILLE * hauteurSaut);
+        tt.setByX(0);
+        tt.setDuration(Duration.millis(hauteurSaut * 100));
+        tt.play();
+    }
+
+    //animation de la chute
+    //translate transion correspondant à la hauteur de la chute
+    public void animationChute(int hauteurChute) {
+        tt.setByY(TUILE_TAILLE * hauteurChute);
+        tt.setByX(0);
+        tt.setDuration(Duration.millis(hauteurChute * 100));
+        tt.play();
     }
 
     //met l'image du personnage immobile selon sa direction
