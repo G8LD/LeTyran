@@ -1,4 +1,6 @@
-package application.modele;
+package application.modele.objets;
+
+import javafx.scene.image.Image;
 
 public class Fer extends Minerai {
 

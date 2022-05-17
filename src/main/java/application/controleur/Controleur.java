@@ -7,6 +7,7 @@ import application.vue.vuePerso.PersonnageVue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
@@ -49,6 +50,12 @@ public class Controleur implements Initializable {
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, jeu));
+
+        root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, jeu));
+    }
+
+    public MapVue getMapVue() {
+        return this.mapVue;
     }
 
     public PersonnageVue getPersonnageVue() {

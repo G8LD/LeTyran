@@ -1,5 +1,6 @@
 package application.vue.vueMap;
 
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -41,6 +42,14 @@ public class MapVue {
                 img = new ImageView(ChargeurRessources.tileMapAssets.get(indexImg));
                 tileSol.getChildren().add(img);
             }
+        }
+    }
+
+    public void supprimerBloc(int id) {
+        Node node = tileSol.getChildren().get(id);
+        if(node instanceof ImageView) {
+            System.out.println(((ImageView) node).getImage().getUrl());
+            ((ImageView) node).setImage(ChargeurRessources.tileMapAssets.get(0));
         }
     }
 

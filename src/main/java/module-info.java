@@ -17,4 +17,6 @@ module application.letyran {
     opens application.vue.vuePerso to javafx.fxml;
     exports application.vue.vueMap;
     opens application.vue.vueMap to javafx.fxml;
+    exports application.modele.objets;
+    opens application.modele.objets to javafx.fxml;
 }

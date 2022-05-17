@@ -27,6 +27,7 @@ public class MapJeu {
                 tabLine = line.split(" ");
                 for (int j = 0; j < WIDTH; j++) {
                     tabMap[i][j] = Integer.parseInt(tabLine[j]);
+
                     System.out.print(tabMap[i][j] + " ");
                 }
                 System.out.println();

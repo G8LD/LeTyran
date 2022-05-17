@@ -1,6 +1,6 @@
-package application.modele;
+package application.modele.objets;
 
-public abstract class  Minerai {
+public abstract class Minerai {
     private int pv;
 
 
