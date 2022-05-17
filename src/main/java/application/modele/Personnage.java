@@ -47,12 +47,7 @@ public class Personnage {
             hauteurSaut++;
         yProperty.setValue(yProperty.getValue() - hauteurSaut);
     }
-    public void tomber() {
-        int hauteurChute = 0;
-        while (hauteurChute < 3 && yProperty.getValue() + hauteurChute + 1 < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() + hauteurChute + 1][xProperty.getValue()] == 0)
-            hauteurChute++;
-        yProperty.setValue(yProperty.getValue() + hauteurChute);
-    }
+
 
     public Direction getDirection() {
         return direction;
@@ -86,4 +81,6 @@ public class Personnage {
         this.yProperty.set(yProperty);
     }
 
+    public void update() {
+    }
 }

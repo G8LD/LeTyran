@@ -1,7 +1,8 @@
 package application.controleur;
 
 import application.modele.Environnement;
-import javafx.animation.TranslateTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import application.vue.vueMap.MapVue;
 import application.vue.vuePerso.PersonnageVue;
 import javafx.fxml.FXML;
@@ -10,23 +11,18 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
     public final static int TUILE_TAILLE = 32;
 
-    private Environnement jeu;
+    private Environnement env;
     private KeyReleased keyReleased;
     private PersonnageVue personnageVue;
     private MapVue mapVue;
+    private Timeline gameLoop;
 
     @FXML
     private StackPane root;
@@ -41,21 +37,36 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        jeu = new Environnement();
-        keyReleased = new KeyReleased(this, jeu);
-        personnageVue = new PersonnageVue(jeu.getPersonnage(), spritesJoueur, paneJoueur);
-        mapVue = new MapVue(jeu.getMapJeu().getTabMap(), tileSol, tileDecors);
+        env = new Environnement();
+        keyReleased = new KeyReleased(this, env);
+        personnageVue = new PersonnageVue(env.getPersonnage(), spritesJoueur, paneJoueur);
+        mapVue = new MapVue(env.getMapJeu().getTabMap(), tileSol, tileDecors);
 
-        root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
-        root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, jeu));
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
+
+        initAnimation();
+        gameLoop.play();
+    }
+
+    private void initAnimation() {
+        gameLoop = new Timeline();
+        gameLoop.setCycleCount(Timeline.INDEFINITE);
+
+        KeyFrame kf = new KeyFrame(
+                // on définit le FPS (nbre de frame par seconde)
+                Duration.seconds(0.017),
+                (ev ->{
+                    if (personnageVue.pasAnimations())
+                        env.getPersonnage().seDeplacer();
+
+                })
+        );
+        gameLoop.getKeyFrames().add(kf);
     }
 
     public PersonnageVue getPersonnageVue() {
         return personnageVue;
-    }
-
-    public KeyReleased getKeyReleased() {
-        return keyReleased;
     }
 }
