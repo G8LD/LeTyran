@@ -1,10 +1,7 @@
 package application.vue.vuePerso;
 
-import application.controleur.Controleur;
 import application.modele.Direction;
-import application.modele.Jeu;
 import application.modele.Personnage;
-import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
