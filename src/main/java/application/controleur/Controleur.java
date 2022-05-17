@@ -34,6 +34,8 @@ public class Controleur implements Initializable {
     private AnimationDeplacementJoueur animationDeplacementJoueur;
     private TranslateTransition tt;
     private KeyReleased keyReleased;
+   private  VieVue vie;
+
 
     @FXML
     private StackPane root;
@@ -63,10 +65,7 @@ public class Controleur implements Initializable {
         jeu.getPersonnage().getXProperty().addListener(new DeplaceListener(this, jeu));
         jeu.getPersonnage().getYProperty().addListener(new DeplaceListener(this, jeu));
         root.addEventHandler(KeyEvent.KEY_PRESSED,new InventaireControleur(root,jeu));
-        root.addEventHandler(KeyEvent.KEY_PRESSED, new VieVue(root));
-
-        VieVue vie= new VieVue(root);
-        vie.afficherVie(jeu.getPersonnage().getPv());
+        vie= new VieVue(root);
 
         construireMap();
         construireDecor();
@@ -129,6 +128,9 @@ public class Controleur implements Initializable {
                 tileSol.getChildren().add(img);
             }
         }
+    }
+    public VieVue getVie(){
+        return  this.vie;
     }
 
     private void construireDecor() {

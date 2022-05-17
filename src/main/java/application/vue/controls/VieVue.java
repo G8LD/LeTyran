@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 
-public class VieVue extends Pane implements EventHandler<T> {
+public class VieVue extends Pane {
 
     private StackPane rootPane;
     private Pane viePane;
@@ -25,6 +25,7 @@ public class VieVue extends Pane implements EventHandler<T> {
         this.viePane.setLayoutY(100);
         this.viePane.setVisible(true);
         this.rootPane.getChildren().add(this.viePane);
+        this.afficherVie(50);
     }
     public void afficherVie(int pv ){
 

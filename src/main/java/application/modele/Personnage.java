@@ -29,14 +29,19 @@ public class Personnage {
 
     public void perdrePV(){
             this.pv.setValue(this.pv.getValue()-10);
+        System.out.println(this.getPv());
     }
     public int getPv(){
        return this.pv.getValue();
     }
 
-
-
-
+    public Boolean estMort(int pv){
+        if(pv<=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
     public Inventaire getInventaire() {
         return this.inventaire;
     }
