@@ -13,4 +13,16 @@ public abstract class Arme {
     }
 
     public abstract void frapper();
+
+
+    public int getDegats() {
+        return this.degats;
+    }
+    public int setDegats(int nbDegat) {
+        return this.degats=nbDegat;
+    }
+
+    public int getQualite() {
+        return this.qualite;
+    }
 }

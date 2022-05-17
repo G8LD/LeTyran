@@ -10,4 +10,14 @@ public class Epee extends Arme {
     public void frapper() {
 
     }
+
+    public void nbDegat(int qualite) {
+        if (qualite == 1) {
+            super.setDegats(2);
+        } else if (qualite == 2) {
+            super.setDegats(5);
+        } else {
+            super.setDegats(8);
+        }
+    }
 }
