@@ -49,7 +49,10 @@ public class MapVue {
         Node node = tileSol.getChildren().get(id);
         if(node instanceof ImageView) {
             System.out.println(((ImageView) node).getImage().getUrl());
-            ((ImageView) node).setImage(ChargeurRessources.tileMapAssets.get(0));
+            ImageView imgView = (ImageView)node;
+            imgView.setFitHeight(32);
+            imgView.setFitWidth(32);
+            imgView.setImage(new Image("file:src/main/resources/application/pack1/Terre.png"));
         }
     }
 

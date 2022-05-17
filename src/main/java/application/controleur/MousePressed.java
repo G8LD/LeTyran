@@ -19,12 +19,19 @@ public class MousePressed implements EventHandler<MouseEvent> {
     public void handle(MouseEvent mouseEvent) {
         int x = (int)mouseEvent.getX() / 32;
         int y = (int)mouseEvent.getY() / 32;
-        int id = (y * MapJeu.WIDTH) + x;
-
-        System.out.println("x : " + x + " y " + y + " bloc numéro : " + id);
+        int id;
 
 
-        this.env.getMapJeu().getTabMap()[x][y] = 0;
-        this.controleur.getMapVue().supprimerBloc(id);
+
+        if(this.env.getMapJeu().getTabMap()[y][x] != 0) {
+            id = (y * MapJeu.WIDTH) + x;
+
+            this.env.getMapJeu().getTabMap()[y][x] = 0;
+            this.controleur.getMapVue().supprimerBloc(id);
+
+            System.out.println("x : " + x + " y " + y + " bloc numéro : " + id);
+        }
+
+
     }
 }
