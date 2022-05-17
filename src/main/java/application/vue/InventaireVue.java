@@ -25,7 +25,6 @@ public class InventaireVue {
 
     private StackPane rootPane;
     private InventaireControleur controleur;
-    private int indexObjet;
 
     private AudioClip sound = new AudioClip(getClass().getResource("/application/sons/ui_menu_button_click_24.mp3").toExternalForm());
 
@@ -36,8 +35,59 @@ public class InventaireVue {
         this.slotImg = new Image("file:src/main/resources/application/inventaire/slot.png");
         System.out.println(getClass());
 
+        this.invPaneConteneur = new Pane();
+        this.invPaneConteneur.setVisible(false);
+
+        ajouterObjet();
+
+    }
+
+    public void ajouterObjet() {
+        ColorInput color = new ColorInput();
+        color.setPaint(Color.RED);
 
 
+
+        int indexItem = 0;
+        for(int i = 0; i < 4; i++) {
+            for(int j =0; j < 10; j++) {
+                ImageView imgv = new ImageView(this.slotImg);
+                imgv.setFitWidth(48);
+                imgv.setFitHeight(48);
+                imgv.setX(48 * j);
+                imgv.setY(48 * i);
+
+                //Ajouter un autre conteneur pour les items
+                this.invPaneConteneur.getChildren().add(imgv);
+
+                //On vérifie que l'index ne dépasse pas le nombre d'objets actuellement portés
+                if (indexItem < inv.getObjets().size()) {
+                    ObjetJeu objetJeu = inv.getObjets().get(indexItem);
+                    int placeInventaire = objetJeu.getPlaceInventaire() - 1;
+
+                    //System.out.println(objetJeu.getPlaceInventaire());
+
+                    InvSlot slot = new InvSlot(this, inv.getObjets().get(indexItem), imgv);
+                    slot.setPrefWidth(32);
+                    slot.setPrefHeight(32);
+
+                    if(placeInventaire >= 10) {
+                        //Pour faire en sorte que ça reprenne à 0 dès qu'on atteint la dernière place de la ligne
+                        int placeAffiche = placeInventaire - (10 * (placeInventaire/10));
+                        slot.setLayoutX(48 * placeAffiche + 8);
+                    }else {
+                        slot.setLayoutX(48 * placeInventaire + 8);
+                    }
+
+                    slot.setLayoutY(48 * (placeInventaire/10) + 8);
+
+                    this.invPaneConteneur.getChildren().add(slot);
+                    indexItem++;
+                }
+            }
+        }
+
+        this.rootPane.getChildren().add(this.invPaneConteneur);
     }
 
     public void lacherObjet() {
@@ -104,57 +154,7 @@ public class InventaireVue {
     }
 
     public void afficherInventaire() {
-        this.affiche = !this.affiche;
-        int size = 64;
-        if(affiche) {
-            ColorInput color = new ColorInput();
-            color.setPaint(Color.RED);
-
-            this.invPaneConteneur = new Pane();
-
-            int indexItem = 0;
-            for(int i = 0; i < 4; i++) {
-                for(int j =0; j < 10; j++) {
-                    ImageView imgv = new ImageView(this.slotImg);
-                    imgv.setFitWidth(48);
-                    imgv.setFitHeight(48);
-                    imgv.setX(48 * j);
-                    imgv.setY(48 * i);
-
-                    //Ajouter un autre conteneur pour les items
-                    this.invPaneConteneur.getChildren().add(imgv);
-
-                    //On vérifie que l'index ne dépasse pas le nombre d'objets actuellement portés
-                    if (indexItem < inv.getObjets().size()) {
-                        ObjetJeu objetJeu = inv.getObjets().get(indexItem);
-                        int placeInventaire = objetJeu.getPlaceInventaire() - 1;
-
-                        //System.out.println(objetJeu.getPlaceInventaire());
-
-                        InvSlot slot = new InvSlot(this, inv.getObjets().get(indexItem), imgv);
-                        slot.setPrefWidth(32);
-                        slot.setPrefHeight(32);
-
-                        if(placeInventaire >= 10) {
-                            //Pour faire en sorte que ça reprenne à 0 dès qu'on atteint la dernière place de la ligne
-                            int placeAffiche = placeInventaire - (10 * (placeInventaire/10));
-                            slot.setLayoutX(48 * placeAffiche + 8);
-                        }else {
-                            slot.setLayoutX(48 * placeInventaire + 8);
-                        }
-
-                        slot.setLayoutY(48 * (placeInventaire/10) + 8);
-
-                        this.invPaneConteneur.getChildren().add(slot);
-                        indexItem++;
-                    }
-                }
-            }
-
-            this.rootPane.getChildren().add(this.invPaneConteneur);
-        }else {
-            this.rootPane.getChildren().remove(this.invPaneConteneur);
-        }
+        this.invPaneConteneur.setVisible(!this.invPaneConteneur.isVisible());
     }
 
     public void definirObjetPrit(InvSlot obj) {

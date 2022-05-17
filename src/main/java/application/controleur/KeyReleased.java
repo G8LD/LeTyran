@@ -1,20 +1,18 @@
 package application.controleur;
 
 import application.modele.Direction;
-import application.modele.Jeu;
+import application.modele.Environnement;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-import java.util.ArrayList;
-
 public class KeyReleased implements EventHandler<KeyEvent> {
 
     private Controleur controleur;
-    private Jeu jeu;
+    private Environnement jeu;
     private KeyCode toucheLachee;
 
-    public KeyReleased(Controleur controleur, Jeu jeu) {
+    public KeyReleased(Controleur controleur, Environnement jeu) {
         this.controleur = controleur;
         this.jeu = jeu;
         toucheLachee = null;

@@ -1,7 +1,6 @@
 package application.controleur;
 
-import application.modele.Direction;
-import application.modele.Jeu;
+import application.modele.Environnement;
 import application.vue.ChargeurRessources;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -29,7 +28,7 @@ import static application.modele.MapJeu.WIDTH;
 public class Controleur implements Initializable {
     public final static int TUILE_TAILLE = 32;
 
-    private Jeu jeu;
+    private Environnement jeu;
     private AnimationDeplacementJoueur animationDeplacementJoueur;
     private TranslateTransition tt;
     private KeyReleased keyReleased;
@@ -47,7 +46,7 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        jeu = new Jeu();
+        jeu = new Environnement();
         animationDeplacementJoueur = new AnimationDeplacementJoueur(this, jeu, spritesJoueur);
         keyReleased = new KeyReleased(this, jeu);
         tt = new TranslateTransition();

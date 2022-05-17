@@ -7,14 +7,14 @@ public class Personnage {
     private IntegerProperty xProperty;
     private IntegerProperty yProperty;
     private Direction direction;
-    private MapJeu mapJeu;
+    private Environnement env;
     private Inventaire inventaire;
 
-    public Personnage(MapJeu mapjeu) {
+    public Personnage(Environnement env) {
         xProperty = new SimpleIntegerProperty(0);
         yProperty = new SimpleIntegerProperty(11);
         direction = Direction.Immobile;
-        this.mapJeu = mapjeu;
+        this.env = env;
 
         this.inventaire = new Inventaire();
         inventaire.ajouterObjet();
@@ -34,7 +34,7 @@ public class Personnage {
             case Droit: dX = 1; dY = 0; break;
             default: dX = 0; dY = 0; break;
         }
-        if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && mapJeu.getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
+        if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
             xProperty.setValue(xProperty.getValue() + dX);
             yProperty.setValue(yProperty.getValue() + dY);
             System.out.println(xProperty.getValue() + "\t" + yProperty.getValue());
@@ -43,13 +43,13 @@ public class Personnage {
 
     public void sauter() {
         int hauteurSaut = 0;
-        while (hauteurSaut < 3 && yProperty.getValue() - hauteurSaut - 1 > 0 && mapJeu.getTabMap()[yProperty.getValue() - hauteurSaut - 1][xProperty.getValue()] == 0)
+        while (hauteurSaut < 3 && yProperty.getValue() - hauteurSaut - 1 > 0 && env.getMapJeu().getTabMap()[yProperty.getValue() - hauteurSaut - 1][xProperty.getValue()] == 0)
             hauteurSaut++;
         yProperty.setValue(yProperty.getValue() - hauteurSaut);
     }
     public void tomber() {
         int hauteurChute = 0;
-        while (hauteurChute < 3 && yProperty.getValue() + hauteurChute + 1 < MapJeu.HEIGHT && mapJeu.getTabMap()[yProperty.getValue() + hauteurChute + 1][xProperty.getValue()] == 0)
+        while (hauteurChute < 3 && yProperty.getValue() + hauteurChute + 1 < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() + hauteurChute + 1][xProperty.getValue()] == 0)
             hauteurChute++;
         yProperty.setValue(yProperty.getValue() + hauteurChute);
     }
