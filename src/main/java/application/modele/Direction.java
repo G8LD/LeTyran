@@ -1,5 +1,5 @@
 package application.modele;
 
 public enum Direction {
-    Gauche, Droit
+    Gauche, Droit, Haut, Bas
 }

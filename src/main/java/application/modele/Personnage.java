@@ -35,16 +35,32 @@ public class Personnage {
         System.out.println("deplacer");
         int dX, dY;
         switch (direction) {
-            case Gauche: dX = -1; dY = 0; break;
-            case Droit: dX = 1; dY = 0; break;
-            default: dX = 0; dY = 0; break;
+            case Gauche:
+                dX = -1;
+                dY = 0;
+                break;
+            case Droit:
+                dX = 1;
+                dY = 0;
+                break;
+            default:
+                dX = 0;
+                dY = 0;
+                break;
         }
 
-        if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
+        if(!env.entreEnCollision(this, direction)) {
+            xProperty.setValue(xProperty.getValue() + dX);
+            yProperty.setValue(yProperty.getValue() + dY);
+            System.out.println(this.getX() + " " + this.getY());
+        }
+
+
+        /*if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
             xProperty.setValue(xProperty.getValue() + dX);
             yProperty.setValue(yProperty.getValue() + dY);
             //System.out.println("seDeplacer : " + xProperty.getValue() + "\t" + yProperty.getValue());
-        }
+        }*/
     }
 
     public void sauter() {
@@ -61,21 +77,22 @@ public class Personnage {
     }
 
     public void tomber() {
-        int hauteurChute = 0;
-        while (yProperty.getValue() + hauteurChute + 1 < MapJeu.HEIGHT
-                && env.getMapJeu().getTabMap()[yProperty.getValue() + hauteurChute + 1][xProperty.getValue()] == 0)
-            hauteurChute++;
-        if (hauteurChute > 0) {
-            System.out.println("tomber");
+        if(!env.entreEnCollision(this, Direction.Bas)) {
             tombe = true;
-            yProperty.setValue(yProperty.getValue() + hauteurChute);
-            //System.out.println("tomber : " + xProperty.getValue() + "\t" + yProperty.getValue());
+        } else {
+            tombe = false;
+        }
+
+        if(tombe) {
+            yProperty.setValue(yProperty.getValue() + 1);
         }
     }
 
     public void update() {
+        tomber();
         if (saute) sauter();
         if (avanceProperty.getValue()) seDeplacer();
+
     }
 
 //region Getter & Setter
