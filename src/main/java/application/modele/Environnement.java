@@ -20,10 +20,8 @@ public class Environnement {
         return mapJeu;
     }
 
-    public boolean entreEnCollision(Personnage pers, Direction dir) {
+    public boolean entreEnCollision(int x, int y, Direction dir) {
         boolean collision = false;
-        int x = pers.getXProperty().getValue();
-        int y = pers.getYProperty().getValue();
         int[][] intMap = mapJeu.getTabMap();
 
         switch (dir) {
@@ -56,8 +54,5 @@ public class Environnement {
         System.out.println(collision);
 
         return collision;
-
     }
-
-
 }

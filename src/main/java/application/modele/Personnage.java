@@ -49,7 +49,7 @@ public class Personnage {
                 break;
         }
 
-        if(!env.entreEnCollision(this, direction)) {
+        if(!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), direction)) {
             xProperty.setValue(xProperty.getValue() + dX);
             yProperty.setValue(yProperty.getValue() + dY);
             System.out.println(this.getX() + " " + this.getY());
@@ -77,14 +77,12 @@ public class Personnage {
     }
 
     public void tomber() {
-        if(!env.entreEnCollision(this, Direction.Bas)) {
-            tombe = true;
-        } else {
-            tombe = false;
-        }
+        int hauteurChute = 0;
+        while (!env.entreEnCollision(xProperty.getValue(), yProperty.getValue()+hauteurChute, Direction.Bas)) hauteurChute++;
 
-        if(tombe) {
-            yProperty.setValue(yProperty.getValue() + 1);
+        if(hauteurChute > 0) {
+            tombe = true;
+            yProperty.setValue(yProperty.getValue() + hauteurChute);
         }
     }
 
