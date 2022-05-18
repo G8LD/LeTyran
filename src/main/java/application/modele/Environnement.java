@@ -28,8 +28,8 @@ public class Environnement {
 
         switch (dir) {
             case Droit:
-                if(x + 1 > MapJeu.WIDTH || intMap[y][x + 1] != 0) {
-                    System.out.println("Collision avec " + intMap[x + 1][y]);
+                if(x + 1 >= MapJeu.WIDTH || intMap[y][x + 1] != 0) {
+                    //System.out.println("Collision avec " + intMap[y][x + 1]);
                     collision = true;
                 }
                 break;
@@ -40,7 +40,7 @@ public class Environnement {
                 break;
             case Bas:
                 //System.out.println(intMap[y + 1][x] == 0);
-                if(y + 1 > MapJeu.HEIGHT || intMap[y + 1][x] != 0) {
+                if(y + 1 >= MapJeu.HEIGHT || intMap[y + 1][x] != 0) {
                     collision = true;
                 }
                 break;

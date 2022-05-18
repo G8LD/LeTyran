@@ -1,6 +1,5 @@
 package application.vue.vuePerso;
 
-import application.modele.Direction;
 import application.modele.Personnage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
