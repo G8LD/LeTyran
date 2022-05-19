@@ -15,6 +15,7 @@ public class Personnage {
     private boolean tombe;
     private BooleanProperty avanceProperty;
 
+
     public Personnage(Environnement env) {
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
