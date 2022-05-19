@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
@@ -55,14 +56,20 @@ public class InvItem extends StackPane {
             mouseExited();
         });
 
-        this.setOnMousePressed(mouseEvent -> {
-            this.invVue.definirObjetPrit(this);
-            dragActive = true;
+        this.setOnMouseReleased(mouseEvent -> {
+            if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+                dragActive = true;
+                this.invVue.lacherObjet(this);
+            }
         });
 
-        this.setOnMouseReleased(mouseEvent -> {
-            dragActive = true;
-            this.invVue.lacherObjet();
+        this.setOnMousePressed(mouseEvent -> {
+            if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+                this.invVue.definirObjetPrit(this);
+                dragActive = true;
+            } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+                this.invVue.lacherObjetInventaire(this);
+            }
         });
 
         this.setOnMouseDragged(mouseEvent ->

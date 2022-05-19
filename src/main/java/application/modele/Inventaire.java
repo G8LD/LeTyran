@@ -1,5 +1,6 @@
 package application.modele;
 
+import application.vue.controls.InvItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -23,8 +24,8 @@ public class Inventaire {
         }
     }
 
-    public void retirerObjet() {
-
+    public void retirerObjet(ObjetJeu objet) {
+        objets.remove(objet);
     }
 
 

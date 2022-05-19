@@ -1,5 +1,6 @@
 package application.controleur;
 
+import application.controleur.listeners.ObjetSupprimeListener;
 import application.modele.Inventaire;
 import application.modele.Jeu;
 import application.vue.InventaireVue;
@@ -33,6 +34,8 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
         this.inv = this.jeu.getPersonnage().getInventaire();
 
         this.invVue = new InventaireVue(inv, root, this);
+
+        this.inv.getObjets().addListener(new ObjetSupprimeListener(this));
     }
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -47,7 +50,12 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
         objetInventaire.getObjet().setPlaceInventaire(nouvellePlace);
     }
 
-    public void lacherObjet() {
+    public void lacherObjet(InvItem objetInventaire) {
+        this.inv.retirerObjet(objetInventaire.getObjet());
+
+    }
+
+    public void enleverObjetAffichage(int indexObjetInventaire) {
 
     }
 
@@ -61,5 +69,7 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
         second.getObjet().setPlaceInventaire(nouvPlaceSec);
 
     }
+
+
 
 }

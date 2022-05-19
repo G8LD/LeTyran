@@ -39,7 +39,7 @@ public class InventaireVue {
 
     }
 
-    public void lacherObjet() {
+    public void lacherObjet(InvItem invItem) {
         if(this.invPaneConteneur != null) {
 
             boolean found = false;
@@ -158,7 +158,12 @@ public class InventaireVue {
 
     }
 
+    public void lacherObjetInventaire(InvItem item) {
+        this.controleur.lacherObjet(item);
+    }
+
     public void definirObjetPrit(InvItem obj) {
+        System.out.println(obj);
         this.objPrit = obj;
     }
 }
