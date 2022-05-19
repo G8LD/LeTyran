@@ -18,7 +18,7 @@ public class Main extends Application {
             Scene scene = new Scene(root, WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
             root.requestFocus();
             primaryStage.setTitle("Le Tyran");
-            primaryStage.setResizable(false);
+            primaryStage.setResizable(true);
             //primaryStage.setMaximized(true);
             primaryStage.setScene(scene);
 

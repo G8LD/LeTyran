@@ -31,6 +31,11 @@ public class Personnage {
             this.pv.setValue(this.pv.getValue()-10);
         System.out.println(this.getPv());
     }
+    public void prendrePV(){
+        this.pv.setValue(this.pv.getValue()+10);
+        System.out.println(this.getPv());
+    }
+
     public int getPv(){
        return this.pv.getValue();
     }

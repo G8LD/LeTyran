@@ -26,6 +26,7 @@ public class VieVue extends Pane {
         this.viePane.setVisible(true);
         this.rootPane.getChildren().add(this.viePane);
         this.afficherVie(50);
+        this.clearPane();
     }
     public void afficherVie(int pv ){
 
@@ -64,9 +65,13 @@ public class VieVue extends Pane {
         }
         image.setFitHeight(50);
         image.setFitWidth(120);
-        image.setX(350);
-        image.setY(-323);
+        image.setX(359);
+        image.setY(-317);
         this.viePane.getChildren().add(image);
+    }
+
+    public void clearPane(){
+        this.viePane.getChildren().clear();
     }
 
 

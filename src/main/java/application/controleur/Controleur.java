@@ -59,13 +59,13 @@ public class Controleur implements Initializable {
         paneJoueur.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         tileDecors.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
-
-        root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu));
+        vie= new VieVue(root);
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, jeu, vie));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         jeu.getPersonnage().getXProperty().addListener(new DeplaceListener(this, jeu));
         jeu.getPersonnage().getYProperty().addListener(new DeplaceListener(this, jeu));
         root.addEventHandler(KeyEvent.KEY_PRESSED,new InventaireControleur(root,jeu));
-        vie= new VieVue(root);
+
 
         construireMap();
         construireDecor();
