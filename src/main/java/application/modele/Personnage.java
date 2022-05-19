@@ -49,18 +49,18 @@ public class Personnage {
     }
 
     public void tomber() {
-        if (!saute && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
+        if (!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
             tombe = true;
             yProperty.setValue(yProperty.getValue() + 2);
-        } else if (tombe) {
+        } else {
             tombe = false;
             hauteurSaut = 0;
         }
     }
 
     public void update() {
-        tomber();
         if (saute) sauter();
+        else tomber();
         if (avanceProperty.getValue()) seDeplacer();
 
     }
