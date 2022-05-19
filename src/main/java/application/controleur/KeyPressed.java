@@ -17,7 +17,6 @@ public class KeyPressed implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent event) {
-        System.out.println(event.getCode());
         switch (event.getCode()) {
             case SPACE:
                 if (!jeu.getPersonnage().getTombe())

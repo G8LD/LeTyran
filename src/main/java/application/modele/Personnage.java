@@ -31,10 +31,6 @@ public class Personnage {
         inventaire.ajouterObjet();
     }
 
-    public Inventaire getInventaire() {
-        return this.inventaire;
-    }
-
     public void seDeplacer() {
         if(!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), direction)) {
             if (direction == Direction.Droit)
@@ -47,7 +43,6 @@ public class Personnage {
 
     public void sauter() {
         if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
-            System.out.println(direction);
             yProperty.setValue(yProperty.getValue() - 3);
             hauteurSaut +=3;
         } else if (saute)
@@ -132,5 +127,8 @@ public class Personnage {
         this.tombe = tombe;
     }
 
+    public Inventaire getInventaire() {
+        return this.inventaire;
+    }
     //endregion
 }
