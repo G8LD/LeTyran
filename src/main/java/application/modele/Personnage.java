@@ -22,7 +22,7 @@ public class Personnage {
     public Personnage(Environnement env) {
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
-        xProperty = new SimpleIntegerProperty(11*32);
+        xProperty = new SimpleIntegerProperty(6*32);
         yProperty = new SimpleIntegerProperty(11*32);
         direction = Direction.Droit;
         hauteurSaut = 0;
@@ -34,17 +34,16 @@ public class Personnage {
     public void seDeplacer() {
         if(!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), direction)) {
             if (direction == Direction.Droit)
-                xProperty.setValue(xProperty.getValue() + 3);
+                xProperty.setValue(xProperty.getValue() + 2);
             else
-                xProperty.setValue(xProperty.getValue() - 3);
-            System.out.println("perso x = " + getX() + " y = " + getY());
+                xProperty.setValue(xProperty.getValue() - 2);
         }
     }
 
     public void sauter() {
         if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
-            yProperty.setValue(yProperty.getValue() - 3);
-            hauteurSaut +=3;
+            yProperty.setValue(yProperty.getValue() - 2);
+            hauteurSaut +=2;
         } else if (saute)
             saute = false;
     }
@@ -52,7 +51,7 @@ public class Personnage {
     public void tomber() {
         if (!saute && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
             tombe = true;
-            yProperty.setValue(yProperty.getValue() + 3);
+            yProperty.setValue(yProperty.getValue() + 2);
         } else if (tombe) {
             tombe = false;
             hauteurSaut = 0;
@@ -63,6 +62,7 @@ public class Personnage {
         tomber();
         if (saute) sauter();
         if (avanceProperty.getValue()) seDeplacer();
+        //System.out.println("perso x = " + getX() + " y = " + getY());
 
     }
 
