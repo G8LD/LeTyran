@@ -14,6 +14,7 @@ public abstract class Arme {
 
     public abstract void frapper();
 
+    public  abstract void nbDegat(int qualite);
 
     public int getDegats() {
         return this.degats;
