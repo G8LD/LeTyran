@@ -3,10 +3,9 @@ package application.controleur;
 import application.modele.Inventaire;
 import application.modele.Jeu;
 import application.vue.InventaireVue;
-import application.vue.controls.InvSlot;
+import application.vue.controls.InvItem;
 import javafx.event.EventHandler;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -43,9 +42,20 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
     }
 
 
-    public void objetLache(InvSlot objetInventaire, int nouvellePlace) {
+    public void objetLache(InvItem objetInventaire, int nouvellePlace) {
         //System.out.println(objetInventaire.getObjet() + " " + nouvellePlace);
         objetInventaire.getObjet().setPlaceInventaire(nouvellePlace);
+    }
+
+    public void echangerObjet(InvItem premier, InvItem second, int nouvPlacePrem, int nouvPlaceSec) {
+        int placeEchange = second.getObjet().getPlaceInventaire();
+
+
+        //System.out.println(second.getParent());
+
+        premier.getObjet().setPlaceInventaire(nouvPlacePrem);
+        second.getObjet().setPlaceInventaire(nouvPlaceSec);
+
     }
 
 }
