@@ -1,40 +1,26 @@
 package application.modele.objets;
 
+import application.modele.armes.Arme;
+
 public abstract class Minerai {
+
+    private final static int PV_MAX = 6;
+
+    private int x;
+    private int y;
     private int pv;
 
-
-    public Minerai(int pv){
-        this.pv=pv;
+    public Minerai(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.pv = PV_MAX;
     }
 
-    public int getPv() {
-        return pv;
+    public void decrementerPv(int degat) {
+        pv -= degat;
     }
 
-    public int décrementerVie(int attaqueArme){
-        this.pv-=attaqueArme;
-        return this.pv;
-    }
-
-    public boolean estCassé(int pv){
-        if(this.pv<=0) {
-            return true;
-        }
-        else
-            return false;
-    }
-
-
-
-
-
-    /*
-    public void recolteMinerai(int pv){
-        if (estCassé(pv));
-    }
-    */
-
-    }
+    public abstract void frappe(Arme arme);
+}
 
 
