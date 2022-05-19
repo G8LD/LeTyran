@@ -45,7 +45,7 @@ public class PersonnageVue {
     private void construirePerso(StackPane spritesJoueur) {
         for (int i = 0; i < spritesJoueur.getChildren().size(); i++)
             spritesJoueur.getChildren().get(i).setVisible(false);
-        spritesJoueur.getChildren().get(3).setVisible(true);
+        spritesJoueur.getChildren().get(0).setVisible(true);
         spritesJoueur.setTranslateX(personnage.getX() * TUILE_TAILLE);
         spritesJoueur.setTranslateY(personnage.getY() * TUILE_TAILLE);
     }
@@ -59,15 +59,17 @@ public class PersonnageVue {
         while (!spritesJoueur.getChildren().get(i).isVisible()) i++;
         spritesJoueur.getChildren().get(i).setVisible(false);
 
+        int idSprite;
+        if (i == 1) idSprite = 2;
+        else idSprite = 1;
+        spritesJoueur.getChildren().get(idSprite).setVisible(true);
+
         tt.setByY(0);
         if (personnage.getDirection() == Direction.Droit) {
-            if (i == 4) spritesJoueur.getChildren().get(5).setVisible(true);
-            else spritesJoueur.getChildren().get(4).setVisible(true);
+            spritesJoueur.getChildren().get(idSprite).setScaleX(1);
             tt.setByX(TUILE_TAILLE);
-        }
-        else {
-            if (i == 1) spritesJoueur.getChildren().get(2).setVisible(true);
-            else spritesJoueur.getChildren().get(1).setVisible(true);
+        } else {
+            spritesJoueur.getChildren().get(idSprite).setScaleX(-1);
             tt.setByX(-TUILE_TAILLE);
         }
         tt.setDuration(Duration.millis(125));
@@ -75,7 +77,8 @@ public class PersonnageVue {
             tt.play();
         } else {
             tt.setOnFinished(actionEvent -> {
-                tt.setOnFinished(actionEvent1 -> {});
+                tt.setOnFinished(actionEvent1 -> {
+                });
                 tt.play();
             });
         }
@@ -104,10 +107,11 @@ public class PersonnageVue {
     public void immobile() {
         for (int i = 0; i  < spritesJoueur.getChildren().size(); i++)
             spritesJoueur.getChildren().get(i).setVisible(false);
+        spritesJoueur.getChildren().get(0).setVisible(true);
 
         switch (personnage.getDirection()) {
-            case Gauche : spritesJoueur.getChildren().get(0).setVisible(true); break;
-            case Droit : spritesJoueur.getChildren().get(3).setVisible(true); break;
+            case Gauche : spritesJoueur.getChildren().get(0).setScaleX(-1); break;
+            case Droit : spritesJoueur.getChildren().get(0).setScaleX(1); break;
             default: break;
         }
     }
