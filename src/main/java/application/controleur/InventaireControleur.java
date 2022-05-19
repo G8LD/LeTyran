@@ -2,7 +2,7 @@ package application.controleur;
 
 import application.controleur.listeners.ObjetSupprimeListener;
 import application.modele.Inventaire;
-import application.modele.Jeu;
+import application.modele.Environnement;
 import application.vue.InventaireVue;
 import application.vue.controls.InvItem;
 import javafx.event.EventHandler;
@@ -16,7 +16,7 @@ import javafx.scene.layout.StackPane;
 public class InventaireControleur implements EventHandler<KeyEvent> {
 
     private StackPane root;
-    private Jeu jeu;
+    private Environnement jeu;
     private Inventaire inv;
 
 
@@ -27,7 +27,7 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
 
     private Pane invPane;
 
-    public InventaireControleur(StackPane root, Jeu jeu) {
+    public InventaireControleur(StackPane root, Environnement jeu) {
         this.root = root;
         this.jeu = jeu;
 

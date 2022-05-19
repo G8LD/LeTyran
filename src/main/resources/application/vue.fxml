@@ -16,32 +16,17 @@
                <children>
                   <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@perso/gauche_immobile.png" />
+                        <Image url="@perso/perso_immobile.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@perso/gauche_mouvement2.png" />
+                        <Image url="@perso/perso_mouvement1.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@perso/gauche_mouvement1.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@perso/droit_immobile.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@perso/droit_mouvement1.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@perso/droit_immobile.png" />
+                        <Image url="@perso/perso_mouvement2.png" />
                      </image>
                   </ImageView>
                </children>
