@@ -38,11 +38,10 @@ public class Personnage {
             else
                 xProperty.setValue(xProperty.getValue() - 2);
         }
-        System.out.println("perso x = " + getX() + " y = " + getY());
     }
 
     public void sauter() {
-        if (!tombe && hauteurSaut < 3 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
+        if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
             yProperty.setValue(yProperty.getValue() - 2);
             hauteurSaut +=2;
         } else if (saute)
@@ -63,7 +62,6 @@ public class Personnage {
         tomber();
         if (saute) sauter();
         if (avanceProperty.getValue()) seDeplacer();
-        //System.out.println("perso x = " + getX() + " y = " + getY());
 
     }
 
