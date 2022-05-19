@@ -5,7 +5,10 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import static application.modele.MapJeu.TUILE_TAILLE;
+
 public class Personnage {
+
     private IntegerProperty xProperty;
     private IntegerProperty yProperty;
     private Direction direction;
@@ -14,15 +17,16 @@ public class Personnage {
     private boolean saute;
     private boolean tombe;
     private BooleanProperty avanceProperty;
+    private int hauteurSaut;
 
     public Personnage(Environnement env) {
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
-        xProperty = new SimpleIntegerProperty(1);
-        yProperty = new SimpleIntegerProperty(11);
+        xProperty = new SimpleIntegerProperty(11*32);
+        yProperty = new SimpleIntegerProperty(11*32);
         direction = Direction.Droit;
+        hauteurSaut = 0;
         this.env = env;
-
         this.inventaire = new Inventaire();
         inventaire.ajouterObjet();
     }
@@ -32,57 +36,31 @@ public class Personnage {
     }
 
     public void seDeplacer() {
-        System.out.println("deplacer");
-        int dX, dY;
-        switch (direction) {
-            case Gauche:
-                dX = -1;
-                dY = 0;
-                break;
-            case Droit:
-                dX = 1;
-                dY = 0;
-                break;
-            default:
-                dX = 0;
-                dY = 0;
-                break;
-        }
-
         if(!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), direction)) {
-            xProperty.setValue(xProperty.getValue() + dX);
-            yProperty.setValue(yProperty.getValue() + dY);
-            System.out.println(this.getX() + " " + this.getY());
+            if (direction == Direction.Droit)
+                xProperty.setValue(xProperty.getValue() + 3);
+            else
+                xProperty.setValue(xProperty.getValue() - 3);
+            System.out.println("perso x = " + getX() + " y = " + getY());
         }
-
-
-        /*if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
-            xProperty.setValue(xProperty.getValue() + dX);
-            yProperty.setValue(yProperty.getValue() + dY);
-            //System.out.println("seDeplacer : " + xProperty.getValue() + "\t" + yProperty.getValue());
-        }*/
     }
 
     public void sauter() {
-        System.out.println("sauter");
-        int hauteurSaut = 0;
-        while (hauteurSaut < 3 && yProperty.getValue() - hauteurSaut - 1 > 0
-                && env.getMapJeu().getTabMap()[yProperty.getValue() - hauteurSaut - 1][xProperty.getValue()] == 0)
-            hauteurSaut++;
-        if (hauteurSaut == 0) saute = false;
-        else {
-            yProperty.setValue(yProperty.getValue() - hauteurSaut);
-            //System.out.println("sauter : " + xProperty.getValue() + "\t" + yProperty.getValue());
-        }
+        if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
+            System.out.println(direction);
+            yProperty.setValue(yProperty.getValue() - 3);
+            hauteurSaut +=3;
+        } else if (saute)
+            saute = false;
     }
 
     public void tomber() {
-        int hauteurChute = 0;
-        while (!env.entreEnCollision(xProperty.getValue(), yProperty.getValue()+hauteurChute, Direction.Bas)) hauteurChute++;
-
-        if(hauteurChute > 0) {
+        if (!saute && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
             tombe = true;
-            yProperty.setValue(yProperty.getValue() + hauteurChute);
+            yProperty.setValue(yProperty.getValue() + 3);
+        } else if (tombe) {
+            tombe = false;
+            hauteurSaut = 0;
         }
     }
 
