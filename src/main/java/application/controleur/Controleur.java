@@ -25,23 +25,19 @@ public class Controleur implements Initializable {
     private MapVue mapVue;
     private Timeline gameLoop;
 
-    @FXML
-    private StackPane root;
-    @FXML
-    private TilePane tileSol;
-    @FXML
-    private TilePane tileDecors;
-    @FXML
-    private Pane paneJoueur;
-    @FXML
-    private StackPane spritesJoueur;
+    @FXML private StackPane root;
+    @FXML private TilePane tileSol;
+    @FXML private TilePane tileDecors;
+    @FXML private TilePane tileFond;
+    @FXML private Pane paneJoueur;
+    @FXML private StackPane spritesJoueur;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         env = new Environnement();
         keyReleased = new KeyReleased(this, env);
         personnageVue = new PersonnageVue(env.getPersonnage(), spritesJoueur, paneJoueur);
-        mapVue = new MapVue(env.getMapJeu().getTabMap(), tileSol, tileDecors);
+        mapVue = new MapVue(env.getMapJeu().getTabMap(), tileSol, tileDecors, tileFond);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);

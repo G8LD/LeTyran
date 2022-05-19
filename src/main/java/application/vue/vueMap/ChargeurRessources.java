@@ -17,7 +17,7 @@ public class ChargeurRessources {
             tileMapAssets.add(null);
         }
 
-        tileMapAssets.add(0, new Image("file:src/main/resources/application/pack1/tile_transparant.png"));
+        tileMapAssets.add(0, new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
         tileMapAssets.add(2, new Image("file:src/main/resources/application/pack1/tile001.png"));
         for (int i = 2; i <= 51; i++) {
             String fileName = "0" + (i-1);

@@ -21,20 +21,23 @@ public class MapVue {
     private int[][] tabMap;
     private TilePane tileSol;
     private TilePane tileDecors;
+    private TilePane tileFond;
 
-    public MapVue(int[][] mapJeu, TilePane tileSol, TilePane tileDecor) {
+    public MapVue(int[][] mapJeu, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
         this.tabMap = mapJeu;
         this.tileSol = tileSol;
-        this.tileDecors = tileDecor;
-        tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
-        tileDecors.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        this.tileDecors = tileDecors;
+        this.tileFond = tileFond;
+        this.tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        this.tileDecors.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        this.tileFond.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         construireMap();
         construireDecor();
+        construireFond();
     }
 
     private void construireMap() {
         ChargeurRessources.charger();
-        tileSol.setBackground(Background.fill(Color.LIGHTBLUE));
         ImageView img;
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
@@ -42,17 +45,6 @@ public class MapVue {
                 img = new ImageView(ChargeurRessources.tileMapAssets.get(indexImg));
                 tileSol.getChildren().add(img);
             }
-        }
-    }
-
-    public void supprimerBloc(int id) {
-        Node node = tileSol.getChildren().get(id);
-        if(node instanceof ImageView) {
-            System.out.println(((ImageView) node).getImage().getUrl());
-            ImageView imgView = (ImageView)node;
-            imgView.setFitHeight(32);
-            imgView.setFitWidth(32);
-            imgView.setImage(new Image("file:src/main/resources/application/pack1/Terre.png"));
         }
     }
 
@@ -69,7 +61,7 @@ public class MapVue {
                 for (int j = 0; j < WIDTH; j++) {
                     switch (Integer.parseInt(tabLine[j])) {
                         case 0:
-                            img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparant.png"));
+                            img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
                             break;
                         case 1:
                             img = new ImageView(new Image("file:src/main/resources/application/pack1/tile000.png"));
@@ -92,6 +84,42 @@ public class MapVue {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void construireFond() {
+        Image imageTransparent = new Image("file:src/main/resources/application/pack1/tile_transparent.png");
+        Image imageTerre = new Image("file:src/main/resources/application/pack1/Terre.png");
+        tileFond.setBackground(Background.fill(Color.LIGHTBLUE));
+        InputStream is = getClass().getResourceAsStream("/application/tiles/TileFond.txt");
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        String line;
+        String[] tabLine;
+        ImageView img;
+        for (int i = 0; i < HEIGHT; i++) {
+            try {
+                line = br.readLine();
+                tabLine = line.split(" ");
+                for (int j = 0; j < WIDTH; j++) {
+                    switch (Integer.parseInt(tabLine[j])) {
+                        case 0: img = new ImageView(imageTransparent); break;
+                        case 1: img = new ImageView(imageTerre); break;
+                        default: img = null; break;
+                    }
+                    tileFond.getChildren().add(img);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void supprimerBloc(int id) {
+        Node node = tileSol.getChildren().get(id);
+        if(node instanceof ImageView) {
+            System.out.println(((ImageView) node).getImage().getUrl());
+            ImageView imgView = (ImageView)node;
+            imgView.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
         }
     }
 }
