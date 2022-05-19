@@ -58,7 +58,7 @@ public class InvItem extends StackPane {
 
         this.setOnMouseReleased(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
-                dragActive = true;
+                dragActive = false;
                 this.invVue.lacherObjet(this);
             }
         });
@@ -67,7 +67,7 @@ public class InvItem extends StackPane {
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
                 this.invVue.definirObjetPrit(this);
                 dragActive = true;
-            } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+            } else if (mouseEvent.getButton() == MouseButton.SECONDARY && !dragActive) {
                 this.invVue.lacherObjetInventaire(this);
             }
         });
