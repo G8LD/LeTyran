@@ -42,9 +42,13 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
     }
 
 
-    public void objetLache(InvItem objetInventaire, int nouvellePlace) {
+    public void objetPlaceInventaireChanger(InvItem objetInventaire, int nouvellePlace) {
         //System.out.println(objetInventaire.getObjet() + " " + nouvellePlace);
         objetInventaire.getObjet().setPlaceInventaire(nouvellePlace);
+    }
+
+    public void lacherObjet() {
+
     }
 
     public void echangerObjet(InvItem premier, InvItem second, int nouvPlacePrem, int nouvPlaceSec) {

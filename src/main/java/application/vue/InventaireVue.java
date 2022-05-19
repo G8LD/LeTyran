@@ -1,13 +1,11 @@
 package application.vue;
 
 import application.controleur.InventaireControleur;
-import application.modele.ObjetJeu;
 import application.vue.controls.InvItem;
 import application.modele.Inventaire;
 import application.vue.controls.InvSlot;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -76,43 +74,46 @@ public class InventaireVue {
                 index++;
             }
 
-
-            if(seletecSlot.getChildren().size() == 2) {
-                //Code pour échanger deux items
-                int autrePlace = this.invPaneConteneur.getChildren().indexOf(slotParent);
+            if(seletecSlot != slotParent) {
 
 
-                InvItem selectSlotItem = (InvItem) seletecSlot.getChildren().get(1);
-                seletecSlot.getChildren().remove(selectSlotItem);
-                slotParent.getChildren().remove(this.objPrit);
-
-                seletecSlot.getChildren().add(this.objPrit);
-                slotParent.getChildren().add(selectSlotItem);
+                if (seletecSlot.getChildren().size() == 2) {
+                    //Code pour échanger deux items
+                    int autrePlace = this.invPaneConteneur.getChildren().indexOf(slotParent);
 
 
+                    InvItem selectSlotItem = (InvItem) seletecSlot.getChildren().get(1);
+                    seletecSlot.getChildren().remove(selectSlotItem);
+                    slotParent.getChildren().remove(this.objPrit);
 
-                this.controleur.echangerObjet(this.objPrit, selectSlotItem, indexConteneurTrouve, autrePlace);
-
-
-            } else {
-                slotParent.getChildren().remove(this.objPrit);
-                seletecSlot.getChildren().add(this.objPrit);
-
-
-                //On calcul la place en prenant en sachant que ça fait + 1 après avoir placé l'imageview et l'objet à affiché
+                    seletecSlot.getChildren().add(this.objPrit);
+                    slotParent.getChildren().add(selectSlotItem);
 
 
+                    this.controleur.echangerObjet(this.objPrit, selectSlotItem, indexConteneurTrouve, autrePlace);
 
-                this.controleur.objetLache(objPrit, nouvellePlace + 1);
+
+                } else {
+                    slotParent.getChildren().remove(this.objPrit);
+                    seletecSlot.getChildren().add(this.objPrit);
+
+
+                    //On calcul la place en prenant en sachant que ça fait + 1 après avoir placé l'imageview et l'objet à affiché
+
+
+                    this.controleur.objetPlaceInventaireChanger(objPrit, nouvellePlace + 1);
+                }
+
+                this.objPrit.setLayoutX(8);
+                this.objPrit.setLayoutY(8);
+
+
+                //On baisse le son de l'audio
+                sound.setVolume(1. / 30.);
+                sound.play();
+
+
             }
-
-            this.objPrit.setLayoutX(8);
-            this.objPrit.setLayoutY(8);
-
-
-            //On baisse le son de l'audio
-            sound.setVolume(1./30.);
-            sound.play();
 
             this.objPrit = null;
         }
