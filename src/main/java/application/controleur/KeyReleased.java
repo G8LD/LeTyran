@@ -19,6 +19,9 @@ public class KeyReleased implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent event) {
         switch (event.getCode()) {
+            case SPACE:
+                jeu.getPersonnage().setSaute(false);
+                break;
             case Q:
             case D:
                 jeu.getPersonnage().setAvance(false);

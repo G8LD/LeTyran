@@ -1,6 +1,5 @@
 package application.vue.vuePerso;
 
-import application.modele.Direction;
 import application.modele.Personnage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,13 +19,10 @@ public class DeplaceListener implements ChangeListener {
         if (personnage.getTombe()) {
             personnageVue.animationChute((Integer) t1 - (Integer) o);
             personnage.setTombe(false);
-            System.out.println("tombe");
         }
         else if (personnage.getSaute()) {
-            System.out.println((Integer) o - (Integer) t1);
             personnageVue.animationSaut((Integer) o - (Integer) t1);
             personnage.setSaute(false);
-            System.out.println("saute");
         }
         else if (personnage.getAvance())
             personnageVue.animationHorizontale();

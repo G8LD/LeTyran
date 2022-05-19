@@ -17,15 +17,25 @@ public class KeyPressed implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent event) {
-        if (controleur.getPersonnageVue().pasAnimations()) {
-            switch (event.getCode()) {
-                case Z:
-                    jeu.getPersonnage().setSaute(true);
-                    break;
-                case Q: jeu.getPersonnage().setDirection(Direction.Gauche); jeu.getPersonnage().setAvance(true); break;
-                case D: jeu.getPersonnage().setDirection(Direction.Droit); jeu.getPersonnage().setAvance(true); break;
-                default: break;
-            }
+        System.out.println(event.getCode());
+        switch (event.getCode()) {
+            case SPACE:
+                jeu.getPersonnage().setSaute(true);
+                break;
+            case Q:
+                if (jeu.getPersonnage().getDirection() != Direction.Gauche || !jeu.getPersonnage().getAvance()) {
+                    jeu.getPersonnage().setDirection(Direction.Gauche);
+                    jeu.getPersonnage().setAvance(true);
+                }
+                break;
+            case D:
+                if (jeu.getPersonnage().getDirection() != Direction.Droit || !jeu.getPersonnage().getAvance()) {
+                    jeu.getPersonnage().setDirection(Direction.Droit);
+                    jeu.getPersonnage().setAvance(true);
+                }
+                break;
+            default:
+                break;
         }
     }
 }

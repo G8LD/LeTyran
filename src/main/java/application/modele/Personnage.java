@@ -32,45 +32,65 @@ public class Personnage {
     }
 
     public void seDeplacer() {
+        System.out.println("deplacer");
         int dX, dY;
         switch (direction) {
-            case Gauche: dX = -1; dY = 0; break;
-            case Droit: dX = 1; dY = 0; break;
-            default: dX = 0; dY = 0; break;
+            case Gauche:
+                dX = -1;
+                dY = 0;
+                break;
+            case Droit:
+                dX = 1;
+                dY = 0;
+                break;
+            default:
+                dX = 0;
+                dY = 0;
+                break;
         }
 
-        if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
+        if(!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), direction)) {
             xProperty.setValue(xProperty.getValue() + dX);
             yProperty.setValue(yProperty.getValue() + dY);
-            System.out.println(xProperty.getValue() + "\t" + yProperty.getValue());
+            System.out.println(this.getX() + " " + this.getY());
         }
+
+
+        /*if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
+            xProperty.setValue(xProperty.getValue() + dX);
+            yProperty.setValue(yProperty.getValue() + dY);
+            //System.out.println("seDeplacer : " + xProperty.getValue() + "\t" + yProperty.getValue());
+        }*/
     }
 
     public void sauter() {
+        System.out.println("sauter");
         int hauteurSaut = 0;
         while (hauteurSaut < 3 && yProperty.getValue() - hauteurSaut - 1 > 0
                 && env.getMapJeu().getTabMap()[yProperty.getValue() - hauteurSaut - 1][xProperty.getValue()] == 0)
             hauteurSaut++;
         if (hauteurSaut == 0) saute = false;
-        else
+        else {
             yProperty.setValue(yProperty.getValue() - hauteurSaut);
+            //System.out.println("sauter : " + xProperty.getValue() + "\t" + yProperty.getValue());
+        }
     }
 
     public void tomber() {
         int hauteurChute = 0;
-        while (yProperty.getValue() + hauteurChute + 1 < MapJeu.HEIGHT
-                && env.getMapJeu().getTabMap()[yProperty.getValue() + hauteurChute + 1][xProperty.getValue()] == 0)
-            hauteurChute++;
-        if (hauteurChute > 0) {
+        while (!env.entreEnCollision(xProperty.getValue(), yProperty.getValue()+hauteurChute, Direction.Bas)) hauteurChute++;
+
+        if(hauteurChute > 0) {
             tombe = true;
             yProperty.setValue(yProperty.getValue() + hauteurChute);
         }
     }
 
     public void update() {
+        tomber();
         if (saute) sauter();
         if (avanceProperty.getValue()) seDeplacer();
-        tomber();
+
     }
 
 //region Getter & Setter
