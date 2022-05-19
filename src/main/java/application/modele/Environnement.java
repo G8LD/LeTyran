@@ -35,7 +35,7 @@ public class Environnement {
                     collision = true;
                 break;
             case Gauche:
-                if ((xPerso - 3) / TUILE_TAILLE < x) x--;
+                if ((double) (xPerso - 3) / TUILE_TAILLE < x) x--;
                 if (x < 0 || mapJeu.getTabMap()[y][x] != 0)
                     collision = true;
                 break;
@@ -46,7 +46,7 @@ public class Environnement {
                 break;
             case Haut:
                 if (y < 0 || mapJeu.getTabMap()[y][x] != 0
-                        || ((double) xPerso / TUILE_TAILLE > 0.5 && mapJeu.getTabMap()[y][x+1] != 0))
+                        || ((double) xPerso / TUILE_TAILLE > 0.5 && mapJeu.getTabMap()[y][x + 1] != 0))
                     collision = true;
                 break;
             default:
