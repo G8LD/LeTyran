@@ -32,7 +32,7 @@ public class PersonnageVue {
         construirePerso(spritesJoueur);
         spritesJoueur.translateXProperty().bind(personnage.getXProperty());
         spritesJoueur.translateYProperty().bind(personnage.getYProperty());
-        spritesJoueur.setBackground(Background.fill(Color.RED));
+        //spritesJoueur.setBackground(Background.fill(Color.RED));
 
         personnage.getXProperty().addListener(new DeplaceListener(personnage, this));
         personnage.getYProperty().addListener(new DeplaceListener(personnage, this));

@@ -30,30 +30,28 @@ public class Environnement {
         int y = yPerso/TUILE_TAILLE;
         switch (dir) {
             case Droit:
-                if ((xPerso + 2) / TUILE_TAILLE > x) x++;
-                //if ((double) yPerso / TUILE_TAILLE >= 0.5) y++;
-//                if (personnage.getSaute())
-//                    System.out.println("saut x = " + (x+1) + " y = " + y);
-                System.out.println((double) yPerso / TUILE_TAILLE);
+                System.out.println(xPerso);
+                if ((xPerso + 2) / TUILE_TAILLE > x && (xPerso + 2) % TUILE_TAILLE != 0) x++;
+                if (yPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y][x + 1] == 0) y++;
                 if (x + 1 >= MapJeu.WIDTH || mapJeu.getTabMap()[y][x + 1] != 0)
                     collision = true;
-                System.out.println(collision);
                 break;
             case Gauche:
                 if ((double) (xPerso - 2) / TUILE_TAILLE < x) x--;
+                if (yPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y][x + 1] == 0) y++;
                 if (x < 0 || mapJeu.getTabMap()[y][x] != 0)
                     collision = true;
                 break;
             case Bas:
                 if (y + 1 >= MapJeu.HEIGHT || mapJeu.getTabMap()[y + 1][x] != 0
-                        || ( mapJeu.getTabMap()[y + 1][x + 1] != 0))
+                        || (xPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y+1][x+1] != 0))
                     collision = true;
                 break;
             case Haut:
-                if (y < 0 || mapJeu.getTabMap()[y][x] != 0
-                        || (mapJeu.getTabMap()[y][x + 1] != 0))
+                if ((double) (yPerso - 2) / TUILE_TAILLE < y) y--;
+                if (y < 0 || mapJeu.getTabMap()[y][x] != 0 || (xPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y][x+1] != 0))
                     collision = true;
-                System.out.println(x);
+                System.out.println(x + " " + collision);
                 break;
             default:
                 break;
