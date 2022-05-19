@@ -1,23 +1,23 @@
 package application.modele;
 
+import application.modele.objets.Minerai;
+import application.modele.objets.Pierre;
+import application.modele.objets.Terre;
 import javafx.beans.property.IntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Environnement {
 
     private Personnage personnage;
     private MapJeu mapJeu;
+    private ObservableList<Minerai> listeMinerais;
 
     public Environnement() {
-        mapJeu = new MapJeu();
         personnage = new Personnage(this);
-    }
-
-    public Personnage getPersonnage() {
-        return personnage;
-    }
-
-    public MapJeu getMapJeu() {
-        return mapJeu;
+        mapJeu = new MapJeu();
+        listeMinerais = FXCollections.observableArrayList();
+        initListeMinerais();
     }
 
     public boolean entreEnCollision(int x, int y, Direction dir) {
@@ -54,5 +54,25 @@ public class Environnement {
         System.out.println(collision);
 
         return collision;
+    }
+
+    private void initListeMinerais() {
+        for (int i = 0; i < MapJeu.HEIGHT; i++) {
+            for (int j = 0; j < MapJeu.WIDTH; j++) {
+                switch (mapJeu.getTabMap()[i][j]) {
+                    case 34: listeMinerais.add(new Terre(j,i));
+                    case 52: listeMinerais.add(new Pierre(j,i));
+                    default: break;
+                }
+            }
+        }
+    }
+
+    public Personnage getPersonnage() {
+        return personnage;
+    }
+
+    public MapJeu getMapJeu() {
+        return mapJeu;
     }
 }

@@ -10,6 +10,7 @@ public class Pioche extends Arme {
     public void frapper() {
 
     }
+
     public void nbDegat(int qualite) {
         if (qualite == 1) {
             super.setDegats(1);

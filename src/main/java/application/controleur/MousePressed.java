@@ -20,9 +20,7 @@ public class MousePressed implements EventHandler<MouseEvent> {
         int x = (int)mouseEvent.getX() / 32;
         int y = (int)mouseEvent.getY() / 32;
         int id;
-
-
-
+        
         if(this.env.getMapJeu().getTabMap()[y][x] != 0) {
             id = (y * MapJeu.WIDTH) + x;
 
