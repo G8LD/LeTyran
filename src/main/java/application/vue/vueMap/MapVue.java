@@ -1,5 +1,9 @@
 package application.vue.vueMap;
 
+import application.modele.Environnement;
+import application.modele.MapJeu;
+import application.modele.objets.Minerai;
+import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,30 +20,39 @@ import static application.modele.MapJeu.*;
 
 public class MapVue {
 
-    private int[][] tabMap;
+    private Environnement env;
     private TilePane tileSol;
     private TilePane tileDecors;
     private TilePane tileFond;
 
-    public MapVue(int[][] mapJeu, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
-        this.tabMap = mapJeu;
+    public MapVue(Environnement env, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
+        this.env = env;
         this.tileSol = tileSol;
         this.tileDecors = tileDecors;
         this.tileFond = tileFond;
-        this.tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
-        this.tileDecors.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         this.tileFond.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        env.getListeMinerais().addListener(new ListChangeListener<Minerai>() {
+            @Override
+            public void onChanged(Change<? extends Minerai> change) {
+                while (change.next()) {
+                    if (change.wasRemoved()) {
+                        supprimerBloc(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
+                    }
+                }
+            }
+        });
         construireMap();
         construireDecor();
         construireFond();
     }
 
     private void construireMap() {
+        this.tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         ChargeurRessources.charger();
         ImageView img;
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-                int indexImg = tabMap[i][j];
+                int indexImg = env.getMapJeu().getTabMap()[i][j];
                 img = new ImageView(ChargeurRessources.tileMapAssets.get(indexImg));
                 tileSol.getChildren().add(img);
             }
@@ -47,6 +60,7 @@ public class MapVue {
     }
 
     private void construireDecor() {
+        this.tileDecors.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         InputStream is = getClass().getResourceAsStream("/application/tiles/TileDecors.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;

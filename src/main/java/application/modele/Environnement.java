@@ -46,7 +46,7 @@ public class Environnement {
                     collision = true;
                 break;
             case Bas:
-                if (x < 0 || x >= WIDTH && y + 1 >= MapJeu.HEIGHT || mapJeu.getTabMap()[y + 1][x] != 0
+                if (x < 0 || x >= WIDTH || y + 1 >= MapJeu.HEIGHT || mapJeu.getTabMap()[y + 1][x] != 0
                         || (xPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y+1][x+1] != 0))
                     collision = true;
                 break;
@@ -76,6 +76,16 @@ public class Environnement {
         }
     }
 
+    public void minage(int x, int y) {
+        Minerai minerai = getMinerai(x,y);
+        minerai.frappe(personnage.getArme());
+        if (minerai.getPv() <= 0) {
+            listeMinerais.remove(minerai);
+            mapJeu.getTabMap()[y][x] = 0;
+            System.out.println("minerai cassé");
+        }
+    }
+
     public Personnage getPersonnage() {
         return personnage;
     }
@@ -90,5 +100,9 @@ public class Environnement {
                 return minerai;
 
         return null;
+    }
+
+    public ObservableList<Minerai> getListeMinerais() {
+        return listeMinerais;
     }
 }
