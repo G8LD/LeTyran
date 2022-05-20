@@ -12,9 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import static application.controleur.Controleur.TUILE_TAILLE;
-import static application.modele.MapJeu.HEIGHT;
-import static application.modele.MapJeu.WIDTH;
+import static application.modele.MapJeu.*;
 
 public class MapVue {
 

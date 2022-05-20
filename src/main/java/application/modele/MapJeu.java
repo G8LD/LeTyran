@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class MapJeu {
+    public final static int TUILE_TAILLE = 32;
+
     public final static int WIDTH = 30;
     public final static int HEIGHT = 20;
 

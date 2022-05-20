@@ -17,7 +17,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
-    public final static int TUILE_TAILLE = 32;
 
     private Environnement env;
     private KeyReleased keyReleased;
@@ -57,10 +56,7 @@ public class Controleur implements Initializable {
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.017),
                 (ev ->{
-                    if (personnageVue.pasAnimations())
-                        env.getPersonnage().tomber();
-                    if (personnageVue.pasAnimations())
-                        env.getPersonnage().update();
+                    env.getPersonnage().update();
 
                 })
         );
