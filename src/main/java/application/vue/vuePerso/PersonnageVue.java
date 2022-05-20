@@ -30,9 +30,6 @@ public class PersonnageVue {
 
         paneJoueur.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         construirePerso(spritesJoueur);
-        spritesJoueur.translateXProperty().bind(personnage.getXProperty());
-        spritesJoueur.translateYProperty().bind(personnage.getYProperty());
-        //spritesJoueur.setBackground(Background.fill(Color.RED));
 
         personnage.getXProperty().addListener(new DeplaceListener(personnage, this));
         personnage.getYProperty().addListener(new DeplaceListener(personnage, this));
@@ -46,11 +43,14 @@ public class PersonnageVue {
 
     //initialise les sprites du joueur_le met à la bonne position et met rend le bon sprite visible
     private void construirePerso(StackPane spritesJoueur) {
-        for (int i = 0; i < spritesJoueur.getChildren().size(); i++)
+        for (int i = 1; i < spritesJoueur.getChildren().size(); i++)
             spritesJoueur.getChildren().get(i).setVisible(false);
-        spritesJoueur.getChildren().get(0).setVisible(true);
+        //spritesJoueur.getChildren().get(0).setVisible(true);
 //        spritesJoueur.setTranslateX(personnage.getX() * TUILE_TAILLE);
 //        spritesJoueur.setTranslateY(personnage.getY() * TUILE_TAILLE);
+        spritesJoueur.translateXProperty().bind(personnage.getXProperty());
+        spritesJoueur.translateYProperty().bind(personnage.getYProperty());
+//        spritesJoueur.setBackground(Background.fill(Color.RED));
     }
 
     public void animationHorizontale() {

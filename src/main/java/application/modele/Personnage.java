@@ -32,26 +32,34 @@ public class Personnage {
     }
 
     public void seDeplacer() {
+        int distance;
+        if (tombe || saute)
+            distance = 2;
+        else
+            distance = 3;
+        for (int i = 0; i < distance; i++)
         if(!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), direction)) {
             if (direction == Direction.Droit)
-                xProperty.setValue(xProperty.getValue() + 2);
+                xProperty.setValue(xProperty.getValue() + 1);
             else
-                xProperty.setValue(xProperty.getValue() - 2);
+                xProperty.setValue(xProperty.getValue() - 1);
         }
     }
 
     public void sauter() {
+        for (int i = 0; i < 3; i++)
         if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
-            yProperty.setValue(yProperty.getValue() - 2);
-            hauteurSaut +=2;
+            yProperty.setValue(yProperty.getValue() - 1);
+            hauteurSaut +=1;
         } else if (saute)
             saute = false;
     }
 
     public void tomber() {
+        for (int i = 0; i < 3; i++)
         if (!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
             tombe = true;
-            yProperty.setValue(yProperty.getValue() + 2);
+            yProperty.setValue(yProperty.getValue() + 1);
         } else {
             tombe = false;
             hauteurSaut = 0;
