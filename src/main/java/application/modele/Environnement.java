@@ -34,7 +34,7 @@ public class Environnement {
                 //regarde la case suivante lorque le joueur est sur le point de l'atteindre
                 if ((xPerso + 1) / TUILE_TAILLE > x && (xPerso + 1) % TUILE_TAILLE != 0) x++;
                 //pour le saut lorsque le perso est entre 1 cases verticalement
-                if (yPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y][x + 1] == 0) y++;
+                if (x+1 >= 0 && x+1 < WIDTH && yPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y][x + 1] == 0) y++;
                 //verifie la collision
                 if (x + 1 >= MapJeu.WIDTH || mapJeu.getTabMap()[y][x + 1] != 0)
                     collision = true;
