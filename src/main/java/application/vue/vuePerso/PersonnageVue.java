@@ -5,11 +5,12 @@ import application.modele.Personnage;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
+import javafx.scene.paint.Color;
 
-import static application.controleur.Controleur.TUILE_TAILLE;
+import static application.modele.MapJeu.TUILE_TAILLE;
 import static application.modele.MapJeu.HEIGHT;
 import static application.modele.MapJeu.WIDTH;
 
@@ -19,16 +20,15 @@ public class PersonnageVue {
     private Personnage personnage;
     private StackPane spritesJoueur;
     private Pane paneJoueur;
-    private TranslateTransition tt;
+    private long lastUpdate;
 
     public PersonnageVue(Personnage personnage, StackPane spritesJoueur, Pane paneJoueur) {
         this.personnage = personnage;
         this.spritesJoueur = spritesJoueur;
         this.paneJoueur = paneJoueur;
+        lastUpdate = System.nanoTime();
 
         paneJoueur.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
-        tt = new TranslateTransition();
-        tt.setNode(spritesJoueur);
         construirePerso(spritesJoueur);
 
         personnage.getXProperty().addListener(new DeplaceListener(personnage, this));
@@ -43,65 +43,57 @@ public class PersonnageVue {
 
     //initialise les sprites du joueur_le met à la bonne position et met rend le bon sprite visible
     private void construirePerso(StackPane spritesJoueur) {
-        for (int i = 0; i < spritesJoueur.getChildren().size(); i++)
+        for (int i = 1; i < spritesJoueur.getChildren().size(); i++)
             spritesJoueur.getChildren().get(i).setVisible(false);
-        spritesJoueur.getChildren().get(0).setVisible(true);
-        spritesJoueur.setTranslateX(personnage.getX() * TUILE_TAILLE);
-        spritesJoueur.setTranslateY(personnage.getY() * TUILE_TAILLE);
-    }
-
-    public boolean pasAnimations() {
-        return tt.getCurrentRate() == 0;
+        //spritesJoueur.getChildren().get(0).setVisible(true);
+//        spritesJoueur.setTranslateX(personnage.getX() * TUILE_TAILLE);
+//        spritesJoueur.setTranslateY(personnage.getY() * TUILE_TAILLE);
+        spritesJoueur.translateXProperty().bind(personnage.getXProperty());
+        spritesJoueur.translateYProperty().bind(personnage.getYProperty());
+//        spritesJoueur.setBackground(Background.fill(Color.RED));
     }
 
     public void animationHorizontale() {
-        int i = 0;
-        while (!spritesJoueur.getChildren().get(i).isVisible()) i++;
-        spritesJoueur.getChildren().get(i).setVisible(false);
+        long now = System.nanoTime();
+        if (now - lastUpdate >= 150_000_000) {
+            lastUpdate = now;
+            int i = 0;
+            while (!spritesJoueur.getChildren().get(i).isVisible()) i++;
+            spritesJoueur.getChildren().get(i).setVisible(false);
 
-        int idSprite;
-        if (i == 1) idSprite = 2;
-        else idSprite = 1;
-        spritesJoueur.getChildren().get(idSprite).setVisible(true);
+            int idSprite;
+            if (i == 1)
+                idSprite = 2;
+            else
+                idSprite = 1;
 
-        tt.setByY(0);
-        if (personnage.getDirection() == Direction.Droit) {
-            spritesJoueur.getChildren().get(idSprite).setScaleX(1);
-            tt.setByX(TUILE_TAILLE);
-        } else {
-            spritesJoueur.getChildren().get(idSprite).setScaleX(-1);
-            tt.setByX(-TUILE_TAILLE);
+            spritesJoueur.getChildren().get(idSprite).setVisible(true);
+            if (personnage.getDirection() == Direction.Droit)
+                spritesJoueur.getChildren().get(idSprite).setScaleX(1);
+            else
+                spritesJoueur.getChildren().get(idSprite).setScaleX(-1);
         }
-        tt.setDuration(Duration.millis(125));
-        if (tt.getCurrentRate() == 0) {
-            tt.play();
-        } else {
-            tt.setOnFinished(actionEvent -> {
-                tt.setOnFinished(actionEvent1 -> {
-                });
-                tt.play();
-            });
-        }
+
     }
 
     //animation du saut
     //translate transion correspondant à la hauteur du saut
-    public void animationSaut(int hauteurSaut) {
-        System.out.println(hauteurSaut);
-        tt.setByY(-TUILE_TAILLE * hauteurSaut);
-        tt.setByX(0);
-        tt.setDuration(Duration.millis(hauteurSaut * 100));
-        tt.play();
-    }
-
-    //animation de la chute
-    //translate transion correspondant à la hauteur de la chute
-    public void animationChute(int hauteurChute) {
-        tt.setByY(TUILE_TAILLE * hauteurChute);
-        tt.setByX(0);
-        tt.setDuration(Duration.millis(hauteurChute * 100));
-        tt.play();
-    }
+//    public void animationSaut(int hauteurSaut) {
+//        System.out.println(hauteurSaut);
+//        tt.setByY(-TUILE_TAILLE * hauteurSaut);
+//        tt.setByX(0);
+//        tt.setDuration(Duration.millis(hauteurSaut * 100));
+//        tt.play();
+//    }
+//
+//    //animation de la chute
+//    //translate transion correspondant à la hauteur de la chute
+//    public void animationChute(int hauteurChute) {
+//        tt.setByY(TUILE_TAILLE * hauteurChute);
+//        tt.setByX(0);
+//        tt.setDuration(Duration.millis(hauteurChute * 100));
+//        tt.play();
+//    }
 
     //met l'image du personnage immobile selon sa direction
     public void immobile() {
