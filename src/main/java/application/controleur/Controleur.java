@@ -55,7 +55,7 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(0.017),
+                Duration.seconds(0.014),
                 (ev ->{
                     env.getPersonnage().update();
 

@@ -22,8 +22,8 @@ public class Personnage {
     public Personnage(Environnement env) {
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
-        xProperty = new SimpleIntegerProperty(6*32);
-        yProperty = new SimpleIntegerProperty(11*32);
+        xProperty = new SimpleIntegerProperty(6 * TUILE_TAILLE);
+        yProperty = new SimpleIntegerProperty(11* TUILE_TAILLE);
         direction = Direction.Droit;
         hauteurSaut = 0;
         this.env = env;
