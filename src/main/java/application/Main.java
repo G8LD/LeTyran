@@ -3,6 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -14,8 +15,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            StackPane root = FXMLLoader.load(getClass().getResource("vue.fxml"));
-            Scene scene = new Scene(root, WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE);
+            Pane root = FXMLLoader.load(getClass().getResource("vue.fxml"));
+            Scene scene = new Scene(root/*, WIDTH*TUILE_TAILLE,HEIGHT*TUILE_TAILLE*/);
             root.requestFocus();
             primaryStage.setTitle("Le Tyran");
             //primaryStage.setResizable(false);

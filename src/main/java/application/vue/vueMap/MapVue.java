@@ -19,19 +19,18 @@ public class MapVue {
     private TilePane tileSol;
     private TilePane tileDecors;
 
-    public MapVue(int[][] mapJeu, TilePane tileSol, TilePane tileDecor) {
+    public MapVue(int[][] mapJeu, TilePane tileSol, TilePane tileDecors) {
         this.tabMap = mapJeu;
         this.tileSol = tileSol;
-        this.tileDecors = tileDecor;
-        tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
-        tileDecors.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        this.tileDecors = tileDecors;
         construireMap();
         construireDecor();
     }
 
     private void construireMap() {
         ChargeurRessources.charger();
-        tileSol.setBackground(Background.fill(Color.LIGHTBLUE));
+        tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        //tileSol.setBackground(Background.fill(Color.LIGHTBLUE));
         ImageView img;
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
@@ -43,6 +42,7 @@ public class MapVue {
     }
 
     private void construireDecor() {
+        tileDecors.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         InputStream is = getClass().getResourceAsStream("/application/tiles/TileDecors.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;

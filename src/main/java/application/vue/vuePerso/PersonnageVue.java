@@ -19,16 +19,12 @@ public class PersonnageVue {
 
     private Personnage personnage;
     private StackPane spritesJoueur;
-    private Pane paneJoueur;
     private long lastUpdate;
 
-    public PersonnageVue(Personnage personnage, StackPane spritesJoueur, Pane paneJoueur) {
+    public PersonnageVue(Personnage personnage, StackPane spritesJoueur) {
         this.personnage = personnage;
         this.spritesJoueur = spritesJoueur;
-        this.paneJoueur = paneJoueur;
         lastUpdate = System.nanoTime();
-
-        paneJoueur.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         construirePerso(spritesJoueur);
 
         personnage.getXProperty().addListener(new DeplaceListener(personnage, this));

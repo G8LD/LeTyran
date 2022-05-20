@@ -14,7 +14,7 @@ import javafx.scene.layout.StackPane;
 
 public class InventaireControleur implements EventHandler<KeyEvent> {
 
-    private StackPane root;
+    private Pane root;
     private Environnement jeu;
     private Inventaire inv;
 
@@ -26,7 +26,7 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
 
     private Pane invPane;
 
-    public InventaireControleur(StackPane root, Environnement jeu) {
+    public InventaireControleur(Pane root, Environnement jeu) {
         this.root = root;
         this.jeu = jeu;
 
