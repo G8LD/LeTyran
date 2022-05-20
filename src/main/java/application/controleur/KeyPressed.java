@@ -46,12 +46,10 @@ public class KeyPressed implements EventHandler<KeyEvent> {
                     break;
                 case G:
                     jeu.getPersonnage().perdrePV();
-                    vie.clearPane();
                     controleur.getVie().afficherVie(jeu.getPersonnage().getPv());
                     break;
                 case H:
                     jeu.getPersonnage().prendrePV();
-                    vie.clearPane();
                     controleur.getVie().afficherVie(jeu.getPersonnage().getPv());
                     break;
                 default:

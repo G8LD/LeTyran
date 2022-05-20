@@ -28,11 +28,15 @@ public class Personnage {
     }
 
     public void perdrePV(){
-            this.pv.setValue(this.pv.getValue()-10);
+        if(this.pv.getValue()>0) {
+            this.pv.setValue(this.pv.getValue() - 10);
+        }
         System.out.println(this.getPv());
     }
     public void prendrePV(){
-        this.pv.setValue(this.pv.getValue()+10);
+        if(this.pv.getValue()<100) {
+            this.pv.setValue(this.pv.getValue() + 10);
+        }
         System.out.println(this.getPv());
     }
 
