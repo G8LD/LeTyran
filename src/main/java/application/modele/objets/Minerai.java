@@ -20,6 +20,18 @@ public abstract class Minerai {
         pv -= degat;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getPv() {
+        return pv;
+    }
+
     public abstract void frappe(Arme arme);
 }
 

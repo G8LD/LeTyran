@@ -75,4 +75,12 @@ public class Environnement {
     public MapJeu getMapJeu() {
         return mapJeu;
     }
+
+    public Minerai getMinerai(int x, int y) {
+        for (Minerai minerai : listeMinerais)
+            if (minerai.getX() == x && minerai.getY() == y)
+                return minerai;
+
+        return null;
+    }
 }

@@ -35,18 +35,9 @@ public class Personnage {
         System.out.println("deplacer");
         int dX, dY;
         switch (direction) {
-            case Gauche:
-                dX = -1;
-                dY = 0;
-                break;
-            case Droit:
-                dX = 1;
-                dY = 0;
-                break;
-            default:
-                dX = 0;
-                dY = 0;
-                break;
+            case Gauche: dX = -1; dY = 0; break;
+            case Droit: dX = 1; dY = 0; break;
+            default: dX = 0; dY = 0; break;
         }
 
         if(!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), direction)) {
@@ -84,6 +75,10 @@ public class Personnage {
             tombe = true;
             yProperty.setValue(yProperty.getValue() + hauteurChute);
         }
+    }
+
+    public void frapper(int x, int y) {
+        env.getMinerai(x,y).frappe(null);
     }
 
     public void update() {

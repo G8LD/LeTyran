@@ -21,7 +21,9 @@ public class MousePressed implements EventHandler<MouseEvent> {
         int y = (int)mouseEvent.getY() / 32;
         int id;
         
-        if(this.env.getMapJeu().getTabMap()[y][x] != 0) {
+        if(this.env.getMapJeu().getTabMap()[y][x] != 0
+                && x <= env.getPersonnage().getX() + 1 && x >= env.getPersonnage().getX() - 1
+                && y <= env.getPersonnage().getY() + 1 && y >= env.getPersonnage().getY() - 1) {
             id = (y * MapJeu.WIDTH) + x;
 
             this.env.getMapJeu().getTabMap()[y][x] = 0;
