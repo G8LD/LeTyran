@@ -2,8 +2,10 @@ package application.modele.armes;
 
 public class Hache extends Arme {
 
-    public Hache(int qualite, int degat) {
-        super(qualite,degat, 1);
+    private final static int DISTANCE = 1;
+
+    public Hache(int qualite) {
+        super(qualite);
     }
 
     @Override
@@ -11,7 +13,7 @@ public class Hache extends Arme {
 
     }
 
-    public void nbDegat(int qualite) {
+    public void nbDegat() {
         if (qualite == 1) {
             super.setDegats(1);
         } else if (qualite == 2) {
