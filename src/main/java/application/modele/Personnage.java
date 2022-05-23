@@ -1,6 +1,8 @@
 package application.modele;
 
 import application.modele.armes.Arme;
+import application.modele.armes.Hache;
+import application.modele.armes.Pioche;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -29,7 +31,7 @@ public class Personnage {
         yProperty = new SimpleIntegerProperty(11* TUILE_TAILLE);
         direction = Direction.Droit;
         hauteurSaut = 0;
-        arme = null;
+        arme = new Pioche(3);
         this.env = env;
         this.inventaire = new Inventaire();
         inventaire.ajouterObjet();

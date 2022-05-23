@@ -4,7 +4,7 @@ import application.modele.armes.Arme;
 
 public abstract class Minerai {
 
-    private final static int PV_MAX = 6;
+    private final static int PV_MAX = 9;
 
     private int x;
     private int y;

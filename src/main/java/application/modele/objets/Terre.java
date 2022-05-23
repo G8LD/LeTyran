@@ -11,6 +11,6 @@ public class Terre extends Minerai {
 
     @Override
     public void frappe(Arme arme) {
-        decrementerPv(6);
+        decrementerPv(10);
     }
 }

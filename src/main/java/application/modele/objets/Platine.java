@@ -11,10 +11,16 @@ public class Platine extends Minerai {
 
     @Override
     public void frappe(Arme arme) {
-        if (arme instanceof Pioche && arme.getQualite() == 3) {
-            decrementerPv(3);
+        if (arme instanceof Pioche) {
+            if (arme.getQualite() == 3) {
+                decrementerPv(5);
+            } else if (arme.getQualite() == 2) {
+                decrementerPv(3);
+            } else {
+                decrementerPv(2);
+            }
         } else {
-            decrementerPv(2);
+            decrementerPv(1);
         }
     }
 }
