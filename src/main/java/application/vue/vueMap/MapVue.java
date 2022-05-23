@@ -32,7 +32,7 @@ public class MapVue {
         this.tileFond = tileFond;
 
         construireMap();
-        //construireDecor();
+        construireDecor();
         construireFond();
 
         env.getListeMinerais().addListener(new ListChangeListener<Minerai>() {
@@ -41,6 +41,17 @@ public class MapVue {
                 while (change.next()) {
                     if (change.wasRemoved()) {
                         supprimerBloc(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
+                    }
+                }
+            }
+        });
+
+        env.getListeArbres().addListener(new ListChangeListener<Arbre>() {
+            @Override
+            public void onChanged(Change<? extends Arbre> change) {
+                while (change.next()) {
+                    if (change.wasRemoved()) {
+                        supprimerArbre(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
                     }
                 }
             }
