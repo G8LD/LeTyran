@@ -1,6 +1,7 @@
 package application.vue.vueMap;
 
 import application.modele.Environnement;
+import application.modele.objets.Minerai;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -26,9 +27,11 @@ public class MapVue {
 
     public MapVue(Environnement env, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
         this.env = env;
-        this.tabMap = mapJeu;
+        this.tabMap = env.getMapJeu().getTabMap();
         this.tileSol = tileSol;
-        this.tileDecors = tileDecor;
+        this.tileDecors = tileDecors;
+        this.tileFond = tileFond;
+
         tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         tileDecors.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
 
@@ -44,7 +47,7 @@ public class MapVue {
         });
 
         construireMap();
-        //construireDecor();
+        construireDecor();
         construireFond();
     }
 

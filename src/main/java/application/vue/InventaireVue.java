@@ -20,14 +20,14 @@ public class InventaireVue {
 
     private Pane invPaneConteneur;
 
-    private StackPane rootPane;
+    private Pane rootPane;
     private InventaireControleur controleur;
     private int indexObjet;
 
     private Image slotImg = new Image("file:src/main/resources/application/inventaire/slot.png");
     private AudioClip sound = new AudioClip(getClass().getResource("/application/sons/ui_menu_button_click_24.mp3").toExternalForm());
 
-    public InventaireVue(Inventaire inv, StackPane root, InventaireControleur controleur) {
+    public InventaireVue(Inventaire inv, Pane root, InventaireControleur controleur) {
         this.rootPane = root;
         this.inv = inv;
         this.controleur = controleur;
