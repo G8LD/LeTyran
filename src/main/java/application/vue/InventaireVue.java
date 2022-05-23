@@ -1,6 +1,7 @@
 package application.vue;
 
 import application.controleur.InventaireControleur;
+import application.modele.objets.Minerai;
 import application.vue.controls.InvItem;
 import application.modele.Inventaire;
 import application.vue.controls.InvSlot;
