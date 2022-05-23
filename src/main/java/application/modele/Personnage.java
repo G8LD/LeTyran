@@ -31,7 +31,7 @@ public class Personnage {
         arme = null;
         this.env = env;
         this.inventaire = new Inventaire();
-        inventaire.ajouterObjet();
+        inventaire.ajouterObjet("");
     }
 
     public void miner(int x, int y) {

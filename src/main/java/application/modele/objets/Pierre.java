@@ -6,7 +6,7 @@ import application.modele.armes.Pioche;
 public class Pierre extends Minerai {
 
     public Pierre(int x, int y) {
-        super(x, y);
+        super(x, y,2,"Pierre");
     }
 
     @Override

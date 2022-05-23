@@ -14,11 +14,9 @@ public class Inventaire {
         return objets;
     }
 
-    public void ajouterObjet() {
+    public void ajouterObjet(String nomObjet) {
         ArrayList<String> nom = new ArrayList<>();
-        nom.add("Viande");
-        nom.add("Bois");
-        nom.add("Epee");
+        nom.add(nomObjet);
         for(int i = 1; i < 15; i++) {
             objets.add(new ObjetJeu(1, nom.get((int)(Math.random() * nom.size()) ), 2));
         }
