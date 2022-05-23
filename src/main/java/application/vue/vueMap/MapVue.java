@@ -1,10 +1,5 @@
 package application.vue.vueMap;
 
-import application.modele.Environnement;
-import application.modele.MapJeu;
-import application.modele.objets.Minerai;
-import javafx.collections.ListChangeListener;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -20,39 +15,27 @@ import static application.modele.MapJeu.*;
 
 public class MapVue {
 
-    private Environnement env;
+    private int[][] tabMap;
     private TilePane tileSol;
     private TilePane tileDecors;
-    private TilePane tileFond;
 
-    public MapVue(Environnement env, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
-        this.env = env;
+    public MapVue(int[][] mapJeu, TilePane tileSol, TilePane tileDecors) {
+        this.tabMap = mapJeu;
         this.tileSol = tileSol;
         this.tileDecors = tileDecors;
-        this.tileFond = tileFond;
-        this.tileFond.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
-        env.getListeMinerais().addListener(new ListChangeListener<Minerai>() {
-            @Override
-            public void onChanged(Change<? extends Minerai> change) {
-                while (change.next()) {
-                    if (change.wasRemoved()) {
-                        supprimerBloc(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
-                    }
-                }
-            }
-        });
         construireMap();
-        construireDecor();
-        construireFond();
+        //construireDecor();
     }
 
     private void construireMap() {
-        this.tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         ChargeurRessources.charger();
+        tileSol.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        tileSol.setBackground(Background.fill(Color.AZURE));
+        //tileSol.setBackground(Background.fill(Color.LIGHTBLUE));
         ImageView img;
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-                int indexImg = env.getMapJeu().getTabMap()[i][j];
+                int indexImg = tabMap[i][j];
                 img = new ImageView(ChargeurRessources.tileMapAssets.get(indexImg));
                 tileSol.getChildren().add(img);
             }
@@ -60,7 +43,7 @@ public class MapVue {
     }
 
     private void construireDecor() {
-        this.tileDecors.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        tileDecors.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         InputStream is = getClass().getResourceAsStream("/application/tiles/TileDecors.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;
@@ -71,9 +54,10 @@ public class MapVue {
                 line = br.readLine();
                 tabLine = line.split(" ");
                 for (int j = 0; j < WIDTH; j++) {
+
                     switch (Integer.parseInt(tabLine[j])) {
                         case 0:
-                            img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
+                            img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparant.png"));
                             break;
                         case 1:
                             img = new ImageView(new Image("file:src/main/resources/application/pack1/tile000.png"));
@@ -92,46 +76,11 @@ public class MapVue {
                             break;
                     }
                     tileDecors.getChildren().add(img);
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    private void construireFond() {
-        Image imageTransparent = new Image("file:src/main/resources/application/pack1/tile_transparent.png");
-        Image imageTerre = new Image("file:src/main/resources/application/pack1/Terre.png");
-        tileFond.setBackground(Background.fill(Color.LIGHTBLUE));
-        InputStream is = getClass().getResourceAsStream("/application/tiles/TileFond.txt");
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        String line;
-        String[] tabLine;
-        ImageView img;
-        for (int i = 0; i < HEIGHT; i++) {
-            try {
-                line = br.readLine();
-                tabLine = line.split(" ");
-                for (int j = 0; j < WIDTH; j++) {
-                    switch (Integer.parseInt(tabLine[j])) {
-                        case 0: img = new ImageView(imageTransparent); break;
-                        case 1: img = new ImageView(imageTerre); break;
-                        default: img = null; break;
-                    }
-                    tileFond.getChildren().add(img);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void supprimerBloc(int id) {
-        Node node = tileSol.getChildren().get(id);
-        if(node instanceof ImageView) {
-            System.out.println(((ImageView) node).getImage().getUrl());
-            ImageView imgView = (ImageView)node;
-            imgView.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
         }
     }
 }
