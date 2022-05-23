@@ -1,11 +1,15 @@
 package application.modele;
 
+import application.modele.armes.Arme;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import static application.modele.MapJeu.TUILE_TAILLE;
+
 public class Personnage {
+
     private IntegerProperty xProperty;
     private IntegerProperty yProperty;
     private Direction direction;
@@ -14,82 +18,62 @@ public class Personnage {
     private boolean saute;
     private boolean tombe;
     private BooleanProperty avanceProperty;
+    private int hauteurSaut;
+    private Arme arme;
 
 
     public Personnage(Environnement env) {
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
-        xProperty = new SimpleIntegerProperty(1);
-        yProperty = new SimpleIntegerProperty(11);
+        xProperty = new SimpleIntegerProperty(6 * TUILE_TAILLE);
+        yProperty = new SimpleIntegerProperty(11* TUILE_TAILLE);
         direction = Direction.Droit;
+        hauteurSaut = 0;
+        arme = null;
         this.env = env;
-
         this.inventaire = new Inventaire();
         inventaire.ajouterObjet();
     }
 
-    public Inventaire getInventaire() {
-        return this.inventaire;
-    }
-
     public void seDeplacer() {
-        System.out.println("deplacer");
-        int dX, dY;
-        switch (direction) {
-            case Gauche:
-                dX = -1;
-                dY = 0;
-                break;
-            case Droit:
-                dX = 1;
-                dY = 0;
-                break;
-            default:
-                dX = 0;
-                dY = 0;
-                break;
-        }
-
+        int distance;
+        if (tombe || saute)
+            distance = 2;
+        else
+            distance = 3;
+        for (int i = 0; i < distance; i++)
         if(!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), direction)) {
-            xProperty.setValue(xProperty.getValue() + dX);
-            yProperty.setValue(yProperty.getValue() + dY);
-            System.out.println(this.getX() + " " + this.getY());
+            if (direction == Direction.Droit)
+                xProperty.setValue(xProperty.getValue() + 1);
+            else
+                xProperty.setValue(xProperty.getValue() - 1);
         }
-
-
-        /*if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
-            xProperty.setValue(xProperty.getValue() + dX);
-            yProperty.setValue(yProperty.getValue() + dY);
-            //System.out.println("seDeplacer : " + xProperty.getValue() + "\t" + yProperty.getValue());
-        }*/
     }
 
     public void sauter() {
-        System.out.println("sauter");
-        int hauteurSaut = 0;
-        while (hauteurSaut < 3 && yProperty.getValue() - hauteurSaut - 1 > 0
-                && env.getMapJeu().getTabMap()[yProperty.getValue() - hauteurSaut - 1][xProperty.getValue()] == 0)
-            hauteurSaut++;
-        if (hauteurSaut == 0) saute = false;
-        else {
-            yProperty.setValue(yProperty.getValue() - hauteurSaut);
-            //System.out.println("sauter : " + xProperty.getValue() + "\t" + yProperty.getValue());
+        for (int i = 0; i < 3; i++)
+        if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
+            yProperty.setValue(yProperty.getValue() - 1);
+            hauteurSaut +=1;
+        } else if (saute) {
+            saute = false;
         }
     }
 
     public void tomber() {
-        int hauteurChute = 0;
-        while (!env.entreEnCollision(xProperty.getValue(), yProperty.getValue()+hauteurChute, Direction.Bas)) hauteurChute++;
-
-        if(hauteurChute > 0) {
+        for (int i = 0; i < 3; i++)
+        if (!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
             tombe = true;
-            yProperty.setValue(yProperty.getValue() + hauteurChute);
+            yProperty.setValue(yProperty.getValue() + 1);
+        } else {
+            tombe = false;
+            hauteurSaut = 0;
         }
     }
 
     public void update() {
-        tomber();
         if (saute) sauter();
+        else tomber();
         if (avanceProperty.getValue()) seDeplacer();
 
     }
@@ -159,6 +143,14 @@ public class Personnage {
 
     public void setTombe(boolean tombe) {
         this.tombe = tombe;
+    }
+
+    public Inventaire getInventaire() {
+        return this.inventaire;
+    }
+
+    public Arme getArme() {
+        return arme;
     }
 
     //endregion

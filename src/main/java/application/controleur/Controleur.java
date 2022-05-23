@@ -4,10 +4,11 @@ import application.modele.Environnement;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import application.vue.vueMap.MapVue;
-import application.vue.vuePerso.PersonnageVue;
+import application.vue.PersonnageVue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
@@ -16,7 +17,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
-    public final static int TUILE_TAILLE = 32;
 
     private Environnement env;
     private KeyReleased keyReleased;
@@ -24,27 +24,24 @@ public class Controleur implements Initializable {
     private MapVue mapVue;
     private Timeline gameLoop;
 
-    @FXML
-    private StackPane root;
-    @FXML
-    private TilePane tileSol;
-    @FXML
-    private TilePane tileDecors;
-    @FXML
-    private Pane paneJoueur;
-    @FXML
-    private StackPane spritesJoueur;
+    @FXML private Pane root;
+    @FXML private TilePane tileSol;
+    @FXML private TilePane tileDecors;
+    @FXML private TilePane tileFond;
+    @FXML private TilePane tileArbre;
+    @FXML private StackPane spritesJoueur;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         env = new Environnement();
         keyReleased = new KeyReleased(this, env);
-        personnageVue = new PersonnageVue(env.getPersonnage(), spritesJoueur, paneJoueur);
-        mapVue = new MapVue(env.getMapJeu().getTabMap(), tileSol, tileDecors);
+        personnageVue = new PersonnageVue(env.getPersonnage(), spritesJoueur);
+        mapVue = new MapVue(env, tileSol, tileDecors, tileFond);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
+        root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
 
         initAnimation();
         gameLoop.play();
@@ -58,10 +55,7 @@ public class Controleur implements Initializable {
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.017),
                 (ev ->{
-                    if (personnageVue.pasAnimations())
-                        env.getPersonnage().tomber();
-                    if (personnageVue.pasAnimations())
-                        env.getPersonnage().update();
+                    env.getPersonnage().update();
 
                 })
         );
@@ -70,5 +64,9 @@ public class Controleur implements Initializable {
 
     public PersonnageVue getPersonnageVue() {
         return personnageVue;
+    }
+
+    public MapVue getMapVue() {
+        return this.mapVue;
     }
 }

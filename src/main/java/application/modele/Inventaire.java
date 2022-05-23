@@ -1,11 +1,13 @@
 package application.modele;
 
+import application.vue.controls.InvItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
 public class Inventaire {
+    private int MAX_OBJET = 1;
     private ObservableList<ObjetJeu> objets = FXCollections.observableArrayList();
 
     public ObservableList<ObjetJeu> getObjets(){
@@ -22,10 +24,9 @@ public class Inventaire {
         }
     }
 
-    public void retirerObjet() {
-
+    public void retirerObjet(ObjetJeu objet) {
+        objets.remove(objet);
     }
 
 
-    
 }
