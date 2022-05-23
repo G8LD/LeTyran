@@ -1,37 +1,35 @@
 package application.modele.armes;
 
-import application.modele.Personnage;
+public class Lance extends Arme {
 
-public class Lance extends Arme{
-    private Personnage ennemi ;
+    private final static int DISTANCE = 3;
 
-    public Lance(int qualite, int degats, Personnage ennemi) {
-        super(qualite, degats, 3);
-        this.ennemi=ennemi;
+    public Lance(int qualite) {
+        super(qualite);
     }
+
     @Override
     public void frapper() {
 
     }
 
-    public void nbDegat(int qualite) {
-        if (qualite == 1) {
-            super.setDegats(3);
-        } else if (qualite == 2) {
-            super.setDegats(5);
+    public int nbDegat() {
+        if (getQualite() == 1) {
+            return 3;
+        } else if (getQualite() == 2) {
+            return 5;
         } else {
-            super.setDegats(8);
+            return 8;
         }
     }
-    public void distanceDeRecul(int qualite) {
-        if (qualite == 1) {
-           ennemi.setX(ennemi.getX()-2);
-        } else if (qualite == 2) {
-            ennemi.setX(ennemi.getX()-4);
+    public int distanceDeRecul() {
+        if (getQualite() == 1) {
+            return 2;
+        } else if (getQualite() == 2) {
+            return 4;
         } else {
-            ennemi.setX(ennemi.getX()-6);
+            return 6;
         }
-
     }
 
 }

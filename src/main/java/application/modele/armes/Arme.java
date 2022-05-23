@@ -10,7 +10,7 @@ public abstract class Arme {
 
     public abstract void frapper();
 
-    public  abstract void nbDegat();
+    public  abstract int nbDegat();
 
     public int getQualite() {
         return qualite;

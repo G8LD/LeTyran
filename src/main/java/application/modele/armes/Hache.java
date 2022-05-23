@@ -13,13 +13,13 @@ public class Hache extends Arme {
 
     }
 
-    public void nbDegat() {
-        if (qualite == 1) {
-            super.setDegats(1);
-        } else if (qualite == 2) {
-            super.setDegats(3);
+    public int nbDegat() {
+        if (getQualite() == 1) {
+            return 1;
+        } else if (getQualite() == 2) {
+            return 3;
         } else {
-            super.setDegats(5);
+            return 5;
         }
     }
 }

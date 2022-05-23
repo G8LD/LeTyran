@@ -1,36 +1,35 @@
 package application.modele.armes;
 
-import application.modele.Personnage;
-
 public class Arc extends Arme{
-    private Personnage ennemi ;
 
-    public Arc(int qualite, int degats, Personnage ennemi) {
-        super(qualite, degats, 6);
-        this.ennemi=ennemi;
+    private final static int DISTANCE = 6;
+
+    public Arc(int qualite) {
+        super(qualite);
     }
 
     @Override
     public void frapper() {
     }
 
-    public void nbDegat(int qualite) {
-        if (qualite == 1) {
-            super.setDegats(3);
-        } else if (qualite == 2) {
-            super.setDegats(5);
+    public int nbDegat() {
+        if (getQualite() == 1) {
+            return 3;
+        } else if (getQualite() == 2) {
+            return 5;
         } else {
-            super.setDegats(8);
+            return 8;
         }
     }
 
-    public void distanceDeRecul(int qualite) {
-        if (qualite == 1) {
-            ennemi.setX(ennemi.getX()-3);
-        } else if (qualite == 2) {
-            ennemi.setX(ennemi.getX()-6);
+
+    public int distance() {
+        if (getQualite() == 1) {
+            return 3;
+        } else if (getQualite() == 2) {
+            return 6;
         } else {
-            ennemi.setX(ennemi.getX()-9);
+            return 9;
         }
     }
     //public int nombreDeFleche(int nbFleche){
