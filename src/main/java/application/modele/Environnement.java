@@ -1,8 +1,6 @@
 package application.modele;
 
-import application.modele.objets.Minerai;
-import application.modele.objets.Pierre;
-import application.modele.objets.Terre;
+import application.modele.objets.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,7 +67,9 @@ public class Environnement {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
                 switch (mapJeu.getTabMap()[i][j]) {
                     case 34: listeMinerais.add(new Terre(j,i));
+                    case 42: listeMinerais.add(new Fer(j,i));
                     case 52: listeMinerais.add(new Pierre(j,i));
+                    case 53: listeMinerais.add(new Platine(j,i));
                     default: break;
                 }
             }
