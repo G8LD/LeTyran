@@ -42,7 +42,7 @@ public class MapVue {
             }
         });
         construireMap();
-        construireDecor();
+        //construireDecor();
         construireFond();
     }
 

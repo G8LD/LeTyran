@@ -18,7 +18,7 @@ public class ChargeurRessources {
         }
 
         tileMapAssets.add(0, new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
-        tileMapAssets.add(2, new Image("file:src/main/resources/application/pack1/tile001.png"));
+        //tileMapAssets.add(2, new Image("file:src/main/resources/application/pack1/tile001.png"));
         for (int i = 2; i <= 51; i++) {
             String fileName = "0" + (i-1);
             if(i < 10) {
@@ -28,5 +28,6 @@ public class ChargeurRessources {
             tileMapAssets.add(i, new Image(path));
         }
         tileMapAssets.add(52, new Image("file:src/main/resources/application/pack1/Pierre.png"));
+        tileMapAssets.add(53, new Image("file:src/main/resources/application/pack1/tile169.png"));
     }
 }
