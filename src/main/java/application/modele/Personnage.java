@@ -21,6 +21,7 @@ public class Personnage {
     private int hauteurSaut;
     private Arme arme;
 
+
     public Personnage(Environnement env) {
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
@@ -94,8 +95,14 @@ public class Personnage {
         return xProperty;
     }
 
-    public void setX(int x) {
+    public int setX(int x) {
         this.xProperty.set(x);
+        return x;
+    }
+
+    public int setY(int y) {
+        this.xProperty.set(y);
+        return y;
     }
 
     public int getY() {
