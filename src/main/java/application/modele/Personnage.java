@@ -1,5 +1,6 @@
 package application.modele;
 
+import application.modele.armes.Arme;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -18,6 +19,7 @@ public class Personnage {
     private boolean tombe;
     private BooleanProperty avanceProperty;
     private int hauteurSaut;
+    private Arme arme;
 
     public Personnage(Environnement env) {
         saute = false; tombe = false;
@@ -26,9 +28,14 @@ public class Personnage {
         yProperty = new SimpleIntegerProperty(11* TUILE_TAILLE);
         direction = Direction.Droit;
         hauteurSaut = 0;
+        arme = null;
         this.env = env;
         this.inventaire = new Inventaire();
         inventaire.ajouterObjet();
+    }
+
+    public void miner(int x, int y) {
+        env.minage(x,y);
     }
 
     public void seDeplacer() {
@@ -44,6 +51,13 @@ public class Personnage {
             else
                 xProperty.setValue(xProperty.getValue() - 1);
         }
+
+
+        /*if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
+            xProperty.setValue(xProperty.getValue() + dX);
+            yProperty.setValue(yProperty.getValue() + dY);
+            //System.out.println("seDeplacer : " + xProperty.getValue() + "\t" + yProperty.getValue());
+        }*/
     }
 
     public void sauter() {
@@ -137,5 +151,10 @@ public class Personnage {
     public Inventaire getInventaire() {
         return this.inventaire;
     }
+
+    public Arme getArme() {
+        return arme;
+    }
+
     //endregion
 }

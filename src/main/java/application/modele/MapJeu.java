@@ -19,7 +19,7 @@ public class MapJeu {
     }
 
     private void construireMap() {
-        InputStream is = getClass().getResourceAsStream("/application/tiles/TileMap.txt");
+        InputStream is = getClass().getResourceAsStream("/application/tiles/TileMapSimplifie.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;
         String[] tabLine;
@@ -29,6 +29,7 @@ public class MapJeu {
                 tabLine = line.split(" ");
                 for (int j = 0; j < WIDTH; j++) {
                     tabMap[i][j] = Integer.parseInt(tabLine[j]);
+
                     System.out.print(tabMap[i][j] + " ");
                 }
                 System.out.println();
