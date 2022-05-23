@@ -50,7 +50,7 @@ public class MapVue {
             public void onChanged(Change<? extends Arbre> change) {
                 while (change.next()) {
                     if (change.wasRemoved()) {
-                        supprimerBloc(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
+                        supprimerArbre(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
                     }
                 }
             }
@@ -139,11 +139,17 @@ public class MapVue {
     }
 
     public void supprimerBloc(int id) {
-        Node node = tileSol.getChildren().get(id);
-        if(node instanceof ImageView) {
-            System.out.println(((ImageView) node).getImage().getUrl());
-            ImageView imgView = (ImageView)node;
-            imgView.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
+        ImageView img = (ImageView) tileSol.getChildren().get(id);
+        System.out.println(img.getImage().getUrl());
+        img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
+    }
+
+    public void supprimerArbre(int id) {
+        ImageView img;
+        for (int i = 0; i < 3; i++) {
+            img = (ImageView) tileSol.getChildren().get(id-WIDTH*i);
+            System.out.println(img.getImage().getUrl());
+            img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
         }
     }
 }

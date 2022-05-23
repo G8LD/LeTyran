@@ -30,7 +30,7 @@ public class Environnement {
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
                 if (mapJeu.getTabMap()[i][j] == 54)
-                    listeArbres.add(new Arbre(j,i,1));
+                    listeArbres.add(new Arbre(j,i,3));
             }
         }
     }
@@ -132,6 +132,9 @@ public class Environnement {
     }
 
     private Arbre getArbre(int x, int y) {
+        if (mapJeu.getTabMap()[y][x] == 55) y++;
+        else if (mapJeu.getTabMap()[y][x] == 56) y+=2;
+
         for (Arbre arbre : listeArbres)
             if (arbre.getX() == x && arbre.getY() == y)
                 return arbre;
