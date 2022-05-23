@@ -26,6 +26,15 @@ public class PersonnageVue {
         this.spritesJoueur = spritesJoueur;
         lastUpdate = System.nanoTime();
         construirePerso(spritesJoueur);
+    }
+
+    //initialise les sprites du joueur_le met à la bonne position et met rend le bon sprite visible
+    private void construirePerso(StackPane spritesJoueur) {
+        for (int i = 1; i < spritesJoueur.getChildren().size(); i++)
+            spritesJoueur.getChildren().get(i).setVisible(false);
+
+        spritesJoueur.translateXProperty().bind(personnage.getXProperty());
+        spritesJoueur.translateYProperty().bind(personnage.getYProperty());
 
         personnage.getXProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -39,18 +48,6 @@ public class PersonnageVue {
                 if (!t1) immobile();
             }
         });
-    }
-
-    //initialise les sprites du joueur_le met à la bonne position et met rend le bon sprite visible
-    private void construirePerso(StackPane spritesJoueur) {
-        for (int i = 1; i < spritesJoueur.getChildren().size(); i++)
-            spritesJoueur.getChildren().get(i).setVisible(false);
-        //spritesJoueur.getChildren().get(0).setVisible(true);
-//        spritesJoueur.setTranslateX(personnage.getX() * TUILE_TAILLE);
-//        spritesJoueur.setTranslateY(personnage.getY() * TUILE_TAILLE);
-        spritesJoueur.translateXProperty().bind(personnage.getXProperty());
-        spritesJoueur.translateYProperty().bind(personnage.getYProperty());
-//        spritesJoueur.setBackground(Background.fill(Color.RED));
     }
 
     public void animationHorizontale() {
