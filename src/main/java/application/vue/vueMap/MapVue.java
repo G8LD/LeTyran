@@ -1,6 +1,9 @@
 package application.vue.vueMap;
 
 import application.modele.Environnement;
+import application.modele.MapJeu;
+import application.modele.map.Block;
+import application.modele.map.Chunk;
 import application.modele.objets.Minerai;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
@@ -14,6 +17,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import static application.modele.MapJeu.*;
 
@@ -24,6 +29,8 @@ public class MapVue {
     private TilePane tileSol;
     private TilePane tileDecors;
     private TilePane tileFond;
+
+    private HashMap<String, Chunk> chunks;
 
     public MapVue(Environnement env, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
         this.env = env;
@@ -46,9 +53,68 @@ public class MapVue {
             }
         });
 
+        this.chunks = this.env.getMapJeu().getMapChunks();
         construireMap();
+        rendreMap();
         construireDecor();
         construireFond();
+    }
+
+    /*private void construireMap() {
+
+    }*/
+
+    public void rendreMap() {
+
+        int x = 0;
+        for (Chunk chunk : this.chunks.values()) {
+            for (Block bloc : chunk.getBlocs().values()) {
+                int id = bloc.getX() + bloc.getY() *  HEIGHT;
+                //System.out.println("x: " + bloc.getX() + " y: " + bloc.getY() + " id " + id);
+                ImageView img = (ImageView) tileSol.getChildren().get(id);
+                if(bloc.getY() < tabMap.length && bloc.getX() < tabMap[0].length) {
+                    int blocID = tabMap[bloc.getY()][bloc.getX()];
+                    img.setImage(ChargeurRessources.tileMapAssets.get(blocID));
+                    img.setVisible(true);
+                }
+                x++;
+
+            }
+        }
+
+        System.out.println(x);
+        /*
+        int positionX = this.env.getPersonnage().getX() / TUILE_TAILLE;
+        int positionY = this.env.getPersonnage().getY() / TUILE_TAILLE;
+
+        int blocX = 0;
+        int blocY = 0;
+
+        for(int i = 0; i < tileSol.getChildren().size(); i++) {
+            tileSol.getChildren().get(i).setVisible(false);
+        }
+
+        for(int y = positionY - DISTANCE_RENDU; y < positionY + DISTANCE_RENDU; y+= 5) {
+            for(int x = positionX - DISTANCE_RENDU; x < positionX + DISTANCE_RENDU; x+=5) {
+                blocX = (x/5) * 5;
+                blocY = (y/5) * 5;
+                //System.out.println("bloc a rendre : y " + blocY + "_" + blocX);
+                Chunk chunk = this.chunks.get(blocY+"_"+blocX);
+                for(Block bloc : chunk.getBlocs().values()) {
+                    //System.out.println(bloc.getX());
+                    //System.out.println(bloc.getX() + bloc.getY() * 5);
+                    ImageView img = (ImageView) tileSol.getChildren().get(bloc.getX() + bloc.getY() * 5);
+                    int blocID = tabMap[bloc.getY()][bloc.getX()];
+                    img.setImage(ChargeurRessources.tileMapAssets.get(blocID));
+                    img.setVisible(true);
+                    //System.out.println(bloc);
+                }
+            }
+        }*/
+
+
+
+
     }
 
     private void construireMap() {
@@ -59,7 +125,7 @@ public class MapVue {
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
                 int indexImg = tabMap[i][j];
-                img = new ImageView(ChargeurRessources.tileMapAssets.get(indexImg));
+                img = new ImageView(ChargeurRessources.tileMapAssets.get(0));
                 tileSol.getChildren().add(img);
             }
         }

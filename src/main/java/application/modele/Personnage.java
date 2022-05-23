@@ -52,6 +52,8 @@ public class Personnage {
                 xProperty.setValue(xProperty.getValue() - 1);
         }
 
+        this.env.getMapJeu().chargerRenduCarte();
+
 
         /*if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
             xProperty.setValue(xProperty.getValue() + dX);

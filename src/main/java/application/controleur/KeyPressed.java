@@ -37,5 +37,7 @@ public class KeyPressed implements EventHandler<KeyEvent> {
             default:
                 break;
         }
+
+        this.controleur.getMapVue().rendreMap();
     }
 }

@@ -16,7 +16,7 @@ public class Environnement {
 
     public Environnement() {
         personnage = new Personnage(this);
-        mapJeu = new MapJeu();
+        mapJeu = new MapJeu(this);
         listeMinerais = FXCollections.observableArrayList();
         initListeMinerais();
     }
