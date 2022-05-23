@@ -24,12 +24,13 @@ public class MapVue {
         this.tileSol = tileSol;
         this.tileDecors = tileDecors;
         construireMap();
-        construireDecor();
+        //construireDecor();
     }
 
     private void construireMap() {
         ChargeurRessources.charger();
-        tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        tileSol.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        tileSol.setBackground(Background.fill(Color.AZURE));
         //tileSol.setBackground(Background.fill(Color.LIGHTBLUE));
         ImageView img;
         for (int i = 0; i < HEIGHT; i++) {
@@ -42,7 +43,7 @@ public class MapVue {
     }
 
     private void construireDecor() {
-        tileDecors.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        tileDecors.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         InputStream is = getClass().getResourceAsStream("/application/tiles/TileDecors.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;
@@ -53,6 +54,7 @@ public class MapVue {
                 line = br.readLine();
                 tabLine = line.split(" ");
                 for (int j = 0; j < WIDTH; j++) {
+
                     switch (Integer.parseInt(tabLine[j])) {
                         case 0:
                             img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparant.png"));
@@ -74,6 +76,7 @@ public class MapVue {
                             break;
                     }
                     tileDecors.getChildren().add(img);
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();

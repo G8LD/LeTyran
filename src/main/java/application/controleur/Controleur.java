@@ -39,13 +39,14 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        root.setMaxSize(10000,10000);
+        //root.setMaxSize(10000,10000);
         root.setBackground(Background.fill(Color.RED));
         System.out.println(WIDTH * TUILE_TAILLE + " "+ HEIGHT * TUILE_TAILLE);
         env = new Environnement();
         keyReleased = new KeyReleased(this, env);
         mapVue = new MapVue(env.getMapJeu().getTabMap(), tileSol, tileDecors);
         personnageVue = new PersonnageVue(env.getPersonnage(), spritesJoueur);
+
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
