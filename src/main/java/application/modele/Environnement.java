@@ -49,6 +49,7 @@ public class Environnement {
             }
         }
     }
+
     public void interaction(int x, int y) {
         if (getMinerai(x, y) != null)
             minage(x,y);
@@ -66,7 +67,7 @@ public class Environnement {
         }
     }
 
-    public void minage(int x, int y) {
+    private void minage(int x, int y) {
         Minerai minerai = getMinerai(x,y);
         minerai.frappe(personnage.getArme());
         if (minerai.getPv() <= 0) {

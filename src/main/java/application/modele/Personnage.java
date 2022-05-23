@@ -34,10 +34,6 @@ public class Personnage {
         inventaire.ajouterObjet();
     }
 
-    public void miner(int x, int y) {
-        env.minage(x,y);
-    }
-
     public void seDeplacer() {
         int distance;
         if (tombe || saute)
