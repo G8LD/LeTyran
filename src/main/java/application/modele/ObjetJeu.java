@@ -1,5 +1,7 @@
 package application.modele;
 
+import java.util.HashMap;
+
 public class ObjetJeu {
     private String nom;
     private int place;

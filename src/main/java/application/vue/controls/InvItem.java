@@ -24,7 +24,7 @@ public class InvItem extends StackPane {
     private ObjetJeu Objet;
 
     private InventaireVue invVue;
-    private Minerai minerai;
+
 
     //Permet de vérifier si on est entrain de porter un objet
     private boolean dragActive =false;
@@ -35,7 +35,7 @@ public class InvItem extends StackPane {
         this.invVue = invVue;
         this.Objet = obj;
         this.imgVObjet = new ImageView(new Image("file:src/main/resources/application/inventaire/food/apple.png"));
-        this.minerai=null;
+
 
         this.imgVObjet.setFitHeight(TAILLE_IMG_OBJET);
         this.imgVObjet.setFitWidth(TAILLE_IMG_OBJET);
@@ -48,23 +48,6 @@ public class InvItem extends StackPane {
         color.setWidth(TAILLE_IMG_OBJET);
         color.setHeight(TAILLE_IMG_OBJET);
         color.setPaint(Color.color(0.3,0.3,.3,0.1));
-        this.listeImageInv();
-        switch (minerai.getIdMin()){
-            case 1 :
-                    imgVObjet.setImage(this.imageInv[1]);
-                    break;
-            case 2 :
-                imgVObjet.setImage(this.imageInv[2]);
-                break;
-            case 3 :
-                imgVObjet.setImage(this.imageInv[3]);
-                break;
-
-            case 4:
-                imgVObjet.setImage(this.imageInv[4]);
-                break;
-
-        }
         this.setOnMouseEntered(mouseEvent -> {
             mouseEntered();
         });
@@ -103,11 +86,6 @@ public class InvItem extends StackPane {
         this.getChildren().add(this.imgVObjet);
         this.getChildren().add(quantite);
 
-    }
-    private void listeImageInv(){
-        for (int i=1; i< imageInv.length;i++){
-            imageInv[i]=new Image("file:src/main/resources/application/Ressources/" + i);
-        }
     }
 
     public ObjetJeu getObjet() {

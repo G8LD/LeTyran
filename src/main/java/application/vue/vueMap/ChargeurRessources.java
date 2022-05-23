@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static application.modele.MapJeu.HEIGHT;
 import static application.modele.MapJeu.WIDTH;
@@ -11,6 +12,7 @@ import static application.modele.MapJeu.WIDTH;
 public class ChargeurRessources {
 
     public static ArrayList<Image> tileMapAssets = new ArrayList<Image>();
+    public static HashMap<String, Image> listeObjetImage = new HashMap<String, Image>();
 
     public static void charger() {
         for (int i = 1; i < 57; i++) {
@@ -28,5 +30,8 @@ public class ChargeurRessources {
             tileMapAssets.add(i, new Image(path));
         }
         tileMapAssets.add(52, new Image("file:src/main/resources/application/pack1/Pierre.png"));
+        listeObjetImage.put("Fer",new Image("file:src/main/resources/application/Ressources/Fer.png"));
     }
+
+
 }

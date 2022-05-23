@@ -18,7 +18,7 @@ public class Inventaire {
         ArrayList<String> nom = new ArrayList<>();
         nom.add(nomObjet);
         for(int i = 1; i < 15; i++) {
-            objets.add(new ObjetJeu(1, nom.get((int)(Math.random() * nom.size()) ), 2));
+            objets.add(new ObjetJeu(1,  nomObjet, 2));
         }
     }
 
