@@ -9,13 +9,11 @@ public abstract class Minerai {
     private int x;
     private int y;
     private int pv;
-    private String idNom;
 
-    public Minerai(int x, int y, String id) {
+    public Minerai(int x, int y) {
         this.x = x;
         this.y = y;
         this.pv = PV_MAX;
-        this.idNom = id;
     }
 
     public void decrementerPv(int degat) {
@@ -35,11 +33,8 @@ public abstract class Minerai {
     }
 
     public abstract void frappe(Arme arme);
-
-    public String getIdNom() {
-        return this.idNom;
-    }
 }
+
 
 
 

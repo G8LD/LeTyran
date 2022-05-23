@@ -31,7 +31,9 @@ public class Personnage {
         arme = null;
         this.env = env;
         this.inventaire = new Inventaire();
-        inventaire.ajouterObjet("");
+        this.inventaire.ajouterObjet("Terre");
+        this.inventaire.ajouterObjet("Terre");
+
     }
 
     public void miner(int x, int y) {

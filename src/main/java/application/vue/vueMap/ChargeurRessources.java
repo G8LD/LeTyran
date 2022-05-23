@@ -31,6 +31,10 @@ public class ChargeurRessources {
         }
         tileMapAssets.add(52, new Image("file:src/main/resources/application/pack1/Pierre.png"));
         listeObjetImage.put("Fer",new Image("file:src/main/resources/application/Ressources/Fer.png"));
+        listeObjetImage.put("Bois",new Image("file:src/main/resources/application/Ressources/Bois.png"));
+        listeObjetImage.put("Pierre",new Image("file:src/main/resources/application/Ressources/Pierre.png"));
+        listeObjetImage.put("Platine",new Image("file:src/main/resources/application/Ressources/Platine.png"));
+        listeObjetImage.put("Terre",new Image("file:src/main/resources/application/Ressources/Terre.png"));
     }
 
 

@@ -6,7 +6,7 @@ import application.modele.armes.Pioche;
 public class Platine extends Minerai {
 
     public Platine(int x, int y) {
-        super(x, y,3,"Platine");
+        super(x, y);
     }
 
     @Override

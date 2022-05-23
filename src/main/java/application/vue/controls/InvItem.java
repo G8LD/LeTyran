@@ -3,6 +3,7 @@ package application.vue.controls;
 import application.modele.ObjetJeu;
 import application.modele.objets.Minerai;
 import application.vue.InventaireVue;
+import application.vue.vueMap.ChargeurRessources;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorInput;
@@ -34,7 +35,8 @@ public class InvItem extends StackPane {
         this.imageInv= new Image[5];
         this.invVue = invVue;
         this.Objet = obj;
-        this.imgVObjet = new ImageView(new Image("file:src/main/resources/application/inventaire/food/apple.png"));
+        this.imgVObjet = new ImageView(ChargeurRessources.listeObjetImage.get(this.Objet.toString()));
+
 
 
         this.imgVObjet.setFitHeight(TAILLE_IMG_OBJET);

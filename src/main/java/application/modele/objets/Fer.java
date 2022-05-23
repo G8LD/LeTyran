@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 public class Fer extends Minerai {
 
     public Fer(int x, int y) {
-        super(x, y,"Fer");
+        super(x, y);
     }
 
     @Override

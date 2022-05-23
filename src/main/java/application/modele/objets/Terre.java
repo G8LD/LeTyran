@@ -6,7 +6,7 @@ import application.modele.armes.Pioche;
 public class Terre extends Minerai {
 
     public Terre(int x, int y) {
-        super(x, y,4,"Terre");
+            super(x, y);
     }
 
     @Override

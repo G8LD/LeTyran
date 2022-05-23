@@ -15,11 +15,10 @@ public class Inventaire {
     }
 
     public void ajouterObjet(String nomObjet) {
-        ArrayList<String> nom = new ArrayList<>();
-        nom.add(nomObjet);
-        for(int i = 1; i < 15; i++) {
-            objets.add(new ObjetJeu(1,  nomObjet, 2));
+        for (int i =1 ;i <41 ; i++) {
+            objets.add(new ObjetJeu(i, nomObjet, 1));
         }
+
     }
 
     public void retirerObjet(ObjetJeu objet) {

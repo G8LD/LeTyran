@@ -34,6 +34,5 @@ public class MousePressed implements EventHandler<MouseEvent> {
             //System.out.println("x : " + x + " y " + y + " bloc numéro : " + id);
         }
 
-
     }
 }
