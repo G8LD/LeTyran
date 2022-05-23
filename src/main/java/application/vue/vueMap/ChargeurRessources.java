@@ -29,5 +29,6 @@ public class ChargeurRessources {
         }
         tileMapAssets.add(52, new Image("file:src/main/resources/application/pack1/Pierre.png"));
         tileMapAssets.add(53, new Image("file:src/main/resources/application/pack1/tile169.png"));
+        tileMapAssets.add(54, new Image("file:src/main/resources/application/pack1/arbre_etat1.png"));
     }
 }

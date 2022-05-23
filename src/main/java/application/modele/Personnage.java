@@ -51,13 +51,6 @@ public class Personnage {
             else
                 xProperty.setValue(xProperty.getValue() - 1);
         }
-
-
-        /*if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
-            xProperty.setValue(xProperty.getValue() + dX);
-            yProperty.setValue(yProperty.getValue() + dY);
-            //System.out.println("seDeplacer : " + xProperty.getValue() + "\t" + yProperty.getValue());
-        }*/
     }
 
     public void sauter() {

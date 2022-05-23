@@ -2,6 +2,7 @@ package application.vue.vueMap;
 
 import application.modele.Environnement;
 import application.modele.MapJeu;
+import application.modele.objets.Arbre;
 import application.modele.objets.Minerai;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
@@ -31,6 +32,9 @@ public class MapVue {
         this.tileDecors = tileDecors;
         this.tileFond = tileFond;
         this.tileFond.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        construireMap();
+        //construireDecor();
+        construireFond();
         env.getListeMinerais().addListener(new ListChangeListener<Minerai>() {
             @Override
             public void onChanged(Change<? extends Minerai> change) {
@@ -41,18 +45,26 @@ public class MapVue {
                 }
             }
         });
-        construireMap();
-        //construireDecor();
-        construireFond();
+        env.getListeArbres().addListener(new ListChangeListener<Arbre>() {
+            @Override
+            public void onChanged(Change<? extends Arbre> change) {
+                while (change.next()) {
+                    if (change.wasRemoved()) {
+                        supprimerBloc(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
+                    }
+                }
+            }
+        });
     }
 
     private void construireMap() {
         this.tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         ChargeurRessources.charger();
         ImageView img;
+        int indexImg;
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-                int indexImg = env.getMapJeu().getTabMap()[i][j];
+                indexImg = env.getMapJeu().getTabMap()[i][j];
                 img = new ImageView(ChargeurRessources.tileMapAssets.get(indexImg));
                 tileSol.getChildren().add(img);
             }

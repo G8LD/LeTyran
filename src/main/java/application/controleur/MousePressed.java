@@ -26,12 +26,7 @@ public class MousePressed implements EventHandler<MouseEvent> {
         if(this.env.getMapJeu().getTabMap()[y][x] != 0
                 && x <= env.getPersonnage().getX()/TUILE_TAILLE + 1 && x >= env.getPersonnage().getX()/TUILE_TAILLE - 1
                 && y <= env.getPersonnage().getY()/TUILE_TAILLE + 1 && y >= env.getPersonnage().getY()/TUILE_TAILLE - 1) {
-            env.getPersonnage().miner(x, y);
-//            id = (y * MapJeu.WIDTH) + x;
-//            this.env.getMapJeu().getTabMap()[y][x] = 0;
-//            this.controleur.getMapVue().supprimerBloc(id);
-
-            //System.out.println("x : " + x + " y " + y + " bloc numéro : " + id);
+            env.interaction(x,y);
         }
 
 
