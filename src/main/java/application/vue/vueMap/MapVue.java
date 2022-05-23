@@ -147,7 +147,7 @@ public class MapVue {
     public void supprimerArbre(int id) {
         ImageView img;
         for (int i = 0; i < 3; i++) {
-            img = (ImageView) tileSol.getChildren().get(id-WIDTH*i);
+            img = (ImageView) tileSol.getChildren().get(id - i * WIDTH);
             System.out.println(img.getImage().getUrl());
             img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
         }
