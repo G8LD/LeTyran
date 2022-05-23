@@ -1,4 +1,4 @@
-package application.vue.vuePerso;
+package application.vue;
 
 import application.modele.Direction;
 import application.modele.Personnage;
@@ -27,8 +27,12 @@ public class PersonnageVue {
         lastUpdate = System.nanoTime();
         construirePerso(spritesJoueur);
 
-        personnage.getXProperty().addListener(new DeplaceListener(personnage, this));
-        personnage.getYProperty().addListener(new DeplaceListener(personnage, this));
+        personnage.getXProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                animationHorizontale();
+            }
+        });
         personnage.getAvanceProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {

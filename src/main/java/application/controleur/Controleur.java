@@ -4,7 +4,7 @@ import application.modele.Environnement;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import application.vue.vueMap.MapVue;
-import application.vue.vuePerso.PersonnageVue;
+import application.vue.PersonnageVue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyEvent;
