@@ -28,6 +28,7 @@ public class Controleur implements Initializable {
     @FXML private TilePane tileSol;
     @FXML private TilePane tileDecors;
     @FXML private TilePane tileFond;
+    @FXML private TilePane tileArbre;
     @FXML private StackPane spritesJoueur;
 
     @Override
@@ -35,7 +36,7 @@ public class Controleur implements Initializable {
         env = new Environnement();
         keyReleased = new KeyReleased(this, env);
         personnageVue = new PersonnageVue(env.getPersonnage(), spritesJoueur);
-        mapVue = new MapVue(env, tileSol, tileDecors, tileFond);
+        mapVue = new MapVue(env, tileSol, tileArbre, tileDecors, tileFond);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);

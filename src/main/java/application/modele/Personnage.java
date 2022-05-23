@@ -58,8 +58,9 @@ public class Personnage {
         if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
             yProperty.setValue(yProperty.getValue() - 1);
             hauteurSaut +=1;
-        } else if (saute)
+        } else if (saute) {
             saute = false;
+        }
     }
 
     public void tomber() {

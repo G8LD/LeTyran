@@ -19,18 +19,16 @@ public class MapVue {
 
     private Environnement env;
     private TilePane tileSol;
+    private TilePane tileArbre;
     private TilePane tileDecors;
     private TilePane tileFond;
 
-    public MapVue(Environnement env, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
+    public MapVue(Environnement env, TilePane tileSol, TilePane tileArbre, TilePane tileDecors, TilePane tileFond) {
         this.env = env;
         this.tileSol = tileSol;
+        this.tileArbre = tileArbre;
         this.tileDecors = tileDecors;
         this.tileFond = tileFond;
-
-        construireMap();
-        construireDecor();
-        construireFond();
 
         env.getListeMinerais().addListener(new ListChangeListener<Minerai>() {
             @Override
@@ -42,7 +40,6 @@ public class MapVue {
                 }
             }
         });
-
         env.getListeArbres().addListener(new ListChangeListener<Arbre>() {
             @Override
             public void onChanged(Change<? extends Arbre> change) {
@@ -53,7 +50,9 @@ public class MapVue {
                 }
             }
         });
+
         construireMap();
+        construireArbre();
         construireDecor();
         construireFond();
     }
@@ -67,6 +66,27 @@ public class MapVue {
                 int indexImg = env.getMapJeu().getTabMap()[i][j];
                 img = new ImageView(ChargeurRessources.tileMapAssets.get(indexImg));
                 tileSol.getChildren().add(img);
+            }
+        }
+    }
+
+    private void construireArbre() {
+        this.tileArbre.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        Image[] tabImg = new Image[4];
+        tabImg[0] = new Image("file:src/main/resources/application/pack1/tile_transparent.png");
+        tabImg[1] = new Image("file:src/main/resources/application/pack1/arbre_bas.png");
+        tabImg[2] = new Image("file:src/main/resources/application/pack1/arbre_milieu.png");
+        tabImg[3] = new Image("file:src/main/resources/application/pack1/arbre_haut.png");
+        ImageView img;
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                switch (env.getMapJeu().getTabMap()[i][j]) {
+                    case 54: img = new ImageView(tabImg[1]); break;
+                    case 55: img = new ImageView(tabImg[2]); break;
+                    case 56: img = new ImageView(tabImg[3]); break;
+                    default: img = new ImageView(tabImg[0]); break;
+                }
+                tileArbre.getChildren().add(img);
             }
         }
     }
