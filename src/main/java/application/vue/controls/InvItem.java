@@ -39,9 +39,6 @@ public class InvItem extends StackPane {
         this.setLayoutX(8);
         this.setLayoutY(8);
 
-        /*this.setLayoutX(this.viewParent.get() + 2);
-        this.setLayoutY(this.viewParent.getY() + 2);*/
-
         color = new ColorInput();
 
         color.setWidth(TAILLE_IMG_OBJET);
@@ -76,8 +73,6 @@ public class InvItem extends StackPane {
         {
             if (dragActive) {
                 Parent parent = this.getParent();
-                /*System.out.println(" x : " + (mouseEvent.getSceneX() - this.getPrefWidth() / 2));
-                System.out.println(" y : " + (mouseEvent.getSceneY() - this.getPrefHeight() / 2));*/
                 this.setLayoutX(mouseEvent.getSceneX() - parent.getLayoutX() - this.getPrefWidth() / 2);
                 this.setLayoutY(mouseEvent.getSceneY() - parent.getLayoutY() - this.getPrefHeight() / 2);
             }
@@ -87,7 +82,6 @@ public class InvItem extends StackPane {
         quantite.setText(obj.toString());
         this.getChildren().add(this.imgVObjet);
         this.getChildren().add(quantite);
-
 
     }
 
