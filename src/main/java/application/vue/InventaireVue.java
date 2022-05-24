@@ -47,6 +47,11 @@ public class InventaireVue {
                     retirerObjetAffichage(obj);
 
                 }
+
+                for(int i = 0; i < change.getAddedSize(); i++) {
+                    ObjetJeu obj = change.getAddedSubList().get(i);
+                    ajouterUnObjet(obj);
+                }
             }
         });
 
@@ -119,6 +124,17 @@ public class InventaireVue {
             }
             this.objPrit = null;
         }
+    }
+
+    public void ajouterUnObjet(ObjetJeu obj) {
+        InvSlot slot = (InvSlot) this.invPaneConteneur.getChildren().get(obj.getPlaceInventaire());
+
+        InvItem item = new InvItem(this, obj, slot);
+        item.setPrefWidth(32);
+        item.setPrefHeight(32);
+
+        slot.getChildren().add(item);
+
     }
 
     public void ajouterListeObjets() {

@@ -3,18 +3,17 @@ package application.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class ObjetJeu {
+public class ObjetJeu extends Entite {
     private String nom;
     private int place;
     private int stack;
-    private Environnement env;
     private static int slotInventaire = 0;
     private IntegerProperty xProperty;
     private IntegerProperty yProperty;
     private boolean tombe = false;
 
     public ObjetJeu(Environnement env, int place, String nom, int stack) {
-        this.env = env;
+        super(env);
         this.nom = nom;
         this.place = slotInventaire++;
         this.stack = stack;
@@ -36,7 +35,14 @@ public class ObjetJeu {
     };
     public IntegerProperty getYProperty() {
         return this.yProperty;
-    };
+    }
+
+    @Override
+    public void quandCollisionDetecte(Entite ent) {
+
+    }
+
+    ;
 
     public int getX() {
         return this.xProperty.getValue();
@@ -60,7 +66,7 @@ public class ObjetJeu {
 
     public void tomber() {
         for (int i = 0; i < 3; i++)
-            if (!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
+            if (!super.getEnv().entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
                 tombe = true;
                 yProperty.setValue(yProperty.getValue() + 1);
             } else {

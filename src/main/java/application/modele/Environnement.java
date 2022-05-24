@@ -21,7 +21,11 @@ public class Environnement {
         listeMinerais = FXCollections.observableArrayList();
         listeObjets = FXCollections.observableArrayList();
 
-        listeObjets.add(new ObjetJeu(this,1, "Epee", 2));
+
+        ObjetJeu nouvObj = new ObjetJeu(this, 1, "Epee", 1);
+        nouvObj.setX(4 * 32);
+        nouvObj.setY(5 * 10);
+        listeObjets.add(nouvObj);
         initListeMinerais();
     }
 
@@ -82,6 +86,10 @@ public class Environnement {
                 }
             }
         }
+    }
+
+    public void supprimerObjetEnvironnement(ObjetJeu obj) {
+        this.listeObjets.remove(obj);
     }
 
     public void minage(int x, int y) {

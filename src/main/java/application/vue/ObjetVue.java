@@ -29,7 +29,12 @@ public class ObjetVue {
             @Override
             public void onChanged(Change<? extends ObjetJeu> change) {
                 change.next();
+                for(int i = 0; i < change.getRemovedSize(); i++) {
+                    retirerObjet(change.getRemoved().get(i));
+                }
+
                 for(int i = 0; i < change.getAddedSize(); i++) {
+
                     ajouterObjet(change.getAddedSubList().get(i));
                 }
 
@@ -52,6 +57,16 @@ public class ObjetVue {
         ObjetView objView = new ObjetView(objet);
         this.objetImageView.add(objView);
         this.root.getChildren().add(objView);
+    }
+
+    public void retirerObjet(ObjetJeu objet) {
+        for(int i = 0; i < this.objetImageView.size(); i++) {
+            ObjetView img = this.objetImageView.get(i);
+            if(img.getObjet() == objet) {
+                System.out.println("trouver");
+                this.root.getChildren().remove(img);
+            }
+        }
     }
 
     public void rendreObjets() {

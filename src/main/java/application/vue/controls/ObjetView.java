@@ -16,9 +16,6 @@ public class ObjetView extends ImageView {
         this.setImage(new Image("file:src/main/resources/application/inventaire/food/bananas.png"));
     }
 
-    public void rendre() {
-
-    }
 
     public ObjetJeu getObjet() {
         return this.obj;

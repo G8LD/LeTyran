@@ -21,14 +21,18 @@ public class Inventaire {
         return objets;
     }
 
-    public void ajouterObjet() {
-        ArrayList<String> nom = new ArrayList<>();
+    public void ajouterObjet(ObjetJeu obj) {
+
+        System.out.println(obj);
+        objets.add(obj);
+        this.env.supprimerObjetEnvironnement(obj);
+        /*ArrayList<String> nom = new ArrayList<>();
         nom.add("Viande");
         nom.add("Bois");
         nom.add("Epee");
         for(int i = 1; i < 15; i++) {
             objets.add(new ObjetJeu(this.env,1, nom.get((int)(Math.random() * nom.size()) ), 2));
-        }
+        }*/
     }
 
     public void retirerObjet(ObjetJeu objet) {
@@ -40,6 +44,7 @@ public class Inventaire {
         objet.setY(this.env.getPersonnage().getY());
         this.env.getObjets().add(objet);
     }
+
 
 
 }
