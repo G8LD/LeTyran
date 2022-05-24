@@ -82,7 +82,6 @@ public class Environnement {
         if (minerai.getPv() <= 0) {
             listeMinerais.remove(minerai);
             mapJeu.getTabMap()[y][x] = 0;
-            personnage.getInventaire().ajouterObjet(minerai.getClass().getSimpleName());
             System.out.println("minerai cassé");
         }
     }

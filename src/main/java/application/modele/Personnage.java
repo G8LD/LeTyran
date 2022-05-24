@@ -31,13 +31,11 @@ public class Personnage {
         arme = null;
         this.env = env;
         this.inventaire = new Inventaire();
-        this.inventaire.ajouterObjet("Terre");
-        this.inventaire.ajouterObjet("Terre");
-
     }
 
     public void miner(int x, int y) {
         env.minage(x,y);
+        this.inventaire.ajouterObjet(this.env.getMinerai(x,y).getClass().getSimpleName());
     }
 
     public void seDeplacer() {
@@ -61,7 +59,6 @@ public class Personnage {
             //System.out.println("seDeplacer : " + xProperty.getValue() + "\t" + yProperty.getValue());
         }*/
     }
-
     public void sauter() {
         for (int i = 0; i < 3; i++)
         if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
