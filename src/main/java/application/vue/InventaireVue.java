@@ -42,7 +42,6 @@ public class InventaireVue {
 
     public void lacherObjet(InvItem invItem) {
         if(this.invPaneConteneur != null) {
-
             boolean found = false;
             float minDist = 0;
             InvSlot seletecSlot = null;

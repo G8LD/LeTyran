@@ -81,6 +81,7 @@ public class Environnement {
         minerai.frappe(personnage.getArme());
         if (minerai.getPv() <= 0) {
             listeMinerais.remove(minerai);
+            this.personnage.getInventaire().ajouterObjet("Pierre");
             mapJeu.getTabMap()[y][x] = 0;
             System.out.println("minerai cassé");
         }

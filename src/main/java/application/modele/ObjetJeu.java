@@ -8,7 +8,7 @@ public class ObjetJeu {
     private int stack;
     private static int slotInventaire = 0;
 
-    public ObjetJeu(int place, String nom, int stack) {
+    public ObjetJeu( String nom, int stack) {
         this.nom = nom;
         this.place = slotInventaire++;
         this.stack = stack;

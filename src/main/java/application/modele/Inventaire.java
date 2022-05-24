@@ -15,7 +15,8 @@ public class Inventaire {
     }
 
     public void ajouterObjet(String nomObjet) {
-            objets.add(new ObjetJeu(1, nomObjet, 1));
+        ObjetJeu obj = new ObjetJeu(nomObjet, 1);
+            objets.add(obj);
     }
 
     public void retirerObjet(ObjetJeu objet) {

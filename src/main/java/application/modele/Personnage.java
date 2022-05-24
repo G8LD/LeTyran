@@ -31,11 +31,13 @@ public class Personnage {
         arme = null;
         this.env = env;
         this.inventaire = new Inventaire();
+        this.inventaire.ajouterObjet("Pierre");
     }
 
     public void miner(int x, int y) {
         env.minage(x,y);
-        this.inventaire.ajouterObjet(this.env.getMinerai(x,y).getClass().getSimpleName());
+
+
     }
 
     public void seDeplacer() {
