@@ -3,7 +3,7 @@ package application.modele.objets;
 import application.modele.armes.Arme;
 import application.modele.armes.Pioche;
 
-public class Platine extends Minerai {
+public class Platine extends Materiau {
 
     public Platine(int x, int y) {
         super(x, y);

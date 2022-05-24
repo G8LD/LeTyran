@@ -2,9 +2,8 @@ package application.modele.objets;
 
 import application.modele.armes.Arme;
 import application.modele.armes.Pioche;
-import javafx.scene.image.Image;
 
-public class Fer extends Minerai {
+public class Fer extends Materiau {
 
     public Fer(int x, int y) {
         super(x, y);

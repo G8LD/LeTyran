@@ -3,7 +3,7 @@ package application.modele.objets;
 import application.modele.armes.Arme;
 import application.modele.armes.Pioche;
 
-public class Pierre extends Minerai {
+public class Pierre extends Materiau {
 
     public Pierre(int x, int y) {
         super(x, y);

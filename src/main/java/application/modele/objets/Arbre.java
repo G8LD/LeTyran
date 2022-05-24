@@ -9,13 +9,11 @@ public class Arbre {
 
     private int x;
     private int y;
-    private int hauteur;
     private int pv;
 
-    public Arbre(int x, int y, int hauteur) {
+    public Arbre(int x, int y) {
         this.x = x;
         this.y = y;
-        this.hauteur = hauteur;
         this.pv = PV_MAX;
     }
 
@@ -47,10 +45,6 @@ public class Arbre {
 
     public int getY() {
         return y;
-    }
-
-    public int getHauteur() {
-        return hauteur;
     }
 
     public int getPv() {
