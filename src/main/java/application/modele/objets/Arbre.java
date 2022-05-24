@@ -19,17 +19,26 @@ public class Arbre {
         this.pv = PV_MAX;
     }
 
-    public void frappe(Arme arme) {
+    public int frappe(Arme arme) {
+        int nbDegats;
+
         if (arme instanceof Hache) {
             if (arme.getQualite() == 1)
-                pv -= 4;
+                nbDegats = 2;
             else if (arme.getQualite() == 2)
-                pv -= 6;
+                nbDegats = 3;
             else
-                pv -= 12;
+                nbDegats = 6;
         } else {
-            pv -= 2;
+            nbDegats = 1;
         }
+
+        int nbBois = 0;
+        for (int i = 0; i < nbDegats; i++) {
+            pv -=2;
+            if (pv % 4 == 0) nbBois++;
+        }
+        return nbBois;
     }
 
     public int getX() {
