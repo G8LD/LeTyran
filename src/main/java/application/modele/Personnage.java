@@ -31,7 +31,7 @@ public class Personnage {
         yProperty = new SimpleIntegerProperty(11* TUILE_TAILLE);
         direction = Direction.Droit;
         hauteurSaut = 0;
-        arme = new Pioche(3);
+        arme = new Hache(1);
         this.env = env;
         this.inventaire = new Inventaire();
         inventaire.ajouterObjet();

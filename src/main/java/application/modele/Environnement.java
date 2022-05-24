@@ -59,7 +59,9 @@ public class Environnement {
 
     private void couper(int x, int y) {
         Arbre arbre = getArbre(x,y);
+        int pvPrecedent = arbre.getPv();
         arbre.frappe(personnage.getArme());
+        //(pvPrecedent - arbre.getPv())/4 pour nb de bois lachée
         if (arbre.getPv() <= 0) {
             listeArbres.remove(arbre);
             mapJeu.getTabMap()[y][x] = 0;
