@@ -13,12 +13,20 @@ public class Environnement {
     private Personnage personnage;
     private MapJeu mapJeu;
     private ObservableList<Minerai> listeMinerais;
+    private ObservableList<ObjetJeu> listeObjets;
 
     public Environnement() {
         personnage = new Personnage(this);
         mapJeu = new MapJeu();
         listeMinerais = FXCollections.observableArrayList();
+        listeObjets = FXCollections.observableArrayList();
+
+        listeObjets.add(new ObjetJeu(this,1, "Epee", 2));
         initListeMinerais();
+    }
+
+    public ObservableList<ObjetJeu> getObjets() {
+        return this.listeObjets;
     }
 
     public boolean entreEnCollision(int xPerso, int yPerso, Direction dir) {
@@ -100,6 +108,13 @@ public class Environnement {
                 return minerai;
 
         return null;
+    }
+
+    public void update() {
+        for(int i = 0; i < this.listeObjets.size(); i++) {
+            ObjetJeu obj = this.listeObjets.get(i);
+            obj.update();
+        }
     }
 
     public ObservableList<Minerai> getListeMinerais() {

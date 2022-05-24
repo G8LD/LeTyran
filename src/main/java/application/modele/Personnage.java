@@ -30,7 +30,7 @@ public class Personnage {
         hauteurSaut = 0;
         arme = null;
         this.env = env;
-        this.inventaire = new Inventaire();
+        this.inventaire = new Inventaire(this.env);
         inventaire.ajouterObjet();
     }
 

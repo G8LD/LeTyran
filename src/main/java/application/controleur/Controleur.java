@@ -1,6 +1,7 @@
 package application.controleur;
 
 import application.modele.Environnement;
+import application.vue.ObjetVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import application.vue.vueMap.MapVue;
@@ -24,6 +25,8 @@ public class Controleur implements Initializable {
     private MapVue mapVue;
     private Timeline gameLoop;
 
+    private ObjetVue objetVue;
+
     @FXML private Pane root;
     @FXML private TilePane tileSol;
     @FXML private TilePane tileDecors;
@@ -37,6 +40,7 @@ public class Controleur implements Initializable {
         keyReleased = new KeyReleased(this, env);
         personnageVue = new PersonnageVue(env.getPersonnage(), spritesJoueur);
         mapVue = new MapVue(env, tileSol, tileDecors, tileFond);
+        objetVue = new ObjetVue(this.env, this.root);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
@@ -57,6 +61,8 @@ public class Controleur implements Initializable {
                 Duration.seconds(0.017),
                 (ev ->{
                     env.getPersonnage().update();
+                    objetVue.update();
+                    this.env.update();
 
                 })
         );
