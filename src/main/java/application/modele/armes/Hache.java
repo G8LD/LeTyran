@@ -15,7 +15,7 @@ public class Hache extends Arme {
 
     public int nbDegat() {
         if (getQualite() == 1) {
-            return 1;
+            return 2;
         } else if (getQualite() == 2) {
             return 3;
         } else {
