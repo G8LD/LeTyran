@@ -2,22 +2,23 @@ package application.modele.armes;
 
 public class Epee extends Arme {
 
-    public Epee(int qualite, int degats) {
-        super(qualite, degats, 1);
+    private final static int DISTANCE = 1;
+
+    public Epee(int qualite) {
+        super(qualite);
     }
 
     @Override
     public void frapper() {
-
     }
 
-    public void nbDegat(int qualite) {
-        if (qualite == 1) {
-            super.setDegats(2);
-        } else if (qualite == 2) {
-            super.setDegats(5);
+    public int nbDegat() {
+        if (getQualite() == 1) {
+            return 2;
+        } else if (getQualite() == 2) {
+            return 5;
         } else {
-            super.setDegats(8);
+            return 8;
         }
     }
 }

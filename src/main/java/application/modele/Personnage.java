@@ -1,6 +1,8 @@
 package application.modele;
 
 import application.modele.armes.Arme;
+import application.modele.armes.Hache;
+import application.modele.armes.Pioche;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -21,6 +23,7 @@ public class Personnage {
     private int hauteurSaut;
     private Arme arme;
 
+
     public Personnage(Environnement env) {
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
@@ -28,14 +31,10 @@ public class Personnage {
         yProperty = new SimpleIntegerProperty(11* TUILE_TAILLE);
         direction = Direction.Droit;
         hauteurSaut = 0;
-        arme = null;
+        arme = new Pioche(3);
         this.env = env;
         this.inventaire = new Inventaire();
         inventaire.ajouterObjet();
-    }
-
-    public void miner(int x, int y) {
-        env.minage(x,y);
     }
 
     public void seDeplacer() {
@@ -58,8 +57,9 @@ public class Personnage {
         if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
             yProperty.setValue(yProperty.getValue() - 1);
             hauteurSaut +=1;
-        } else if (saute)
+        } else if (saute) {
             saute = false;
+        }
     }
 
     public void tomber() {
@@ -97,8 +97,14 @@ public class Personnage {
         return xProperty;
     }
 
-    public void setX(int x) {
+    public int setX(int x) {
         this.xProperty.set(x);
+        return x;
+    }
+
+    public int setY(int y) {
+        this.xProperty.set(y);
+        return y;
     }
 
     public int getY() {

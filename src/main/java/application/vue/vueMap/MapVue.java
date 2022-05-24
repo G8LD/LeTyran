@@ -28,10 +28,6 @@ public class MapVue {
         this.tileDecors = tileDecors;
         this.tileFond = tileFond;
 
-        construireMap();
-        construireDecor();
-        construireFond();
-
         env.getListeMinerais().addListener(new ListChangeListener<Minerai>() {
             @Override
             public void onChanged(Change<? extends Minerai> change) {
@@ -42,7 +38,6 @@ public class MapVue {
                 }
             }
         });
-
         env.getListeArbres().addListener(new ListChangeListener<Arbre>() {
             @Override
             public void onChanged(Change<? extends Arbre> change) {
@@ -53,6 +48,7 @@ public class MapVue {
                 }
             }
         });
+
         construireMap();
         construireDecor();
         construireFond();

@@ -12,9 +12,12 @@ public class Pierre extends Minerai {
     @Override
     public void frappe(Arme arme) {
         if (arme instanceof Pioche) {
-            decrementerPv(3);
+            if (arme.getQualite() == 1)
+                decrementerPv(5);
+            else
+                decrementerPv(9);
         } else {
-            decrementerPv(2);
+            decrementerPv(3);
         }
     }
 }

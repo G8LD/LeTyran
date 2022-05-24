@@ -29,6 +29,7 @@ public class Controleur implements Initializable {
     @FXML private TilePane tileSol;
     @FXML private TilePane tileDecors;
     @FXML private TilePane tileFond;
+    @FXML private TilePane tileArbre;
     @FXML private ImageView spriteJoueur;
 
     @Override

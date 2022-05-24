@@ -21,7 +21,12 @@ public class Arbre {
 
     public void frappe(Arme arme) {
         if (arme instanceof Hache) {
-            pv -= 6;
+            if (arme.getQualite() == 1)
+                pv -= 4;
+            else if (arme.getQualite() == 2)
+                pv -= 6;
+            else
+                pv -= 12;
         } else {
             pv -= 2;
         }

@@ -23,7 +23,7 @@ public class MousePressed implements EventHandler<MouseEvent> {
         int y = (int)mouseEvent.getY() / TUILE_TAILLE;
         //int id;
         
-        if(this.env.getMapJeu().getTabMap()[y][x] != 0
+        if((env.getMinerai(x,y) != null || env.getArbre(x,y) != null)
                 && x <= env.getPersonnage().getX()/TUILE_TAILLE + 1 && x >= env.getPersonnage().getX()/TUILE_TAILLE - 1
                 && y <= env.getPersonnage().getY()/TUILE_TAILLE + 1 && y >= env.getPersonnage().getY()/TUILE_TAILLE - 1) {
             env.interaction(x,y);
