@@ -5,20 +5,16 @@ import application.modele.armes.Pioche;
 
 public class Platine extends Materiau {
 
+    private final static int PV_MAX = 8;
+
     public Platine(int x, int y) {
-        super(x, y);
+        super(x, y, PV_MAX);
     }
 
     @Override
     public void frappe(Arme arme) {
         if (arme instanceof Pioche) {
-            if (arme.getQualite() == 3) {
-                decrementerPv(5);
-            } else if (arme.getQualite() == 2) {
-                decrementerPv(3);
-            } else {
-                decrementerPv(2);
-            }
+            decrementerPv(arme.nbDegat());
         } else {
             decrementerPv(1);
         }

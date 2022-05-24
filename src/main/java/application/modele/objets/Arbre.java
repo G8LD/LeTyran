@@ -5,7 +5,7 @@ import application.modele.armes.Hache;
 
 public class Arbre {
 
-    private final static int PV_MAX = 12;
+    private final static int PV_MAX = 8;
 
     private int x;
     private int y;
@@ -21,19 +21,14 @@ public class Arbre {
         int nbDegats;
 
         if (arme instanceof Hache) {
-            if (arme.getQualite() == 1)
-                nbDegats = 2;
-            else if (arme.getQualite() == 2)
-                nbDegats = 3;
-            else
-                nbDegats = 6;
+            nbDegats = arme.nbDegat();
         } else {
             nbDegats = 1;
         }
 
         int nbBois = 0;
         for (int i = 0; i < nbDegats; i++) {
-            pv -=2;
+            pv--;
             if (pv % 4 == 0) nbBois++;
         }
         return nbBois;

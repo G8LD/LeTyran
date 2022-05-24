@@ -4,16 +4,14 @@ import application.modele.armes.Arme;
 
 public abstract class Materiau {
 
-    private final static int PV_MAX = 9;
-
     private int x;
     private int y;
     private int pv;
 
-    public Materiau(int x, int y) {
+    public Materiau(int x, int y, int pv) {
         this.x = x;
         this.y = y;
-        this.pv = PV_MAX;
+        this.pv = pv;
     }
 
     public void decrementerPv(int degat) {

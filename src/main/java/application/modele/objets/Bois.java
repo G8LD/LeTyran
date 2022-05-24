@@ -5,16 +5,18 @@ import application.modele.armes.Hache;
 
 public class Bois extends Materiau {
 
+    private final static int PV_MAX = 2;
+
     public Bois(int x, int y) {
-        super(x, y);
+        super(x, y, PV_MAX);
     }
 
     @Override
     public void frappe(Arme arme) {
         if (arme instanceof Hache) {
-            decrementerPv(9);
+            decrementerPv(2);
         } else {
-            decrementerPv(5);
+            decrementerPv(1);
         }
     }
 }

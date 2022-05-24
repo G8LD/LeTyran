@@ -5,19 +5,18 @@ import application.modele.armes.Pioche;
 
 public class Pierre extends Materiau {
 
+    private final static int PV_MAX = 3;
+
     public Pierre(int x, int y) {
-        super(x, y);
+        super(x, y, PV_MAX);
     }
 
     @Override
     public void frappe(Arme arme) {
         if (arme instanceof Pioche) {
-            if (arme.getQualite() == 1)
-                decrementerPv(5);
-            else
-                decrementerPv(9);
+            decrementerPv(arme.nbDegat());
         } else {
-            decrementerPv(3);
+            decrementerPv(1);
         }
     }
 }

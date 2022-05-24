@@ -5,21 +5,18 @@ import application.modele.armes.Pioche;
 
 public class Fer extends Materiau {
 
+    private final static int PV_MAX = 5;
+
     public Fer(int x, int y) {
-        super(x, y);
+        super(x, y, PV_MAX);
     }
 
     @Override
     public void frappe(Arme arme) {
         if (arme instanceof Pioche) {
-            if (arme.getQualite() == 3) {
-                decrementerPv(9);
-            } else if (arme.getQualite() == 3) {
-                decrementerPv(5);
-            } else
-                decrementerPv(3);
+            decrementerPv(arme.nbDegat());
         } else {
-            decrementerPv(2);
+            decrementerPv(1);
         }
     }
 
