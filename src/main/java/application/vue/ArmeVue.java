@@ -38,32 +38,33 @@ public class ArmeVue {
     }
 
     public void animationFrappe() {
-        spriteArme.setVisible(true);
-
-        if (personnage.getDirection() == Direction.Droit) {
-            spriteArme.setScaleX(-1);
-            rt.setByAngle(90);
-            spriteArme.setTranslateX(personnage.getX());
-            spriteArme.setTranslateY(personnage.getY() - 10);
-        }
-        else {
-            spriteArme.setScaleX(1);
-            rt.setByAngle(-90);
-            spriteArme.setTranslateX(personnage.getX() - 20);
-            spriteArme.setTranslateY(personnage.getY() - 10);
-        }
-        rt.setOnFinished(actionEvent -> {
-            spriteArme.setVisible(false);
-            if (personnage.getDirection() == Direction.Droit) {
-                rt.setByAngle(270);
+        if (rt.getCurrentRate() == 0) {
+            spriteArme.setVisible(true);
+            Boolean directionDroite = personnage.getDirection() == Direction.Droit;
+            if (directionDroite) {
+                spriteArme.setScaleX(-1);
+                rt.setByAngle(90);
+                spriteArme.setTranslateX(personnage.getX());
+                spriteArme.setTranslateY(personnage.getY() - 10);
+            } else {
+                spriteArme.setScaleX(1);
+                rt.setByAngle(-90);
+                spriteArme.setTranslateX(personnage.getX() - 20);
+                spriteArme.setTranslateY(personnage.getY() - 10);
             }
-            else {
-                rt.setByAngle(-270);
-            }
-            rt.setOnFinished(actionEvent1 -> {});
+            rt.setOnFinished(actionEvent -> {
+                spriteArme.setVisible(false);
+                if (directionDroite) {
+                    rt.setByAngle(270);
+                } else {
+                    rt.setByAngle(-270);
+                }
+                rt.setOnFinished(actionEvent1 -> {
+                });
+                rt.play();
+            });
             rt.play();
-        });
-        rt.play();
+        }
     }
 
     public HashMap<String, Image> getListeSprites() {
