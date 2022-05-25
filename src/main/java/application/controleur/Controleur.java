@@ -1,6 +1,8 @@
 package application.controleur;
 
 import application.modele.Environnement;
+import application.modele.armes.Arme;
+import application.vue.ArmeVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import application.vue.vueMap.MapVue;
@@ -21,23 +23,24 @@ public class Controleur implements Initializable {
 
     private Environnement env;
     private KeyReleased keyReleased;
-    private PersonnageVue personnageVue;
-    private MapVue mapVue;
     private Timeline gameLoop;
+    private ArmeVue armeVue;
 
     @FXML private Pane root;
     @FXML private TilePane tileSol;
     @FXML private TilePane tileDecors;
     @FXML private TilePane tileFond;
-    @FXML private TilePane tileArbre;
     @FXML private ImageView spriteJoueur;
+    @FXML private ImageView spriteArme;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         env = new Environnement();
         keyReleased = new KeyReleased(this, env);
-        personnageVue = new PersonnageVue(env.getPersonnage(), spriteJoueur);
-        mapVue = new MapVue(env, tileSol, tileDecors, tileFond);
+
+        new MapVue(env, tileSol, tileDecors, tileFond);
+        new PersonnageVue(env.getPersonnage(), spriteJoueur);
+        armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
@@ -63,11 +66,7 @@ public class Controleur implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
-    public PersonnageVue getPersonnageVue() {
-        return personnageVue;
-    }
-
-    public MapVue getMapVue() {
-        return this.mapVue;
+    public ArmeVue getArmeVue() {
+        return armeVue;
     }
 }

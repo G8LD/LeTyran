@@ -25,6 +25,7 @@ public class MousePressed implements EventHandler<MouseEvent> {
         if(x <= env.getPersonnage().getX()/TUILE_TAILLE + 1 && x >= env.getPersonnage().getX()/TUILE_TAILLE - 1
                 && y <= env.getPersonnage().getY()/TUILE_TAILLE + 1 && y >= env.getPersonnage().getY()/TUILE_TAILLE - 1) {
             env.interaction(x,y);
+            controleur.getArmeVue().animationFrappe();
         }
 
 

@@ -35,8 +35,6 @@ public class PersonnageVue {
     }
 
     private void construirePerso() {
-        spriteJoueur.setFitHeight(TUILE_TAILLE);
-        spriteJoueur.setFitWidth(TUILE_TAILLE);
         spriteJoueur.setImage(listeSprites.get(0));
 
         spriteJoueur.translateXProperty().bind(personnage.getXProperty());
