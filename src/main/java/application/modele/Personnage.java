@@ -2,11 +2,7 @@ package application.modele;
 
 import application.modele.armes.Arme;
 import application.modele.armes.Hache;
-import application.modele.armes.Pioche;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 
@@ -21,7 +17,7 @@ public class Personnage {
     private boolean tombe;
     private BooleanProperty avanceProperty;
     private int hauteurSaut;
-    private Arme arme;
+    private ObjectProperty<Arme> armeProperty;
 
 
     public Personnage(Environnement env) {
@@ -31,7 +27,7 @@ public class Personnage {
         yProperty = new SimpleIntegerProperty(11 * TUILE_TAILLE);
         direction = Direction.Droit;
         hauteurSaut = 0;
-        arme = new Pioche(3);
+        armeProperty = new SimpleObjectProperty<>(new Hache(1));
         this.env = env;
         this.inventaire = new Inventaire();
         inventaire.ajouterObjet();
@@ -151,9 +147,16 @@ public class Personnage {
         return this.inventaire;
     }
 
-    public Arme getArme() {
-        return arme;
+    public final Arme getArme() {
+        return armeProperty.getValue();
     }
 
+    public final ObjectProperty<Arme> getArmeProperty() {
+        return armeProperty;
+    }
+
+    public final void setArme(Arme arme) {
+        armeProperty.set(arme);
+    }
     //endregion
 }
