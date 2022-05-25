@@ -2,44 +2,50 @@ package application.vue;
 
 import application.modele.Direction;
 import application.modele.Personnage;
-import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.util.ArrayList;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
-import static application.modele.MapJeu.HEIGHT;
-import static application.modele.MapJeu.WIDTH;
 
 
 public class PersonnageVue {
 
     private Personnage personnage;
-    private StackPane spritesJoueur;
+    private ImageView spriteJoueur;
+    private ArrayList<Image> listeSprites;
     private long lastUpdate;
 
-    public PersonnageVue(Personnage personnage, StackPane spritesJoueur) {
+    public PersonnageVue(Personnage personnage, ImageView spritesJoueur) {
         this.personnage = personnage;
-        this.spritesJoueur = spritesJoueur;
+        this.spriteJoueur = spritesJoueur;
+        listeSprites = new ArrayList<>();
         lastUpdate = System.nanoTime();
-        construirePerso(spritesJoueur);
+
+        initListeSprites();
+        construirePerso();
     }
 
-    //initialise les sprites du joueur_le met à la bonne position et met rend le bon sprite visible
-    private void construirePerso(StackPane spritesJoueur) {
-        for (int i = 1; i < spritesJoueur.getChildren().size(); i++)
-            spritesJoueur.getChildren().get(i).setVisible(false);
+    private void initListeSprites() {
+        listeSprites.add(new Image("file:src/main/resources/application/perso/perso_immobile.png"));
+        listeSprites.add(new Image("file:src/main/resources/application/perso/perso_mouvement1.png"));
+        listeSprites.add(new Image("file:src/main/resources/application/perso/perso_mouvement2.png"));
+    }
 
-        spritesJoueur.translateXProperty().bind(personnage.getXProperty());
-        spritesJoueur.translateYProperty().bind(personnage.getYProperty());
+    private void construirePerso() {
+        spriteJoueur.setFitHeight(TUILE_TAILLE);
+        spriteJoueur.setFitWidth(TUILE_TAILLE);
+        spriteJoueur.setImage(listeSprites.get(0));
+
+        spriteJoueur.translateXProperty().bind(personnage.getXProperty());
+        spriteJoueur.translateYProperty().bind(personnage.getYProperty());
 
         personnage.getXProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                animationHorizontale();
+                animationDeplacement();
             }
         });
         personnage.getAvanceProperty().addListener(new ChangeListener<Boolean>() {
@@ -50,58 +56,27 @@ public class PersonnageVue {
         });
     }
 
-    public void animationHorizontale() {
+    public void animationDeplacement() {
         long now = System.nanoTime();
         if (now - lastUpdate >= 150_000_000) {
             lastUpdate = now;
-            int i = 0;
-            while (!spritesJoueur.getChildren().get(i).isVisible()) i++;
-            spritesJoueur.getChildren().get(i).setVisible(false);
 
-            int idSprite;
-            if (i == 1)
-                idSprite = 2;
+            if (spriteJoueur.getImage() == listeSprites.get(1))
+                spriteJoueur.setImage(listeSprites.get(2));
             else
-                idSprite = 1;
+                spriteJoueur.setImage(listeSprites.get(1));
 
-            spritesJoueur.getChildren().get(idSprite).setVisible(true);
             if (personnage.getDirection() == Direction.Droit)
-                spritesJoueur.getChildren().get(idSprite).setScaleX(1);
+                spriteJoueur.setScaleX(1);
             else
-                spritesJoueur.getChildren().get(idSprite).setScaleX(-1);
+                spriteJoueur.setScaleX(-1);
         }
 
     }
 
-    //animation du saut
-    //translate transion correspondant à la hauteur du saut
-//    public void animationSaut(int hauteurSaut) {
-//        System.out.println(hauteurSaut);
-//        tt.setByY(-TUILE_TAILLE * hauteurSaut);
-//        tt.setByX(0);
-//        tt.setDuration(Duration.millis(hauteurSaut * 100));
-//        tt.play();
-//    }
-//
-//    //animation de la chute
-//    //translate transion correspondant à la hauteur de la chute
-//    public void animationChute(int hauteurChute) {
-//        tt.setByY(TUILE_TAILLE * hauteurChute);
-//        tt.setByX(0);
-//        tt.setDuration(Duration.millis(hauteurChute * 100));
-//        tt.play();
-//    }
 
     //met l'image du personnage immobile selon sa direction
     public void immobile() {
-        for (int i = 0; i  < spritesJoueur.getChildren().size(); i++)
-            spritesJoueur.getChildren().get(i).setVisible(false);
-        spritesJoueur.getChildren().get(0).setVisible(true);
-
-        switch (personnage.getDirection()) {
-            case Gauche : spritesJoueur.getChildren().get(0).setScaleX(-1); break;
-            case Droit : spritesJoueur.getChildren().get(0).setScaleX(1); break;
-            default: break;
-        }
+        spriteJoueur.setImage(listeSprites.get(0));
     }
 }

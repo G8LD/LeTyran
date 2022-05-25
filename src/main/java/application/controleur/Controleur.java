@@ -7,6 +7,7 @@ import application.vue.vueMap.MapVue;
 import application.vue.PersonnageVue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -29,13 +30,13 @@ public class Controleur implements Initializable {
     @FXML private TilePane tileDecors;
     @FXML private TilePane tileFond;
     @FXML private TilePane tileArbre;
-    @FXML private StackPane spritesJoueur;
+    @FXML private ImageView spriteJoueur;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         env = new Environnement();
         keyReleased = new KeyReleased(this, env);
-        personnageVue = new PersonnageVue(env.getPersonnage(), spritesJoueur);
+        personnageVue = new PersonnageVue(env.getPersonnage(), spriteJoueur);
         mapVue = new MapVue(env, tileSol, tileDecors, tileFond);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
