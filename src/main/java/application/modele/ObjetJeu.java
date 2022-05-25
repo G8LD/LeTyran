@@ -20,6 +20,11 @@ public class ObjetJeu extends Entite {
 
         this.xProperty = new SimpleIntegerProperty(0);
         this.yProperty = new SimpleIntegerProperty(0);
+
+
+        //Collision
+        super.getCollider().setIgnoreCollision(false);
+        super.getCollider().setActiveVerifCollision(true);
     }
 
     public void setPlaceInventaire(int nouvellePlace) {

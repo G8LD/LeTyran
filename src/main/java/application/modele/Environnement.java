@@ -23,9 +23,10 @@ public class Environnement {
 
 
         ObjetJeu nouvObj = new ObjetJeu(this, 1, "Epee", 1);
-        nouvObj.setX(4 * 32);
-        nouvObj.setY(5 * 10);
+        nouvObj.setX(2 * 32);
+        nouvObj.setY(2 * 10);
         listeObjets.add(nouvObj);
+
         initListeMinerais();
     }
 
@@ -122,6 +123,20 @@ public class Environnement {
         for(int i = 0; i < this.listeObjets.size(); i++) {
             ObjetJeu obj = this.listeObjets.get(i);
             obj.update();
+
+            //appliquerGravite();
+        }
+    }
+
+    public void appliquerGravite() {
+        for(int i = 0; i < this.listeObjets.size(); i++) {
+            Entite ent = this.listeObjets.get(i);
+            if(!ent.getIgnoreGravite()) {
+                Entite collisionEntite = ent.getCollider().tracerLigne(0, -10);
+                if(collisionEntite != null) {
+                    System.out.println("je dois tomberd");
+                }
+            };
         }
     }
 

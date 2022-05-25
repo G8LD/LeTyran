@@ -11,43 +11,45 @@ public abstract class Entite {
 
     private IntegerProperty xProperty;
     private IntegerProperty yProperty;
-    private boolean ignoreCollision;
+
+    private boolean ignoreGravite;
+
 
 
     public Entite(Environnement env) {
         this.env = env;
-        this.ignoreCollision = false;
         this.collider = new Collider(this);
         this.collider.scaleCollider(10,10);
         this.xProperty = new SimpleIntegerProperty(0);
         this.yProperty = new SimpleIntegerProperty(0);
+        this.ignoreGravite = false;
+
     }
 
-    public void setIgnoreCollision(boolean ignore) {
-        this.ignoreCollision = ignore;
+    public boolean getIgnoreGravite() {
+        return this.ignoreGravite;
     }
 
-    public boolean getIgnoreCollision() {
-        return this.ignoreCollision;
+    public void setIgnoreGravite(boolean ignore) {
+        this.ignoreGravite = ignore;
     }
 
 
     public int getX() {
         return xProperty.getValue();
     }
-
+    public int getY() {
+        return yProperty.getValue();
+    }
 
     public void setX(int x) {
         this.xProperty.set(x);
     }
-
     public void setY(int y) {
         this.yProperty.set(y);
     }
 
-    public int getY() {
-        return yProperty.getValue();
-    }
+
 
     public IntegerProperty getXProperty() {
         return xProperty;
@@ -68,15 +70,12 @@ public abstract class Entite {
     public abstract void quandCollisionDetecte(Entite ent);
 
 
-
-    public void collide() {
-
-
+    private void collide() {
 
         for(int i = 0; i < this.env.getObjets().size(); i++) {
             Entite ent = this.env.getObjets().get(i);
             //System.out.println(ent + " | " + this);
-            if(!ent.ignoreCollision && ent != this) {
+            if(ent != this && ent.getCollider().getActiveVerifCollision() && !ent.getCollider().getIgnoreCollision()) {
                 if (this.collider.intersect(ent)) {
                     this.quandCollisionDetecte(ent);
                 }

@@ -29,6 +29,11 @@ public class Personnage extends Entite {
         avanceProperty = new SimpleBooleanProperty(false);
         /*xProperty = new SimpleIntegerProperty(6 * TUILE_TAILLE);
         yProperty = new SimpleIntegerProperty(11* TUILE_TAILLE);*/
+
+        super.getCollider().setActiveVerifCollision(true);
+        super.getCollider().setIgnoreCollision(false);
+
+        super.getCollider().scaleCollider(1, 1);
         super.setX(6 * TUILE_TAILLE);
         super.setY(11 * TUILE_TAILLE);
         direction = Direction.Droit;
@@ -55,13 +60,6 @@ public class Personnage extends Entite {
             else
                 this.getXProperty().setValue(this.getXProperty().getValue() - 1);
         //}
-
-
-        /*if (xProperty.getValue() +dX >= 0 && xProperty.getValue() +dX < MapJeu.WIDTH && yProperty.getValue() +dY >= 0 && yProperty.getValue() +dY < MapJeu.HEIGHT && env.getMapJeu().getTabMap()[yProperty.getValue() +dY][xProperty.getValue() +dX] == 0) {
-            xProperty.setValue(xProperty.getValue() + dX);
-            yProperty.setValue(yProperty.getValue() + dY);
-            //System.out.println("seDeplacer : " + xProperty.getValue() + "\t" + yProperty.getValue());
-        }*/
     }
 
     public void sauter() {
