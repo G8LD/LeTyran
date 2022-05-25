@@ -156,7 +156,7 @@ public class Personnage {
     }
 
     public final void setArme(Arme arme) {
-        armeProperty.set(arme);
+        armeProperty.setValue(arme);
     }
     //endregion
 }
