@@ -1,13 +1,10 @@
 package application.vue;
 
+import application.modele.Entite;
 import application.modele.Environnement;
 import application.modele.ObjetJeu;
 import application.vue.controls.ObjetView;
-import application.vue.vueMap.ChargeurRessources;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -25,16 +22,16 @@ public class ObjetVue {
         this.root = root;
         enregistrerTousLesObjets();
 
-        this.env.getObjets().addListener(new ListChangeListener<ObjetJeu>() {
+        this.env.getEntites().addListener(new ListChangeListener<Entite>() {
             @Override
-            public void onChanged(Change<? extends ObjetJeu> change) {
+            public void onChanged(Change<? extends Entite> change) {
                 change.next();
                 for(int i = 0; i < change.getRemovedSize(); i++) {
                     retirerObjet(change.getRemoved().get(i));
                 }
 
                 for(int i = 0; i < change.getAddedSize(); i++) {
-
+                    System.out.println("on doit afficher un objet");
                     ajouterObjet(change.getAddedSubList().get(i));
                 }
 
@@ -43,8 +40,8 @@ public class ObjetVue {
     }
 
     public void enregistrerTousLesObjets() {
-        for(int i = 0; i < this.env.getObjets().size(); i++) {
-            ObjetJeu obj = this.env.getObjets().get(i);
+        for(int i = 0; i < this.env.getEntites().size(); i++) {
+            Entite obj = this.env.getEntites().get(i);
             ObjetView objView = new ObjetView(obj);
             objetImageView.add(objView);
             this.root.getChildren().add(objView);
@@ -52,19 +49,22 @@ public class ObjetVue {
         }
     }
 
-    public void ajouterObjet(ObjetJeu objet) {
-        System.out.println("On affiche l'objet " + objet.toString());
-        ObjetView objView = new ObjetView(objet);
-        this.objetImageView.add(objView);
-        this.root.getChildren().add(objView);
+    public void ajouterObjet(Entite objet) {
+        if(objet instanceof ObjetJeu) {
+            System.out.println("On affiche l'objet " + objet.toString());
+            ObjetView objView = new ObjetView(objet);
+            this.objetImageView.add(objView);
+            this.root.getChildren().add(objView);
+        }
     }
 
-    public void retirerObjet(ObjetJeu objet) {
-        for(int i = 0; i < this.objetImageView.size(); i++) {
-            ObjetView img = this.objetImageView.get(i);
-            if(img.getObjet() == objet) {
-                System.out.println("trouver");
-                this.root.getChildren().remove(img);
+    public void retirerObjet(Entite objet) {
+        if(objet instanceof ObjetJeu) {
+            for (int i = 0; i < this.objetImageView.size(); i++) {
+                ObjetView img = this.objetImageView.get(i);
+                if (img.getObjet() == objet) {
+                    this.root.getChildren().remove(img);
+                }
             }
         }
     }

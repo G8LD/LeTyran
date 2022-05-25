@@ -1,10 +1,7 @@
 package application.modele;
 
-import application.vue.controls.InvItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
 
 public class Inventaire {
     private int MAX_OBJET = 1;
@@ -42,7 +39,7 @@ public class Inventaire {
         //On veut afficher l'objet sur la carte
         objet.setX(this.env.getPersonnage().getX());
         objet.setY(this.env.getPersonnage().getY());
-        this.env.getObjets().add(objet);
+        this.env.getEntites().add(objet);
     }
 
 

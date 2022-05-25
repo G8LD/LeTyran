@@ -30,11 +30,12 @@ public class Personnage extends Entite {
         /*xProperty = new SimpleIntegerProperty(6 * TUILE_TAILLE);
         yProperty = new SimpleIntegerProperty(11* TUILE_TAILLE);*/
 
-        super.getCollider().setActiveVerifCollision(true);
-        super.getCollider().setIgnoreCollision(false);
+        /*super.getCollider().setActiveVerifCollision(true);
+        super.getCollider().setIgnoreCollision(true);*/
+        super.setIgnoreGravite(true);
 
         super.getCollider().scaleCollider(1, 1);
-        super.setX(6 * TUILE_TAILLE);
+        super.setX(3 * TUILE_TAILLE);
         super.setY(11 * TUILE_TAILLE);
         direction = Direction.Droit;
         hauteurSaut = 0;
@@ -71,21 +72,21 @@ public class Personnage extends Entite {
             saute = false;
     }
 
-    public void tomber() {
-        /*for (int i = 0; i < 3; i++)
+    /*public void tomber() {
+        for (int i = 0; i < 3; i++)
         if (!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
             tombe = true;
             yProperty.setValue(yProperty.getValue() + 1);
         } else {
             tombe = false;
             hauteurSaut = 0;
-        }*/
-    }
+        }
+    }*/
 
     public void update() {
         super.update();
         if (saute) sauter();
-        else tomber();
+        //else tomber();
         if (avanceProperty.getValue()) seDeplacer();
 
     }
@@ -165,7 +166,7 @@ public class Personnage extends Entite {
     @Override
     public void quandCollisionDetecte(Entite ent) {
         if(ent instanceof ObjetJeu) {
-            this.inventaire.ajouterObjet((ObjetJeu)ent);
+            //this.inventaire.ajouterObjet((ObjetJeu)ent);
         }
     }
 

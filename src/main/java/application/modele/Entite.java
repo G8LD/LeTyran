@@ -1,7 +1,6 @@
 package application.modele;
 
 import application.modele.collisions.Collider;
-import application.modele.collisions.RectangleCol;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -19,10 +18,12 @@ public abstract class Entite {
     public Entite(Environnement env) {
         this.env = env;
         this.collider = new Collider(this);
-        this.collider.scaleCollider(10,10);
+        this.collider.scaleCollider(32,32);
         this.xProperty = new SimpleIntegerProperty(0);
         this.yProperty = new SimpleIntegerProperty(0);
         this.ignoreGravite = false;
+
+        this.getCollider().setActiveVerifCollision(true);
 
     }
 
@@ -72,12 +73,23 @@ public abstract class Entite {
 
     private void collide() {
 
-        for(int i = 0; i < this.env.getObjets().size(); i++) {
-            Entite ent = this.env.getObjets().get(i);
-            //System.out.println(ent + " | " + this);
-            if(ent != this && ent.getCollider().getActiveVerifCollision() && !ent.getCollider().getIgnoreCollision()) {
-                if (this.collider.intersect(ent)) {
-                    this.quandCollisionDetecte(ent);
+        if (this.getCollider().getActiveVerifCollision()) {
+
+            for (int i = 0; i < this.env.getEntites().size(); i++) {
+                Entite ent = this.env.getEntites().get(i);
+
+
+                if (ent != this && !ent.getCollider().getIgnoreCollision()) {
+
+                    if (this.collider.intersect(ent)) {
+                        int x = this.getX() - ent.getX();
+                        int y = this.getY() - ent.getY();
+
+
+                        ent.setX(this.getX() + x);
+                        ent.setY(this.getY() + y);
+                        this.quandCollisionDetecte(ent);
+                    }
                 }
             }
         }
@@ -86,5 +98,11 @@ public abstract class Entite {
 
     public void update() {
         this.collide();
+    }
+
+    public void gravite() {
+        //for (int i = 0; i < 3; i++) {
+            this.setY(this.getY() + 1);
+        //}
     }
 }

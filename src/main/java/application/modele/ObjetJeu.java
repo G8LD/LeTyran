@@ -66,17 +66,7 @@ public class ObjetJeu extends Entite {
     }
 
     public void update() {
-        tomber();
-    }
-
-    public void tomber() {
-        for (int i = 0; i < 3; i++)
-            if (!super.getEnv().entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
-                tombe = true;
-                yProperty.setValue(yProperty.getValue() + 1);
-            } else {
-                tombe = false;
-            }
+        super.update();
     }
 
     public String toString() {

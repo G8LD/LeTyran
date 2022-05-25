@@ -1,7 +1,6 @@
 package application.modele;
 
 import application.modele.objets.*;
-import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,25 +12,32 @@ public class Environnement {
     private Personnage personnage;
     private MapJeu mapJeu;
     private ObservableList<Minerai> listeMinerais;
-    private ObservableList<ObjetJeu> listeObjets;
+    private ObservableList<Entite> listeEntites;
 
     public Environnement() {
         personnage = new Personnage(this);
         mapJeu = new MapJeu();
         listeMinerais = FXCollections.observableArrayList();
-        listeObjets = FXCollections.observableArrayList();
+        listeEntites = FXCollections.observableArrayList();
 
 
         ObjetJeu nouvObj = new ObjetJeu(this, 1, "Epee", 1);
+        ObjetJeu nouvObj2 = new ObjetJeu(this, 1, "Bois", 1);
         nouvObj.setX(2 * 32);
-        nouvObj.setY(2 * 10);
-        listeObjets.add(nouvObj);
+        nouvObj.setY(4 * 32);
 
+        nouvObj2.setX(2 * 32);
+        nouvObj2.setY(2 * 32);
+
+
+        this.listeEntites.add(nouvObj);
+        this.listeEntites.add(nouvObj2);
+        this.listeEntites.add(personnage);
         initListeMinerais();
     }
 
-    public ObservableList<ObjetJeu> getObjets() {
-        return this.listeObjets;
+    public ObservableList<Entite> getEntites() {
+        return this.listeEntites;
     }
 
     public boolean entreEnCollision(int xPerso, int yPerso, Direction dir) {
@@ -90,7 +96,7 @@ public class Environnement {
     }
 
     public void supprimerObjetEnvironnement(ObjetJeu obj) {
-        this.listeObjets.remove(obj);
+        this.listeEntites.remove(obj);
     }
 
     public void minage(int x, int y) {
@@ -120,21 +126,21 @@ public class Environnement {
     }
 
     public void update() {
-        for(int i = 0; i < this.listeObjets.size(); i++) {
-            ObjetJeu obj = this.listeObjets.get(i);
+        for(int i = 0; i < this.listeEntites.size(); i++) {
+            Entite obj = this.listeEntites.get(i);
             obj.update();
 
-            //appliquerGravite();
+            appliquerGravite();
         }
     }
 
     public void appliquerGravite() {
-        for(int i = 0; i < this.listeObjets.size(); i++) {
-            Entite ent = this.listeObjets.get(i);
+        for(int i = 0; i < this.listeEntites.size(); i++) {
+            Entite ent = this.listeEntites.get(i);
             if(!ent.getIgnoreGravite()) {
-                Entite collisionEntite = ent.getCollider().tracerLigne(0, -10);
-                if(collisionEntite != null) {
-                    System.out.println("je dois tomberd");
+                Entite collisionEntite = ent.getCollider().tracerLigne(0, 32);
+                if(collisionEntite == null) {
+                    ent.gravite();
                 }
             };
         }

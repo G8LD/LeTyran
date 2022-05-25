@@ -1,7 +1,7 @@
 package application.modele.collisions;
 
 import application.modele.Entite;
-import javafx.geometry.Rectangle2D;
+import javafx.collections.ObservableList;
 
 public class Collider {
     private RectangleCol hitbox;
@@ -44,7 +44,7 @@ public class Collider {
         return this.ent;
     }
 
-    public boolean intersect(Entite entZ) {
+    public boolean intersect(Entite ent) {
         int posX = this.ent.getX() + this.hitbox.getX();
         int posY = this.ent.getY() + this.hitbox.getY();
 
@@ -61,6 +61,8 @@ public class Collider {
         int s_B = positionRectangle + selfCol.getHeight() ;
         int s_BP = positionRectangle + selfCol.getHeight() + selfCol.getWidth();
 
+        //System.out.println(String.format("%s %s %s %s", s_H, s_HP, s_B, s_BP));
+
 
         //On définit les bornes du deuxième objet à vérifier
 
@@ -69,6 +71,9 @@ public class Collider {
         int a_HP = positionRectangleAutre + autreCol.getWidth();
         int a_B = positionRectangleAutre + autreCol.getHeight() ;
         int a_BP = positionRectangleAutre + autreCol.getHeight() + autreCol.getWidth();
+
+        //System.out.println(String.format("%s %s %s %s", a_H, a_HP, a_B, a_BP) + "------------------------\n");
+
 
         return s_H < a_HP && s_HP > a_H && s_B < a_BP && s_BP > a_B;
 
@@ -106,10 +111,15 @@ public class Collider {
     public Entite tracerLigne(int vecX, int vecY) {
         Entite entTrouve = null;
         int i = 0;
-        while(i < this.getEnt().getEnv().getObjets().size() && ent == null) {
-            Entite ent = this.getEnt().getEnv().getObjets().get(i);
-            if (this.intersect(ent, vecX, vecY)) {
-                entTrouve = ent;
+
+        ObservableList<Entite> entites = this.getEnt().getEnv().getEntites();
+        while(i < entites.size() && entTrouve == null) {
+            Entite ent = entites.get(i);
+            if (ent != this.getEnt()) {
+                if (this.intersect(ent, vecX, vecY)) {
+                    entTrouve = ent;
+
+                }
             }
             i++;
         }
