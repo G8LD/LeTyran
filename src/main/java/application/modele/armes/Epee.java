@@ -14,11 +14,11 @@ public class Epee extends Arme {
 
     public int nbDegat() {
         if (getQualite() == 1) {
-            return 2;
+            return 3;
         } else if (getQualite() == 2) {
-            return 5;
+            return 6;
         } else {
-            return 8;
+            return 9;
         }
     }
 }

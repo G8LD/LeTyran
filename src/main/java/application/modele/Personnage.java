@@ -28,10 +28,10 @@ public class Personnage {
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
         xProperty = new SimpleIntegerProperty(6 * TUILE_TAILLE);
-        yProperty = new SimpleIntegerProperty(11* TUILE_TAILLE);
+        yProperty = new SimpleIntegerProperty(11 * TUILE_TAILLE);
         direction = Direction.Droit;
         hauteurSaut = 0;
-        arme = new Hache(1);
+        arme = new Pioche(3);
         this.env = env;
         this.inventaire = new Inventaire();
         inventaire.ajouterObjet();

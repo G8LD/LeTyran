@@ -17,9 +17,9 @@ public class Lance extends Arme {
         if (getQualite() == 1) {
             return 3;
         } else if (getQualite() == 2) {
-            return 5;
+            return 6;
         } else {
-            return 8;
+            return 9;
         }
     }
     public int distanceDeRecul() {

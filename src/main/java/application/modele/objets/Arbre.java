@@ -5,31 +5,33 @@ import application.modele.armes.Hache;
 
 public class Arbre {
 
-    private final static int PV_MAX = 12;
+    private final static int PV_MAX = 8;
 
     private int x;
     private int y;
-    private int hauteur;
     private int pv;
 
-    public Arbre(int x, int y, int hauteur) {
+    public Arbre(int x, int y) {
         this.x = x;
         this.y = y;
-        this.hauteur = hauteur;
         this.pv = PV_MAX;
     }
 
-    public void frappe(Arme arme) {
+    public int frappe(Arme arme) {
+        int nbDegats;
+
         if (arme instanceof Hache) {
-            if (arme.getQualite() == 1)
-                pv -= 4;
-            else if (arme.getQualite() == 2)
-                pv -= 6;
-            else
-                pv -= 12;
+            nbDegats = arme.nbDegat();
         } else {
-            pv -= 2;
+            nbDegats = 1;
         }
+
+        int nbBois = 0;
+        for (int i = 0; i < nbDegats; i++) {
+            pv--;
+            if (pv % 4 == 0) nbBois++;
+        }
+        return nbBois;
     }
 
     public int getX() {
@@ -38,10 +40,6 @@ public class Arbre {
 
     public int getY() {
         return y;
-    }
-
-    public int getHauteur() {
-        return hauteur;
     }
 
     public int getPv() {

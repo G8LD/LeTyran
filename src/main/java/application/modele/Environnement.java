@@ -1,11 +1,8 @@
 package application.modele;
 
 import application.modele.objets.*;
-import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import javax.crypto.AEADBadTagException;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 import static application.modele.MapJeu.WIDTH;
@@ -14,13 +11,13 @@ public class Environnement {
 
     private Personnage personnage;
     private MapJeu mapJeu;
-    private ObservableList<Minerai> listeMinerais;
+    private ObservableList<Materiau> listeMateriaux;
     private ObservableList<Arbre> listeArbres;
 
     public Environnement() {
         personnage = new Personnage(this);
         mapJeu = new MapJeu();
-        listeMinerais = FXCollections.observableArrayList();
+        listeMateriaux = FXCollections.observableArrayList();
         initListeMinerais();
         listeArbres = FXCollections.observableArrayList();
         initListeArbres();
@@ -30,7 +27,7 @@ public class Environnement {
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
                 if (mapJeu.getTabMap()[i][j] == 54) {
-                    listeArbres.add(new Arbre(j, i, 3));
+                    listeArbres.add(new Arbre(j, i));
                 }
             }
         }
@@ -40,10 +37,10 @@ public class Environnement {
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
                 switch (mapJeu.getTabMap()[i][j]) {
-                    case 34: listeMinerais.add(new Terre(j,i));
-                    case 42: listeMinerais.add(new Fer(j,i));
-                    case 52: listeMinerais.add(new Pierre(j,i));
-                    case 53: listeMinerais.add(new Platine(j,i));
+                    case 34: listeMateriaux.add(new Terre(j,i));
+                    case 42: listeMateriaux.add(new Fer(j,i));
+                    case 52: listeMateriaux.add(new Pierre(j,i));
+                    case 53: listeMateriaux.add(new Platine(j,i));
                     default: break;
                 }
             }
@@ -70,10 +67,10 @@ public class Environnement {
     }
 
     private void minage(int x, int y) {
-        Minerai minerai = getMinerai(x,y);
+        Materiau minerai = getMinerai(x,y);
         minerai.frappe(personnage.getArme());
         if (minerai.getPv() <= 0) {
-            listeMinerais.remove(minerai);
+            listeMateriaux.remove(minerai);
             mapJeu.getTabMap()[y][x] = 0;
             System.out.println("minerai cassé");
         }
@@ -132,8 +129,8 @@ public class Environnement {
         return mapJeu;
     }
 
-    public Minerai getMinerai(int x, int y) {
-        for (Minerai minerai : listeMinerais)
+    public Materiau getMinerai(int x, int y) {
+        for (Materiau minerai : listeMateriaux)
             if (minerai.getX() == x && minerai.getY() == y)
                 return minerai;
         return null;
@@ -149,8 +146,8 @@ public class Environnement {
         return null;
     }
 
-    public ObservableList<Minerai> getListeMinerais() {
-        return listeMinerais;
+    public ObservableList<Materiau> getListeMateriaux() {
+        return listeMateriaux;
     }
 
     public ObservableList<Arbre> getListeArbres() {

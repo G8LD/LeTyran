@@ -2,7 +2,7 @@ package application.vue.vueMap;
 
 import application.modele.Environnement;
 import application.modele.objets.Arbre;
-import application.modele.objets.Minerai;
+import application.modele.objets.Materiau;
 import javafx.collections.ListChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,9 +28,9 @@ public class MapVue {
         this.tileDecors = tileDecors;
         this.tileFond = tileFond;
 
-        env.getListeMinerais().addListener(new ListChangeListener<Minerai>() {
+        env.getListeMateriaux().addListener(new ListChangeListener<Materiau>() {
             @Override
-            public void onChanged(Change<? extends Minerai> change) {
+            public void onChanged(Change<? extends Materiau> change) {
                 while (change.next()) {
                     if (change.wasRemoved()) {
                         supprimerBloc(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
