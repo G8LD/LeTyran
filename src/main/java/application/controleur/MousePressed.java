@@ -22,8 +22,7 @@ public class MousePressed implements EventHandler<MouseEvent> {
         int x = (int)mouseEvent.getX() / TUILE_TAILLE;
         int y = (int)mouseEvent.getY() / TUILE_TAILLE;
         
-        if((env.getMinerai(x,y) != null || env.getArbre(x,y) != null)
-                && x <= env.getPersonnage().getX()/TUILE_TAILLE + 1 && x >= env.getPersonnage().getX()/TUILE_TAILLE - 1
+        if(x <= env.getPersonnage().getX()/TUILE_TAILLE + 1 && x >= env.getPersonnage().getX()/TUILE_TAILLE - 1
                 && y <= env.getPersonnage().getY()/TUILE_TAILLE + 1 && y >= env.getPersonnage().getY()/TUILE_TAILLE - 1) {
             env.interaction(x,y);
         }

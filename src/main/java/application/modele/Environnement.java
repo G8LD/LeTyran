@@ -48,32 +48,36 @@ public class Environnement {
     }
 
     public void interaction(int x, int y) {
-        if (getMinerai(x, y) != null)
-            minage(x,y);
-        else
+        if (!minage(x,y))
             couper(x,y);
     }
 
-    private void couper(int x, int y) {
+    private boolean couper(int x, int y) {
         Arbre arbre = getArbre(x,y);
-        int pvPrecedent = arbre.getPv();
-        arbre.frappe(personnage.getArme());
-        //(pvPrecedent - arbre.getPv())/4 pour nb de bois lachée
-        if (arbre.getPv() <= 0) {
-            listeArbres.remove(arbre);
-            mapJeu.getTabMap()[y][x] = 0;
-            System.out.println("arbre coupé");
+        if (arbre != null) {
+            arbre.frappe(personnage.getArme());
+            if (arbre.getPv() <= 0) {
+                listeArbres.remove(arbre);
+                mapJeu.getTabMap()[y][x] = 0;
+                System.out.println("arbre coupé");
+            }
+            return true;
         }
+        return false;
     }
 
-    private void minage(int x, int y) {
+    private boolean minage(int x, int y) {
         Materiau minerai = getMinerai(x,y);
-        minerai.frappe(personnage.getArme());
-        if (minerai.getPv() <= 0) {
-            listeMateriaux.remove(minerai);
-            mapJeu.getTabMap()[y][x] = 0;
-            System.out.println("minerai cassé");
+        if (minerai != null) {
+            minerai.frappe(personnage.getArme());
+            if (minerai.getPv() <= 0) {
+                listeMateriaux.remove(minerai);
+                mapJeu.getTabMap()[y][x] = 0;
+                System.out.println("minerai cassé");
+            }
+            return true;
         }
+        return false;
     }
 
     public boolean entreEnCollision(int xPerso, int yPerso, Direction dir) {
