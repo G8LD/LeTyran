@@ -42,41 +42,38 @@ public class PersonnageVue {
         spriteJoueur.translateXProperty().bind(personnage.getXProperty());
         spriteJoueur.translateYProperty().bind(personnage.getYProperty());
 
+        //appel la méthode animationDeplacement à chaque fois que x change et donc que le joueur se déplace
         personnage.getXProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 animationDeplacement();
             }
         });
+        //si le joueur n'avance plus pour mettre le sprite du personnage immobile
         personnage.getAvanceProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                if (!t1) immobile();
+                if (!t1) spriteJoueur.setImage(listeSprites.get(0));
             }
         });
     }
 
     public void animationDeplacement() {
         long now = System.nanoTime();
+        //modifie les sprites tout les 150 ms
         if (now - lastUpdate >= 150_000_000) {
             lastUpdate = now;
-
+            //change le sprite du joueur
             if (spriteJoueur.getImage() == listeSprites.get(1))
                 spriteJoueur.setImage(listeSprites.get(2));
             else
                 spriteJoueur.setImage(listeSprites.get(1));
-
+            //inverse l'image selon la direction
             if (personnage.getDirection() == Direction.Droit)
                 spriteJoueur.setScaleX(1);
             else
                 spriteJoueur.setScaleX(-1);
         }
 
-    }
-
-
-    //met l'image du personnage immobile selon sa direction
-    public void immobile() {
-        spriteJoueur.setImage(listeSprites.get(0));
     }
 }

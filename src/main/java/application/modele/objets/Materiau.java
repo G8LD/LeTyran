@@ -29,7 +29,7 @@ public abstract class Materiau {
     public int getPv() {
         return pv;
     }
-
+    //appelé quand le bloc est cliqué décremente selon la qualité si le joueur a la bonne arme sinon de 1
     public abstract void frappe(Arme arme);
 }
 

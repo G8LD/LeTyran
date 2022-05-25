@@ -16,7 +16,7 @@ public class Arbre {
         this.y = y;
         this.pv = PV_MAX;
     }
-
+    //retourne le nombre de bois drop
     public int frappe(Arme arme) {
         int nbDegats;
 
