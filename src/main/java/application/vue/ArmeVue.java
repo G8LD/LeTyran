@@ -27,7 +27,7 @@ public class ArmeVue {
         initListeSprites();
 
         rt = new RotateTransition(Duration.millis(150), spriteArme);
-        spriteArme.setImage(listeSprites.get("Hache1"));
+        spriteArme.setImage(listeSprites.get("Pioche1"));
         spriteArme.setVisible(false);
         personnage.getArmeProperty().addListener(new ArmeListener(this));
     }
