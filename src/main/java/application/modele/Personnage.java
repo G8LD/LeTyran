@@ -2,6 +2,7 @@ package application.modele;
 
 import application.modele.armes.Arme;
 import application.modele.armes.Hache;
+import application.modele.armes.Pioche;
 import javafx.beans.property.*;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
@@ -27,7 +28,7 @@ public class Personnage {
         yProperty = new SimpleIntegerProperty(11 * TUILE_TAILLE);
         direction = Direction.Droit;
         hauteurSaut = 0;
-        armeProperty = new SimpleObjectProperty<>(new Hache(1));
+        armeProperty = new SimpleObjectProperty<>(new Pioche(1));
         this.env = env;
         this.inventaire = new Inventaire();
         inventaire.ajouterObjet();

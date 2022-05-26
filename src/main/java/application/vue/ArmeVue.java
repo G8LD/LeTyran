@@ -26,7 +26,7 @@ public class ArmeVue {
         listeSprites = new HashMap<>();
         initListeSprites();
 
-        rt = new RotateTransition(Duration.millis(250), spriteArme);
+        rt = new RotateTransition(Duration.millis(150), spriteArme);
         spriteArme.setImage(listeSprites.get("Hache1"));
         spriteArme.setVisible(false);
         personnage.getArmeProperty().addListener(new ArmeListener(this));
@@ -54,14 +54,15 @@ public class ArmeVue {
             }
             rt.setOnFinished(actionEvent -> {
                 spriteArme.setVisible(false);
+                rt.setDuration(Duration.ONE);
                 if (directionDroite) {
                     rt.setByAngle(270);
                 } else {
                     rt.setByAngle(-270);
                 }
-                rt.setOnFinished(actionEvent1 -> {
-                });
+                rt.setOnFinished(actionEvent1 -> {});
                 rt.play();
+                rt.setDuration(Duration.millis(150));
             });
             rt.play();
         }

@@ -35,8 +35,6 @@ public class KeyPressed implements EventHandler<KeyEvent> {
                     env.getPersonnage().setAvance(true);
                 }
                 break;
-            case A:
-                env.getPersonnage().setArme(new Pioche(1));
             default:
                 break;
         }
