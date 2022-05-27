@@ -15,10 +15,12 @@ public class Etabli {
     private Environnement env;
     private HashMap<String, HashMap<Materiau, Integer>> listeMateriaux;
     private Arme armeSelected;
+    private boolean fabricable;
 
     public Etabli(Environnement env) {
         this.env = env;
         armeSelected = null;
+        fabricable = false;
         initListeMateriaux();
     }
 
@@ -38,26 +40,30 @@ public class Etabli {
     public void fabriquer() {
         Set listeMateriaux = this.listeMateriaux.get(armeSelected.getClass().getSimpleName() + armeSelected.getQualite()).entrySet();
         Iterator iterator = listeMateriaux.iterator();
-        boolean peutFabriquer = false;
+        Map.Entry materiau;
+        while (iterator.hasNext()) {
+            materiau = (Map.Entry) iterator.next();
+            for (int i = 0; i < (int) materiau.getValue(); i++) {
+                //TODO retirer les materiaux de l'inventaire
+            }
+        }
+        //TODO ajouter l'arme dans l'inventaire du perso
+    }
 
+    private void peutFabriquer() {
+        Set listeMateriaux = this.listeMateriaux.get(armeSelected.getClass().getSimpleName() + armeSelected.getQualite()).entrySet();
+        Iterator iterator = listeMateriaux.iterator();
         do {
             //TODO vérifie que le joueur a les matériaux nécessaire
-        } while(iterator.hasNext() && peutFabriquer);
-
-        if (peutFabriquer) {
-            iterator = listeMateriaux.iterator();
-            Map.Entry materiau;
-            while (iterator.hasNext()) {
-                materiau = (Map.Entry) iterator.next();
-                for (int i = 0; i < (int) materiau.getValue(); i++) {
-                    //TODO retirer les materiaux de l'inventaire
-                }
-            }
-            //TODO ajouter l'arme dans l'inventaire du perso
-        }
+        } while(iterator.hasNext() && fabricable);
     }
 
     public void setArmeSelected(Arme armeSelected) {
         this.armeSelected = armeSelected;
+        peutFabriquer();
+    }
+
+    public boolean getFabricable() {
+        return fabricable;
     }
 }
