@@ -7,13 +7,7 @@ import javafx.beans.value.ObservableValue;
 
 public class PersonnageListener {
 
-    private Personnage perso;
-    private PersonnageVue persoVue;
-
     public PersonnageListener(Personnage perso, PersonnageVue persoVue) {
-        this.perso = perso;
-        this.persoVue = persoVue;
-
         //appel la méthode animationDeplacement à chaque fois que x change et donc que le joueur se déplace
         perso.getXProperty().addListener(new ChangeListener<Number>() {
             @Override
