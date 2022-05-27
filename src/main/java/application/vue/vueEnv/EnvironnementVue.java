@@ -1,9 +1,7 @@
-package application.vue.vueMap;
+package application.vue.vueEnv;
 
+import application.controleur.listeners.EnvironnementListener;
 import application.modele.Environnement;
-import application.modele.objets.Arbre;
-import application.modele.objets.Materiau;
-import javafx.collections.ListChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -15,39 +13,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import static application.modele.MapJeu.*;
 
-public class MapVue {
+public class EnvironnementVue {
 
     private Environnement env;
     private TilePane tileSol;
     private TilePane tileDecors;
     private TilePane tileFond;
 
-    public MapVue(Environnement env, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
+    public EnvironnementVue(Environnement env, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
         this.env = env;
         this.tileSol = tileSol;
         this.tileDecors = tileDecors;
         this.tileFond = tileFond;
 
-        env.getListeMateriaux().addListener(new ListChangeListener<Materiau>() {
-            @Override
-            public void onChanged(Change<? extends Materiau> change) {
-                while (change.next()) {
-                    if (change.wasRemoved()) {
-                        supprimerBloc(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
-                    }
-                }
-            }
-        });
-        env.getListeArbres().addListener(new ListChangeListener<Arbre>() {
-            @Override
-            public void onChanged(Change<? extends Arbre> change) {
-                while (change.next()) {
-                    if (change.wasRemoved()) {
-                        supprimerArbre(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
-                    }
-                }
-            }
-        });
+        new EnvironnementListener(this, env);
 
         construireMap();
         construireDecor();

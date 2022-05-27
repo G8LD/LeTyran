@@ -1,11 +1,10 @@
 package application.controleur;
 
 import application.modele.Environnement;
-import application.modele.armes.Arme;
 import application.vue.ArmeVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import application.vue.vueMap.MapVue;
+import application.vue.vueEnv.EnvironnementVue;
 import application.vue.PersonnageVue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import java.net.URL;
@@ -38,7 +36,7 @@ public class Controleur implements Initializable {
         env = new Environnement();
         keyReleased = new KeyReleased(this, env);
 
-        new MapVue(env, tileSol, tileDecors, tileFond);
+        new EnvironnementVue(env, tileSol, tileDecors, tileFond);
         new PersonnageVue(env.getPersonnage(), spriteJoueur);
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
 
