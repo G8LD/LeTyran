@@ -7,6 +7,9 @@ public class Platine extends Materiau {
 
     private final static int PV_MAX = 8;
 
+    public Platine() {
+    }
+
     public Platine(int x, int y) {
         super(x, y, PV_MAX);
     }

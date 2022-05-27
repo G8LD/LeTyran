@@ -8,6 +8,12 @@ public abstract class Materiau {
     private int y;
     private int pv;
 
+    public Materiau() {
+        x = 0;
+        y = 0;
+        pv = 0;
+    }
+
     public Materiau(int x, int y, int pv) {
         this.x = x;
         this.y = y;

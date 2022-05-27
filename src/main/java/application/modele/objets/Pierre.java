@@ -7,6 +7,9 @@ public class Pierre extends Materiau {
 
     private final static int PV_MAX = 3;
 
+    public Pierre() {
+    }
+
     public Pierre(int x, int y) {
         super(x, y, PV_MAX);
     }

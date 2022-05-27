@@ -7,6 +7,8 @@ public class Fer extends Materiau {
 
     private final static int PV_MAX = 5;
 
+    public Fer() {}
+
     public Fer(int x, int y) {
         super(x, y, PV_MAX);
     }

@@ -23,7 +23,6 @@ public class ArmeVue {
         this.personnage = personnage;
         this.spriteArme = spriteArme;
 
-        listeSprites = new HashMap<>();
         initListeSprites();
 
         rt = new RotateTransition(Duration.millis(150), spriteArme);
@@ -33,6 +32,7 @@ public class ArmeVue {
     }
 
     private void initListeSprites() {
+        listeSprites = new HashMap<>();
         listeSprites.put("Hache1", new Image("file:src/main/resources/application/arme/sprite_hache1.png"));
         listeSprites.put("Pioche1", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
     }

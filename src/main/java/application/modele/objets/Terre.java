@@ -6,6 +6,9 @@ public class Terre extends Materiau {
 
     private final static int PV_MAX = 1;
 
+    public Terre() {
+    }
+
     public Terre(int x, int y) {
         super(x, y, PV_MAX);
     }
