@@ -1,15 +1,11 @@
 package application.vue;
 
+import application.controleur.listeners.PersonnageListener;
 import application.modele.Direction;
 import application.modele.Personnage;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.util.ArrayList;
-
-import static application.modele.MapJeu.TUILE_TAILLE;
-
 
 public class PersonnageVue {
 
@@ -36,24 +32,9 @@ public class PersonnageVue {
 
     private void construirePerso() {
         spriteJoueur.setImage(listeSprites.get(0));
-
         spriteJoueur.translateXProperty().bind(personnage.getXProperty());
         spriteJoueur.translateYProperty().bind(personnage.getYProperty());
-
-        //appel la méthode animationDeplacement à chaque fois que x change et donc que le joueur se déplace
-        personnage.getXProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                animationDeplacement();
-            }
-        });
-        //si le joueur n'avance plus pour mettre le sprite du personnage immobile
-        personnage.getAvanceProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                if (!t1) spriteJoueur.setImage(listeSprites.get(0));
-            }
-        });
+        new PersonnageListener(personnage, this);
     }
 
     public void animationDeplacement() {
@@ -72,6 +53,9 @@ public class PersonnageVue {
             else
                 spriteJoueur.setScaleX(-1);
         }
+    }
 
+    public void immobile(){
+        spriteJoueur.setImage(listeSprites.get(0));
     }
 }
