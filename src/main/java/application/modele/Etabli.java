@@ -32,6 +32,7 @@ public class Etabli {
             put(new Bois(), 3);
             put(new Pierre(), 1);
         }});
+        //TODO ajouter les autres armes/qualités
     }
 
     public void fabriquer() {

@@ -35,6 +35,7 @@ public class ArmeVue {
         listeSprites = new HashMap<>();
         listeSprites.put("Hache1", new Image("file:src/main/resources/application/arme/sprite_hache1.png"));
         listeSprites.put("Pioche1", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
+        //TODO trouver et mettre les autres sprites
     }
 
     public void animationFrappe() {
