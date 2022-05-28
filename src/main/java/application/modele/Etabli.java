@@ -1,6 +1,8 @@
 package application.modele;
 
 import application.modele.armes.Arme;
+import application.modele.armes.Hache;
+import application.modele.armes.Pioche;
 import application.modele.objets.Bois;
 import application.modele.objets.Materiau;
 import application.modele.objets.Pierre;
@@ -13,15 +15,24 @@ import java.util.Set;
 public class Etabli {
 
     private Environnement env;
+    private HashMap<String, Arme> listeArmes;
     private HashMap<String, HashMap<Materiau, Integer>> listeMateriaux;
     private Arme armeSelected;
     private boolean fabricable;
 
     public Etabli(Environnement env) {
         this.env = env;
-        armeSelected = null;
+        armeSelected = new Hache(1);
         fabricable = false;
+        initListeArmes();
         initListeMateriaux();
+    }
+
+    //TODO ajouter les autres armes
+    private void initListeArmes() {
+        listeArmes = new HashMap<>();
+        listeArmes.put("Hache1", new Hache(1));
+        listeArmes.put("Pioche1", new Pioche(1));
     }
 
     private void initListeMateriaux() {
@@ -34,7 +45,6 @@ public class Etabli {
             put(new Bois(), 3);
             put(new Pierre(), 1);
         }});
-        //TODO ajouter les autres armes/qualités
     }
 
     public void fabriquer() {
@@ -47,6 +57,7 @@ public class Etabli {
                 //TODO retirer les materiaux de l'inventaire
             }
         }
+        listeArmes.remove(armeSelected.getClass().getSimpleName() + armeSelected.getQualite());
         //TODO ajouter l'arme dans l'inventaire du perso
     }
 
@@ -58,8 +69,12 @@ public class Etabli {
         } while(iterator.hasNext() && fabricable);
     }
 
-    public void setArmeSelected(Arme armeSelected) {
-        this.armeSelected = armeSelected;
+    public Arme getArmeSelected() {
+        return armeSelected;
+    }
+
+    public void setArmeSelected(String armeSelected) {
+        this.armeSelected = listeArmes.get(armeSelected);
         peutFabriquer();
     }
 

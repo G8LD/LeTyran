@@ -2,6 +2,7 @@ package application.controleur;
 
 import application.modele.Environnement;
 import application.vue.ArmeVue;
+import application.vue.EtabliVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import application.vue.vueEnv.EnvironnementVue;
@@ -11,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
@@ -30,6 +32,7 @@ public class Controleur implements Initializable {
     @FXML private TilePane tileFond;
     @FXML private ImageView spriteJoueur;
     @FXML private ImageView spriteArme;
+    @FXML private BorderPane bPaneEtabli;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,7 +47,7 @@ public class Controleur implements Initializable {
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
-
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new EtabliControleur(env, new EtabliVue(env, bPaneEtabli)));
         initAnimation();
         gameLoop.play();
     }
