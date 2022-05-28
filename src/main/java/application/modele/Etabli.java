@@ -1,11 +1,14 @@
 package application.modele;
 
 import application.modele.armes.Arme;
+import application.modele.armes.Epee;
 import application.modele.armes.Hache;
 import application.modele.armes.Pioche;
 import application.modele.objets.Bois;
 import application.modele.objets.Materiau;
 import application.modele.objets.Pierre;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,7 +18,7 @@ import java.util.Set;
 public class Etabli {
 
     private Inventaire inventaire;
-    private HashMap<String, Arme> listeArmes;
+    private ObservableMap<String, Arme> listeArmes;
     private HashMap<String, HashMap<Materiau, Integer>> listeMateriaux;
     private String armeSelected;
     private boolean fabricable;
@@ -30,9 +33,10 @@ public class Etabli {
 
     //TODO ajouter les autres armes
     private void initListeArmes() {
-        listeArmes = new HashMap<>();
+        listeArmes = FXCollections.observableHashMap();
         listeArmes.put("Hache1", new Hache(1));
         listeArmes.put("Pioche1", new Pioche(1));
+        listeArmes.put("Epee1", new Epee(1));
     }
 
     private void initListeMateriaux() {
@@ -65,11 +69,17 @@ public class Etabli {
     }
 
     private void peutFabriquer() {
-        Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
-        Iterator iterator = listeMateriaux.iterator();
-        do {
-            //TODO vérifie que le joueur a les matériaux nécessaire
-        } while(iterator.hasNext() && fabricable);
+        if (!listeArmes.containsKey(armeSelected))
+            fabricable = false;
+        else {
+            Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
+            Iterator iterator = listeMateriaux.iterator();
+            do {
+                //TODO vérifie que le joueur a les matériaux nécessaire
+                iterator.next();
+            } while (iterator.hasNext() && fabricable);
+            fabricable = true;
+        }
     }
 
     public String getArmeSelected() {
@@ -87,5 +97,9 @@ public class Etabli {
 
     public HashMap<Materiau, Integer> getListeMateriauxArmeSelected() {
         return listeMateriaux.get(armeSelected);
+    }
+
+    public ObservableMap<String, Arme> getListeArmes() {
+        return listeArmes;
     }
 }

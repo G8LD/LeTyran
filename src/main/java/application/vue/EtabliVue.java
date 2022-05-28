@@ -23,8 +23,6 @@ public class EtabliVue {
         this.armeVue = armeVue;
         initListeImagesMateriaux();
         bdEtabli.setVisible(false);
-        affichageArmeSelected(Color.WHITE);
-        affichageInfosArmeSelected();
     }
 
     private void initListeImagesMateriaux() {
