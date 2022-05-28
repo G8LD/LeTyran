@@ -36,6 +36,7 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
                     System.out.println(((HBox)mouseEvent.getSource()).getId());
                     env.getEtabli().setArmeSelected(((HBox)mouseEvent.getSource()).getId());
                     etabliVue.affichageArmeSelected(Color.WHITE);
+                    etabliVue.affichageInfosArmeSelected();
                 }
             });
 

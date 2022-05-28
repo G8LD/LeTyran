@@ -17,15 +17,15 @@ public class Etabli {
     private Environnement env;
     private HashMap<String, Arme> listeArmes;
     private HashMap<String, HashMap<Materiau, Integer>> listeMateriaux;
-    private Arme armeSelected;
+    private String armeSelected;
     private boolean fabricable;
 
     public Etabli(Environnement env) {
         this.env = env;
-        armeSelected = new Hache(1);
         fabricable = false;
         initListeArmes();
         initListeMateriaux();
+        armeSelected = "Hache1";
     }
 
     //TODO ajouter les autres armes
@@ -48,7 +48,7 @@ public class Etabli {
     }
 
     public void fabriquer() {
-        Set listeMateriaux = this.listeMateriaux.get(armeSelected.getClass().getSimpleName() + armeSelected.getQualite()).entrySet();
+        Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
         Iterator iterator = listeMateriaux.iterator();
         Map.Entry materiau;
         while (iterator.hasNext()) {
@@ -57,28 +57,32 @@ public class Etabli {
                 //TODO retirer les materiaux de l'inventaire
             }
         }
-        listeArmes.remove(armeSelected.getClass().getSimpleName() + armeSelected.getQualite());
+        listeArmes.remove(armeSelected);
         //TODO ajouter l'arme dans l'inventaire du perso
     }
 
     private void peutFabriquer() {
-        Set listeMateriaux = this.listeMateriaux.get(armeSelected.getClass().getSimpleName() + armeSelected.getQualite()).entrySet();
+        Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
         Iterator iterator = listeMateriaux.iterator();
         do {
             //TODO vérifie que le joueur a les matériaux nécessaire
         } while(iterator.hasNext() && fabricable);
     }
 
-    public Arme getArmeSelected() {
+    public String getArmeSelected() {
         return armeSelected;
     }
 
     public void setArmeSelected(String armeSelected) {
-        this.armeSelected = listeArmes.get(armeSelected);
+        this.armeSelected = armeSelected;
         peutFabriquer();
     }
 
     public boolean getFabricable() {
         return fabricable;
+    }
+
+    public HashMap<Materiau, Integer> getListeMateriauxArmeSelected() {
+        return listeMateriaux.get(armeSelected);
     }
 }

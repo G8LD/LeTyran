@@ -47,7 +47,8 @@ public class Controleur implements Initializable {
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
-        root.addEventHandler(KeyEvent.KEY_PRESSED, new EtabliControleur(env, new EtabliVue(env, bPaneEtabli)));
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new EtabliControleur(env, new EtabliVue(env.getEtabli(), bPaneEtabli, armeVue)));
+
         initAnimation();
         gameLoop.play();
     }
