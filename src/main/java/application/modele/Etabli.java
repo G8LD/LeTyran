@@ -45,6 +45,9 @@ public class Etabli {
             put(new Bois(), 3);
             put(new Pierre(), 1);
         }});
+        listeMateriaux.put("Epee1", new HashMap<>() {{
+            put(new Bois(), 10);
+        }});
     }
 
     public void fabriquer() {

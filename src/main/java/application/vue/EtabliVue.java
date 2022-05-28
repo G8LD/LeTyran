@@ -22,7 +22,7 @@ public class EtabliVue {
         this.bPaneEtabli = bdEtabli;
         this.armeVue = armeVue;
         initListeImagesMateriaux();
-        //bdEtabli.setVisible(false);
+        bdEtabli.setVisible(false);
         affichageArmeSelected(Color.WHITE);
         affichageInfosArmeSelected();
     }
@@ -55,6 +55,7 @@ public class EtabliVue {
         }
 
         if (i == 1) {
+            i++;
             ((ImageView) paneMateriaux.lookup("#imgViewMateriau" + i)).setImage(null);
             ((Label) paneMateriaux.lookup("#labelMateriau" + i)).setText("");
         }
