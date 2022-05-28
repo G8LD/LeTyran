@@ -14,14 +14,14 @@ import java.util.Set;
 
 public class Etabli {
 
-    private Environnement env;
+    private Inventaire inventaire;
     private HashMap<String, Arme> listeArmes;
     private HashMap<String, HashMap<Materiau, Integer>> listeMateriaux;
     private String armeSelected;
     private boolean fabricable;
 
-    public Etabli(Environnement env) {
-        this.env = env;
+    public Etabli(Inventaire inventaire) {
+        this.inventaire = inventaire;
         fabricable = false;
         initListeArmes();
         initListeMateriaux();

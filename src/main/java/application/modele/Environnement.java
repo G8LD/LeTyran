@@ -19,7 +19,7 @@ public class Environnement {
     public Environnement() {
         personnage = new Personnage(this);
         mapJeu = new MapJeu();
-        etabli = new Etabli(this);
+        etabli = new Etabli(personnage.getInventaire());
         listeMateriaux = FXCollections.observableArrayList();
         initListeMinerais();
         listeArbres = FXCollections.observableArrayList();
