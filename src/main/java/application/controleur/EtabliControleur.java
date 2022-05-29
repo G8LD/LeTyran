@@ -16,8 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import java.util.HashMap;
-
 import static javafx.scene.input.KeyCode.O;
 
 public class EtabliControleur implements EventHandler<KeyEvent> {
@@ -44,6 +42,9 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
                         boutonFabriquer.setOpacity(1);
                     } else {
                         boutonFabriquer.setDisable(true);
+                        boutonFabriquer.setOpacity(0.5);
+                    }
+                    if (!etabli.armeDispo()) {
                         etabliVue.affichageArmeNonDispo();
                     }
                 }
@@ -51,27 +52,12 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
 
         //pour afficher lancer la fabrication et la rendre indisponible après
         boutonFabriquer.setOnAction(actionEvent -> {
-            if (etabli.getFabricable()) {
-                etabli.fabriquer();
-                boutonFabriquer.setDisable(true);
-                etabliVue.affichageArmeNonDispo();
-            }
+            etabli.fabriquer();
+            boutonFabriquer.setDisable(true);
+            etabliVue.affichageArmeNonDispo();
         });
 
-        //retirer l'opacité des armes débloqué
-        etabli.getListeMateriaux().addListener(new MapChangeListener<Arme, HashMap<Materiau, Integer>>() {
-            @Override
-            public void onChanged(Change<? extends Arme, ? extends HashMap<Materiau, Integer>> change) {
-                String id = "#" + change.getKey().getClass().getSimpleName() + change.getKey().getQualite();
-                if (change.wasAdded()) {
-                    vBoxArmes.lookup(id).setOpacity(1);
-                } else {
-                    vBoxArmes.lookup(id).setOpacity(0.5);
-                }
-            }
-        });
-
-                //simule un clique pour l'initialisation
+        //simule un clique pour l'initialisation
         vBoxArmes.lookup("#" + etabli.getArmeSelectedNom()).fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
                 0, 0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
                 true, true, true, true, true, true, null));

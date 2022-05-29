@@ -65,14 +65,14 @@
                               <Label prefHeight="64.0" prefWidth="86.0" text="Arc en bois" textFill="WHITE" />
                            </children>
                         </HBox>
-                        <HBox fx:id="Fleche1" layoutX="10.0" layoutY="215.0" prefHeight="64.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-width: 3;">
+                        <HBox fx:id="Lance1" layoutX="10.0" layoutY="215.0" prefHeight="64.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-width: 3;">
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@arme/sprite_fleche1.png" />
+                                    <Image url="@arme/sprite_lance1.png" />
                                  </image>
                               </ImageView>
-                              <Label prefHeight="64.0" prefWidth="86.0" text="Flèche en bois" textFill="WHITE" />
+                              <Label prefHeight="64.0" prefWidth="86.0" text="Lance en bois" textFill="WHITE" />
                            </children>
                         </HBox>
                      </children>

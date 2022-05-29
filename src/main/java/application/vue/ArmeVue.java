@@ -37,7 +37,7 @@ public class ArmeVue {
         listeSprites.put("Pioche1", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
         listeSprites.put("Epee1", new Image("file:src/main/resources/application/arme/sprite_epee1.png"));
         listeSprites.put("Arc1", new Image("file:src/main/resources/application/arme/sprite_arc1.png"));
-        listeSprites.put("Fleche1", new Image("file:src/main/resources/application/arme/sprite_fleche1.png"));
+        listeSprites.put("Lance1", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
         //TODO trouver et mettre les autres sprites
     }
 
