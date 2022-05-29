@@ -1,14 +1,13 @@
 package application.controleur;
 
 import application.modele.Etabli;
-import application.modele.ObjetJeu;
 import application.modele.armes.Arme;
+import application.modele.objets.Materiau;
 import application.vue.EtabliVue;
 import javafx.collections.MapChangeListener;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -16,6 +15,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+
+import java.util.HashMap;
 
 import static javafx.scene.input.KeyCode.O;
 
@@ -54,25 +55,28 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
                 etabli.fabriquer();
                 boutonFabriquer.setDisable(true);
                 boutonFabriquer.setOpacity(0.5);
-                vBoxArmes.lookup("#" + etabli.getArmeSelected()).setOpacity(0.5);
+                etabliVue.retirerAffichageInfos();
             }
 
         });
 
         //retirer l'opacité des armes débloqué
-        etabli.getListeArmes().addListener(new MapChangeListener<String, Arme>() {
+        etabli.getListeMateriaux().addListener(new MapChangeListener<Arme, HashMap<Materiau, Integer>>() {
             @Override
-            public void onChanged(Change<? extends String, ? extends Arme> change) {
+            public void onChanged(Change<? extends Arme, ? extends HashMap<Materiau, Integer>> change) {
                 System.out.println(change.getKey());
                 if (change.wasAdded()) {
-//                    vBoxArmes.lookup("#" + change.getKey()).setMouseTransparent(false);
+                    vBoxArmes.lookup("#" + change.getKey()).setMouseTransparent(false);
                     vBoxArmes.lookup("#" + change.getKey()).setOpacity(1);
+                } else {
+                    vBoxArmes.lookup("#" + change.getKey()).setMouseTransparent(true);
+                    vBoxArmes.lookup("#" + change.getKey()).setOpacity(0.5);
                 }
             }
         });
 
-        //simule un clique pour l'initialisation
-        vBoxArmes.lookup("#" + etabli.getArmeSelected()).fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
+                //simule un clique pour l'initialisation
+        vBoxArmes.lookup("#" + etabli.getArmeSelectedNom()).fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
                 0, 0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
                 true, true, true, true, true, true, null));
     }

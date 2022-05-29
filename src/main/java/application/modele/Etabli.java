@@ -1,7 +1,6 @@
 package application.modele;
 
 import application.modele.armes.Arme;
-import application.modele.armes.Epee;
 import application.modele.armes.Hache;
 import application.modele.armes.Pioche;
 import application.modele.objets.Bois;
@@ -18,38 +17,29 @@ import java.util.Set;
 public class Etabli {
 
     private Inventaire inventaire;
-    private ObservableMap<String, Arme> listeArmes;
-    private HashMap<String, HashMap<Materiau, Integer>> listeMateriaux;
-    private String armeSelected;
+    private ObservableMap<Arme, HashMap<Materiau, Integer>> listeMateriaux;
+    private Arme armeSelected;
     private boolean fabricable;
 
     public Etabli(Inventaire inventaire) {
         this.inventaire = inventaire;
         fabricable = false;
-        initListeArmes();
         initListeMateriaux();
-        armeSelected = "Hache1";
+        armeSelected = armeCorrespondant("Hache1");
     }
 
     //TODO ajouter les autres armes
-    private void initListeArmes() {
-        listeArmes = FXCollections.observableHashMap();
-        listeArmes.put("Hache1", new Hache(1));
-        listeArmes.put("Pioche1", new Pioche(1));
-        listeArmes.put("Epee1", new Epee(1));
-    }
-
     private void initListeMateriaux() {
-        listeMateriaux = new HashMap<>();
-        listeMateriaux.put("Hache1", new HashMap<>() {{
+        listeMateriaux = FXCollections.observableHashMap();
+        listeMateriaux.put(new Hache(1), new HashMap<>() {{
             put(new Bois(), 3);
             put(new Pierre(), 1);
         }});
-        listeMateriaux.put("Pioche1", new HashMap<>() {{
+        listeMateriaux.put(new Pioche(1), new HashMap<>() {{
             put(new Bois(), 3);
             put(new Pierre(), 1);
         }});
-        listeMateriaux.put("Epee1", new HashMap<>() {{
+        listeMateriaux.put(new Pioche(1), new HashMap<>() {{
             put(new Bois(), 10);
         }});
     }
@@ -64,12 +54,12 @@ public class Etabli {
                 //TODO retirer les materiaux de l'inventaire
             }
         }
-        listeArmes.remove(armeSelected);
+
         //TODO ajouter l'arme dans l'inventaire du perso
     }
 
     private void peutFabriquer() {
-        if (!listeArmes.containsKey(armeSelected))
+        if (armeSelected == null)
             fabricable = false;
         else {
             Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
@@ -82,13 +72,21 @@ public class Etabli {
         }
     }
 
-    public String getArmeSelected() {
-        return armeSelected;
+    public String getArmeSelectedNom() {
+        return armeSelected.getClass().getSimpleName() + armeSelected.getQualite();
     }
 
     public void setArmeSelected(String armeSelected) {
-        this.armeSelected = armeSelected;
+        this.armeSelected = armeCorrespondant(armeSelected);
         peutFabriquer();
+    }
+
+    private Arme armeCorrespondant(String nomArme) {
+        for (Arme arme : listeMateriaux.keySet()) {
+            if (nomArme.equals(arme.getClass().getSimpleName() + arme.getQualite()))
+                return arme;
+        }
+        return null;
     }
 
     public boolean getFabricable() {
@@ -99,7 +97,7 @@ public class Etabli {
         return listeMateriaux.get(armeSelected);
     }
 
-    public ObservableMap<String, Arme> getListeArmes() {
-        return listeArmes;
+    public ObservableMap<Arme, HashMap<Materiau, Integer>> getListeMateriaux() {
+        return listeMateriaux;
     }
 }

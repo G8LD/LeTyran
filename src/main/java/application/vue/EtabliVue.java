@@ -2,6 +2,7 @@ package application.vue;
 
 import application.modele.Etabli;
 import application.modele.objets.*;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -36,16 +37,16 @@ public class EtabliVue {
     }
 
     public void affichageArmeSelected(Color color) {
-        ((HBox) ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelected()))
+        ((HBox) ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelectedNom()))
                 .setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
     }
 
     public void affichageInfosArmeSelected() {
-        VBox vBoxFabriquer = (VBox) bPaneEtabli.lookup("#VboxFabriquer");
+        Node vBoxFabriquer = bPaneEtabli.lookup("#VboxFabriquer");
 
-        ((ImageView) vBoxFabriquer.lookup("#imgViewArme")).setImage(armeVue.getListeSprites().get(etabli.getArmeSelected()));
+        ((ImageView) vBoxFabriquer.lookup("#imgViewArme")).setImage(armeVue.getListeSprites().get(etabli.getArmeSelectedNom()));
 
-        Pane paneMateriaux = (Pane) vBoxFabriquer.lookup("#PaneMateriaux");
+        Node paneMateriaux = vBoxFabriquer.lookup("#PaneMateriaux");
         int i = 0;
         for (Materiau materiau : etabli.getListeMateriauxArmeSelected().keySet()) {
             i++;
@@ -58,6 +59,16 @@ public class EtabliVue {
             ((ImageView) paneMateriaux.lookup("#imgViewMateriau" + i)).setImage(null);
             ((Label) paneMateriaux.lookup("#labelMateriau" + i)).setText("");
         }
+    }
+
+    public void retirerAffichageInfos() {
+        ((ImageView) bPaneEtabli.lookup("#VboxFabriquer").lookup("#imgViewArme")).setImage(null);
+        Node paneMateriaux = bPaneEtabli.lookup("#VboxFabriquer").lookup("#PaneMateriaux");
+        for (int i = 1; i <= 2; i++) {
+            ((ImageView) paneMateriaux.lookup("#imgViewMateriau" + i)).setImage(null);
+            ((Label) paneMateriaux.lookup("#labelMateriau" + i)).setText("");
+        }
+        ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelectedNom()).setOpacity(0.5);
     }
 
     public void affichageEtabli() {
