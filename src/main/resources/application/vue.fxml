@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -18,45 +19,69 @@
       <TilePane fx:id="tileDecors" prefHeight="200.0" prefWidth="200.0" />
       <ImageView fx:id="spriteJoueur" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="spriteArme" fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-      <BorderPane fx:id="bPaneEtabli" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="400.0" style="-fx-background-color: #42280E; -fx-border-color: black; -fx-border-width: 5;">
+      <BorderPane fx:id="bPaneEtabli" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="417.0" style="-fx-background-color: #42280E; -fx-border-color: black; -fx-border-width: 5;">
          <left>
-            <VBox fx:id="VBoxArmes" maxWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox fx:id="Hache1" prefHeight="64.0" prefWidth="200.0">
+            <ScrollPane fx:id="sPArmes" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="167.0" style="-fx-background-color: transparent; -fx-background: transparent;" BorderPane.alignment="CENTER">
+               <content>
+                  <VBox fx:id="VBoxArmes" maxWidth="-Infinity" prefWidth="150.0">
                      <children>
-                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@arme/sprite_hache1.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="64.0" prefWidth="86.0" text="Hache en bois" textFill="WHITE" />
+                        <HBox fx:id="Hache1" prefHeight="64.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@arme/sprite_hache1.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="64.0" prefWidth="86.0" text="Hache en bois" textFill="WHITE" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="Pioche1" layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-width: 3;">
+                           <children>
+                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@arme/sprite_pioche1.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="64.0" prefWidth="86.0" text="Pioche en bois" textFill="WHITE" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="Epee1" layoutX="10.0" layoutY="74.0" prefHeight="64.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-width: 3;">
+                           <children>
+                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@arme/sprite_epee1.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="64.0" prefWidth="86.0" text="Epee en bois" textFill="WHITE" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="Arc1" layoutX="10.0" layoutY="145.0" prefHeight="64.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-width: 3;">
+                           <children>
+                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@arme/sprite_arc1.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="64.0" prefWidth="86.0" text="Arc en bois" textFill="WHITE" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="Fleche1" layoutX="10.0" layoutY="215.0" prefHeight="64.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-width: 3;">
+                           <children>
+                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@arme/sprite_fleche1.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="64.0" prefWidth="86.0" text="Flèche en bois" textFill="WHITE" />
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox fx:id="Pioche1" layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-width: 3;">
-                     <children>
-                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@arme/sprite_pioche1.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="64.0" prefWidth="86.0" text="Pioche en bois" textFill="WHITE" />
-                     </children>
-                  </HBox>
-                  <HBox fx:id="Epee1" layoutX="10.0" layoutY="74.0" prefHeight="64.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-width: 3;">
-                     <children>
-                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@arme/sprite_epee1.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="64.0" prefWidth="86.0" text="Epee en bois" textFill="WHITE" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
+                  </VBox>
+               </content>
+            </ScrollPane>
          </left>
          <center>
-            <VBox fx:id="VboxFabriquer" maxWidth="-Infinity" prefHeight="200.0" prefWidth="250.0" style="-fx-border-color: black; -fx-border-width: 3;" BorderPane.alignment="CENTER">
+            <VBox fx:id="VboxFabriquer" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="250.0" style="-fx-border-color: black; -fx-border-width: 3;" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="imgViewArme" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <VBox.margin>

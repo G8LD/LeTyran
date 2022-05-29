@@ -3,6 +3,7 @@ package application.vue;
 import application.modele.Etabli;
 import application.modele.objets.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -35,7 +36,7 @@ public class EtabliVue {
     }
 
     public void affichageArmeSelected(Color color) {
-        ((HBox) bPaneEtabli.lookup("#VBoxArmes").lookup("#" + etabli.getArmeSelected()))
+        ((HBox) ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelected()))
                 .setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
     }
 
