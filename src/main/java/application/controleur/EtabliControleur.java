@@ -8,6 +8,7 @@ import javafx.collections.MapChangeListener;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -33,11 +34,9 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
                     etabliVue.affichageArmeSelected(Color.WHITE);
                     etabliVue.affichageInfosArmeSelected();
                     if (etabli.getFabricable()) {
-                        System.out.println("true");
                         etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer").setDisable(false);
                         etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer").setOpacity(1);
                     } else {
-                        System.out.println("false");
                         etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer").setDisable(true);
                         etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer").setOpacity(0.5);
                     }
@@ -49,6 +48,7 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
                 etabli.fabriquer();
                 etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer").setDisable(true);
                 etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer").setOpacity(0.5);
+                etabliVue.getbPaneEtabli().lookup("#VBoxArmes").lookup("#" + etabli.getArmeSelected()).setOpacity(0.5);
             }
 
         });
@@ -65,6 +65,10 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
 //                    etabliVue.getbPaneEtabli().lookup("#VBoxArmes").lookup("#" + change.getKey()).setMouseTransparent(true);
 //                    etabliVue.getbPaneEtabli().lookup("#VBoxArmes").lookup("#" + change.getKey()).setOpacity(0.5);
 //                }
+
+//                String s = change.getKey().substring(0, change.getKey().length()-1);
+//                char c = change.getKey().charAt(change.getKey().length()-1);
+//                System.out.println(change.getKey() + "\t" + s + "\t" + c);
             }
         });
 
