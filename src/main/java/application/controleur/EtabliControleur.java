@@ -44,33 +44,29 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
                         boutonFabriquer.setOpacity(1);
                     } else {
                         boutonFabriquer.setDisable(true);
-                        boutonFabriquer.setOpacity(0.5);
+                        etabliVue.affichageArmeNonDispo();
                     }
                 }
             });
 
         //pour afficher lancer la fabrication et la rendre indisponible après
-        ((Button) boutonFabriquer).setOnAction(actionEvent -> {
+        boutonFabriquer.setOnAction(actionEvent -> {
             if (etabli.getFabricable()) {
                 etabli.fabriquer();
                 boutonFabriquer.setDisable(true);
-                boutonFabriquer.setOpacity(0.5);
-                etabliVue.retirerAffichageInfos();
+                etabliVue.affichageArmeNonDispo();
             }
-
         });
 
         //retirer l'opacité des armes débloqué
         etabli.getListeMateriaux().addListener(new MapChangeListener<Arme, HashMap<Materiau, Integer>>() {
             @Override
             public void onChanged(Change<? extends Arme, ? extends HashMap<Materiau, Integer>> change) {
-                System.out.println(change.getKey());
+                String id = "#" + change.getKey().getClass().getSimpleName() + change.getKey().getQualite();
                 if (change.wasAdded()) {
-                    vBoxArmes.lookup("#" + change.getKey()).setMouseTransparent(false);
-                    vBoxArmes.lookup("#" + change.getKey()).setOpacity(1);
+                    vBoxArmes.lookup(id).setOpacity(1);
                 } else {
-                    vBoxArmes.lookup("#" + change.getKey()).setMouseTransparent(true);
-                    vBoxArmes.lookup("#" + change.getKey()).setOpacity(0.5);
+                    vBoxArmes.lookup(id).setOpacity(0.5);
                 }
             }
         });

@@ -43,7 +43,7 @@ public class EtabliVue {
 
     public void affichageInfosArmeSelected() {
         Node vBoxFabriquer = bPaneEtabli.lookup("#VboxFabriquer");
-
+        vBoxFabriquer.setOpacity(1);
         ((ImageView) vBoxFabriquer.lookup("#imgViewArme")).setImage(armeVue.getListeSprites().get(etabli.getArmeSelectedNom()));
 
         Node paneMateriaux = vBoxFabriquer.lookup("#PaneMateriaux");
@@ -61,14 +61,16 @@ public class EtabliVue {
         }
     }
 
-    public void retirerAffichageInfos() {
-        ((ImageView) bPaneEtabli.lookup("#VboxFabriquer").lookup("#imgViewArme")).setImage(null);
-        Node paneMateriaux = bPaneEtabli.lookup("#VboxFabriquer").lookup("#PaneMateriaux");
-        for (int i = 1; i <= 2; i++) {
-            ((ImageView) paneMateriaux.lookup("#imgViewMateriau" + i)).setImage(null);
-            ((Label) paneMateriaux.lookup("#labelMateriau" + i)).setText("");
-        }
+    public void affichageArmeNonDispo() {
+//        ((ImageView) bPaneEtabli.lookup("#VboxFabriquer").lookup("#imgViewArme")).setImage(null);
+////        Node paneMateriaux = bPaneEtabli.lookup("#VboxFabriquer").lookup("#PaneMateriaux");
+////        for (int i = 1; i <= 2; i++) {
+////            ((ImageView) paneMateriaux.lookup("#imgViewMateriau" + i)).setImage(null);
+////            ((Label) paneMateriaux.lookup("#labelMateriau" + i)).setText("");
+////        }
+////
         ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelectedNom()).setOpacity(0.5);
+        bPaneEtabli.lookup("#VboxFabriquer").setOpacity(0.5);
     }
 
     public void affichageEtabli() {

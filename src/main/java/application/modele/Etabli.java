@@ -1,11 +1,10 @@
 package application.modele;
 
 import application.modele.armes.Arme;
+import application.modele.armes.Epee;
 import application.modele.armes.Hache;
 import application.modele.armes.Pioche;
-import application.modele.objets.Bois;
-import application.modele.objets.Materiau;
-import application.modele.objets.Pierre;
+import application.modele.objets.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
@@ -31,22 +30,27 @@ public class Etabli {
     //TODO ajouter les autres armes
     private void initListeMateriaux() {
         listeMateriaux = FXCollections.observableHashMap();
+        Materiau bois = new Bois();
+        Materiau pierre = new Pierre();
+        Materiau fer = new Fer();
+        Materiau platine = new Platine();
+
         listeMateriaux.put(new Hache(1), new HashMap<>() {{
-            put(new Bois(), 3);
-            put(new Pierre(), 1);
+            put(bois, 3);
+            put(pierre, 1);
         }});
         listeMateriaux.put(new Pioche(1), new HashMap<>() {{
-            put(new Bois(), 3);
-            put(new Pierre(), 1);
+            put(bois, 3);
+            put(pierre, 1);
         }});
-        listeMateriaux.put(new Pioche(1), new HashMap<>() {{
-            put(new Bois(), 10);
+        listeMateriaux.put(new Epee(1), new HashMap<>() {{
+            put(bois, 10);
         }});
     }
 
     public void fabriquer() {
-        Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
-        Iterator iterator = listeMateriaux.iterator();
+        Set listeMateriauxArme = this.listeMateriaux.get(armeSelected).entrySet();
+        Iterator iterator = listeMateriauxArme.iterator();
         Map.Entry materiau;
         while (iterator.hasNext()) {
             materiau = (Map.Entry) iterator.next();
@@ -54,12 +58,12 @@ public class Etabli {
                 //TODO retirer les materiaux de l'inventaire
             }
         }
-
         //TODO ajouter l'arme dans l'inventaire du perso
     }
 
     private void peutFabriquer() {
-        if (armeSelected == null)
+        //TODO vérifier que le joueur de l'a pas déjà
+        if (!listeMateriaux.containsKey(armeSelected))
             fabricable = false;
         else {
             Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
