@@ -1,12 +1,8 @@
-package application.vue.vueMap;
+package application.vue.vueEnv;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
-
-import static application.modele.MapJeu.HEIGHT;
-import static application.modele.MapJeu.WIDTH;
 
 public class ChargeurRessources {
 
