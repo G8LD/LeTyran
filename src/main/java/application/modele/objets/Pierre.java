@@ -23,7 +23,7 @@ public class Pierre extends Materiau {
 
     @Override
     public void quandDetruit() {
-        Pierre pierre = new Pierre(this.getEnv(), this.getX() * 32, this.getY() * 32);
+        Pierre pierre = new Pierre(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32);
         this.getEnv().getEntites().add(pierre);
     }
 }

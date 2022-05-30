@@ -46,32 +46,32 @@ public class Collider {
 
     public boolean intersect(Entite ent) {
         if(ent.getCollider() != null) {
-            int posX = this.ent.getX() + this.hitbox.getX();
-            int posY = this.ent.getY() + this.hitbox.getY();
+            float posX = this.ent.getX() + this.hitbox.getX();
+            float posY = this.ent.getY() + this.hitbox.getY();
 
-            int autrePosX = ent.getX() + ent.getCollider().getHitBox().getX();
-            int autrePosY = ent.getY() + ent.getCollider().getHitBox().getY();
+            float autrePosX = ent.getX() + ent.getCollider().getHitBox().getX();
+            float autrePosY = ent.getY() + ent.getCollider().getHitBox().getY();
 
             RectangleCol selfCol = this.getHitBox();
             RectangleCol autreCol = ent.getCollider().getHitBox();
 
             //H pour Haut, P pour +
-            int positionRectangle = (posX + posY);
-            int s_H = positionRectangle;
-            int s_HP = positionRectangle + selfCol.getWidth();
-            int s_B = positionRectangle + selfCol.getHeight();
-            int s_BP = positionRectangle + selfCol.getHeight() + selfCol.getWidth();
+            float positionRectangle = (posX + posY);
+            float s_H = positionRectangle;
+            float s_HP = positionRectangle + selfCol.getWidth();
+            float s_B = positionRectangle + selfCol.getHeight();
+            float s_BP = positionRectangle + selfCol.getHeight() + selfCol.getWidth();
 
             //System.out.println(String.format("%s %s %s %s", s_H, s_HP, s_B, s_BP));
 
 
             //On définit les bornes du deuxième objet à vérifier
 
-            int positionRectangleAutre = (autrePosX + autrePosY);
-            int a_H = positionRectangleAutre;
-            int a_HP = positionRectangleAutre + autreCol.getWidth();
-            int a_B = positionRectangleAutre + autreCol.getHeight();
-            int a_BP = positionRectangleAutre + autreCol.getHeight() + autreCol.getWidth();
+            float positionRectangleAutre = (autrePosX + autrePosY);
+            float a_H = positionRectangleAutre;
+            float a_HP = positionRectangleAutre + autreCol.getWidth();
+            float a_B = positionRectangleAutre + autreCol.getHeight();
+            float a_BP = positionRectangleAutre + autreCol.getHeight() + autreCol.getWidth();
 
             //System.out.println(String.format("%s %s %s %s", a_H, a_HP, a_B, a_BP) + "------------------------\n");
 
@@ -81,30 +81,30 @@ public class Collider {
         return false;
     }
     public boolean intersect(Entite ent, int addX, int addY) {
-        int posX = this.ent.getX() + this.hitbox.getX();
-        int posY = this.ent.getY() + this.hitbox.getY();
+        float posX = this.ent.getX() + this.hitbox.getX();
+        float posY = this.ent.getY() + this.hitbox.getY();
 
-        int autrePosX = ent.getX() + ent.getCollider().getHitBox().getX() + addX;
-        int autrePosY = ent.getY() + ent.getCollider().getHitBox().getY() + addY;
+        float autrePosX = ent.getX() + ent.getCollider().getHitBox().getX() + addX;
+        float autrePosY = ent.getY() + ent.getCollider().getHitBox().getY() + addY;
 
         RectangleCol selfCol = this.getHitBox();
         RectangleCol autreCol = ent.getCollider().getHitBox();
 
         //H pour Haut, P pour +
-        int positionRectangle = (posX + posY);
-        int s_H = positionRectangle;
-        int s_HP = positionRectangle + selfCol.getWidth();
-        int s_B = positionRectangle + selfCol.getHeight();
-        int s_BP = positionRectangle + selfCol.getHeight() + selfCol.getWidth();
+        float positionRectangle = (posX + posY);
+        float s_H = positionRectangle;
+        float s_HP = positionRectangle + selfCol.getWidth();
+        float s_B = positionRectangle + selfCol.getHeight();
+        float s_BP = positionRectangle + selfCol.getHeight() + selfCol.getWidth();
 
 
         //On définit les bornes du deuxième objet à vérifier
 
-        int positionRectangleAutre = (autrePosX + autrePosY);
-        int a_H = positionRectangleAutre;
-        int a_HP = positionRectangleAutre + autreCol.getWidth();
-        int a_B = positionRectangleAutre + autreCol.getHeight() ;
-        int a_BP = positionRectangleAutre + autreCol.getHeight() + autreCol.getWidth();
+        float positionRectangleAutre = (autrePosX + autrePosY);
+        float a_H = positionRectangleAutre;
+        float a_HP = positionRectangleAutre + autreCol.getWidth();
+        float a_B = positionRectangleAutre + autreCol.getHeight() ;
+        float a_BP = positionRectangleAutre + autreCol.getHeight() + autreCol.getWidth();
 
         return s_H < a_HP && s_HP > a_H && s_B < a_BP && s_BP > a_B;
 

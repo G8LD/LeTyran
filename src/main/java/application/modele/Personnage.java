@@ -42,17 +42,17 @@ public class Personnage extends Entite {
         else
             distance = 3;
         for (int i = 0; i < distance; i++)
-        if(!super.getEnv().entreEnCollision(super.getX(), super.getY(), direction)) {
+        if(!super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), direction)) {
             if (direction == Direction.Droit)
-                super.setX(super.getX() + 1);
+                super.setX(super.getX() + 0.45f);
             else
-                super.setX(super.getX() - 1);
+                super.setX(super.getX() - 0.45f);
         }
     }
 
     public void sauter() {
         for (int i = 0; i < 3; i++)
-        if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !super.getEnv().entreEnCollision(super.getX(), super.getY(), Direction.Haut)) {
+        if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Haut)) {
             super.setY(super.getY()- 1);
             hauteurSaut +=1;
         } else if (saute) {
@@ -62,7 +62,7 @@ public class Personnage extends Entite {
 
     public void tomber() {
         for (int i = 0; i < 3; i++)
-        if (!super.getEnv().entreEnCollision(super.getX(), super.getY(), Direction.Bas)) {
+        if (!super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Bas)) {
             tombe = true;
             super.setY(super.getY() + 1);
         } else {

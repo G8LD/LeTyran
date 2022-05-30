@@ -1,22 +1,24 @@
 package application.modele;
 
 import application.modele.collisions.Collider;
+import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class Entite {
-    private IntegerProperty xProperty;
-    private IntegerProperty yProperty;
+    private FloatProperty xProperty;
+    private FloatProperty yProperty;
     private Environnement env;
     private Collider collider;
 
 
     private boolean tombe = false;
     public Entite(Environnement env) {
-        this.xProperty = new SimpleIntegerProperty(0);
-        this.yProperty = new SimpleIntegerProperty(0);
+        this.xProperty = new SimpleFloatProperty(0);
+        this.yProperty = new SimpleFloatProperty(0);
         this.collider = new Collider(this);
         //this.getCollider().scaleCollider(32,32);
         this.env = env;
@@ -25,13 +27,13 @@ public class Entite {
 
     //Pour les matériaux
     public Entite(Environnement env, int x, int y) {
-        this.xProperty = new SimpleIntegerProperty(x);
-        this.yProperty = new SimpleIntegerProperty(y);
+        this.xProperty = new SimpleFloatProperty(x);
+        this.yProperty = new SimpleFloatProperty(y);
         this.env = env;
         this.collider = new Collider(this);
     }
 
-    public int getX() {
+    public float getX() {
         return xProperty.getValue();
     }
 
@@ -40,30 +42,30 @@ public class Entite {
     }
 
 
-    public int getY() {
+    public float getY() {
         return yProperty.getValue();
     }
 
-    public void setX(int valeur) {
+    public void setX(float valeur) {
         xProperty.setValue(valeur);
     };
 
-    public void setY(int valeur) {
+    public void setY(float valeur) {
         yProperty.setValue(valeur);
     };
 
-    public IntegerProperty getYProperty() {
+    public FloatProperty getYProperty() {
         return yProperty;
     }
 
-    public IntegerProperty getXProperty() {
+    public FloatProperty getXProperty() {
         return xProperty;
     }
 
 
     public Entite() {
-        xProperty = new SimpleIntegerProperty(6 * TUILE_TAILLE);
-        yProperty = new SimpleIntegerProperty(11 * TUILE_TAILLE);
+        xProperty = new SimpleFloatProperty(6 * TUILE_TAILLE);
+        yProperty = new SimpleFloatProperty(11 * TUILE_TAILLE);
     }
 
 
@@ -76,7 +78,7 @@ public class Entite {
 
     private void tomber() {
         for (int i = 0; i < 3; i++)
-        if (!env.entreEnCollision(this.getX(), this.getY(), Direction.Bas)) {
+        if (!env.entreEnCollision((int) this.getX(), (int)this.getY(), Direction.Bas)) {
             tombe = true;
             this.setY(this.getY() + 1);
         }

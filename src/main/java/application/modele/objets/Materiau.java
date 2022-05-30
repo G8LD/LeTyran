@@ -17,12 +17,12 @@ public abstract class Materiau extends Entite {
         pv -= degat;
     }
 
-    public int getX() {
+    public float getX() {
 
         return super.getX();
     }
 
-    public int getY() {
+    public float getY() {
         return super.getY();
     }
 

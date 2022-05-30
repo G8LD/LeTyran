@@ -17,7 +17,7 @@ public class Terre extends Materiau {
     }
 
     public void quandDetruit() {
-        Terre terre = new Terre(this.getEnv(), this.getX() * 32, this.getY() * 32);
+        Terre terre = new Terre(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32);
         this.getEnv().getEntites().add(terre);
     }
 }

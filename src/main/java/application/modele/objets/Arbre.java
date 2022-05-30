@@ -34,11 +34,11 @@ public class Arbre extends Entite {
         return nbBois;
     }
 
-    public int getX() {
+    public float getX() {
         return super.getX();
     }
 
-    public int getY() {
+    public float getY() {
         return super.getY();
     }
 
@@ -48,7 +48,7 @@ public class Arbre extends Entite {
 
     @Override
     public void quandDetruit() {
-        Bois bois = new Bois(this.getEnv(), this.getX() * 32, this.getY() * 32);
+        Bois bois = new Bois(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32);
         this.getEnv().getEntites().add(bois);
     }
 }
