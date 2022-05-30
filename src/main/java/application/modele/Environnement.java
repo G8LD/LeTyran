@@ -11,6 +11,7 @@ public class Environnement {
 
     private Personnage personnage;
     private MapJeu mapJeu;
+    private ObservableList<Entite> listeEntites;
     private ObservableList<Materiau> listeMateriaux;
     private ObservableList<Arbre> listeArbres;
 
@@ -18,33 +19,79 @@ public class Environnement {
         personnage = new Personnage(this);
         mapJeu = new MapJeu();
         listeMateriaux = FXCollections.observableArrayList();
-        initListeMinerais();
+        listeEntites = FXCollections.observableArrayList();
         listeArbres = FXCollections.observableArrayList();
+
+
+        ObjetJeu nouvObj = new ObjetJeu(this, "Epee", 1);
+        ObjetJeu nouvObj2 = new ObjetJeu(this,  "Bois", 1);
+        nouvObj.setX(2 * 32);
+        nouvObj.setY(4 * 32);
+
+        nouvObj2.setX(2 * 32);
+        nouvObj2.setY(2 * 32);
+
+
+        /*this.listeEntites.add(nouvObj);
+        this.listeEntites.add(nouvObj2);*/
+        this.listeEntites.add(personnage);
+        initListeMinerais();
         initListeArbres();
+    }
+
+    public ObservableList<Entite> getEntites() {
+        return this.listeEntites;
     }
 
     private void initListeArbres() {
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
                 if (mapJeu.getTabMap()[i][j] == 54) {
-                    listeArbres.add(new Arbre(j, i));
+                    listeArbres.add(new Arbre(this, j, i));
                 }
             }
         }
     }
 
-    private void initListeMinerais() {
-        for (int i = 0; i < MapJeu.HEIGHT; i++) {
-            for (int j = 0; j < MapJeu.WIDTH; j++) {
-                switch (mapJeu.getTabMap()[i][j]) {
-                    case 34: listeMateriaux.add(new Terre(j,i));
-                    case 42: listeMateriaux.add(new Fer(j,i));
-                    case 52: listeMateriaux.add(new Pierre(j,i));
-                    case 53: listeMateriaux.add(new Platine(j,i));
-                    default: break;
-                }
-            }
+    public boolean entreEnCollision(int xPerso, int yPerso, Direction dir) {
+        boolean collision = false;
+        mapJeu.getTabMap();
+
+        int x = xPerso/TUILE_TAILLE;
+        int y = yPerso/TUILE_TAILLE;
+        switch (dir) {
+            case Droit:
+                //regarde la case suivante lorque le joueur est sur le point de l'atteindre
+                if ((xPerso + 1) / TUILE_TAILLE > x && (xPerso + 1) % TUILE_TAILLE != 0) x++;
+                //pour le saut lorsque le perso est entre 1 cases verticalement
+                if (x+1 >= 0 && x+1 < WIDTH && yPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y][x + 1] == 0) y++;
+                //verifie la collision
+                if (x + 1 >= MapJeu.WIDTH || mapJeu.getTabMap()[y][x + 1] != 0)
+                    collision = true;
+                break;
+            case Gauche:
+                if ((double) (xPerso - 1) / TUILE_TAILLE < x) x--;
+                if (x >= 0 && x < WIDTH && yPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y][x] == 0) y++;
+                if (x < 0 || mapJeu.getTabMap()[y][x] != 0)
+                    collision = true;
+                break;
+            case Bas:
+                if (x < 0 || x >= WIDTH || y + 1 >= MapJeu.HEIGHT || mapJeu.getTabMap()[y + 1][x] != 0
+                        || (xPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y+1][x+1] != 0))
+                    collision = true;
+                break;
+            case Haut:
+                //regarde la case suivante lorque le joueur est sur le point de l'atteindre
+                if ((double) (yPerso - 1) / TUILE_TAILLE < y) y--;
+                //vérifie de la case suivante si entre deux case horizontalement
+                if (y < 0 || mapJeu.getTabMap()[y][x] != 0
+                        || (xPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y][x+1] != 0))
+                    collision = true;
+                break;
+            default:
+                break;
         }
+        return collision;
     }
 
     public void interaction(int x, int y) {
@@ -54,11 +101,13 @@ public class Environnement {
 
     private boolean couper(int x, int y) {
         Arbre arbre = getArbre(x,y);
+
         if (arbre != null) {
             arbre.frappe(personnage.getArme());
             if (arbre.getPv() <= 0) {
                 listeArbres.remove(arbre);
                 mapJeu.getTabMap()[y][x] = 0;
+                arbre.detruire();
                 System.out.println("arbre coupé");
             }
             return true;
@@ -68,56 +117,38 @@ public class Environnement {
 
     private boolean minage(int x, int y) {
         Materiau minerai = getMinerai(x,y);
+
         if (minerai != null) {
             minerai.frappe(personnage.getArme());
             if (minerai.getPv() <= 0) {
                 listeMateriaux.remove(minerai);
                 mapJeu.getTabMap()[y][x] = 0;
+                minerai.detruire();
+                System.out.println("minerai cassé");
             }
             return true;
         }
         return false;
     }
 
-    public boolean entreEnCollision(int xPerso, int yPerso, Direction dir) {
-        boolean collision = false;
-        int x,y;
-        switch (dir) {
-            case Droit:
-                x = (xPerso+TUILE_TAILLE+1)/TUILE_TAILLE;
-                y = yPerso/TUILE_TAILLE;
-                if ((xPerso+TUILE_TAILLE+1) % TUILE_TAILLE == 0) x--;
-                if (x >= WIDTH || estUnObstacle(x, y) || (yPerso % TUILE_TAILLE != 0 && estUnObstacle(x,y+1)))
-                    collision = true;
-                break;
-            case Gauche:
-                x = (xPerso-1)/TUILE_TAILLE;
-                y = yPerso/TUILE_TAILLE;
-                if ((xPerso-1) % TUILE_TAILLE == 0) x++;
-                if (xPerso-1 < 0 || estUnObstacle(x, y) || (yPerso % TUILE_TAILLE != 0 && estUnObstacle(x,y+1)))
-                    collision = true;
-                break;
-            case Bas:
-                x = xPerso/TUILE_TAILLE;
-                y = yPerso/TUILE_TAILLE;
-                if (y + 1 >= MapJeu.HEIGHT || estUnObstacle(x,y+1) || (xPerso % TUILE_TAILLE != 0 && estUnObstacle(x+1,y+1)))
-                    collision = true;
-                break;
-            case Haut:
-                x = xPerso/TUILE_TAILLE;
-                y = (yPerso-1)/TUILE_TAILLE;
-                if (yPerso-1 < 0 || estUnObstacle(x,y) || (xPerso % TUILE_TAILLE != 0 && estUnObstacle(x+1,y)))
-                    collision = true;
-                break;
-            default:
-                break;
+    private void initListeMinerais() {
+        for (int i = 0; i < MapJeu.HEIGHT; i++) {
+            for (int j = 0; j < MapJeu.WIDTH; j++) {
+                switch (mapJeu.getTabMap()[i][j]) {
+                    case 34: listeMateriaux.add(new Terre(this,j,i));
+                    case 42: listeMateriaux.add(new Fer(this,j,i));
+                    case 52: listeMateriaux.add(new Pierre(this,j,i));
+                    case 53: listeMateriaux.add(new Platine(this,j,i));
+                    default: break;
+                }
+            }
         }
-        return collision;
     }
 
-    private boolean estUnObstacle(int x, int y) {
-        return mapJeu.getTabMap()[y][x] == 34 || mapJeu.getTabMap()[y][x] == 42 || mapJeu.getTabMap()[y][x] == 52 || mapJeu.getTabMap()[y][x] == 53;
+    public void supprimerObjetEnvironnement(Entite obj) {
+        System.out.println(this.listeEntites.remove(obj));
     }
+
 
     public Personnage getPersonnage() {
         return personnage;
@@ -128,11 +159,34 @@ public class Environnement {
     }
 
     public Materiau getMinerai(int x, int y) {
+
         for (Materiau minerai : listeMateriaux)
             if (minerai.getX() == x && minerai.getY() == y)
                 return minerai;
+
         return null;
     }
+
+    public void update() {
+        for(int i = 0; i < this.listeEntites.size(); i++) {
+            Entite obj = this.listeEntites.get(i);
+            obj.update();
+
+            //appliquerGravite();
+        }
+    }
+
+    /*public void appliquerGravite() {
+        for(int i = 0; i < this.listeEntites.size(); i++) {
+            Entite ent = this.listeEntites.get(i);
+            if(!ent.getIgnoreGravite()) {
+                Entite collisionEntite = ent.getCollider().tracerLigne(0, 32);
+                if(collisionEntite == null) {
+                    ent.gravite();
+                }
+            };
+        }
+    }*/
 
     public Arbre getArbre(int x, int y) {
         if (mapJeu.getTabMap()[y][x] == 55) y++;
@@ -144,11 +198,11 @@ public class Environnement {
         return null;
     }
 
-    public ObservableList<Materiau> getListeMateriaux() {
-        return listeMateriaux;
-    }
-
     public ObservableList<Arbre> getListeArbres() {
         return listeArbres;
+    }
+
+    public ObservableList<Materiau> getListeMateriaux() {
+        return listeMateriaux;
     }
 }

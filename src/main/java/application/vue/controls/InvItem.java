@@ -1,7 +1,9 @@
 package application.vue.controls;
 
+import application.modele.ObjetInventaire;
 import application.modele.ObjetJeu;
 import application.vue.InventaireVue;
+import application.vue.vueEnv.ChargeurRessources;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorInput;
@@ -15,11 +17,11 @@ public class InvItem extends StackPane {
     private ColorInput color;
     private Label quantite;
 
-    private int TAILLE_IMG_OBJET = 32;
+    private int TAILLE_IMG_OBJET = 28;
 
     private ImageView imgVObjet;
 
-    private ObjetJeu Objet;
+    private ObjetInventaire Objet;
 
     private InventaireVue invVue;
 
@@ -27,11 +29,19 @@ public class InvItem extends StackPane {
     private boolean dragActive =false;
 
 
-    public InvItem(InventaireVue invVue, ObjetJeu obj, InvSlot viewParent) {
+    public InvItem(InventaireVue invVue, ObjetInventaire obj, InvSlot viewParent) {
 
         this.invVue = invVue;
         this.Objet = obj;
-        this.imgVObjet = new ImageView(new Image("file:src/main/resources/application/inventaire/food/apple.png"));
+
+
+        Image img = ChargeurRessources.iconObjets.get(obj.getEntite().getClass().getSimpleName());
+        if(img == null) {
+            img = new Image("file:src/main/resources/application/inventaire/food/bananas.png");
+        }
+
+        this.imgVObjet = new ImageView(img);
+
 
         this.imgVObjet.setFitHeight(TAILLE_IMG_OBJET);
         this.imgVObjet.setFitWidth(TAILLE_IMG_OBJET);
@@ -86,7 +96,7 @@ public class InvItem extends StackPane {
     }
 
 
-    public ObjetJeu getObjet() {
+    public ObjetInventaire getObjetInventaire() {
         return this.Objet;
     }
     private void mouseEntered() {

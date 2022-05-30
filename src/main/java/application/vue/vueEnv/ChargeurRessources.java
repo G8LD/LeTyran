@@ -3,10 +3,12 @@ package application.vue.vueEnv;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ChargeurRessources {
 
     public static ArrayList<Image> tileMapAssets = new ArrayList<Image>();
+    public static HashMap<String, Image> iconObjets = new HashMap<>();
 
     public static void charger() {
         for (int i = 1; i < 57; i++) {
@@ -28,5 +30,12 @@ public class ChargeurRessources {
         tileMapAssets.add(54, new Image("file:src/main/resources/application/pack1/arbre_bas.png"));
         tileMapAssets.add(55, new Image("file:src/main/resources/application/pack1/arbre_milieu.png"));
         tileMapAssets.add(56, new Image("file:src/main/resources/application/pack1/arbre_haut.png"));
+
+        //Icon objets
+        iconObjets.put("Terre", new Image("file:src/main/resources/application/resources/Terre.png"));
+        iconObjets.put("Bois", new Image("file:src/main/resources/application/resources/Bois.png"));
+        iconObjets.put("Pierre", new Image("file:src/main/resources/application/resources/Pierre.png"));
+
+
     }
 }

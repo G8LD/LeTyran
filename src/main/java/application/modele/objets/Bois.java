@@ -1,5 +1,6 @@
 package application.modele.objets;
 
+import application.modele.Environnement;
 import application.modele.armes.Arme;
 import application.modele.armes.Hache;
 
@@ -7,8 +8,8 @@ public class Bois extends Materiau {
 
     private final static int PV_MAX = 2;
 
-    public Bois(int x, int y) {
-        super(x, y, PV_MAX);
+    public Bois(Environnement env, int x, int y) {
+        super(env, x, y, PV_MAX);
     }
 
     @Override

@@ -3,16 +3,15 @@ package application.modele;
 import application.modele.armes.Arme;
 import application.modele.armes.Hache;
 import application.modele.armes.Pioche;
+import application.modele.objets.Materiau;
 import javafx.beans.property.*;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 
-public class Personnage {
+public class Personnage extends Entite {
 
-    private IntegerProperty xProperty;
-    private IntegerProperty yProperty;
+
     private Direction direction;
-    private Environnement env;
     private Inventaire inventaire;
     private boolean saute;
     private boolean tombe;
@@ -22,16 +21,18 @@ public class Personnage {
 
 
     public Personnage(Environnement env) {
+        super(env);
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
-        xProperty = new SimpleIntegerProperty(6 * TUILE_TAILLE);
-        yProperty = new SimpleIntegerProperty(11 * TUILE_TAILLE);
+
         direction = Direction.Droit;
         hauteurSaut = 0;
         armeProperty = new SimpleObjectProperty<>(new Pioche(1));
-        this.env = env;
-        this.inventaire = new Inventaire();
-        inventaire.ajouterObjet();
+        this.inventaire = new Inventaire(super.getEnv());
+        //this.getCollider().scaleCollider(32,32);
+        System.out.println(this.getCollider());
+        System.out.println(this.getCollider().getHitBox());
+        //inventaire.ajouterObjet();
     }
 
     public void seDeplacer() {
@@ -40,48 +41,52 @@ public class Personnage {
             distance = 2;
         else
             distance = 3;
-        int i = 0;
-        while (i < distance && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), direction)) {
-            i++;
+        for (int i = 0; i < distance; i++)
+        if(!super.getEnv().entreEnCollision(super.getX(), super.getY(), direction)) {
             if (direction == Direction.Droit)
-                xProperty.setValue(xProperty.getValue() + 1);
+                super.setX(super.getX() + 1);
             else
-                xProperty.setValue(xProperty.getValue() - 1);
+                super.setX(super.getX() - 1);
         }
     }
 
     public void sauter() {
-        int i = 0;
-        while (i < 3 && !tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
-            i++;
-            yProperty.setValue(yProperty.getValue() - 1);
+        for (int i = 0; i < 3; i++)
+        if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !super.getEnv().entreEnCollision(super.getX(), super.getY(), Direction.Haut)) {
+            super.setY(super.getY()- 1);
             hauteurSaut +=1;
-        }
-        if (i < 3)
+        } else if (saute) {
             saute = false;
+        }
     }
 
     public void tomber() {
-        int i = 0;
-        while (i < 3 && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
-            i++;
+        for (int i = 0; i < 3; i++)
+        if (!super.getEnv().entreEnCollision(super.getX(), super.getY(), Direction.Bas)) {
             tombe = true;
-            yProperty.setValue(yProperty.getValue() + 1);
-        }
-        if (i < 3){
+            super.setY(super.getY() + 1);
+        } else {
             tombe = false;
             hauteurSaut = 0;
         }
     }
 
     public void update() {
+        super.collide();
         if (saute) sauter();
         else tomber();
         if (avanceProperty.getValue()) seDeplacer();
 
     }
 
-//region Getter & Setter
+    @Override
+    public void quandCollisionDetectee(Entite ent) {
+        if (ent instanceof ObjetJeu || ent instanceof Materiau) {
+            this.inventaire.ajouterObjet(ent);
+        }
+    }
+
+    //region Getter & Setter
     public Direction getDirection() {
         return direction;
     }
@@ -90,35 +95,6 @@ public class Personnage {
         this.direction = direction;
     }
 
-    public int getX() {
-        return xProperty.getValue();
-    }
-
-    public IntegerProperty getXProperty() {
-        return xProperty;
-    }
-
-    public int setX(int x) {
-        this.xProperty.set(x);
-        return x;
-    }
-
-    public int setY(int y) {
-        this.xProperty.set(y);
-        return y;
-    }
-
-    public int getY() {
-        return yProperty.getValue();
-    }
-
-    public IntegerProperty getYProperty() {
-        return yProperty;
-    }
-
-    public void setyProperty(int yProperty) {
-        this.yProperty.set(yProperty);
-    }
 
     public boolean getSaute() {
         return saute;

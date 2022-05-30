@@ -1,19 +1,19 @@
 package application.modele.objets;
 
+import application.modele.Entite;
+import application.modele.Environnement;
 import application.modele.armes.Arme;
 import application.modele.armes.Hache;
 
-public class Arbre {
+public class Arbre extends Entite {
 
     private final static int PV_MAX = 8;
 
-    private int x;
-    private int y;
+
     private int pv;
 
-    public Arbre(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Arbre(Environnement env, int x, int y) {
+        super(env, x, y);
         this.pv = PV_MAX;
     }
     //retourne le nombre de bois drop
@@ -35,14 +35,20 @@ public class Arbre {
     }
 
     public int getX() {
-        return x;
+        return super.getX();
     }
 
     public int getY() {
-        return y;
+        return super.getY();
     }
 
     public int getPv() {
         return pv;
+    }
+
+    @Override
+    public void quandDetruit() {
+        Bois bois = new Bois(this.getEnv(), this.getX() * 32, this.getY() * 32);
+        this.getEnv().getEntites().add(bois);
     }
 }

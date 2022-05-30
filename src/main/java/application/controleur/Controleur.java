@@ -2,16 +2,18 @@ package application.controleur;
 
 import application.modele.Environnement;
 import application.vue.ArmeVue;
+import application.vue.ObjetVue;
+import application.vue.PersonnageVue;
+import application.vue.vueEnv.EnvironnementVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import application.vue.vueEnv.EnvironnementVue;
-import application.vue.PersonnageVue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import java.net.URL;
@@ -21,13 +23,18 @@ public class Controleur implements Initializable {
 
     private Environnement env;
     private KeyReleased keyReleased;
-    private Timeline gameLoop;
+    private PersonnageVue personnageVue;
+    private EnvironnementVue mapVue;
     private ArmeVue armeVue;
+    private Timeline gameLoop;
+
+    private ObjetVue objetVue;
 
     @FXML private Pane root;
     @FXML private TilePane tileSol;
     @FXML private TilePane tileDecors;
     @FXML private TilePane tileFond;
+    @FXML private Pane paneJoueur;
     @FXML private ImageView spriteJoueur;
     @FXML private ImageView spriteArme;
 
@@ -35,14 +42,15 @@ public class Controleur implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         env = new Environnement();
         keyReleased = new KeyReleased(this, env);
-
-        new EnvironnementVue(env, tileSol, tileDecors, tileFond);
-        new PersonnageVue(env.getPersonnage(), spriteJoueur);
+        personnageVue = new PersonnageVue(env.getPersonnage(), spriteJoueur);
+        mapVue = new EnvironnementVue(env, tileSol, tileDecors, tileFond);
+        objetVue = new ObjetVue(this.env, this.root);
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
+
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
 
         initAnimation();
@@ -58,13 +66,23 @@ public class Controleur implements Initializable {
                 Duration.seconds(0.017),
                 (ev ->{
                     env.getPersonnage().update();
+                    objetVue.update();
+                    this.env.update();
 
                 })
         );
         gameLoop.getKeyFrames().add(kf);
     }
 
+    public PersonnageVue getPersonnageVue() {
+        return personnageVue;
+    }
+
+    public EnvironnementVue getMapVue() {
+        return this.mapVue;
+    }
+
     public ArmeVue getArmeVue() {
-        return armeVue;
+        return this.armeVue;
     }
 }

@@ -17,4 +17,6 @@ module application.letyran {
     opens application.vue.vueEnv to javafx.fxml;
     exports application.modele.objets;
     opens application.modele.objets to javafx.fxml;
+    exports application.modele.collisions;
+    opens application.modele.collisions to javafx.fxml;
 }
