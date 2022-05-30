@@ -1,13 +1,15 @@
 package application.controleur;
 
 import application.modele.Environnement;
+import application.vue.ArmeVue;
 import application.vue.ObjetVue;
+import application.vue.PersonnageVue;
+import application.vue.vueEnv.EnvironnementVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import application.vue.vueMap.MapVue;
-import application.vue.vuePerso.PersonnageVue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -22,7 +24,8 @@ public class Controleur implements Initializable {
     private Environnement env;
     private KeyReleased keyReleased;
     private PersonnageVue personnageVue;
-    private MapVue mapVue;
+    private EnvironnementVue mapVue;
+    private ArmeVue armeVue;
     private Timeline gameLoop;
 
     private ObjetVue objetVue;
@@ -32,15 +35,17 @@ public class Controleur implements Initializable {
     @FXML private TilePane tileDecors;
     @FXML private TilePane tileFond;
     @FXML private Pane paneJoueur;
-    @FXML private StackPane spritesJoueur;
+    @FXML private ImageView spriteJoueur;
+    @FXML private ImageView spriteArme;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         env = new Environnement();
         keyReleased = new KeyReleased(this, env);
-        personnageVue = new PersonnageVue(env.getPersonnage(), spritesJoueur);
-        mapVue = new MapVue(env, tileSol, tileDecors, tileFond);
+        personnageVue = new PersonnageVue(env.getPersonnage(), spriteJoueur);
+        mapVue = new EnvironnementVue(env, tileSol, tileDecors, tileFond);
         objetVue = new ObjetVue(this.env, this.root);
+        armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
@@ -73,7 +78,11 @@ public class Controleur implements Initializable {
         return personnageVue;
     }
 
-    public MapVue getMapVue() {
+    public EnvironnementVue getMapVue() {
         return this.mapVue;
+    }
+
+    public ArmeVue getArmeVue() {
+        return this.armeVue;
     }
 }

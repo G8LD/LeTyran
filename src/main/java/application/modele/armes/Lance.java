@@ -1,15 +1,16 @@
 package application.modele.armes;
 
-public class Epee extends Arme {
+public class Lance extends Arme {
 
-    private final static int DISTANCE = 1;
+    private final static int DISTANCE = 3;
 
-    public Epee(int qualite) {
+    public Lance(int qualite) {
         super(qualite);
     }
 
     @Override
     public void frapper() {
+
     }
 
     public int nbDegat() {
@@ -21,4 +22,14 @@ public class Epee extends Arme {
             return 9;
         }
     }
+    public int distanceDeRecul() {
+        if (getQualite() == 1) {
+            return 2;
+        } else if (getQualite() == 2) {
+            return 4;
+        } else {
+            return 6;
+        }
+    }
+
 }

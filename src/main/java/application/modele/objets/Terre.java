@@ -1,16 +1,17 @@
 package application.modele.objets;
 
 import application.modele.armes.Arme;
-import application.modele.armes.Pioche;
 
-public class Terre extends Minerai {
+public class Terre extends Materiau {
+
+    private final static int PV_MAX = 1;
 
     public Terre(int x, int y) {
-        super(x, y);
+        super(x, y, PV_MAX);
     }
 
     @Override
     public void frappe(Arme arme) {
-        decrementerPv(6);
+        decrementerPv(1);
     }
 }

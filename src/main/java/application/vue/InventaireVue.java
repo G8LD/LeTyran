@@ -181,7 +181,7 @@ public class InventaireVue {
             if(node.getChildren().size() == 2) {
                 InvItem invItem = (InvItem) node.getChildren().get(1);
                 if(invItem.getObjet() == obj) {
-                   node.getChildren().remove(invItem);
+                    node.getChildren().remove(invItem);
                 }
             }
 

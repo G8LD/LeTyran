@@ -1,50 +1,32 @@
-package application.vue.vueMap;
+package application.vue.vueEnv;
 
+import application.controleur.listeners.EnvironnementListener;
 import application.modele.Environnement;
-import application.modele.objets.Minerai;
-import javafx.collections.ListChangeListener;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import static application.modele.MapJeu.*;
 
-public class MapVue {
-    private Environnement env;
+public class EnvironnementVue {
 
-    private int[][] tabMap;
+    private Environnement env;
     private TilePane tileSol;
     private TilePane tileDecors;
     private TilePane tileFond;
 
-    public MapVue(Environnement env, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
+    public EnvironnementVue(Environnement env, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
         this.env = env;
-        this.tabMap = env.getMapJeu().getTabMap();
         this.tileSol = tileSol;
         this.tileDecors = tileDecors;
         this.tileFond = tileFond;
 
-        tileSol.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
-        tileDecors.setMaxSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
-
-        env.getListeMinerais().addListener(new ListChangeListener<Minerai>() {
-            @Override
-            public void onChanged(Change<? extends Minerai> change) {
-                while (change.next()) {
-                    if (change.wasRemoved()) {
-                        supprimerBloc(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
-                    }
-                }
-            }
-        });
+        new EnvironnementListener(this, env);
 
         construireMap();
         construireDecor();
@@ -52,13 +34,12 @@ public class MapVue {
     }
 
     private void construireMap() {
+        this.tileSol.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         ChargeurRessources.charger();
-        tileSol.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
-        tileSol.setBackground(Background.fill(Color.LIGHTBLUE));
         ImageView img;
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-                int indexImg = tabMap[i][j];
+                int indexImg = env.getMapJeu().getTabMap()[i][j];
                 img = new ImageView(ChargeurRessources.tileMapAssets.get(indexImg));
                 tileSol.getChildren().add(img);
             }
@@ -66,6 +47,7 @@ public class MapVue {
     }
 
     private void construireDecor() {
+        this.tileDecors.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         InputStream is = getClass().getResourceAsStream("/application/tiles/TileDecors.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;
@@ -78,7 +60,7 @@ public class MapVue {
                 for (int j = 0; j < WIDTH; j++) {
                     switch (Integer.parseInt(tabLine[j])) {
                         case 0:
-                            img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparant.png"));
+                            img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
                             break;
                         case 1:
                             img = new ImageView(new Image("file:src/main/resources/application/pack1/tile000.png"));
@@ -105,6 +87,7 @@ public class MapVue {
     }
 
     private void construireFond() {
+        this.tileFond.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         Image imageTransparent = new Image("file:src/main/resources/application/pack1/tile_transparent.png");
         Image imageTerre = new Image("file:src/main/resources/application/pack1/Terre.png");
         tileFond.setBackground(Background.fill(Color.LIGHTBLUE));
@@ -132,11 +115,17 @@ public class MapVue {
     }
 
     public void supprimerBloc(int id) {
-        Node node = tileSol.getChildren().get(id);
-        if(node instanceof ImageView) {
-            System.out.println(((ImageView) node).getImage().getUrl());
-            ImageView imgView = (ImageView)node;
-            imgView.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
+        ImageView img = (ImageView) tileSol.getChildren().get(id);
+        System.out.println(img.getImage().getUrl());
+        img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
+    }
+
+    public void supprimerArbre(int id) {
+        ImageView img;
+        for (int i = 0; i < 3; i++) {
+            img = (ImageView) tileSol.getChildren().get(id - i * WIDTH);
+            System.out.println(img.getImage().getUrl());
+            img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
         }
     }
 }

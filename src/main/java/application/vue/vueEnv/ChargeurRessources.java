@@ -1,12 +1,8 @@
-package application.vue.vueMap;
+package application.vue.vueEnv;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
-
-import static application.modele.MapJeu.HEIGHT;
-import static application.modele.MapJeu.WIDTH;
 
 public class ChargeurRessources {
 
@@ -29,5 +25,8 @@ public class ChargeurRessources {
         }
         tileMapAssets.add(52, new Image("file:src/main/resources/application/pack1/Pierre.png"));
         tileMapAssets.add(53, new Image("file:src/main/resources/application/pack1/tile169.png"));
+        tileMapAssets.add(54, new Image("file:src/main/resources/application/pack1/arbre_bas.png"));
+        tileMapAssets.add(55, new Image("file:src/main/resources/application/pack1/arbre_milieu.png"));
+        tileMapAssets.add(56, new Image("file:src/main/resources/application/pack1/arbre_haut.png"));
     }
 }
