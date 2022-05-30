@@ -1,6 +1,8 @@
 package application.vue;
 
 import application.controleur.InventaireControleur;
+import application.modele.Entite;
+import application.modele.ObjetInventaire;
 import application.modele.ObjetJeu;
 import application.vue.controls.InvItem;
 import application.modele.Inventaire;
@@ -38,18 +40,18 @@ public class InventaireVue {
         this.invPaneConteneur.setVisible(false);
         this.ajouterListeObjets();
 
-        this.inv.getObjets().addListener(new ListChangeListener<ObjetJeu>() {
+        this.inv.getObjets().addListener(new ListChangeListener<ObjetInventaire>() {
             @Override
-            public void onChanged(Change<? extends ObjetJeu> change) {
+            public void onChanged(Change<? extends ObjetInventaire> change) {
                 change.next();
                 for(int i = 0; i < change.getRemovedSize(); i++) {
-                    ObjetJeu obj = change.getRemoved().get(i);
+                    ObjetInventaire obj = change.getRemoved().get(i);
                     retirerObjetAffichage(obj);
 
                 }
 
                 for(int i = 0; i < change.getAddedSize(); i++) {
-                    ObjetJeu obj = change.getAddedSubList().get(i);
+                    ObjetInventaire obj = change.getAddedSubList().get(i);
                     ajouterUnObjet(obj);
                 }
             }
@@ -126,7 +128,7 @@ public class InventaireVue {
         }
     }
 
-    public void ajouterUnObjet(ObjetJeu obj) {
+    public void ajouterUnObjet(ObjetInventaire obj) {
         InvSlot slot = (InvSlot) this.invPaneConteneur.getChildren().get(obj.getPlaceInventaire());
 
         InvItem item = new InvItem(this, obj, slot);
@@ -174,13 +176,13 @@ public class InventaireVue {
 
     }
 
-    public void retirerObjetAffichage(ObjetJeu obj) {
+    public void retirerObjetAffichage(ObjetInventaire obj) {
         for(int i = 0; i < this.invPaneConteneur.getChildren().size(); i++) {
             InvSlot node = (InvSlot) this.invPaneConteneur.getChildren().get(i);
 
             if(node.getChildren().size() == 2) {
                 InvItem invItem = (InvItem) node.getChildren().get(1);
-                if(invItem.getObjet() == obj) {
+                if(invItem.getObjetInventaire() == obj) {
                     node.getChildren().remove(invItem);
                 }
             }

@@ -8,41 +8,43 @@ import java.util.ArrayList;
 
 public class Inventaire {
     private int MAX_OBJET = 1;
-    private ObservableList<ObjetJeu> objets = FXCollections.observableArrayList();
+    private ObservableList<ObjetInventaire> objets = FXCollections.observableArrayList();
 
 
     private Environnement env;
     public Inventaire(Environnement env) {
+
         this.env = env;
     }
 
-    public ObservableList<ObjetJeu> getObjets(){
+    public ObservableList<ObjetInventaire> getObjets(){
 
         return objets;
     }
 
-    public void ajouterObjet(ObjetJeu obj) {
+    public void ajouterObjet(Entite obj) {
+        obj.getCollider().setIgnoreCollision(true);
+        this.env.getEntites().remove(obj);
+        ObjetInventaire objInventaire = new ObjetInventaire(obj);
+        objInventaire.setPlaceInventaire(this.getObjets().size());
+        objets.add(objInventaire);
 
-        System.out.println(obj);
-        objets.add(obj);
-        this.env.supprimerObjetEnvironnement(obj);
-        /*ArrayList<String> nom = new ArrayList<>();
-        nom.add("Viande");
-        nom.add("Bois");
-        nom.add("Epee");
-        for(int i = 1; i < 15; i++) {
-            objets.add(new ObjetJeu(this.env,1, nom.get((int)(Math.random() * nom.size()) ), 2));
-        }*/
+
     }
 
-    public void retirerObjet(ObjetJeu objet) {
+    public void retirerObjet(ObjetInventaire objet) {
         //On retire l'objet de l'inventaire
+        Entite ent = objet.getEntite();
         objets.remove(objet);
 
+
         //On veut afficher l'objet sur la carte
-        objet.setX(this.env.getPersonnage().getX());
-        objet.setY(this.env.getPersonnage().getY());
-        this.env.getObjets().add(objet);
+        ent.setX(this.env.getPersonnage().getX());
+        ent.setY(this.env.getPersonnage().getY());
+
+        this.env.getEntites().add(ent);
+        ent.getCollider().setIgnoreCollision(false);
+
     }
 
 

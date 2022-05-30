@@ -1,5 +1,6 @@
 package application.vue.controls;
 
+import application.modele.ObjetInventaire;
 import application.modele.ObjetJeu;
 import application.vue.InventaireVue;
 import javafx.scene.Parent;
@@ -19,7 +20,7 @@ public class InvItem extends StackPane {
 
     private ImageView imgVObjet;
 
-    private ObjetJeu Objet;
+    private ObjetInventaire Objet;
 
     private InventaireVue invVue;
 
@@ -27,7 +28,7 @@ public class InvItem extends StackPane {
     private boolean dragActive =false;
 
 
-    public InvItem(InventaireVue invVue, ObjetJeu obj, InvSlot viewParent) {
+    public InvItem(InventaireVue invVue, ObjetInventaire obj, InvSlot viewParent) {
 
         this.invVue = invVue;
         this.Objet = obj;
@@ -86,7 +87,7 @@ public class InvItem extends StackPane {
     }
 
 
-    public ObjetJeu getObjet() {
+    public ObjetInventaire getObjetInventaire() {
         return this.Objet;
     }
     private void mouseEntered() {

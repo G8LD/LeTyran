@@ -32,14 +32,25 @@ public class Environnement {
         nouvObj2.setY(2 * 32);
 
 
-        this.listeEntites.add(nouvObj);
-        this.listeEntites.add(nouvObj2);
+        /*this.listeEntites.add(nouvObj);
+        this.listeEntites.add(nouvObj2);*/
         this.listeEntites.add(personnage);
         initListeMinerais();
+        initListeArbres();
     }
 
-    public ObservableList<Entite> getObjets() {
+    public ObservableList<Entite> getEntites() {
         return this.listeEntites;
+    }
+
+    private void initListeArbres() {
+        for (int i = 0; i < MapJeu.HEIGHT; i++) {
+            for (int j = 0; j < MapJeu.WIDTH; j++) {
+                if (mapJeu.getTabMap()[i][j] == 54) {
+                    listeArbres.add(new Arbre(this, j, i));
+                }
+            }
+        }
     }
 
     public boolean entreEnCollision(int xPerso, int yPerso, Direction dir) {
@@ -90,11 +101,13 @@ public class Environnement {
 
     private boolean couper(int x, int y) {
         Arbre arbre = getArbre(x,y);
+
         if (arbre != null) {
             arbre.frappe(personnage.getArme());
             if (arbre.getPv() <= 0) {
                 listeArbres.remove(arbre);
                 mapJeu.getTabMap()[y][x] = 0;
+                arbre.detruire();
                 System.out.println("arbre coupé");
             }
             return true;
@@ -104,11 +117,13 @@ public class Environnement {
 
     private boolean minage(int x, int y) {
         Materiau minerai = getMinerai(x,y);
+
         if (minerai != null) {
             minerai.frappe(personnage.getArme());
             if (minerai.getPv() <= 0) {
                 listeMateriaux.remove(minerai);
                 mapJeu.getTabMap()[y][x] = 0;
+                minerai.detruire();
                 System.out.println("minerai cassé");
             }
             return true;
@@ -120,18 +135,18 @@ public class Environnement {
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
                 switch (mapJeu.getTabMap()[i][j]) {
-                    case 34: listeMateriaux.add(new Terre(j,i));
-                    case 42: listeMateriaux.add(new Fer(j,i));
-                    case 52: listeMateriaux.add(new Pierre(j,i));
-                    case 53: listeMateriaux.add(new Platine(j,i));
+                    case 34: listeMateriaux.add(new Terre(this,j,i));
+                    case 42: listeMateriaux.add(new Fer(this,j,i));
+                    case 52: listeMateriaux.add(new Pierre(this,j,i));
+                    case 53: listeMateriaux.add(new Platine(this,j,i));
                     default: break;
                 }
             }
         }
     }
 
-    public void supprimerObjetEnvironnement(ObjetJeu obj) {
-        this.listeEntites.remove(obj);
+    public void supprimerObjetEnvironnement(Entite obj) {
+        System.out.println(this.listeEntites.remove(obj));
     }
 
 
@@ -144,6 +159,7 @@ public class Environnement {
     }
 
     public Materiau getMinerai(int x, int y) {
+
         for (Materiau minerai : listeMateriaux)
             if (minerai.getX() == x && minerai.getY() == y)
                 return minerai;
