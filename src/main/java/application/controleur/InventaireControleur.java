@@ -19,12 +19,8 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
     private Environnement jeu;
     private Inventaire inv;
 
-
     private InventaireVue invVue;
-
-
     private ImageView imgHovered = null;
-
     private Pane invPane;
 
     public InventaireControleur(Pane root, Environnement jeu) {
@@ -43,7 +39,6 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
             this.invVue.afficherInventaire();
         }
     }
-
 
     public void objetPlaceInventaireChanger(InvItem objetInventaire, int nouvellePlace) {
         //System.out.println(objetInventaire.getObjet() + " " + nouvellePlace);
