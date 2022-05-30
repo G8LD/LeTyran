@@ -40,8 +40,9 @@ public class Personnage {
             distance = 2;
         else
             distance = 3;
-        for (int i = 0; i < distance; i++)
-        if(!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), direction)) {
+        int i = 0;
+        while (i < distance && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), direction)) {
+            i++;
             if (direction == Direction.Droit)
                 xProperty.setValue(xProperty.getValue() + 1);
             else
@@ -50,21 +51,24 @@ public class Personnage {
     }
 
     public void sauter() {
-        for (int i = 0; i < 3; i++)
-        if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
+        int i = 0;
+        while (i < 3 && !tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
+            i++;
             yProperty.setValue(yProperty.getValue() - 1);
             hauteurSaut +=1;
-        } else if (saute) {
-            saute = false;
         }
+        if (i < 3)
+            saute = false;
     }
 
     public void tomber() {
-        for (int i = 0; i < 3; i++)
-        if (!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
+        int i = 0;
+        while (i < 3 && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
+            i++;
             tombe = true;
             yProperty.setValue(yProperty.getValue() + 1);
-        } else {
+        }
+        if (i < 3){
             tombe = false;
             hauteurSaut = 0;
         }
