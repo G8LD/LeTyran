@@ -50,7 +50,7 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
                 }
             });
 
-        //pour afficher lancer la fabrication et la rendre indisponible après
+        //pour lancer la fabrication et la rendre indisponible après
         boutonFabriquer.setOnAction(actionEvent -> {
             etabli.fabriquer();
             boutonFabriquer.setDisable(true);
