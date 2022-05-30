@@ -101,7 +101,8 @@ public class Entite {
 
     public void collide() {
         if(!this.getCollider().getIgnoreCollision()) {
-            for (Entite ent : this.getEnv().getEntites()) {
+            for (int i = 0; i < this.env.getEntites().size(); i++) {
+                Entite ent = this.env.getEntites().get(i);
                 if (ent != this && !ent.getCollider().getIgnoreCollision() && this.getCollider().intersect(ent)) {
                     //System.out.println("x:" + this.getX() + " y : " + this.getY() + " x:" + ent.getX() + " y :" + ent.getY());
                     this.quandCollisionDetectee(ent);

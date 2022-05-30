@@ -35,7 +35,7 @@ public class ObjetVue {
                 }
 
                 for(int i = 0; i < change.getAddedSize(); i++) {
-
+                    System.out.println("on ajoute ");
                     ajouterObjet((Entite) change.getAddedSubList().get(i));
                 }
 
