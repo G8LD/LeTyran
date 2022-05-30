@@ -24,7 +24,11 @@ public class EnvironnementListener {
         env.getListeArbres().addListener(new ListChangeListener<Arbre>() {
             @Override
             public void onChanged(Change<? extends Arbre> change) {
-                envVue.supprimerArbre(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
+                while (change.next()) {
+                    if (change.wasRemoved()) {
+                        envVue.supprimerArbre(change.getRemoved().get(0).getY() * WIDTH + change.getRemoved().get(0).getX());
+                    }
+                }
             }
         });
     }
