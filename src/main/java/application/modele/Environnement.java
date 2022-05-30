@@ -1,7 +1,6 @@
 package application.modele;
 
 import application.modele.objets.*;
-import application.vue.EtabliVue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -20,13 +19,12 @@ public class Environnement {
         personnage = new Personnage(this);
         mapJeu = new MapJeu();
         etabli = new Etabli(personnage.getInventaire());
-        listeMateriaux = FXCollections.observableArrayList();
         initListeMinerais();
-        listeArbres = FXCollections.observableArrayList();
         initListeArbres();
     }
 
     private void initListeArbres() {
+        listeArbres = FXCollections.observableArrayList();
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
                 if (mapJeu.getTabMap()[i][j] == 54) {
@@ -37,6 +35,7 @@ public class Environnement {
     }
 
     private void initListeMinerais() {
+        listeMateriaux = FXCollections.observableArrayList();
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
                 switch (mapJeu.getTabMap()[i][j]) {

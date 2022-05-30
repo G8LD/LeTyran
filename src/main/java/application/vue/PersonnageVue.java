@@ -17,7 +17,6 @@ public class PersonnageVue {
     public PersonnageVue(Personnage personnage, ImageView spritesJoueur) {
         this.personnage = personnage;
         this.spriteJoueur = spritesJoueur;
-        listeSprites = new ArrayList<>();
         lastUpdate = System.nanoTime();
 
         initListeSprites();
@@ -25,6 +24,7 @@ public class PersonnageVue {
     }
 
     private void initListeSprites() {
+        listeSprites = new ArrayList<>();
         listeSprites.add(new Image("file:src/main/resources/application/perso/perso_immobile.png"));
         listeSprites.add(new Image("file:src/main/resources/application/perso/perso_mouvement1.png"));
         listeSprites.add(new Image("file:src/main/resources/application/perso/perso_mouvement2.png"));

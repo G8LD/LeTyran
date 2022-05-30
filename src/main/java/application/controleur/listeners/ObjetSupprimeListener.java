@@ -16,7 +16,6 @@ public class ObjetSupprimeListener implements ListChangeListener {
     @Override
     public void onChanged(Change change) {
         change.next();
-
         for (int i = 0; i < change.getRemoved().size(); i++) {
             ObjetJeu obj = (ObjetJeu)change.getRemoved().get(i);
             this.controleur.enleverObjetAffichage(obj.getPlaceInventaire());
