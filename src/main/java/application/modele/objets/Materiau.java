@@ -1,8 +1,9 @@
 package application.modele.objets;
 
+import application.modele.Entite;
 import application.modele.armes.Arme;
 
-public abstract class Materiau {
+public abstract class Materiau extends Entite {
 
     private int x;
     private int y;
@@ -19,11 +20,12 @@ public abstract class Materiau {
     }
 
     public int getX() {
-        return x;
+
+        return super.getX();
     }
 
     public int getY() {
-        return y;
+        return super.getY();
     }
 
     public int getPv() {

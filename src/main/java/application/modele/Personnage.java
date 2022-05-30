@@ -7,10 +7,9 @@ import javafx.beans.property.*;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 
-public class Personnage {
+public class Personnage extends Entite {
 
-    private IntegerProperty xProperty;
-    private IntegerProperty yProperty;
+
     private Direction direction;
     private Environnement env;
     private Inventaire inventaire;
@@ -24,14 +23,13 @@ public class Personnage {
     public Personnage(Environnement env) {
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
-        xProperty = new SimpleIntegerProperty(6 * TUILE_TAILLE);
-        yProperty = new SimpleIntegerProperty(11 * TUILE_TAILLE);
+
         direction = Direction.Droit;
         hauteurSaut = 0;
         armeProperty = new SimpleObjectProperty<>(new Pioche(1));
         this.env = env;
-        this.inventaire = new Inventaire();
-        inventaire.ajouterObjet();
+        this.inventaire = new Inventaire(this.env);
+        //inventaire.ajouterObjet();
     }
 
     public void seDeplacer() {
@@ -41,18 +39,18 @@ public class Personnage {
         else
             distance = 3;
         for (int i = 0; i < distance; i++)
-        if(!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), direction)) {
+        if(!env.entreEnCollision(super.getX(), super.getY(), direction)) {
             if (direction == Direction.Droit)
-                xProperty.setValue(xProperty.getValue() + 1);
+                super.setX(super.getX() + 1);
             else
-                xProperty.setValue(xProperty.getValue() - 1);
+                super.setX(super.getX() - 1);
         }
     }
 
     public void sauter() {
         for (int i = 0; i < 3; i++)
-        if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Haut)) {
-            yProperty.setValue(yProperty.getValue() - 1);
+        if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !env.entreEnCollision(super.getX(), super.getY(), Direction.Haut)) {
+            super.setY(super.getY()- 1);
             hauteurSaut +=1;
         } else if (saute) {
             saute = false;
@@ -61,9 +59,9 @@ public class Personnage {
 
     public void tomber() {
         for (int i = 0; i < 3; i++)
-        if (!env.entreEnCollision(xProperty.getValue(), yProperty.getValue(), Direction.Bas)) {
+        if (!env.entreEnCollision(super.getX(), super.getY(), Direction.Bas)) {
             tombe = true;
-            yProperty.setValue(yProperty.getValue() + 1);
+            super.setY(super.getY() + 1);
         } else {
             tombe = false;
             hauteurSaut = 0;
@@ -86,35 +84,6 @@ public class Personnage {
         this.direction = direction;
     }
 
-    public int getX() {
-        return xProperty.getValue();
-    }
-
-    public IntegerProperty getXProperty() {
-        return xProperty;
-    }
-
-    public int setX(int x) {
-        this.xProperty.set(x);
-        return x;
-    }
-
-    public int setY(int y) {
-        this.xProperty.set(y);
-        return y;
-    }
-
-    public int getY() {
-        return yProperty.getValue();
-    }
-
-    public IntegerProperty getYProperty() {
-        return yProperty;
-    }
-
-    public void setyProperty(int yProperty) {
-        this.yProperty.set(yProperty);
-    }
 
     public boolean getSaute() {
         return saute;

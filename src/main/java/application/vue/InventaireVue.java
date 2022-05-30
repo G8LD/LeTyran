@@ -1,9 +1,12 @@
 package application.vue;
 
 import application.controleur.InventaireControleur;
+import application.modele.ObjetJeu;
 import application.vue.controls.InvItem;
 import application.modele.Inventaire;
 import application.vue.controls.InvSlot;
+import javafx.collections.ListChangeListener;
+import javafx.scene.Node;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -15,14 +18,12 @@ public class InventaireVue {
     private Inventaire inv;
 
     private InvItem objPrit;
-    private InvSlot provenantDeImgView;
     private boolean affiche = false;
 
     private Pane invPaneConteneur;
 
     private Pane rootPane;
     private InventaireControleur controleur;
-    private int indexObjet;
 
     private Image slotImg = new Image("file:src/main/resources/application/inventaire/slot.png");
     private AudioClip sound = new AudioClip(getClass().getResource("/application/sons/ui_menu_button_click_24.mp3").toExternalForm());
@@ -36,6 +37,23 @@ public class InventaireVue {
 
         this.invPaneConteneur.setVisible(false);
         this.ajouterListeObjets();
+
+        this.inv.getObjets().addListener(new ListChangeListener<ObjetJeu>() {
+            @Override
+            public void onChanged(Change<? extends ObjetJeu> change) {
+                change.next();
+                for(int i = 0; i < change.getRemovedSize(); i++) {
+                    ObjetJeu obj = change.getRemoved().get(i);
+                    retirerObjetAffichage(obj);
+
+                }
+
+                for(int i = 0; i < change.getAddedSize(); i++) {
+                    ObjetJeu obj = change.getAddedSubList().get(i);
+                    ajouterUnObjet(obj);
+                }
+            }
+        });
 
     }
 
@@ -76,11 +94,9 @@ public class InventaireVue {
 
             if(seletecSlot != slotParent) {
 
-
                 if (seletecSlot.getChildren().size() == 2) {
                     //Code pour échanger deux items
                     int autrePlace = this.invPaneConteneur.getChildren().indexOf(slotParent);
-
 
                     InvItem selectSlotItem = (InvItem) seletecSlot.getChildren().get(1);
                     seletecSlot.getChildren().remove(selectSlotItem);
@@ -89,34 +105,36 @@ public class InventaireVue {
                     seletecSlot.getChildren().add(this.objPrit);
                     slotParent.getChildren().add(selectSlotItem);
 
-
                     this.controleur.echangerObjet(this.objPrit, selectSlotItem, indexConteneurTrouve, autrePlace);
-
 
                 } else {
                     slotParent.getChildren().remove(this.objPrit);
                     seletecSlot.getChildren().add(this.objPrit);
 
-
                     //On calcul la place en prenant en sachant que ça fait + 1 après avoir placé l'imageview et l'objet à affiché
-
-
                     this.controleur.objetPlaceInventaireChanger(objPrit, nouvellePlace + 1);
                 }
 
                 this.objPrit.setLayoutX(8);
                 this.objPrit.setLayoutY(8);
 
-
                 //On baisse le son de l'audio
                 sound.setVolume(1. / 30.);
                 sound.play();
-
-
             }
-
             this.objPrit = null;
         }
+    }
+
+    public void ajouterUnObjet(ObjetJeu obj) {
+        InvSlot slot = (InvSlot) this.invPaneConteneur.getChildren().get(obj.getPlaceInventaire());
+
+        InvItem item = new InvItem(this, obj, slot);
+        item.setPrefWidth(32);
+        item.setPrefHeight(32);
+
+        slot.getChildren().add(item);
+
     }
 
     public void ajouterListeObjets() {
@@ -138,11 +156,9 @@ public class InventaireVue {
                 //On vérifie que l'index ne dépasse pas le nombre d'objets actuellement portés
                 if (indexItem < inv.getObjets().size()) {
 
-
                     InvItem slot = new InvItem(this, inv.getObjets().get(indexItem), invSlot);
                     slot.setPrefWidth(32);
                     slot.setPrefHeight(32);
-
 
                     invSlot.getChildren().add(slot);
                     indexItem++;
@@ -156,6 +172,20 @@ public class InventaireVue {
     public void afficherInventaire() {
         this.invPaneConteneur.setVisible(!this.invPaneConteneur.isVisible());
 
+    }
+
+    public void retirerObjetAffichage(ObjetJeu obj) {
+        for(int i = 0; i < this.invPaneConteneur.getChildren().size(); i++) {
+            InvSlot node = (InvSlot) this.invPaneConteneur.getChildren().get(i);
+
+            if(node.getChildren().size() == 2) {
+                InvItem invItem = (InvItem) node.getChildren().get(1);
+                if(invItem.getObjet() == obj) {
+                    node.getChildren().remove(invItem);
+                }
+            }
+
+        }
     }
 
     public void lacherObjetInventaire(InvItem item) {

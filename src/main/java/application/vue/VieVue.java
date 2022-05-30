@@ -18,7 +18,7 @@ public class VieVue  {
     private ImageView image ;
     private Pane viePane;
 
-// constructeur avec placement du Pane de la vie et la taille et le placment des images
+    // constructeur avec placement du Pane de la vie et la taille et le placment des images
     public VieVue(StackPane root){
         this.rootPane=root;
         this.viePane=new Pane();
@@ -41,11 +41,11 @@ public class VieVue  {
     // fonction pour cree une image View qui contient toute les images de la vie
     public void listeImageVie(){
         for(int i = 0; i<this.listeVie.length; i++) {
-                this.listeVie[i] = new Image("file:src/main/resources/application/Vie/" + i + ".png");
+            this.listeVie[i] = new Image("file:src/main/resources/application/Vie/" + i + ".png");
         }
     }
 
-// fonction qu affiche les differente image en fonction de la vie
+    // fonction qu affiche les differente image en fonction de la vie
     public void afficherVie(int pv ){
         this.listeImageVie();
 
@@ -54,7 +54,7 @@ public class VieVue  {
         }
         else if (pv>=90){
             image.setImage(this.listeVie[9]);
-            }
+        }
         else if (pv>=80){
             image.setImage(this.listeVie[8]);
         }
@@ -82,7 +82,7 @@ public class VieVue  {
         else {
             image.setImage(this.listeVie[0]);
         }
-        
+
 
     }
 
