@@ -1,4 +1,4 @@
-package application.vue.controls;
+package application.vue;
 
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -12,29 +12,31 @@ import javafx.scene.layout.StackPane;
 
 public class VieVue  {
 
-    private StackPane rootPane;
+    private Pane rootPane;
 
     private  Image[] listeVie;
     private ImageView image ;
     private Pane viePane;
 
     // constructeur avec placement du Pane de la vie et la taille et le placment des images
-    public VieVue(StackPane root){
+    public VieVue(Pane root){
         this.rootPane=root;
         this.viePane=new Pane();
         this.listeVie= new Image[11];
         this.image= new ImageView(new Image("file:src/main/resources/application/Vie/10.png"));
         this.viePane.setMaxWidth(200);// dimension du pane
         this.viePane.setMaxHeight(100);
-        this.viePane.setLayoutX(300);// coordonné du Pane
-        this.viePane.setLayoutY(-305);
+
+
+        this.viePane.setLayoutX(rootPane.getPrefWidth() + this.viePane.getMaxWidth());// coordonné du Pane
+
         this.viePane.setVisible(true);
         image.setFitHeight(50);//dimension de l'image
         image.setFitWidth(120);
-        image.setX(460);// coordonnne de l'image
-        image.setY(-270);
         this.viePane.getChildren().add(this.image);
         this.rootPane.getChildren().add(this.viePane);
+
+
         this.afficherVie(50);
 
     }

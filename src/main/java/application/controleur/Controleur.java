@@ -1,9 +1,12 @@
 package application.controleur;
 
+import application.controleur.listeners.PersonnageListener;
+import application.controleur.listeners.VieListener;
 import application.modele.Environnement;
 import application.vue.ArmeVue;
 import application.vue.ObjetVue;
 import application.vue.PersonnageVue;
+import application.vue.VieVue;
 import application.vue.vueEnv.EnvironnementVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -26,6 +29,8 @@ public class Controleur implements Initializable {
     private PersonnageVue personnageVue;
     private EnvironnementVue mapVue;
     private ArmeVue armeVue;
+    private VieVue vievue;
+
     private Timeline gameLoop;
 
     private ObjetVue objetVue;
@@ -46,10 +51,12 @@ public class Controleur implements Initializable {
         mapVue = new EnvironnementVue(env, tileSol, tileDecors, tileFond);
         objetVue = new ObjetVue(this.env, this.root);
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
+        vievue = new VieVue(root);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
+        this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
 
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
 

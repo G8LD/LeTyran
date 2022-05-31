@@ -13,6 +13,7 @@ public class Entite {
     private FloatProperty yProperty;
     private Environnement env;
     private Collider collider;
+    private IntegerProperty pv = new SimpleIntegerProperty(100);
 
 
     private boolean tombe = false;
@@ -92,6 +93,19 @@ public class Entite {
     public Environnement getEnv() {
         return env;
     }
+
+    public int getPv() {
+        return this.pv.getValue();
+    }
+
+    public IntegerProperty getPVProperty()  {
+        return this.pv;
+    }
+
+    public void setPv(int value) {
+        this.pv.setValue(value);
+    }
+
 
 
 
