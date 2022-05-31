@@ -3,10 +3,7 @@ package application.controleur;
 import application.controleur.listeners.PersonnageListener;
 import application.controleur.listeners.VieListener;
 import application.modele.Environnement;
-import application.vue.ArmeVue;
-import application.vue.ObjetVue;
-import application.vue.PersonnageVue;
-import application.vue.VieVue;
+import application.vue.*;
 import application.vue.vueEnv.EnvironnementVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,9 +12,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,6 +29,7 @@ public class Controleur implements Initializable {
     private EnvironnementVue mapVue;
     private ArmeVue armeVue;
     private VieVue vievue;
+    private VueDialogue vueDialog;
 
     private Timeline gameLoop;
 
@@ -42,6 +42,7 @@ public class Controleur implements Initializable {
     @FXML private Pane paneJoueur;
     @FXML private ImageView spriteJoueur;
     @FXML private ImageView spriteArme;
+    @FXML private TextFlow dialogPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -52,6 +53,7 @@ public class Controleur implements Initializable {
         objetVue = new ObjetVue(this.env, this.root);
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
         vievue = new VieVue(root);
+        vueDialog = new VueDialogue(root, dialogPane);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
@@ -74,6 +76,7 @@ public class Controleur implements Initializable {
                 (ev ->{
                     env.getPersonnage().update();
                     objetVue.update();
+                    vueDialog.animer(0.017);
                     this.env.update();
 
                 })
