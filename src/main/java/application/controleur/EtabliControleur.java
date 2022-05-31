@@ -20,13 +20,16 @@ import static javafx.scene.input.KeyCode.O;
 
 public class EtabliControleur implements EventHandler<KeyEvent> {
 
+    private Etabli etabli;
     private EtabliVue etabliVue;
+    private VBox vBoxArmes;
+    Button boutonFabriquer;
 
     public EtabliControleur(Etabli etabli, EtabliVue etabliVue) {
         this.etabliVue = etabliVue;
-
-        VBox vBoxArmes = (VBox) ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPArmes")).getContent();
-        Button boutonFabriquer = (Button) etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer");
+        this.etabli = etabli;
+        vBoxArmes = (VBox) ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPArmes")).getContent();
+        boutonFabriquer = (Button) etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer");
 
         //pour afficher les infos d'une arme lorsque cliquée
         for (Node hBoxArme : vBoxArmes.getChildren())
@@ -37,24 +40,15 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
                     etabli.setArmeSelected(((HBox)mouseEvent.getSource()).getId());
                     etabliVue.affichageArmeSelected(Color.WHITE);
                     etabliVue.affichageInfosArmeSelected();
-                    if (etabli.getFabricable()) {
-                        boutonFabriquer.setDisable(false);
-                        boutonFabriquer.setOpacity(1);
-                    } else {
-                        boutonFabriquer.setDisable(true);
-                        boutonFabriquer.setOpacity(0.5);
-                    }
-                    if (!etabli.armeDispo()) {
-                        etabliVue.affichageArmeNonDispo();
-                    }
+                    fabricable();
                 }
             });
 
         //pour lancer la fabrication et la rendre indisponible après
         boutonFabriquer.setOnAction(actionEvent -> {
             etabli.fabriquer();
-            boutonFabriquer.setDisable(true);
-            etabliVue.affichageArmeNonDispo();
+            etabli.peutFabriquer();
+            fabricable();
         });
 
         //simule un clique pour l'initialisation
@@ -67,5 +61,15 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
     public void handle(KeyEvent keyEvent) {
         if (keyEvent.getCode() == O)
             etabliVue.affichageEtabli();
+    }
+
+    private void fabricable() {
+        if (etabli.getFabricable()) {
+            boutonFabriquer.setDisable(false);
+            etabliVue.affichageArmeDispo(1);
+        } else {
+            boutonFabriquer.setDisable(true);
+            etabliVue.affichageArmeDispo(0.5);
+        }
     }
 }

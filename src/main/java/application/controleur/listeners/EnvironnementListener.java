@@ -21,6 +21,7 @@ public class EnvironnementListener {
                 }
             }
         });
+
         env.getListeArbres().addListener(new ListChangeListener<Arbre>() {
             @Override
             public void onChanged(Change<? extends Arbre> change) {

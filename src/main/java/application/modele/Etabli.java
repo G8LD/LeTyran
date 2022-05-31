@@ -14,7 +14,6 @@ public class Etabli {
 
     private int niveau;
     private Inventaire inventaire;
-    private HashMap<Arme, Boolean> disponibles;
     private ObservableMap<Arme, HashMap<Materiau, Integer>> listeMateriaux;
     private Arme armeSelected;
     private boolean fabricable;
@@ -24,10 +23,8 @@ public class Etabli {
         this.inventaire = inventaire;
         fabricable = false;
         initListeMateriaux();
-        initDispo();
         armeSelected = armeCorrespondant("Hache1");
         niveau++;
-        debloquer();
     }
 
     //TODO ajouter les autres armes
@@ -58,22 +55,6 @@ public class Etabli {
         }});
     }
 
-    private void initDispo() {
-        disponibles = new HashMap<>();
-        for (Arme arme : listeMateriaux.keySet()) {
-            disponibles.put(arme, false);
-        }
-    }
-
-    private void debloquer() {
-        for (Arme arme : listeMateriaux.keySet()) {
-            if (arme.getQualite() == niveau) {
-                disponibles.remove(arme);
-                disponibles.put(arme, true);
-            }
-        }
-    }
-
     public void fabriquer() {
         Set listeMateriauxArme = this.listeMateriaux.get(armeSelected).entrySet();
         Iterator iterator = listeMateriauxArme.iterator();
@@ -84,20 +65,21 @@ public class Etabli {
                 //TODO retirer les materiaux de l'inventaire
             }
         }
-
-        disponibles.remove(armeSelected);
-        disponibles.put(armeSelected, false);
         //TODO ajouter l'arme dans l'inventaire du perso
     }
 
-    private void peutFabriquer() {
-        Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
-        Iterator iterator = listeMateriaux.iterator();
-        do {
-            //TODO vérifie que le joueur a les matériaux nécessaire
-            iterator.next();
-        } while (iterator.hasNext() && fabricable);
-        fabricable = true;
+    public void peutFabriquer() {
+        if (armeSelected.getQualite() > niveau)
+            fabricable = false;
+        else {
+            Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
+            Iterator iterator = listeMateriaux.iterator();
+            do {
+                //TODO vérifie que le joueur a les matériaux nécessaire
+                iterator.next();
+            } while (iterator.hasNext() && fabricable);
+            fabricable = true;
+        }
     }
 
     public String getArmeSelectedNom() {
@@ -131,9 +113,5 @@ public class Etabli {
 
     public ObservableMap<Arme, HashMap<Materiau, Integer>> getListeMateriaux() {
         return listeMateriaux;
-    }
-
-    public boolean armeDispo() {
-        return disponibles.get(armeSelected);
     }
 }
