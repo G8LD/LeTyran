@@ -1,12 +1,16 @@
 package application.controleur;
 
+import application.controleur.listeners.PersonnageListener;
+import application.controleur.listeners.VieListener;
 import application.modele.Environnement;
 import application.vue.ArmeVue;
 import application.vue.EtabliVue;
+import application.vue.ObjetVue;
+import application.vue.PersonnageVue;
+import application.vue.VieVue;
+import application.vue.vueEnv.EnvironnementVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import application.vue.vueEnv.EnvironnementVue;
-import application.vue.PersonnageVue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
@@ -14,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import java.net.URL;
@@ -23,8 +28,13 @@ public class Controleur implements Initializable {
 
     private Environnement env;
     private KeyReleased keyReleased;
-    private Timeline gameLoop;
+    private PersonnageVue personnageVue;
+    private EnvironnementVue mapVue;
     private ArmeVue armeVue;
+    private VieVue vievue;
+    private ObjetVue objetVue;
+
+    private Timeline gameLoop;
 
     @FXML private Pane root;
     @FXML private TilePane tileSol;
@@ -32,23 +42,24 @@ public class Controleur implements Initializable {
     @FXML private TilePane tileFond;
     @FXML private ImageView spriteJoueur;
     @FXML private ImageView spriteArme;
-    @FXML private BorderPane bPaneEtabli;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         env = new Environnement();
         keyReleased = new KeyReleased(this, env);
 
-        new EnvironnementVue(env, tileSol, tileDecors, tileFond);
-        new PersonnageVue(env.getPersonnage(), spriteJoueur);
+        personnageVue = new PersonnageVue(env.getPersonnage(), spriteJoueur);
+        mapVue = new EnvironnementVue(env, tileSol, tileDecors, tileFond);
+        objetVue = new ObjetVue(this.env, this.root);
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
+        vievue = new VieVue(root);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
-        root.addEventHandler(KeyEvent.KEY_PRESSED, new EtabliControleur(env.getEtabli(), new EtabliVue(env.getEtabli(), bPaneEtabli, armeVue)));
 
+        this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
         initAnimation();
         gameLoop.play();
     }
@@ -62,10 +73,20 @@ public class Controleur implements Initializable {
                 Duration.seconds(0.017),
                 (ev ->{
                     env.getPersonnage().update();
+                    objetVue.update();
+                    this.env.update();
 
                 })
         );
         gameLoop.getKeyFrames().add(kf);
+    }
+
+    public PersonnageVue getPersonnageVue() {
+        return personnageVue;
+    }
+
+    public EnvironnementVue getMapVue() {
+        return this.mapVue;
     }
 
     public ArmeVue getArmeVue() {

@@ -35,6 +35,12 @@ public class KeyPressed implements EventHandler<KeyEvent> {
                     env.getPersonnage().setAvance(true);
                 }
                 break;
+            case W:
+                this.env.getPersonnage().setPv(this.env.getPersonnage().getPv() - 10);
+                break;
+            case X:
+                this.env.getPersonnage().setPv(this.env.getPersonnage().getPv() + 10);
+                break;
             default:
                 break;
         }

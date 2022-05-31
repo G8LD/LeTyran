@@ -1,22 +1,20 @@
 package application.modele.objets;
 
+import application.modele.Environnement;
 import application.modele.armes.Arme;
 
 public abstract class Materiau {
 
-    private int x;
-    private int y;
     private int pv;
+    private Environnement env;
 
-    public Materiau() {
-        x = 0;
-        y = 0;
+    public Materiau(Environnement env) {
+        super(env, 0, 0);
         pv = 0;
     }
 
-    public Materiau(int x, int y, int pv) {
-        this.x = x;
-        this.y = y;
+    public Materiau(Environnement env, int x, int y, int pv) {
+        super(env, x, y);
         this.pv = pv;
     }
 
@@ -24,12 +22,13 @@ public abstract class Materiau {
         pv -= degat;
     }
 
-    public int getX() {
-        return x;
+    public float getX() {
+
+        return super.getX();
     }
 
-    public int getY() {
-        return y;
+    public float getY() {
+        return super.getY();
     }
 
     public int getPv() {

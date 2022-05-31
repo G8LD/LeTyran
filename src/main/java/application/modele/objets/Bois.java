@@ -1,5 +1,7 @@
 package application.modele.objets;
 
+import application.modele.Environnement;
+import application.modele.Environnement;
 import application.modele.armes.Arme;
 import application.modele.armes.Hache;
 
@@ -10,8 +12,8 @@ public class Bois extends Materiau {
     public Bois() {
     }
 
-    public Bois(int x, int y) {
-        super(x, y, PV_MAX);
+    public Bois(Environnement env, int x, int y) {
+        super(env, x, y, PV_MAX);
     }
 
     @Override

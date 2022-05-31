@@ -116,7 +116,6 @@ public class EnvironnementVue {
 
     public void supprimerBloc(int id) {
         ImageView img = (ImageView) tileSol.getChildren().get(id);
-        System.out.println(img.getImage().getUrl());
         img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
     }
 
@@ -124,7 +123,6 @@ public class EnvironnementVue {
         ImageView img;
         for (int i = 0; i < 3; i++) {
             img = (ImageView) tileSol.getChildren().get(id - i * WIDTH);
-            System.out.println(img.getImage().getUrl());
             img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
         }
     }

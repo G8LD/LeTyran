@@ -1,5 +1,6 @@
 package application.modele.objets;
 
+import application.modele.Environnement;
 import application.modele.armes.Arme;
 import application.modele.armes.Pioche;
 
@@ -9,8 +10,8 @@ public class Fer extends Materiau {
 
     public Fer() {}
 
-    public Fer(int x, int y) {
-        super(x, y, PV_MAX);
+    public Fer(Environnement env, int x, int y) {
+        super(env, x, y, PV_MAX);
     }
 
     @Override

@@ -19,8 +19,10 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
     private Environnement jeu;
     private Inventaire inv;
 
+
     private InventaireVue invVue;
-    private ImageView imgHovered = null;
+
+
     private Pane invPane;
 
     public InventaireControleur(Pane root, Environnement jeu) {
@@ -40,13 +42,14 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
         }
     }
 
+
     public void objetPlaceInventaireChanger(InvItem objetInventaire, int nouvellePlace) {
         //System.out.println(objetInventaire.getObjet() + " " + nouvellePlace);
-        objetInventaire.getObjet().setPlaceInventaire(nouvellePlace);
+        objetInventaire.getObjetInventaire().setPlaceInventaire(nouvellePlace);
     }
 
-    public void lacherObjet(InvItem objetInventaire) {
-        this.inv.retirerObjet(objetInventaire.getObjet());
+    public void lacherObjet(InvItem vueObjet) {
+        this.inv.retirerObjet(vueObjet.getObjetInventaire());
 
     }
 
@@ -55,13 +58,13 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
     }
 
     public void echangerObjet(InvItem premier, InvItem second, int nouvPlacePrem, int nouvPlaceSec) {
-        int placeEchange = second.getObjet().getPlaceInventaire();
+        int placeEchange = second.getObjetInventaire().getPlaceInventaire();
 
 
         //System.out.println(second.getParent());
 
-        premier.getObjet().setPlaceInventaire(nouvPlacePrem);
-        second.getObjet().setPlaceInventaire(nouvPlaceSec);
+        premier.getObjetInventaire().setPlaceInventaire(nouvPlacePrem);
+        second.getObjetInventaire().setPlaceInventaire(nouvPlaceSec);
 
     }
 
