@@ -41,8 +41,9 @@ public class Personnage extends Entite {
             distance = 2;
         else
             distance = 3;
-        for (int i = 0; i < distance; i++)
-        if(!super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), direction)) {
+        int i = 0;
+        while (i < distance && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), direction)) {
+            i++;
             if (direction == Direction.Droit)
                 super.setX(super.getX() + 0.45f);
             else
@@ -51,21 +52,25 @@ public class Personnage extends Entite {
     }
 
     public void sauter() {
-        for (int i = 0; i < 3; i++)
-        if (!tombe && hauteurSaut < 2 * TUILE_TAILLE && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Haut)) {
-            super.setY(super.getY()- 1);
+        int i = 0;
+        while (i < 3 && !tombe && hauteurSaut < 2 * TUILE_TAILLE && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Haut)) {
+            i++;
+            super.setY(super.getY() - 1);
             hauteurSaut +=1;
-        } else if (saute) {
-            saute = false;
         }
+        if (i < 3)
+            saute = false;
     }
 
     public void tomber() {
-        for (int i = 0; i < 3; i++)
-        if (!super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Bas)) {
+        int i = 0;
+        while (i < 3 && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Bas)) {
+            i++;
             tombe = true;
             super.setY(super.getY() + 1);
-        } else {
+        }
+
+        if (i < 3) {
             tombe = false;
             hauteurSaut = 0;
         }

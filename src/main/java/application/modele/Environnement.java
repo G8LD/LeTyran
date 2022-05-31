@@ -55,43 +55,42 @@ public class Environnement {
 
     public boolean entreEnCollision(int xPerso, int yPerso, Direction dir) {
         boolean collision = false;
-        mapJeu.getTabMap();
-
-        int x = xPerso/TUILE_TAILLE;
-        int y = yPerso/TUILE_TAILLE;
+        int x,y;
         switch (dir) {
             case Droit:
-                //regarde la case suivante lorque le joueur est sur le point de l'atteindre
-                if ((xPerso + 1) / TUILE_TAILLE > x && (xPerso + 1) % TUILE_TAILLE != 0) x++;
-                //pour le saut lorsque le perso est entre 1 cases verticalement
-                if (x+1 >= 0 && x+1 < WIDTH && yPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y][x + 1] == 0) y++;
-                //verifie la collision
-                if (x + 1 >= MapJeu.WIDTH || mapJeu.getTabMap()[y][x + 1] != 0)
+                x = (xPerso+TUILE_TAILLE+1)/TUILE_TAILLE;
+                y = yPerso/TUILE_TAILLE;
+                if ((xPerso+TUILE_TAILLE+1) % TUILE_TAILLE == 0) x--;
+                if (x >= WIDTH || estUnObstacle(x, y) || (yPerso % TUILE_TAILLE != 0 && estUnObstacle(x,y+1)))
                     collision = true;
                 break;
             case Gauche:
-                if ((double) (xPerso - 1) / TUILE_TAILLE < x) x--;
-                if (x >= 0 && x < WIDTH && yPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y][x] == 0) y++;
-                if (x < 0 || mapJeu.getTabMap()[y][x] != 0)
+                x = (xPerso-1)/TUILE_TAILLE;
+                y = yPerso/TUILE_TAILLE;
+                if ((xPerso-1) % TUILE_TAILLE == 0) x++;
+                if (xPerso-1 < 0 || estUnObstacle(x, y) || (yPerso % TUILE_TAILLE != 0 && estUnObstacle(x,y+1)))
                     collision = true;
                 break;
             case Bas:
-                if (x < 0 || x >= WIDTH || y + 1 >= MapJeu.HEIGHT || mapJeu.getTabMap()[y + 1][x] != 0
-                        || (xPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y+1][x+1] != 0))
+                x = xPerso/TUILE_TAILLE;
+                y = yPerso/TUILE_TAILLE;
+                if (y + 1 >= MapJeu.HEIGHT || estUnObstacle(x,y+1) || (xPerso % TUILE_TAILLE != 0 && estUnObstacle(x+1,y+1)))
                     collision = true;
                 break;
             case Haut:
-                //regarde la case suivante lorque le joueur est sur le point de l'atteindre
-                if ((double) (yPerso - 1) / TUILE_TAILLE < y) y--;
-                //vérifie de la case suivante si entre deux case horizontalement
-                if (y < 0 || mapJeu.getTabMap()[y][x] != 0
-                        || (xPerso % TUILE_TAILLE != 0 && mapJeu.getTabMap()[y][x+1] != 0))
+                x = xPerso/TUILE_TAILLE;
+                y = (yPerso-1)/TUILE_TAILLE;
+                if (yPerso-1 < 0 || estUnObstacle(x,y) || (xPerso % TUILE_TAILLE != 0 && estUnObstacle(x+1,y)))
                     collision = true;
                 break;
             default:
                 break;
         }
         return collision;
+    }
+
+    private boolean estUnObstacle(int x, int y) {
+        return mapJeu.getTabMap()[y][x] == 34 || mapJeu.getTabMap()[y][x] == 42 || mapJeu.getTabMap()[y][x] == 52 || mapJeu.getTabMap()[y][x] == 53;
     }
 
     public void interaction(int x, int y) {
@@ -159,11 +158,9 @@ public class Environnement {
     }
 
     public Materiau getMinerai(int x, int y) {
-
         for (Materiau minerai : listeMateriaux)
             if (minerai.getX() == x && minerai.getY() == y)
                 return minerai;
-
         return null;
     }
 
