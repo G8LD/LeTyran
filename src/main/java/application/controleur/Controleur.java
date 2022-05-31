@@ -27,7 +27,6 @@ import java.util.ResourceBundle;
 public class Controleur implements Initializable {
 
     private Environnement env;
-    private KeyReleased keyReleased;
     private PersonnageVue personnageVue;
     private EnvironnementVue mapVue;
     private ArmeVue armeVue;
@@ -42,11 +41,11 @@ public class Controleur implements Initializable {
     @FXML private TilePane tileFond;
     @FXML private ImageView spriteJoueur;
     @FXML private ImageView spriteArme;
+    @FXML private BorderPane bPaneEtabli;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         env = new Environnement();
-        keyReleased = new KeyReleased(this, env);
 
         personnageVue = new PersonnageVue(env.getPersonnage(), spriteJoueur);
         mapVue = new EnvironnementVue(env, tileSol, tileDecors, tileFond);
@@ -55,10 +54,10 @@ public class Controleur implements Initializable {
         vievue = new VieVue(root);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
-        root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
+        root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
-
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new EtabliControleur(env.getEtabli(), new EtabliVue(env.getEtabli(), bPaneEtabli, armeVue)));
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
         initAnimation();
         gameLoop.play();
@@ -79,14 +78,6 @@ public class Controleur implements Initializable {
                 })
         );
         gameLoop.getKeyFrames().add(kf);
-    }
-
-    public PersonnageVue getPersonnageVue() {
-        return personnageVue;
-    }
-
-    public EnvironnementVue getMapVue() {
-        return this.mapVue;
     }
 
     public ArmeVue getArmeVue() {

@@ -9,6 +9,8 @@ import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class Personnage extends Entite {
 
+    private final static int HAUTEUR_MAX = 2 * TUILE_TAILLE;
+    private final static int VITESSE = 3;
 
     private Direction direction;
     private Inventaire inventaire;
@@ -39,7 +41,7 @@ public class Personnage extends Entite {
         if (tombe || saute)
             distance = 2;
         else
-            distance = 3;
+            distance = VITESSE;
         int i = 0;
         while (i < distance && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), direction)) {
             i++;
@@ -52,24 +54,24 @@ public class Personnage extends Entite {
 
     public void sauter() {
         int i = 0;
-        while (i < 3 && !tombe && hauteurSaut < 2 * TUILE_TAILLE && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Haut)) {
+        while (i < VITESSE && !tombe && hauteurSaut < HAUTEUR_MAX && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Haut)) {
             i++;
             super.setY(super.getY() - 1);
             hauteurSaut +=1;
         }
-        if (i < 3)
+        if (i < VITESSE)
             saute = false;
     }
 
     public void tomber() {
         int i = 0;
-        while (i < 3 && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Bas)) {
+        while (i < VITESSE && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Bas)) {
             i++;
             tombe = true;
             super.setY(super.getY() + 1);
         }
 
-        if (i < 3) {
+        if (i < VITESSE) {
             tombe = false;
             hauteurSaut = 0;
         }
