@@ -74,11 +74,21 @@ public class Etabli {
         else {
             Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
             Iterator iterator = listeMateriaux.iterator();
+            Map.Entry materiau;
+            int cpt, i;
             do {
-                //TODO vérifie que le joueur a les matériaux nécessaire
-                iterator.next();
+                materiau = (Map.Entry) iterator.next();
+                cpt = 0; i = 0;
+                while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
+                    if (inventaire.getObjets().get(cpt).getClass().equals(materiau.getKey().getClass()))
+                        cpt++;
+                    i++;
+                }
+                if (cpt == (int) materiau.getValue())
+                    fabricable = true;
+                else
+                    fabricable = false;
             } while (iterator.hasNext() && fabricable);
-            fabricable = true;
         }
     }
 
@@ -103,15 +113,7 @@ public class Etabli {
         return fabricable;
     }
 
-    public void setFabricable(boolean fabricable) {
-        this.fabricable = fabricable;
-    }
-
     public HashMap<Materiau, Integer> getListeMateriauxArmeSelected() {
         return listeMateriaux.get(armeSelected);
-    }
-
-    public ObservableMap<Arme, HashMap<Materiau, Integer>> getListeMateriaux() {
-        return listeMateriaux;
     }
 }

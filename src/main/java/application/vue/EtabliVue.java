@@ -68,6 +68,7 @@ public class EtabliVue {
 
     public void affichageEtabli() {
         bPaneEtabli.setVisible(!bPaneEtabli.isVisible());
+        System.out.println("ok");
     }
 
     public BorderPane getbPaneEtabli() {

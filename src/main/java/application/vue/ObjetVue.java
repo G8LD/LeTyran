@@ -41,7 +41,6 @@ public class ObjetVue {
 
     public void enregistrerTousLesObjets() {
         for(int i = 0; i < this.env.getListeEntites().size(); i++) {
-
             Entite obj = this.env.getListeEntites().get(i);
             if(!(obj instanceof Personnage)) {
                 ObjetView objView = new ObjetView(obj);

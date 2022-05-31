@@ -13,6 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -20,12 +21,14 @@ import static javafx.scene.input.KeyCode.O;
 
 public class EtabliControleur implements EventHandler<KeyEvent> {
 
+    private Pane root;
     private Etabli etabli;
     private EtabliVue etabliVue;
     private VBox vBoxArmes;
     Button boutonFabriquer;
 
-    public EtabliControleur(Etabli etabli, EtabliVue etabliVue) {
+    public EtabliControleur(Pane root, Etabli etabli, EtabliVue etabliVue) {
+        this.root = root;
         this.etabliVue = etabliVue;
         this.etabli = etabli;
         vBoxArmes = (VBox) ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPArmes")).getContent();
@@ -59,8 +62,10 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == O)
+        if (keyEvent.getCode() == O) {
             etabliVue.affichageEtabli();
+            root.requestFocus();
+        }
     }
 
     private void fabricable() {
