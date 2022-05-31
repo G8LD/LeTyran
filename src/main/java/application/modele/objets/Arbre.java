@@ -9,7 +9,6 @@ public class Arbre extends Entite {
 
     private final static int PV_MAX = 8;
 
-
     private int pv;
 
     public Arbre(Environnement env, int x, int y) {

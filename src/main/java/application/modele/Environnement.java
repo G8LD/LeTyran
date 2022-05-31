@@ -14,6 +14,8 @@ public class Environnement {
     private ObservableList<Entite> listeEntites;
     private ObservableList<Materiau> listeMateriaux;
     private ObservableList<Arbre> listeArbres;
+    private ObservableList< Coffre> listeCoffres;
+
 
     public Environnement() {
         personnage = new Personnage(this);
@@ -21,6 +23,7 @@ public class Environnement {
         listeMateriaux = FXCollections.observableArrayList();
         listeEntites = FXCollections.observableArrayList();
         listeArbres = FXCollections.observableArrayList();
+        listeCoffres = FXCollections.observableArrayList();
 
 
         ObjetJeu nouvObj = new ObjetJeu(this, "Epee", 1);
@@ -37,6 +40,7 @@ public class Environnement {
         this.listeEntites.add(personnage);
         initListeMinerais();
         initListeArbres();
+        initListeCoffres();
     }
 
     public ObservableList<Entite> getEntites() {
@@ -48,6 +52,15 @@ public class Environnement {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
                 if (mapJeu.getTabMap()[i][j] == 54) {
                     listeArbres.add(new Arbre(this, j, i));
+                }
+            }
+        }
+    }
+    private void initListeCoffres() {
+        for (int i = 0; i < MapJeu.HEIGHT; i++) {
+            for (int j = 0; j < MapJeu.WIDTH; j++) {
+                if (mapJeu.getTabMap()[i][j] == 57) {
+                    listeCoffres.add(new Coffre(this, j, i));
                 }
             }
         }
@@ -95,7 +108,10 @@ public class Environnement {
 
     public void interaction(int x, int y) {
         if (!minage(x,y))
-            couper(x,y);
+           if (!couper(x,y))
+               ouvert(x,y);
+
+
     }
 
     private boolean couper(int x, int y) {
@@ -116,7 +132,6 @@ public class Environnement {
 
     private boolean minage(int x, int y) {
         Materiau minerai = getMinerai(x,y);
-
         if (minerai != null) {
             minerai.frappe(personnage.getArme());
             if (minerai.getPv() <= 0) {
@@ -126,6 +141,18 @@ public class Environnement {
                 System.out.println("minerai cassé");
             }
             return true;
+        }
+        return false;
+    }
+    private boolean ouvert(int x, int y){
+        Coffre coffre = getCoffre(x,y);
+        Entite bois= new Bois(this, x, y);
+        if(coffre != null){
+            this.getPersonnage().getInventaire().ajouterObjet(bois);
+            listeCoffres.remove(coffre);
+            mapJeu.getTabMap()[y][x] = 58;
+            coffre.detruire();
+            return  true;
         }
         return false;
     }
@@ -164,6 +191,13 @@ public class Environnement {
         return null;
     }
 
+    public Coffre getCoffre(int x, int y) {
+        for (Coffre coffre : listeCoffres)
+            if (coffre.getX() == x && coffre.getY() == y)
+                return coffre;
+        return null;
+    }
+
     public void update() {
         for(int i = 0; i < this.listeEntites.size(); i++) {
             Entite obj = this.listeEntites.get(i);
@@ -197,6 +231,10 @@ public class Environnement {
 
     public ObservableList<Arbre> getListeArbres() {
         return listeArbres;
+    }
+
+    public ObservableList<Coffre> getListeCoffres() {
+        return listeCoffres;
     }
 
     public ObservableList<Materiau> getListeMateriaux() {

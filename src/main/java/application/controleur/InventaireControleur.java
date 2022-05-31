@@ -3,6 +3,7 @@ package application.controleur;
 import application.controleur.listeners.ObjetSupprimeListener;
 import application.modele.Inventaire;
 import application.modele.Environnement;
+import application.modele.objets.Coffre;
 import application.vue.InventaireVue;
 import application.vue.controls.InvItem;
 import javafx.event.EventHandler;
@@ -17,18 +18,15 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
 
     private Pane root;
     private Environnement jeu;
+
     private Inventaire inv;
-
-
     private InventaireVue invVue;
-
 
     private Pane invPane;
 
     public InventaireControleur(Pane root, Environnement jeu) {
         this.root = root;
         this.jeu = jeu;
-
         this.inv = this.jeu.getPersonnage().getInventaire();
 
         this.invVue = new InventaireVue(inv, root, this);
