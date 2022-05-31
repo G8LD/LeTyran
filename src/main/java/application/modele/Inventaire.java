@@ -1,10 +1,8 @@
 package application.modele;
 
-import application.vue.controls.InvItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Inventaire {
@@ -43,7 +41,7 @@ public class Inventaire {
 
         objInventaire.setPlaceInventaire(this.getObjets().size());
         objets.add(objInventaire);
-        this.env.getEntites().remove(obj);
+        this.env.getListeEntites().remove(obj);
 
 
     }
@@ -58,7 +56,7 @@ public class Inventaire {
         ent.setX(this.env.getPersonnage().getX() + 32);
         ent.setY(this.env.getPersonnage().getY());
 
-        this.env.getEntites().add(ent);
+        this.env.getListeEntites().add(ent);
         ent.getCollider().setIgnoreCollision(false);
 
     }

@@ -8,8 +8,7 @@ public class Pierre extends Materiau {
 
     private final static int PV_MAX = 3;
 
-    public Pierre(Environnement env) {
-        super(env);
+    public Pierre() {
     }
 
     public Pierre(Environnement env, int x, int y) {
@@ -28,6 +27,6 @@ public class Pierre extends Materiau {
     @Override
     public void quandDetruit() {
         Pierre pierre = new Pierre(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32);
-        this.getEnv().getEntites().add(pierre);
+        this.getEnv().getListeEntites().add(pierre);
     }
 }

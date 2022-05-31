@@ -2,13 +2,9 @@ package application.vue;
 
 import application.modele.Entite;
 import application.modele.Environnement;
-import application.modele.ObjetJeu;
 import application.modele.Personnage;
 import application.vue.controls.ObjetView;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -26,7 +22,7 @@ public class ObjetVue {
         this.root = root;
         enregistrerTousLesObjets();
 
-        this.env.getEntites().addListener(new ListChangeListener<Entite>() {
+        this.env.getListeEntites().addListener(new ListChangeListener<Entite>() {
             @Override
             public void onChanged(Change<? extends Entite> change) {
                 change.next();
@@ -44,9 +40,9 @@ public class ObjetVue {
     }
 
     public void enregistrerTousLesObjets() {
-        for(int i = 0; i < this.env.getEntites().size(); i++) {
+        for(int i = 0; i < this.env.getListeEntites().size(); i++) {
 
-            Entite obj = this.env.getEntites().get(i);
+            Entite obj = this.env.getListeEntites().get(i);
             if(!(obj instanceof Personnage)) {
                 ObjetView objView = new ObjetView(obj);
                 objetImageView.add(objView);

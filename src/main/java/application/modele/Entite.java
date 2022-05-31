@@ -13,7 +13,7 @@ public class Entite {
     private FloatProperty yProperty;
     private Environnement env;
     private Collider collider;
-    private IntegerProperty pv = new SimpleIntegerProperty(100);
+    private IntegerProperty pv;
 
 
     private boolean tombe = false;
@@ -23,6 +23,7 @@ public class Entite {
         this.collider = new Collider(this);
         //this.getCollider().scaleCollider(32,32);
         this.env = env;
+        this.pv = new SimpleIntegerProperty(100);
     }
 
 
@@ -32,6 +33,15 @@ public class Entite {
         this.yProperty = new SimpleFloatProperty(y);
         this.env = env;
         this.collider = new Collider(this);
+        this.pv = new SimpleIntegerProperty(100);
+    }
+
+    public Entite(Environnement env, int x, int y, int pv) {
+        this.xProperty = new SimpleFloatProperty(x);
+        this.yProperty = new SimpleFloatProperty(y);
+        this.env = env;
+        this.collider = new Collider(this);
+        this.pv = new SimpleIntegerProperty(pv);
     }
 
     public float getX() {
@@ -117,8 +127,8 @@ public class Entite {
 
     public void collide() {
         if(!this.getCollider().getIgnoreCollision()) {
-            for (int i = 0; i < this.env.getEntites().size(); i++) {
-                Entite ent = this.env.getEntites().get(i);
+            for (int i = 0; i < this.env.getListeEntites().size(); i++) {
+                Entite ent = this.env.getListeEntites().get(i);
                 if (ent != this && !ent.getCollider().getIgnoreCollision() && this.getCollider().intersect(ent)) {
                     //System.out.println("x:" + this.getX() + " y : " + this.getY() + " x:" + ent.getX() + " y :" + ent.getY());
                     this.quandCollisionDetectee(ent);

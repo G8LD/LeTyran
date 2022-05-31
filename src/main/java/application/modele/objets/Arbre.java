@@ -49,6 +49,6 @@ public class Arbre extends Entite {
     @Override
     public void quandDetruit() {
         Bois bois = new Bois(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32);
-        this.getEnv().getEntites().add(bois);
+        this.getEnv().getListeEntites().add(bois);
     }
 }

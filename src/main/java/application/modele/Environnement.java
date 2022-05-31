@@ -165,6 +165,10 @@ public class Environnement {
         return null;
     }
 
+    public ObservableList<Entite> getListeEntites() {
+        return listeEntites;
+    }
+
     public ObservableList<Materiau> getListeMateriaux() {
         return listeMateriaux;
     }

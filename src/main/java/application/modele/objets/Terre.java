@@ -8,7 +8,6 @@ public class Terre extends Materiau {
     private final static int PV_MAX = 1;
 
     public Terre() {
-        super();
     }
 
     public Terre(Environnement env, int x, int y) {
@@ -22,6 +21,6 @@ public class Terre extends Materiau {
 
     public void quandDetruit() {
         Terre terre = new Terre(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32);
-        this.getEnv().getEntites().add(terre);
+        this.getEnv().getListeEntites().add(terre);
     }
 }
