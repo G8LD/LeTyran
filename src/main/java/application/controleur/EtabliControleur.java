@@ -66,8 +66,7 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
     }
 
     private void fabricable() {
-        etabli.peutFabriquer();
-        if (etabli.getFabricable()) {
+        if (etabli.peutFabriquer()) {
             boutonFabriquer.setDisable(false);
             etabliVue.affichageBouton(1);
         } else {

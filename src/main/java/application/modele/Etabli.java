@@ -16,12 +16,10 @@ public class Etabli {
     private Inventaire inventaire;
     private ObservableMap<Arme, HashMap<Materiau, Integer>> listeMateriaux;
     private Arme armeSelected;
-    private boolean fabricable;
 
     public Etabli(Inventaire inventaire) {
         niveau = 0;
         this.inventaire = inventaire;
-        fabricable = false;
         initListeMateriaux();
         armeSelected = armeCorrespondant("Hache1");
         niveau++;
@@ -68,7 +66,8 @@ public class Etabli {
         //TODO ajouter l'arme dans l'inventaire du perso
     }
 
-    public void peutFabriquer() {
+    public boolean peutFabriquer() {
+        boolean fabricable;
         Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
         Iterator iterator = listeMateriaux.iterator();
         Map.Entry materiau;
@@ -86,6 +85,7 @@ public class Etabli {
             else
                 fabricable = false;
         } while (iterator.hasNext() && fabricable);
+        return fabricable;
     }
 
     public String getArmeSelectedNom() {
@@ -102,10 +102,6 @@ public class Etabli {
                 return arme;
         }
         return null;
-    }
-
-    public boolean getFabricable() {
-        return fabricable;
     }
 
     public HashMap<Materiau, Integer> getListeMateriauxArmeSelected() {
