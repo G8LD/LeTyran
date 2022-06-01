@@ -69,27 +69,23 @@ public class Etabli {
     }
 
     public void peutFabriquer() {
-        if (armeSelected.getQualite() > niveau)
-            fabricable = false;
-        else {
-            Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
-            Iterator iterator = listeMateriaux.iterator();
-            Map.Entry materiau;
-            int cpt, i;
-            do {
-                materiau = (Map.Entry) iterator.next();
-                cpt = 0; i = 0;
-                while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
-                    if (inventaire.getObjets().get(cpt).getClass().equals(materiau.getKey().getClass()))
-                        cpt++;
-                    i++;
-                }
-                if (cpt == (int) materiau.getValue())
-                    fabricable = true;
-                else
-                    fabricable = false;
-            } while (iterator.hasNext() && fabricable);
-        }
+        Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
+        Iterator iterator = listeMateriaux.iterator();
+        Map.Entry materiau;
+        int cpt, i;
+        do {
+            materiau = (Map.Entry) iterator.next();
+            cpt = 0; i = 0;
+            while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
+                if (inventaire.getObjets().get(i).getEntite().getClass().equals(materiau.getKey().getClass()))
+                    cpt++;
+                i++;
+            }
+            if (cpt == (int) materiau.getValue())
+                fabricable = true;
+            else
+                fabricable = false;
+        } while (iterator.hasNext() && fabricable);
     }
 
     public String getArmeSelectedNom() {
@@ -98,7 +94,6 @@ public class Etabli {
 
     public void setArmeSelected(String armeSelected) {
         this.armeSelected = armeCorrespondant(armeSelected);
-        peutFabriquer();
     }
 
     private Arme armeCorrespondant(String nomArme) {

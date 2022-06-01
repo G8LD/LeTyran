@@ -61,14 +61,13 @@ public class EtabliVue {
         }
     }
 
-    public void affichageArmeDispo(double opacity) {
-        ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelectedNom()).setOpacity(opacity);
+    public void affichageBouton(double opacity) {
+        //((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelectedNom()).setOpacity(opacity);
         bPaneEtabli.lookup("#VboxFabriquer").lookup("#boutonFabriquer").setOpacity(opacity);
     }
 
     public void affichageEtabli() {
         bPaneEtabli.setVisible(!bPaneEtabli.isVisible());
-        System.out.println("ok");
     }
 
     public BorderPane getbPaneEtabli() {

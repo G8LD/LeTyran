@@ -1,10 +1,7 @@
 package application.controleur;
 
 import application.modele.Etabli;
-import application.modele.armes.Arme;
-import application.modele.objets.Materiau;
 import application.vue.EtabliVue;
-import javafx.collections.MapChangeListener;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -50,7 +47,6 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
         //pour lancer la fabrication et la rendre indisponible après
         boutonFabriquer.setOnAction(actionEvent -> {
             etabli.fabriquer();
-            etabli.peutFabriquer();
             fabricable();
         });
 
@@ -63,18 +59,20 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent keyEvent) {
         if (keyEvent.getCode() == O) {
+            fabricable();
             etabliVue.affichageEtabli();
             root.requestFocus();
         }
     }
 
     private void fabricable() {
+        etabli.peutFabriquer();
         if (etabli.getFabricable()) {
             boutonFabriquer.setDisable(false);
-            etabliVue.affichageArmeDispo(1);
+            etabliVue.affichageBouton(1);
         } else {
             boutonFabriquer.setDisable(true);
-            etabliVue.affichageArmeDispo(0.5);
+            etabliVue.affichageBouton(0.5);
         }
     }
 }
