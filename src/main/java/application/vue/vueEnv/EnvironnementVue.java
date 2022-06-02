@@ -130,4 +130,5 @@ public class EnvironnementVue {
         ImageView img = (ImageView) tileSol.getChildren().get(id);
         img.setImage(new Image("file:src/main/resources/application/Coffre/CoffreOrOuv.png"));
     }
+
 }

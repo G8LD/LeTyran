@@ -11,6 +11,7 @@ public class Environnement {
 
     private Personnage personnage;
     private MapJeu mapJeu;
+    private Ennemie ennemie;
     private ObservableList<Entite> listeEntites;
     private ObservableList<Materiau> listeMateriaux;
     private ObservableList<Arbre> listeArbres;
@@ -19,12 +20,12 @@ public class Environnement {
 
     public Environnement() {
         personnage = new Personnage(this);
+        this.ennemie=new Ennemie(this);
         mapJeu = new MapJeu();
         listeMateriaux = FXCollections.observableArrayList();
         listeEntites = FXCollections.observableArrayList();
         listeArbres = FXCollections.observableArrayList();
         listeCoffres = FXCollections.observableArrayList();
-
 
         ObjetJeu nouvObj = new ObjetJeu(this, "Epee", 1);
         ObjetJeu nouvObj2 = new ObjetJeu(this,  "Bois", 1);
@@ -41,6 +42,7 @@ public class Environnement {
         initListeMinerais();
         initListeArbres();
         initListeCoffres();
+
     }
 
     public ObservableList<Entite> getEntites() {
@@ -112,6 +114,7 @@ public class Environnement {
                ouvert(x,y);
 
 
+
     }
 
     private boolean couper(int x, int y) {
@@ -156,6 +159,7 @@ public class Environnement {
         }
         return false;
     }
+
 
     private void initListeMinerais() {
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
@@ -229,6 +233,9 @@ public class Environnement {
         return null;
     }
 
+ public Ennemie getEnnemie(){
+        return this.ennemie;
+ }
     public ObservableList<Arbre> getListeArbres() {
         return listeArbres;
     }
@@ -240,4 +247,6 @@ public class Environnement {
     public ObservableList<Materiau> getListeMateriaux() {
         return listeMateriaux;
     }
+
+
 }

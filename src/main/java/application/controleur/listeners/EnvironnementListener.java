@@ -1,5 +1,6 @@
 package application.controleur.listeners;
 
+import application.modele.Ennemie;
 import application.modele.Environnement;
 import application.modele.objets.Arbre;
 import application.modele.objets.Coffre;
@@ -42,5 +43,6 @@ public class EnvironnementListener {
                 }
             }
         });
+
     }
 }

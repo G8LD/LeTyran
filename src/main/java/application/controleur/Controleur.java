@@ -2,16 +2,15 @@ package application.controleur;
 
 import application.controleur.listeners.PersonnageListener;
 import application.controleur.listeners.VieListener;
+import application.modele.Ennemie;
 import application.modele.Environnement;
-import application.vue.ArmeVue;
-import application.vue.ObjetVue;
-import application.vue.PersonnageVue;
-import application.vue.VieVue;
+import application.vue.*;
 import application.vue.vueEnv.EnvironnementVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -53,10 +52,12 @@ public class Controleur implements Initializable {
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
         vievue = new VieVue(root);
 
+
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
+
 
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
 
