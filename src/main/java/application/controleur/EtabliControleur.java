@@ -51,6 +51,11 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
             root.requestFocus();
         });
 
+        ((Button) etabliVue.getbPaneEtabli().lookup("#boutonFermer")).setOnAction(actionEvent -> {
+            etabliVue.affichageEtabli();
+            root.requestFocus();
+        });
+
         //simule un clique pour l'initialisation
         vBoxArmes.lookup("#" + etabli.getArmeSelected()).fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
                 0, 0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
@@ -62,7 +67,6 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
         if (keyEvent.getCode() == O) {
             fabricable();
             etabliVue.affichageEtabli();
-            root.requestFocus();
         }
     }
 
