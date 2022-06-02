@@ -32,6 +32,7 @@ public class Controleur implements Initializable {
     private ArmeVue armeVue;
     private VieVue vievue;
     private ObjetVue objetVue;
+    private EtabliVue etabliVue;
 
     private Timeline gameLoop;
 
@@ -52,13 +53,14 @@ public class Controleur implements Initializable {
         objetVue = new ObjetVue(this.env, this.root);
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
         vievue = new VieVue(root);
+        etabliVue =new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
-        root.addEventHandler(KeyEvent.KEY_PRESSED, new EtabliControleur(root, env.getEtabli(), new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue)));
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
+        new EtabliControleur(root,env, etabliVue);
         initAnimation();
         gameLoop.play();
     }

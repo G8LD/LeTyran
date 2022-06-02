@@ -16,6 +16,7 @@ public class Personnage extends Entite {
     private Inventaire inventaire;
     private boolean saute;
     private boolean tombe;
+    private boolean freeze;
     private BooleanProperty avanceProperty;
     private int hauteurSaut;
     private ObjectProperty<Arme> armeProperty;
@@ -23,7 +24,7 @@ public class Personnage extends Entite {
 
     public Personnage(Environnement env) {
         super(env);
-        saute = false; tombe = false;
+        saute = false; tombe = false; freeze = false;
         avanceProperty = new SimpleBooleanProperty(false);
 
         direction = Direction.Droit;
@@ -79,9 +80,11 @@ public class Personnage extends Entite {
 
     public void update() {
         super.collide();
-        if (saute) sauter();
-        else tomber();
-        if (avanceProperty.getValue()) seDeplacer();
+        if (!freeze) {
+            if (saute) sauter();
+            if (avanceProperty.getValue()) seDeplacer();
+        }
+        if (!saute) tomber();
 
     }
 
@@ -90,6 +93,11 @@ public class Personnage extends Entite {
         if (ent instanceof ObjetJeu || ent instanceof Materiau) {
             this.inventaire.ajouterObjet(ent);
         }
+    }
+
+    public void freezer() {
+        freeze = !freeze;
+        System.out.println(freeze);
     }
 
     //region Getter & Setter
