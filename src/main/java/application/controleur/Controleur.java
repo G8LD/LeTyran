@@ -1,5 +1,6 @@
 package application.controleur;
 
+import application.controleur.events.DialogueListener;
 import application.controleur.listeners.PersonnageListener;
 import application.controleur.listeners.VieListener;
 import application.modele.Environnement;
@@ -58,6 +59,7 @@ public class Controleur implements Initializable {
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
         vievue = new VieVue(root);
         vueDialog = new VueDialogue(root, scrollDialogue, dialogFlow,  texteDialogue);
+        dialogFlow.addEventHandler(MouseEvent.MOUSE_CLICKED, new DialogueListener(vueDialog));
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
