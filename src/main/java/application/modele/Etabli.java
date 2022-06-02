@@ -1,7 +1,8 @@
 package application.modele;
 
 import application.modele.armes.*;
-import application.modele.objets.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
@@ -12,71 +13,91 @@ import java.util.Set;
 
 public class Etabli {
 
-    private int niveau;
+    private IntegerProperty niveauProperty;
     private Environnement env;
     private Inventaire inventaire;
-    private ObservableMap<String, HashMap<Materiau, Integer>> listeMateriaux;
+    private ObservableMap<String, HashMap<String, Integer>> listeMateriauxArmes;
+    private HashMap<String, Integer>[] listeMateriauxEtabli;
     private String armeSelected;
 
     public Etabli(Environnement env) {
-        niveau = 0;
+        niveauProperty = new SimpleIntegerProperty(0);
         this.env = env;
         inventaire = env.getPersonnage().getInventaire();
-        initListeMateriaux();
-        armeSelected = "Hache1";
-        niveau++;
+        initListeMateriauxEtabli();
+        initListeMateriauxArmes();
+        armeSelected = "Etabli";
+    }
+
+    private void initListeMateriauxEtabli() {
+        listeMateriauxEtabli = new HashMap[3];
+        listeMateriauxEtabli[0] = new HashMap<>() {{
+            put("Pierre", 2);
+        }};
+        listeMateriauxEtabli[1] = new HashMap<>() {{
+            put("Fer", 2);
+        }};
+        listeMateriauxEtabli[2] = new HashMap<>() {{
+            put("Platine", 2);
+        }};
     }
 
     //TODO ajouter les autres armes
-    private void initListeMateriaux() {
-        listeMateriaux = FXCollections.observableHashMap();
-        Materiau bois = new Bois();
-        Materiau pierre = new Pierre();
-        Materiau fer = new Fer();
-        Materiau platine = new Platine();
-
-        listeMateriaux.put("Hache1", new HashMap<>() {{
-            put(bois, 3);
-            put(pierre, 1);
+    private void initListeMateriauxArmes() {
+        listeMateriauxArmes = FXCollections.observableHashMap();
+        listeMateriauxArmes.put("Hache1", new HashMap<>() {{
+            put("Bois", 3);
+            put("Pierre", 1);
         }});
-        listeMateriaux.put("Pioche1", new HashMap<>() {{
-            put(bois, 3);
-            put(pierre, 1);
+        listeMateriauxArmes.put("Pioche1", new HashMap<>() {{
+            put("Bois", 3);
+            put("Pierre", 1);
         }});
-        listeMateriaux.put("Epee1", new HashMap<>() {{
-            put(bois, 10);
+        listeMateriauxArmes.put("Epee1", new HashMap<>() {{
+            put("Bois", 10);
         }});
-        listeMateriaux.put("Arc1", new HashMap<>() {{
-            put(bois, 15);
+        listeMateriauxArmes.put("Arc1", new HashMap<>() {{
+            put("Bois", 15);
         }});
-        listeMateriaux.put("Lance1", new HashMap<>() {{
-            put(bois, 25);
-            put(pierre, 10);
+        listeMateriauxArmes.put("Lance1", new HashMap<>() {{
+            put("Bois", 25);
+            put("Pierre", 10);
         }});
     }
 
     public void fabriquer() {
-        Set listeMateriauxArme = this.listeMateriaux.get(armeSelected).entrySet();
-        Iterator iterator = listeMateriauxArme.iterator();
+        Set listeMateriaux;
+        if (armeSelected.equals("Etabli"))
+            listeMateriaux = this.listeMateriauxEtabli[niveauProperty.getValue()].entrySet();
+        else
+            listeMateriaux = this.listeMateriauxArmes.get(armeSelected).entrySet();
+        Iterator iterator = listeMateriaux.iterator();
         Map.Entry materiau;
         int cpt, i;
         while (iterator.hasNext()) {
             materiau = (Map.Entry) iterator.next();
             cpt = 0; i = 0;
             while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
-                if (inventaire.getObjets().get(i).getEntite().getClass().equals(materiau.getKey().getClass())) {
+                if (inventaire.getObjets().get(i).getEntite().getClass().equals(materiau.getKey())) {
                     inventaire.getObjets().remove(i);
                     cpt++;
                 }
                 i++;
             }
         }
-        inventaire.ajouterObjet(armeCorrespondant());
+        if (armeSelected.equals("Etabli"))
+            niveauProperty.setValue(niveauProperty.getValue() + 1);
+        else
+            inventaire.ajouterObjet(armeCorrespondant());
     }
 
     public boolean peutFabriquer() {
         boolean fabricable;
-        Set listeMateriaux = this.listeMateriaux.get(armeSelected).entrySet();
+        Set listeMateriaux;
+        if (armeSelected.equals("Etabli"))
+            listeMateriaux = this.listeMateriauxEtabli[niveauProperty.getValue()].entrySet();
+        else
+            listeMateriaux = this.listeMateriauxArmes.get(armeSelected).entrySet();
         Iterator iterator = listeMateriaux.iterator();
         Map.Entry materiau;
         int cpt, i;
@@ -84,7 +105,7 @@ public class Etabli {
             materiau = (Map.Entry) iterator.next();
             cpt = 0; i = 0;
             while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
-                if (inventaire.getObjets().get(i).getEntite().getClass().equals(materiau.getKey().getClass()))
+                if (inventaire.getObjets().get(i).getEntite().getClass().equals(materiau.getKey()))
                     cpt++;
                 i++;
             }
@@ -117,7 +138,19 @@ public class Etabli {
         return arme;
     }
 
-    public HashMap<Materiau, Integer> getListeMateriauxArmeSelected() {
-        return listeMateriaux.get(armeSelected);
+    public Set<String> getListeMateriauxArmesID() {
+        return listeMateriauxArmes.keySet();
+    }
+
+    public HashMap<String, Integer> getListeMateriauxArmeSelected() {
+        return listeMateriauxArmes.get(armeSelected);
+    }
+
+    public final int getNiveau() {
+        return niveauProperty.getValue();
+    }
+
+    public final IntegerProperty getNiveauProperty() {
+        return niveauProperty;
     }
 }

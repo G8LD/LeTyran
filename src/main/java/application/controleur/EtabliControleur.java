@@ -1,13 +1,9 @@
 package application.controleur;
 
 import application.modele.Environnement;
-import application.modele.Etabli;
 import application.vue.EtabliVue;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -15,7 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import static javafx.scene.input.KeyCode.O;
+import java.util.Iterator;
 
 public class EtabliControleur {
 
@@ -39,14 +35,15 @@ public class EtabliControleur {
         });
 
         //pour afficher les infos d'une arme lorsque cliquée
-        for (Node hBoxArme : vBoxArmes.getChildren())
-            hBoxArme.setOnMouseClicked(mouseEvent -> {
+        for (int i = 1; i < vBoxArmes.getChildren().size(); i++) {
+            vBoxArmes.getChildren().get(i).setOnMouseClicked(mouseEvent -> {
                 etabliVue.affichageArmeSelected(Color.BLACK);
                 env.getEtabli().setArmeSelected(((HBox)mouseEvent.getSource()).getId());
                 etabliVue.affichageArmeSelected(Color.WHITE);
                 etabliVue.affichageInfosArmeSelected();
                 fabricable();
             });
+        }
 
         //pour lancer la fabrication
         boutonFabriquer.setOnAction(actionEvent -> {
@@ -60,6 +57,18 @@ public class EtabliControleur {
             env.getPersonnage().freezer();
             root.requestFocus();
         });
+
+
+        Iterator iterator = env.getEtabli().getListeMateriauxArmesID().iterator();
+        String idArme;
+        do {
+            idArme = String.valueOf(iterator.hasNext());
+            if (idArme.charAt(idArme.length()-1) < (char) env.getEtabli().getNiveau()) {
+                etabliVue.affichageArmeDispo(0.5);
+            }
+        } while (iterator.hasNext());
+
+
 
         //simule un clique pour l'initialisation
         vBoxArmes.lookup("#" + env.getEtabli().getArmeSelected()).fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
@@ -75,5 +84,17 @@ public class EtabliControleur {
             boutonFabriquer.setDisable(true);
             etabliVue.affichageBouton(0.5);
         }
+    }
+
+    public void amelioration() {
+        Iterator iterator = env.getEtabli().getListeMateriauxArmesID().iterator();
+        String idArme;
+        do {
+            idArme = String.valueOf(iterator.hasNext());
+            if (idArme.charAt(idArme.length()-1) == (char) env.getEtabli().getNiveau()) {
+                etabliVue.affichageArmeDispo(1);
+            }
+        } while (iterator.hasNext());
+
     }
 }

@@ -60,9 +60,9 @@ public class EtabliVue {
 
         Node paneMateriaux = vBoxFabriquer.lookup("#PaneMateriaux");
         int i = 0;
-        for (Materiau materiau : etabli.getListeMateriauxArmeSelected().keySet()) {
+        for (String materiau : etabli.getListeMateriauxArmeSelected().keySet()) {
             i++;
-            ((ImageView) paneMateriaux.lookup("#imgViewMateriau" + i)).setImage(listeImagesMateriaux.get(materiau.getClass().getSimpleName()));
+            ((ImageView) paneMateriaux.lookup("#imgViewMateriau" + i)).setImage(listeImagesMateriaux.get(materiau));
             ((Label) paneMateriaux.lookup("#labelMateriau" + i)).setText(etabli.getListeMateriauxArmeSelected().get(materiau).toString());
         }
 
@@ -74,8 +74,12 @@ public class EtabliVue {
     }
 
     public void affichageBouton(double opacity) {
-        //((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelectedNom()).setOpacity(opacity);
         bPaneEtabli.lookup("#VboxFabriquer").lookup("#boutonFabriquer").setOpacity(opacity);
+    }
+
+    public void affichageArmeDispo(double opacity) {
+        ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelected()).setOpacity(opacity);
+        bPaneEtabli.lookup("#VboxFabriquer").setOpacity(opacity);
     }
 
     public void affichageEtabli() {
