@@ -5,6 +5,8 @@ import application.modele.armes.Pioche;
 import application.modele.objets.Materiau;
 import javafx.beans.property.*;
 
+import java.util.HashMap;
+
 import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class Personnage extends Entite {

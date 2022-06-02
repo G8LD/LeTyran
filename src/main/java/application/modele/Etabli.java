@@ -63,46 +63,44 @@ public class Etabli {
             put("Bois", 25);
             put("Pierre", 10);
         }});
-        listeMateriaux.put("Hache2", new HashMap<>() {{
-            put(bois, 5);
-            put(fer, 5);
+        listeMateriauxArmes.put("Hache2", new HashMap<>() {{
+            put("Bois", 5);
+            put("Fer", 5);
         }});
-        listeMateriaux.put("Pioche2", new HashMap<>() {{
-            put(bois, 5);
-            put(fer, 5);
+        listeMateriauxArmes.put("Pioche2", new HashMap<>() {{
+            put("Bois", 5);
+            put("Fer", 5);
         }});
-        listeMateriaux.put("Epee2", new HashMap<>() {{
-            put(fer, 10);
+        listeMateriauxArmes.put("Epee2", new HashMap<>() {{
+            put("Fer", 10);
         }});
-        listeMateriaux.put("Arc2", new HashMap<>() {{
-            put(bois, 15);
-            put(fer, 10);
+        listeMateriauxArmes.put("Arc2", new HashMap<>() {{
+            put("Bois", 15);
+            put("Fer", 10);
         }});
-        listeMateriaux.put("Lance2", new HashMap<>() {{
-            put(bois, 30);
-            put(fer, 15);
+        listeMateriauxArmes.put("Lance2", new HashMap<>() {{
+            put("Bois", 30);
+            put("Fer", 15);
         }});
-        listeMateriaux.put("Hache3", new HashMap<>() {{
-            put(bois, 10);
-            put(platine, 10);
+        listeMateriauxArmes.put("Hache3", new HashMap<>() {{
+            put("Bois", 10);
+            put("Platine", 10);
         }});
-        listeMateriaux.put("Pioche3", new HashMap<>() {{
-            put(bois, 10);
-            put(platine, 10);
+        listeMateriauxArmes.put("Pioche3", new HashMap<>() {{
+            put("Bois", 10);
+            put("Platine", 10);
         }});
-        listeMateriaux.put("Epee3", new HashMap<>() {{
-            put(platine, 10);
+        listeMateriauxArmes.put("Epee3", new HashMap<>() {{
+            put("Platine", 10);
         }});
-        listeMateriaux.put("Arc3", new HashMap<>() {{
-            put(bois, 15);
-            put(platine, 10);
+        listeMateriauxArmes.put("Arc3", new HashMap<>() {{
+            put("Bois", 15);
+            put("Platine", 10);
         }});
-        listeMateriaux.put("Lance3", new HashMap<>() {{
-            put(bois, 30);
-            put(platine, 17);
+        listeMateriauxArmes.put("Lance3", new HashMap<>() {{
+            put("Bois", 30);
+            put("Platine", 17);
         }});
-
-
     }
 
     public void fabriquer() {
