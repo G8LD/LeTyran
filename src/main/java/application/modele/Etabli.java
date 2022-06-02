@@ -95,7 +95,7 @@ public class Etabli {
         Set listeMateriaux = null;
         if (armeSelected.equals("Etabli"))
             listeMateriaux = this.listeMateriauxEtabli[niveauProperty.getValue()].entrySet();
-        else if ((int) armeSelected.charAt(armeSelected.length() - 1) < niveauProperty.getValue())
+        else if (Character.getNumericValue(armeSelected.charAt(armeSelected.length() - 1)) <= niveauProperty.getValue())
             listeMateriaux = this.listeMateriauxArmes.get(armeSelected).entrySet();
 
         if (listeMateriaux != null) {
