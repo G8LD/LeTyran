@@ -7,11 +7,12 @@ import java.util.HashMap;
 
 public class Inventaire {
     private int MAX_OBJET = 1;
-    private ObservableList<ObjetInventaire> objets = FXCollections.observableArrayList();
+    private ObservableList<ObjetInventaire> objets;
     private HashMap<Integer, Boolean> placesPrise;
 
     private Environnement env;
     public Inventaire(Environnement env) {
+        objets = FXCollections.observableArrayList();
         placesPrise = new HashMap<>();
         this.env = env;
 

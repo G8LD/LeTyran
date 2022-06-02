@@ -57,10 +57,16 @@ public class Etabli {
         Set listeMateriauxArme = this.listeMateriaux.get(armeSelected).entrySet();
         Iterator iterator = listeMateriauxArme.iterator();
         Map.Entry materiau;
+        int cpt, i;
         while (iterator.hasNext()) {
             materiau = (Map.Entry) iterator.next();
-            for (int i = 0; i < (int) materiau.getValue(); i++) {
-                //TODO retirer les materiaux de l'inventaire
+            cpt = 0; i = 0;
+            while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
+                if (inventaire.getObjets().get(i).getEntite().getClass().equals(materiau.getKey().getClass())) {
+                    inventaire.getObjets().remove(i);
+                    cpt++;
+                }
+                i++;
             }
         }
         //TODO ajouter l'arme dans l'inventaire du perso
