@@ -34,6 +34,15 @@ public class EtabliControleur {
             env.getPersonnage().freezer();
         });
 
+        //pour hbox etabli
+        vBoxArmes.getChildren().get(0).setOnMouseClicked(mouseEvent -> {
+            etabliVue.affichageArmeSelected(Color.BLACK);
+            env.getEtabli().setArmeSelected(((HBox)mouseEvent.getSource()).getId());
+            etabliVue.affichageArmeSelected(Color.WHITE);
+            etabliVue.affichageInfosArmeSelected();
+            fabricable();
+        });
+
         //pour afficher les infos d'une arme lorsque cliquée
         for (int i = 1; i < vBoxArmes.getChildren().size(); i++) {
             vBoxArmes.getChildren().get(i).setOnMouseClicked(mouseEvent -> {
@@ -62,13 +71,13 @@ public class EtabliControleur {
         Iterator iterator = env.getEtabli().getListeMateriauxArmesID().iterator();
         String idArme;
         do {
-            idArme = String.valueOf(iterator.hasNext());
+            idArme = (String) iterator.next();
             if (idArme.charAt(idArme.length()-1) < (char) env.getEtabli().getNiveau()) {
                 etabliVue.affichageArmeDispo(0.5);
             }
         } while (iterator.hasNext());
 
-
+        env.getEtabli().getNiveauProperty().addListener(((observableValue, number, t1) -> amelioration()));
 
         //simule un clique pour l'initialisation
         vBoxArmes.lookup("#" + env.getEtabli().getArmeSelected()).fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
@@ -90,7 +99,7 @@ public class EtabliControleur {
         Iterator iterator = env.getEtabli().getListeMateriauxArmesID().iterator();
         String idArme;
         do {
-            idArme = String.valueOf(iterator.hasNext());
+            idArme = (String) iterator.next();
             if (idArme.charAt(idArme.length()-1) == (char) env.getEtabli().getNiveau()) {
                 etabliVue.affichageArmeDispo(1);
             }

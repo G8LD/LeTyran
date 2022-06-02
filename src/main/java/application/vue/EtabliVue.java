@@ -29,6 +29,7 @@ public class EtabliVue {
         this.bPaneEtabli = bPaneEtabli;
         listeSprites = new HashMap<>();
         listeSprites.putAll(armeVue.getListeSprites());
+        listeSprites.put("Etabli", new Image("file:src/main/resources/application/sprite_etabli.png"));
         initSpriteEtabli();
         initListeImagesMateriaux();
         bPaneEtabli.setVisible(false);

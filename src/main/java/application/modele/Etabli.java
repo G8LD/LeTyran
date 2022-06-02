@@ -92,29 +92,34 @@ public class Etabli {
     }
 
     public boolean peutFabriquer() {
-        boolean fabricable;
-        Set listeMateriaux;
+        Set listeMateriaux = null;
         if (armeSelected.equals("Etabli"))
             listeMateriaux = this.listeMateriauxEtabli[niveauProperty.getValue()].entrySet();
-        else
+        else if ((int) armeSelected.charAt(armeSelected.length() - 1) < niveauProperty.getValue())
             listeMateriaux = this.listeMateriauxArmes.get(armeSelected).entrySet();
-        Iterator iterator = listeMateriaux.iterator();
-        Map.Entry materiau;
-        int cpt, i;
-        do {
-            materiau = (Map.Entry) iterator.next();
-            cpt = 0; i = 0;
-            while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
-                if (inventaire.getObjets().get(i).getEntite().getClass().equals(materiau.getKey()))
-                    cpt++;
-                i++;
-            }
-            if (cpt == (int) materiau.getValue())
-                fabricable = true;
-            else
-                fabricable = false;
-        } while (iterator.hasNext() && fabricable);
-        return fabricable;
+
+        if (listeMateriaux != null) {
+            boolean fabricable;
+            Iterator iterator = listeMateriaux.iterator();
+            Map.Entry materiau;
+            int cpt, i;
+            do {
+                materiau = (Map.Entry) iterator.next();
+                cpt = 0;
+                i = 0;
+                while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
+                    if (inventaire.getObjets().get(i).getEntite().getClass().equals(materiau.getKey()))
+                        cpt++;
+                    i++;
+                }
+                if (cpt == (int) materiau.getValue())
+                    fabricable = true;
+                else
+                    fabricable = false;
+            } while (iterator.hasNext() && fabricable);
+            return fabricable;
+        } else
+            return false;
     }
 
     public String getArmeSelected() {
@@ -143,7 +148,10 @@ public class Etabli {
     }
 
     public HashMap<String, Integer> getListeMateriauxArmeSelected() {
-        return listeMateriauxArmes.get(armeSelected);
+        if (armeSelected.equals("Etabli"))
+            return listeMateriauxEtabli[niveauProperty.getValue()];
+        else
+            return listeMateriauxArmes.get(armeSelected);
     }
 
     public final int getNiveau() {

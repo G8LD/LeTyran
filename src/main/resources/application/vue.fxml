@@ -29,7 +29,7 @@
                <content>
                   <VBox fx:id="VBoxArmes" maxWidth="-Infinity" prefWidth="187.0">
                      <children>
-                        <HBox fx:id="Etabli" layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-width: 3;">
+                        <HBox fx:id="Etabli" layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="200.0">
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
