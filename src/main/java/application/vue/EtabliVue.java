@@ -1,6 +1,7 @@
 package application.vue;
 
 import application.modele.Etabli;
+import application.modele.MapJeu;
 import application.modele.objets.*;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -12,20 +13,30 @@ import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 
+import static application.modele.MapJeu.TUILE_TAILLE;
+
 public class EtabliVue {
 
     private Etabli etabli;
     private BorderPane bPaneEtabli;
+    private ImageView spriteEtabli;
     private HashMap<String, Image> listeSprites;
     private HashMap<String, Image> listeImagesMateriaux;
 
-    public EtabliVue(Etabli etabli, BorderPane bPaneEtabli, ArmeVue armeVue) {
+    public EtabliVue(Etabli etabli, ImageView spriteEtabli, BorderPane bPaneEtabli, ArmeVue armeVue) {
         this.etabli = etabli;
+        this.spriteEtabli = spriteEtabli;
         this.bPaneEtabli = bPaneEtabli;
         listeSprites = new HashMap<>();
         listeSprites.putAll(armeVue.getListeSprites());
+        initSpriteEtabli();
         initListeImagesMateriaux();
         bPaneEtabli.setVisible(false);
+    }
+
+    private void initSpriteEtabli() {
+        spriteEtabli.setX(15 * TUILE_TAILLE);
+        spriteEtabli.setY(11 * TUILE_TAILLE);
     }
 
     private void initListeImagesMateriaux() {

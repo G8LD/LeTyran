@@ -16,6 +16,11 @@
       <TilePane fx:id="tileFond" prefHeight="200.0" prefWidth="200.0" />
       <TilePane fx:id="tileSol" prefHeight="200.0" prefWidth="200.0" />
       <TilePane fx:id="tileDecors" prefHeight="200.0" prefWidth="200.0" />
+      <ImageView fx:id="spriteEtabli" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@sprite_etabli.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="spriteJoueur" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="spriteArme" fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
       <BorderPane fx:id="bPaneEtabli" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="417.0" style="-fx-background-color: #42280E; -fx-border-color: black; -fx-border-width: 5;">

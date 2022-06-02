@@ -42,7 +42,7 @@ public class Controleur implements Initializable {
     @FXML private ImageView spriteJoueur;
     @FXML private ImageView spriteArme;
     @FXML private BorderPane bPaneEtabli;
-
+    @FXML private ImageView spriteEtabli;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         env = new Environnement();
@@ -57,7 +57,7 @@ public class Controleur implements Initializable {
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
-        root.addEventHandler(KeyEvent.KEY_PRESSED, new EtabliControleur(root, env.getEtabli(), new EtabliVue(env.getEtabli(), bPaneEtabli, armeVue)));
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new EtabliControleur(root, env.getEtabli(), new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue)));
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
         initAnimation();
         gameLoop.play();
