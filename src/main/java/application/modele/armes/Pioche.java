@@ -1,11 +1,13 @@
 package application.modele.armes;
 
+import application.modele.Environnement;
+
 public class Pioche extends Arme {
 
     private final static int DISTANCE = 1;
 
-    public Pioche(int qualite) {
-        super(qualite);
+    public Pioche(Environnement env, int qualite) {
+        super(env, qualite);
     }
 
     @Override

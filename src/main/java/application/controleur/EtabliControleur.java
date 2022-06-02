@@ -48,10 +48,11 @@ public class EtabliControleur implements EventHandler<KeyEvent> {
         boutonFabriquer.setOnAction(actionEvent -> {
             etabli.fabriquer();
             fabricable();
+            root.requestFocus();
         });
 
         //simule un clique pour l'initialisation
-        vBoxArmes.lookup("#" + etabli.getArmeSelectedNom()).fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
+        vBoxArmes.lookup("#" + etabli.getArmeSelected()).fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
                 0, 0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
                 true, true, true, true, true, true, null));
     }

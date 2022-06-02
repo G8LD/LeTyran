@@ -17,7 +17,7 @@ public class InvItem extends StackPane {
     private ColorInput color;
     private Label quantite;
 
-    private int TAILLE_IMG_OBJET = 28;
+    private final static int TAILLE_IMG_OBJET = 28;
 
     private ImageView imgVObjet;
 
@@ -26,11 +26,11 @@ public class InvItem extends StackPane {
     private InventaireVue invVue;
 
     //Permet de vérifier si on est entrain de porter un objet
-    private boolean dragActive =false;
+    private boolean dragActive;
 
 
     public InvItem(InventaireVue invVue, ObjetInventaire obj, InvSlot viewParent) {
-
+        dragActive = false;
         this.invVue = invVue;
         this.Objet = obj;
 

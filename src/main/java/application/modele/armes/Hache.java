@@ -1,11 +1,13 @@
 package application.modele.armes;
 
+import application.modele.Environnement;
+
 public class Hache extends Arme {
 
     private final static int DISTANCE = 1;
 
-    public Hache(int qualite) {
-        super(qualite);
+    public Hache(Environnement env, int qualite) {
+        super(env, qualite);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class Environnement {
     public Environnement() {
         personnage = new Personnage(this);
         mapJeu = new MapJeu();
-        etabli = new Etabli(personnage.getInventaire());
+        etabli = new Etabli(this);
 
         listeEntites = FXCollections.observableArrayList();
         ObjetJeu nouvObj = new ObjetJeu(this, "Epee", 1);

@@ -1,11 +1,13 @@
 package application.modele.armes;
 
+import application.modele.Environnement;
+
 public class Arc extends Arme{
 
     private final static int DISTANCE = 6;
 
-    public Arc(int qualite) {
-        super(qualite);
+    public Arc(Environnement env, int qualite) {
+        super(env, qualite);
     }
 
     @Override

@@ -1,11 +1,13 @@
 package application.modele.armes;
 
+import application.modele.Environnement;
+
 public class Lance extends Arme {
 
     private final static int DISTANCE = 3;
 
-    public Lance(int qualite) {
-        super(qualite);
+    public Lance(Environnement env, int qualite) {
+        super(env, qualite);
     }
 
     @Override

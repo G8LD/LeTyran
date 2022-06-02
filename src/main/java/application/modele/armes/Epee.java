@@ -1,11 +1,13 @@
 package application.modele.armes;
 
+import application.modele.Environnement;
+
 public class Epee extends Arme {
 
     private final static int DISTANCE = 1;
 
-    public Epee(int qualite) {
-        super(qualite);
+    public Epee(Environnement env, int qualite) {
+        super(env, qualite);
     }
 
     @Override
