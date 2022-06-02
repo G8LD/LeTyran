@@ -12,6 +12,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 
@@ -33,6 +34,11 @@ public class EtabliVue {
         initSpriteEtabli();
         initListeImagesMateriaux();
         bPaneEtabli.setVisible(false);
+
+        Iterator iterator = etabli.getListeMateriauxArmesID().iterator();
+        while (iterator.hasNext()) {
+            ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + (String) iterator.next()).setOpacity(0.5);
+        }
     }
 
     private void initSpriteEtabli() {
@@ -78,16 +84,23 @@ public class EtabliVue {
         bPaneEtabli.lookup("#VboxFabriquer").lookup("#boutonFabriquer").setOpacity(opacity);
     }
 
-    public void affichageArmeDispo(double opacity) {
-        ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelected()).setOpacity(opacity);
-        bPaneEtabli.lookup("#VboxFabriquer").setOpacity(opacity);
-    }
-
     public void affichageEtabli() {
         bPaneEtabli.setVisible(!bPaneEtabli.isVisible());
     }
 
     public BorderPane getbPaneEtabli() {
         return bPaneEtabli;
+    }
+
+    public void amelioration() {
+        Iterator iterator = etabli.getListeMateriauxArmesID().iterator();
+        String idArme;
+        while (iterator.hasNext()) {
+            idArme = (String) iterator.next();
+            if ((int) idArme.charAt(idArme.length()-1) == etabli.getNiveau()) {
+                ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + idArme).setOpacity(1);
+            }
+            System.out.println((int) idArme.charAt(idArme.length()-1));
+        }
     }
 }

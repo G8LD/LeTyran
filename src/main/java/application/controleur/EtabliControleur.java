@@ -67,17 +67,7 @@ public class EtabliControleur {
             root.requestFocus();
         });
 
-
-        Iterator iterator = env.getEtabli().getListeMateriauxArmesID().iterator();
-        String idArme;
-        do {
-            idArme = (String) iterator.next();
-            if (idArme.charAt(idArme.length()-1) < (char) env.getEtabli().getNiveau()) {
-                etabliVue.affichageArmeDispo(0.5);
-            }
-        } while (iterator.hasNext());
-
-        env.getEtabli().getNiveauProperty().addListener(((observableValue, number, t1) -> amelioration()));
+        env.getEtabli().getNiveauProperty().addListener(((observableValue, number, t1) -> etabliVue.amelioration()));
 
         //simule un clique pour l'initialisation
         vBoxArmes.lookup("#" + env.getEtabli().getArmeSelected()).fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
@@ -93,17 +83,5 @@ public class EtabliControleur {
             boutonFabriquer.setDisable(true);
             etabliVue.affichageBouton(0.5);
         }
-    }
-
-    public void amelioration() {
-        Iterator iterator = env.getEtabli().getListeMateriauxArmesID().iterator();
-        String idArme;
-        do {
-            idArme = (String) iterator.next();
-            if (idArme.charAt(idArme.length()-1) == (char) env.getEtabli().getNiveau()) {
-                etabliVue.affichageArmeDispo(1);
-            }
-        } while (iterator.hasNext());
-
     }
 }
