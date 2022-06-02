@@ -58,7 +58,6 @@ public class EtabliVue {
     public void affichageArmeSelected(Color color) {
         ((HBox) ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelected()))
                 .setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
-        System.out.println("ok");
     }
 
     public void affichageInfosArmeSelected() {
@@ -97,10 +96,9 @@ public class EtabliVue {
         String idArme;
         while (iterator.hasNext()) {
             idArme = (String) iterator.next();
-            if ((int) idArme.charAt(idArme.length()-1) == etabli.getNiveau()) {
+            if (Character.getNumericValue(idArme.charAt(idArme.length()-1)) == etabli.getNiveau()) {
                 ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + idArme).setOpacity(1);
             }
-            System.out.println((int) idArme.charAt(idArme.length()-1));
         }
     }
 }

@@ -97,7 +97,6 @@ public class Personnage extends Entite {
 
     public void freezer() {
         freeze = !freeze;
-        System.out.println(freeze);
     }
 
     //region Getter & Setter

@@ -34,17 +34,8 @@ public class EtabliControleur {
             env.getPersonnage().freezer();
         });
 
-        //pour hbox etabli
-        vBoxArmes.getChildren().get(0).setOnMouseClicked(mouseEvent -> {
-            etabliVue.affichageArmeSelected(Color.BLACK);
-            env.getEtabli().setArmeSelected(((HBox)mouseEvent.getSource()).getId());
-            etabliVue.affichageArmeSelected(Color.WHITE);
-            etabliVue.affichageInfosArmeSelected();
-            fabricable();
-        });
-
         //pour afficher les infos d'une arme lorsque cliquée
-        for (int i = 1; i < vBoxArmes.getChildren().size(); i++) {
+        for (int i = 0; i < vBoxArmes.getChildren().size(); i++) {
             vBoxArmes.getChildren().get(i).setOnMouseClicked(mouseEvent -> {
                 etabliVue.affichageArmeSelected(Color.BLACK);
                 env.getEtabli().setArmeSelected(((HBox)mouseEvent.getSource()).getId());
@@ -57,6 +48,8 @@ public class EtabliControleur {
         //pour lancer la fabrication
         boutonFabriquer.setOnAction(actionEvent -> {
             env.getEtabli().fabriquer();
+            if (env.getEtabli().getArmeSelected().equals("Etabli"))
+                etabliVue.affichageInfosArmeSelected();
             fabricable();
             root.requestFocus();
         });
@@ -76,6 +69,7 @@ public class EtabliControleur {
     }
 
     private void fabricable() {
+        System.out.println(env.getEtabli().peutFabriquer());
         if (env.getEtabli().peutFabriquer()) {
             boutonFabriquer.setDisable(false);
             etabliVue.affichageBouton(1);

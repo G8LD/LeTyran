@@ -78,7 +78,7 @@ public class Etabli {
             materiau = (Map.Entry) iterator.next();
             cpt = 0; i = 0;
             while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
-                if (inventaire.getObjets().get(i).getEntite().getClass().equals(materiau.getKey())) {
+                if (inventaire.getObjets().get(i).getEntite().getClass().getSimpleName().equals(materiau.getKey())) {
                     inventaire.getObjets().remove(i);
                     cpt++;
                 }
@@ -108,7 +108,7 @@ public class Etabli {
                 cpt = 0;
                 i = 0;
                 while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
-                    if (inventaire.getObjets().get(i).getEntite().getClass().equals(materiau.getKey()))
+                    if (inventaire.getObjets().get(i).getEntite().getClass().getSimpleName().equals(materiau.getKey()))
                         cpt++;
                     i++;
                 }
