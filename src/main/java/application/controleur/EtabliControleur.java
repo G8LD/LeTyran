@@ -13,6 +13,8 @@ import javafx.scene.paint.Color;
 
 import java.util.Iterator;
 
+import static application.modele.MapJeu.TUILE_TAILLE;
+
 public class EtabliControleur {
 
     private Pane root;
@@ -29,9 +31,12 @@ public class EtabliControleur {
         boutonFabriquer = (Button) etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer");
 
         root.lookup("#spriteEtabli").setOnMouseClicked(mouseEvent -> {
-            fabricable();
-            etabliVue.affichageEtabli();
-            env.getPersonnage().freezer();
+            if (mouseEvent.getX() <= env.getPersonnage().getX()+2*TUILE_TAILLE && mouseEvent.getX() >= env.getPersonnage().getX()-TUILE_TAILLE
+                    && mouseEvent.getY() <= env.getPersonnage().getY()+2*TUILE_TAILLE && mouseEvent.getY() >= env.getPersonnage().getY()-TUILE_TAILLE) {
+                fabricable();
+                etabliVue.affichageEtabli();
+                env.getPersonnage().freezer();
+            }
         });
 
         //pour afficher les infos d'une arme lorsque cliquée
