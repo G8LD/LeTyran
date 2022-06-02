@@ -123,7 +123,6 @@ public class Environnement {
                 listeMateriaux.remove(minerai);
                 mapJeu.getTabMap()[y][x] = 0;
                 minerai.detruire();
-                System.out.println("minerai cassé");
             }
             return true;
         }

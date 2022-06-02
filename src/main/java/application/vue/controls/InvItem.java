@@ -89,7 +89,7 @@ public class InvItem extends StackPane {
         });
 
         quantite = new Label();
-        quantite.setText(obj.toString());
+        quantite.textProperty().bind(obj.getStackActuelProperty().asString());
         this.getChildren().add(this.imgVObjet);
         this.getChildren().add(quantite);
 

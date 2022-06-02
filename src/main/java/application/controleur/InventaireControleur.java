@@ -63,8 +63,9 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
 
         //System.out.println(second.getParent());
 
-        premier.getObjetInventaire().setPlaceInventaire(nouvPlacePrem);
-        second.getObjetInventaire().setPlaceInventaire(nouvPlaceSec);
+        second.getObjetInventaire().setPlaceInventaire(premier.getObjetInventaire().getPlaceInventaire());
+        premier.getObjetInventaire().setPlaceInventaire(placeEchange);
+
 
     }
 
