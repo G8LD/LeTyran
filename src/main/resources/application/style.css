@@ -8,4 +8,6 @@
 
 .dialogText {
     -fx-fill:white;
+    -fx-font-family:elusiveicons;
+    -fx-font-size:19px;
 }

@@ -9,6 +9,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +17,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import java.net.URL;
@@ -42,7 +44,9 @@ public class Controleur implements Initializable {
     @FXML private Pane paneJoueur;
     @FXML private ImageView spriteJoueur;
     @FXML private ImageView spriteArme;
-    @FXML private TextFlow dialogPane;
+    @FXML private Text texteDialogue;
+    @FXML private ScrollPane scrollDialogue;
+    @FXML private TextFlow dialogFlow;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,7 +57,7 @@ public class Controleur implements Initializable {
         objetVue = new ObjetVue(this.env, this.root);
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
         vievue = new VieVue(root);
-        vueDialog = new VueDialogue(root, dialogPane);
+        vueDialog = new VueDialogue(root, scrollDialogue, dialogFlow,  texteDialogue);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
@@ -61,6 +65,8 @@ public class Controleur implements Initializable {
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
 
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
+
+
 
         initAnimation();
         gameLoop.play();
