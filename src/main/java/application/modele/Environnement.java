@@ -155,6 +155,7 @@ public class Environnement {
             listeCoffres.remove(coffre);
             mapJeu.getTabMap()[y][x] = 58;
             coffre.detruire();
+            System.out.println(this.getPersonnage().getInventaire());
             return  true;
         }
         return false;

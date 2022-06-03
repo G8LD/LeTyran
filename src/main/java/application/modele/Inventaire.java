@@ -17,7 +17,6 @@ public class Inventaire {
         placesPrise = new HashMap<>();
         this.env = env;
 
-
     }
 
     public ObservableList<ObjetInventaire> getObjets(){
@@ -35,7 +34,6 @@ public class Inventaire {
 
 
     public void ajouterObjet(Entite obj) {
-
         ObjetInventaire objInventaire = new ObjetInventaire(obj);
         obj.getCollider().setIgnoreCollision(true);
 

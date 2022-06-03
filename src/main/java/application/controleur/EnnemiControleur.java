@@ -3,6 +3,7 @@ package application.controleur;
 import application.modele.Ennemie;
 import application.modele.Entite;
 import application.modele.Environnement;
+import application.modele.ObjetJeu;
 import application.modele.objets.Bois;
 import application.vue.EnnemieVue;
 import javafx.fxml.FXML;
@@ -14,7 +15,6 @@ import java.util.ResourceBundle;
 
 public class EnnemiControleur{
 
-    @FXML
     private Pane root;
     private Environnement env;
 
@@ -25,14 +25,20 @@ public class EnnemiControleur{
         this.env = new Environnement();
         this.ennemieVue= new EnnemieVue(root);
 
-        root.setOnMouseClicked(mouseEvent ->{
+        this.ennemieVue.getImage().setOnMouseClicked(mouseEvent ->{
+            System.out.println("On passe");
+            this.prendreLoot();
+            System.out.println("fini 3");
 
-            ennemieVue.afficherCadavres();
+        });
+         }
 
+        public void prendreLoot(){
+            Entite bois= new Bois(this.env,0,0);
+            this.env.getPersonnage().getInventaire().ajouterObjet(bois);
+            System.out.println(this.env.getPersonnage().getInventaire());
 
-}
-    }
-
+        }
 
 
 }

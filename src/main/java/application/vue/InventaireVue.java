@@ -50,7 +50,9 @@ public class InventaireVue {
 
                 }
 
+
                 for(int i = 0; i < change.getAddedSize(); i++) {
+
                     ObjetInventaire obj = change.getAddedSubList().get(i);
                     ajouterUnObjet(obj);
                 }

@@ -16,11 +16,15 @@ public class EnnemieVue {
         image.setLayoutY(362);
         image.setFitWidth(75);
         image.setFitHeight(25);
+       // afficherCadavres();
 
 
     }
     public void afficherCadavres(){
         this.image=new ImageView(new Image("file:src/main/resources/application/perso/cadavre.png"));
+    }
+    public ImageView getImage(){
+        return this.image;
     }
 
 }
