@@ -126,7 +126,7 @@
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@arme/sprite_arc1.png" />
+                                    <Image url="@arme/sprite_arc2.png" />
                                  </image>
                               </ImageView>
                               <Label prefHeight="64.0" prefWidth="126.0" text="Arc en Fer" textFill="WHITE" />
@@ -176,7 +176,7 @@
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@arme/sprite_arc1.png" />
+                                    <Image url="@arme/sprite_arc3.png" />
                                  </image>
                               </ImageView>
                               <Label prefHeight="64.0" prefWidth="126.0" text="Arc en Platine" textFill="WHITE" />
