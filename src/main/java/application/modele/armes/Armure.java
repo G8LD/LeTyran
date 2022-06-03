@@ -33,4 +33,8 @@ public class Armure extends Entite {
         else
             return 90;
     }
+
+    public int getQualite() {
+        return qualite;
+    }
 }

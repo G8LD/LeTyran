@@ -177,18 +177,18 @@ public class Etabli {
         this.objetSelected = objetSelected;
     }
 
-    private Arme armeCorrespondant() {
-        Arme arme;
+    private Entite armeCorrespondant() {
+        Entite objet;
         switch (objetSelected.substring(0, objetSelected.length() - 1)) {
-            case "Hache": arme = new Hache(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
-            case "Pioche" : arme = new Pioche(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
-            case "Epee" : arme = new Epee(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
-            case "Arc" : arme = new Arc(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
-            case "Lance" : arme = new Lance(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
-            default: arme = null; break;
+            case "Hache": objet = new Hache(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
+            case "Pioche" : objet = new Pioche(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
+            case "Epee" : objet = new Epee(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
+            case "Arc" : objet = new Arc(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
+            case "Lance" : objet = new Lance(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
+            case "Armure" : objet = new Armure(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
+            default: objet = null; break;
         }
-        System.out.println(arme.getClass().getSimpleName() + arme.getQualite());
-        return arme;
+        return objet;
     }
 
     public Set<String> getObjetsID() {
