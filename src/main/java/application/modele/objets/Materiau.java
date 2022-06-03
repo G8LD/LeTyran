@@ -44,7 +44,7 @@ public abstract class Materiau extends Entite {
         }
         this.getEnv().getListeEntites().add(materiau);
         getEnv().getMapJeu().getTabMap()[(int) getY()][(int) getX()] = 0;
-        getEnv().getListeMateriaux().remove(materiau);
+        getEnv().getListeMateriaux().remove(this);
     }
 
     public float getX() {

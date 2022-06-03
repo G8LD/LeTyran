@@ -14,22 +14,18 @@ public class EnvironnementListener {
         env.getListeMateriaux().addListener(new ListChangeListener<Materiau>() {
             @Override
             public void onChanged(Change<? extends Materiau> change) {
-                while (change.next()) {
-                    if (change.wasRemoved()) {
+                while (change.next())
+                    if (change.wasRemoved())
                         envVue.supprimerBloc((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
-                    }
-                }
             }
         });
 
         env.getListeArbres().addListener(new ListChangeListener<Arbre>() {
             @Override
             public void onChanged(Change<? extends Arbre> change) {
-                while (change.next()) {
-                    if (change.wasRemoved()) {
+                while (change.next())
+                    if (change.wasRemoved())
                         envVue.supprimerArbre((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
-                    }
-                }
             }
         });
     }
