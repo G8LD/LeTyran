@@ -15,14 +15,4 @@ public class Platine extends Materiau {
     public Platine(Environnement env, int x, int y) {
         super(env, x, y, PV_MAX);
     }
-
-    @Override
-    public void frappe(Arme arme) {
-        System.out.println("platine");
-        if (arme instanceof Pioche) {
-            decrementerPv(arme.nbDegat());
-        } else {
-            decrementerPv(1);
-        }
-    }
 }

@@ -14,13 +14,4 @@ public class Pierre extends Materiau {
     public Pierre(Environnement env, int x, int y) {
         super(env, x, y, PV_MAX);
     }
-
-    @Override
-    public void frappe(Arme arme) {
-        if (arme instanceof Pioche) {
-            decrementerPv(arme.nbDegat());
-        } else {
-            decrementerPv(1);
-        }
-    }
 }

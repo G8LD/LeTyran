@@ -8,14 +8,12 @@ import application.modele.armes.Hache;
 public class Arbre extends Entite {
 
     private final static int PV_MAX = 12;
-    private int pv;
 
     public Arbre(Environnement env, int x, int y) {
-        super(env, x, y);
-        this.pv = PV_MAX;
+        super(env, x, y, PV_MAX);
     }
     //retourne le nombre de bois drop
-    public int frappe(Arme arme) {
+    public void frappe(Arme arme) {
         int nbDegats;
 
         if (arme instanceof Hache) {
@@ -26,21 +24,20 @@ public class Arbre extends Entite {
 
         int nbBois = 0;
         for (int i = 0; i < nbDegats; i++) {
-            pv--;
-            if (pv % 4 == 0) nbBois++;
+            decrementerPV();
+            if (getPv() % 4 == 0) nbBois++;
         }
-        return nbBois;
+        for (int i = 0; i < nbBois; i++)
+            getEnv().getListeEntites().add(new Bois(getEnv(), (int)getX() * 32, (int)getY() * 32));
+        if (getPv() <= 0) {
+            detruire();
+            System.out.println("arbre coupé");
+        }
     }
 
-    public float getX() {
-        return super.getX();
-    }
-
-    public float getY() {
-        return super.getY();
-    }
-
-    public int getPv() {
-        return pv;
+    @Override
+    public void detruire() {
+        getEnv().getMapJeu().getTabMap()[(int) getY()][(int) getX()] = 0;
+        getEnv().getListeArbres().remove(this);
     }
 }

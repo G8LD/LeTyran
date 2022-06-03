@@ -3,6 +3,7 @@ package application.modele.objets;
 import application.modele.Entite;
 import application.modele.Environnement;
 import application.modele.armes.Arme;
+import application.modele.armes.Pioche;
 
 public abstract class Materiau extends Entite {
 
@@ -20,8 +21,33 @@ public abstract class Materiau extends Entite {
         super.setPv(super.getPv() - degat);
     }
 
-    public float getX() {
+    //appelé quand le bloc est cliqué décremente selon la qualité si le joueur a la bonne arme sinon de 1
+    public void frappe(Arme arme) {
+        if (arme instanceof Pioche)
+            decrementerPv(arme.nbDegat());
+        else
+            decrementerPv(1);
 
+        if (getPv() <= 0)
+            detruire();
+    }
+
+    public void detruire() {
+        Materiau materiau;
+        switch (this.getClass().getSimpleName()) {
+            case "Pierre": materiau = new Pierre(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32); break;
+            case "Fer": materiau = new Fer(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32); break;
+            case "Platine": materiau = new Platine(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32); break;
+            case "Terre" : materiau = new Terre(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32); break;
+            case "Bois" : materiau = new Bois(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32); break;
+            default: materiau = null; break;
+        }
+        this.getEnv().getListeEntites().add(materiau);
+        getEnv().getMapJeu().getTabMap()[(int) getY()][(int) getX()] = 0;
+        getEnv().getListeMateriaux().remove(materiau);
+    }
+
+    public float getX() {
         return super.getX();
     }
 
@@ -32,22 +58,7 @@ public abstract class Materiau extends Entite {
     public int getPv() {
         return super.getPv();
     }
-    //appelé quand le bloc est cliqué décremente selon la qualité si le joueur a la bonne arme sinon de 1
-    public abstract void frappe(Arme arme);
 
-    public void quandDetruit() {
-        Materiau materiau;
-
-        switch (this.getClass().getSimpleName()) {
-            case "Pierre": materiau = new Pierre(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32); break;
-            case "Fer": materiau = new Fer(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32); break;
-            case "Platine": materiau = new Platine(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32); break;
-            case "Terre" : materiau = new Terre(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32); break;
-            case "Bois" : materiau = new Bois(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32); break;
-            default: materiau = null; break;
-        }
-        this.getEnv().getListeEntites().add(materiau);
-    }
 }
 
 

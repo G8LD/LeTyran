@@ -18,10 +18,12 @@ public class Bois extends Materiau {
 
     @Override
     public void frappe(Arme arme) {
-        if (arme instanceof Hache) {
+        if (arme instanceof Hache)
             decrementerPv(2);
-        } else {
+        else
             decrementerPv(1);
-        }
+
+        if (getPv() <= 0)
+            detruire();
     }
 }

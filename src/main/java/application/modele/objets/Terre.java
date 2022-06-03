@@ -5,7 +5,7 @@ import application.modele.armes.Arme;
 
 public class Terre extends Materiau {
 
-    private final static int PV_MAX = 1;
+    private final static int PV_MAX = 0;
 
     public Terre() {
     }
@@ -16,11 +16,7 @@ public class Terre extends Materiau {
 
     @Override
     public void frappe(Arme arme) {
-        decrementerPv(1);
+        detruire();
     }
 
-    public void quandDetruit() {
-        Terre terre = new Terre(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32);
-        this.getEnv().getListeEntites().add(terre);
-    }
 }

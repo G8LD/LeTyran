@@ -76,14 +76,7 @@ public class Environnement {
         Arbre arbre = getArbre(x,y);
 
         if (arbre != null) {
-            for (int i = 0; i< arbre.frappe(personnage.getArme()); i++)
-                listeEntites.add(new Bois(this, (int)arbre.getX() * 32, (int)arbre.getY() * 32));
-            if (arbre.getPv() <= 0) {
-                listeArbres.remove(arbre);
-                mapJeu.getTabMap()[y][x] = 0;
-                arbre.detruire();
-                System.out.println("arbre coupé");
-            }
+            arbre.frappe(personnage.getArme());
             return true;
         }
         return false;
@@ -94,12 +87,6 @@ public class Environnement {
 
         if (minerai != null) {
             minerai.frappe(personnage.getArme());
-            if (minerai.getPv() <= 0) {
-                listeMateriaux.remove(minerai);
-                mapJeu.getTabMap()[y][x] = 0;
-                minerai.detruire();
-                System.out.println("minerai cassé");
-            }
             return true;
         }
         return false;
