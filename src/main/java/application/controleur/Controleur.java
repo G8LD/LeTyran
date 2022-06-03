@@ -4,6 +4,7 @@ import application.controleur.events.DialogueListener;
 import application.controleur.listeners.PersonnageListener;
 import application.controleur.listeners.VieListener;
 import application.modele.Environnement;
+import application.modele.ModeleDialogue;
 import application.vue.*;
 import application.vue.vueEnv.EnvironnementVue;
 import javafx.animation.KeyFrame;
@@ -38,6 +39,8 @@ public class Controleur implements Initializable {
 
     private ObjetVue objetVue;
 
+    private ModeleDialogue modeleDialogue;
+
     @FXML private Pane root;
     @FXML private TilePane tileSol;
     @FXML private TilePane tileDecors;
@@ -51,19 +54,28 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        //Modele
         env = new Environnement();
+        modeleDialogue = new ModeleDialogue();
         keyReleased = new KeyReleased(this, env);
+
+        //Vues
         personnageVue = new PersonnageVue(env.getPersonnage(), spriteJoueur);
         mapVue = new EnvironnementVue(env, tileSol, tileDecors, tileFond);
         objetVue = new ObjetVue(this.env, this.root);
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
         vievue = new VieVue(root);
-        vueDialog = new VueDialogue(root, scrollDialogue, dialogFlow,  texteDialogue);
-        dialogFlow.addEventHandler(MouseEvent.MOUSE_CLICKED, new DialogueListener(vueDialog));
+        vueDialog = new VueDialogue(modeleDialogue, dialogFlow,  texteDialogue);
 
+        //Event
+        dialogFlow.addEventHandler(MouseEvent.MOUSE_CLICKED, new DialogueListener(modeleDialogue));
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
+        root.addEventHandler(MouseEvent.MOUSE_CLICKED, new DialogueControleur(vueDialog, modeleDialogue));
+
+
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
 
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
