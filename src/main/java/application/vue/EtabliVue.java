@@ -34,7 +34,7 @@ public class EtabliVue {
 
         Iterator iterator = etabli.getObjetsID().iterator();
         while (iterator.hasNext()) {
-            ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + iterator.next()).setOpacity(0.5);
+            ((ScrollPane) bPaneEtabli.lookup("#sPObjets")).getContent().lookup("#" + iterator.next()).setOpacity(0.5);
         }
     }
 
@@ -54,13 +54,13 @@ public class EtabliVue {
 //    }
 
     public void affichageArmeSelected(Color color) {
-        ((HBox) ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getObjetSelected()))
+        ((HBox) ((ScrollPane) bPaneEtabli.lookup("#sPObjets")).getContent().lookup("#" + etabli.getObjetSelected()))
                 .setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
     }
 
     public void affichageInfosArmeSelected() {
         Node vBoxFabriquer = bPaneEtabli.lookup("#VboxFabriquer");
-        ((ImageView) vBoxFabriquer.lookup("#imgViewArme")).setImage(listeSprites.get(etabli.getObjetSelected()));
+        ((ImageView) vBoxFabriquer.lookup("#imgViewObjet")).setImage(listeSprites.get(etabli.getObjetSelected()));
 
         Node paneMateriaux = vBoxFabriquer.lookup("#PaneMateriaux");
         int i = 0;
@@ -98,7 +98,7 @@ public class EtabliVue {
         while (iterator.hasNext()) {
             idArme = (String) iterator.next();
             if (Character.getNumericValue(idArme.charAt(idArme.length()-1)) == etabli.getNiveau()) {
-                ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + idArme).setOpacity(1);
+                ((ScrollPane) bPaneEtabli.lookup("#sPObjets")).getContent().lookup("#" + idArme).setOpacity(1);
             }
         }
     }

@@ -18,14 +18,14 @@ public class EtabliControleur {
     private Pane root;
     private Environnement env;
     private EtabliVue etabliVue;
-    private VBox vBoxArmes;
+    private VBox vBoxObjets;
     Button boutonFabriquer;
 
     public EtabliControleur(Pane root, Environnement env, EtabliVue etabliVue) {
         this.root = root;
         this.env = env;
         this.etabliVue = etabliVue;
-        vBoxArmes = (VBox) ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPArmes")).getContent();
+        vBoxObjets = (VBox) ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPObjets")).getContent();
         boutonFabriquer = (Button) etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer");
 
         root.lookup("#spriteEtabli").setOnMouseClicked(mouseEvent -> {
@@ -37,7 +37,7 @@ public class EtabliControleur {
             }
         });
 
-        vBoxArmes.getChildren().get(0).setOnMouseClicked(mouseEvent -> {
+        vBoxObjets.getChildren().get(0).setOnMouseClicked(mouseEvent -> {
             etabliVue.affichageArmeSelected(Color.BLACK);
             env.getEtabli().setObjetSelected(((HBox)mouseEvent.getSource()).getId());
             etabliVue.affichageArmeSelected(Color.WHITE);
@@ -47,8 +47,8 @@ public class EtabliControleur {
         });
 
         //pour afficher les infos d'une arme lorsque cliquée
-        for (int i = 1; i < vBoxArmes.getChildren().size(); i++) {
-            vBoxArmes.getChildren().get(i).setOnMouseClicked(mouseEvent -> {
+        for (int i = 1; i < vBoxObjets.getChildren().size(); i++) {
+            vBoxObjets.getChildren().get(i).setOnMouseClicked(mouseEvent -> {
                 etabliVue.affichageArmeSelected(Color.BLACK);
                 env.getEtabli().setObjetSelected(((HBox)mouseEvent.getSource()).getId());
                 etabliVue.affichageArmeSelected(Color.WHITE);
@@ -64,7 +64,7 @@ public class EtabliControleur {
                 if (env.getEtabli().getNiveau() < 3)
                     etabliVue.affichageInfosArmeSelected();
                 else
-                    ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPArmes")).getContent().lookup("#Etabli").setOpacity(0.5);
+                    ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPObjets")).getContent().lookup("#Etabli").setOpacity(0.5);
             fabricable();
             root.requestFocus();
         });
@@ -78,7 +78,7 @@ public class EtabliControleur {
         env.getEtabli().getNiveauProperty().addListener(((observableValue, number, t1) -> etabliVue.amelioration()));
 
         //simule un clique pour l'initialisation
-        vBoxArmes.lookup("#Etabli").fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
+        vBoxObjets.lookup("#Etabli").fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
                 0, 0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
                 true, true, true, true, true, true, null));
     }
