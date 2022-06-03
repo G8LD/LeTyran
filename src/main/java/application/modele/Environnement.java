@@ -52,16 +52,11 @@ public class Environnement {
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
                 switch (mapJeu.getTabMap()[i][j]) {
-                    case 34:
-                        listeMateriaux.add(new Terre(this, j, i));
-                    case 52:
-                        listeMateriaux.add(new Pierre(this, j, i));
-                    case 53:
-                        listeMateriaux.add(new Fer(this, j, i));
-                    case 54:
-                        listeMateriaux.add(new Platine(this, j, i));
-                    default:
-                        break;
+                    case 34: listeMateriaux.add(new Terre(this, j, i)); break;
+                    case 52: listeMateriaux.add(new Pierre(this, j, i)); break;
+                    case 53: listeMateriaux.add(new Fer(this, j, i)); break;
+                    case 54: listeMateriaux.add(new Platine(this, j, i)); break;
+                    default: break;
                 }
             }
         }
@@ -74,7 +69,6 @@ public class Environnement {
 
     private boolean couper(int x, int y) {
         Arbre arbre = getArbre(x,y);
-
         if (arbre != null) {
             arbre.frappe(personnage.getArme());
             return true;
@@ -84,7 +78,6 @@ public class Environnement {
 
     private boolean minage(int x, int y) {
         Materiau minerai = getMinerai(x,y);
-
         if (minerai != null) {
             minerai.frappe(personnage.getArme());
             return true;

@@ -62,7 +62,7 @@ public class Etabli {
         listeMateriauxArmes.put("Lance1", new HashMap<>() {{
             put("Bois", 25);
             put("Pierre", 10);
-        }});/*
+        }});
         listeMateriauxArmes.put("Hache2", new HashMap<>() {{
             put("Bois", 5);
             put("Fer", 5);
@@ -100,7 +100,7 @@ public class Etabli {
         listeMateriauxArmes.put("Lance3", new HashMap<>() {{
             put("Bois", 30);
             put("Platine", 17);
-        }});*/
+        }});
     }
 
     public void fabriquer() {
@@ -170,12 +170,12 @@ public class Etabli {
 
     private Arme armeCorrespondant() {
         Arme arme;
-        switch (armeSelected) {
-            case "Hache1": arme = new Hache(env, 1); break;
-            case "Pioche1" : arme = new Pioche(env, 1); break;
-            case "Epee1" : arme = new Epee(env, 1); break;
-            case "Arc1" : arme = new Arc(env, 1); break;
-            case "Lance1" : arme = new Lance(env, 1); break;
+        switch (armeSelected.substring(0, armeSelected.length() - 1)) {
+            case "Hache": arme = new Hache(env, Character.getNumericValue(armeSelected.charAt(armeSelected.length()-1))); break;
+            case "Pioche" : arme = new Pioche(env, Character.getNumericValue(armeSelected.charAt(armeSelected.length()-1))); break;
+            case "Epee" : arme = new Epee(env, Character.getNumericValue(armeSelected.charAt(armeSelected.length()-1))); break;
+            case "Arc" : arme = new Arc(env, Character.getNumericValue(armeSelected.charAt(armeSelected.length()-1))); break;
+            case "Lance" : arme = new Lance(env, Character.getNumericValue(armeSelected.charAt(armeSelected.length()-1))); break;
             default: arme = null; break;
         }
         return arme;
@@ -199,4 +199,6 @@ public class Etabli {
     public final IntegerProperty getNiveauProperty() {
         return niveauProperty;
     }
+
+
 }

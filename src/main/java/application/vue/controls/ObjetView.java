@@ -21,6 +21,7 @@ public class ObjetView extends ImageView {
         }
         this.setFitHeight(32);
         this.setFitWidth(32);
+        this.setOpacity(0.5);
         this.setImage(img);
 
     }

@@ -9,7 +9,6 @@ public class Platine extends Materiau {
     private final static int PV_MAX = 8;
 
     public Platine() {
-
     }
 
     public Platine(Environnement env, int x, int y) {
