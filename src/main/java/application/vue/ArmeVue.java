@@ -4,6 +4,7 @@ import application.controleur.listeners.ArmeListener;
 import application.modele.Direction;
 import application.modele.Personnage;
 import application.modele.armes.Arme;
+import application.vue.vueEnv.ChargeurRessources;
 import javafx.animation.RotateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,7 +33,7 @@ public class ArmeVue {
     }
 
     private void initListeSprites() {
-        listeSprites = new HashMap<>();
+        listeSprites = ChargeurRessources.iconObjets;
         listeSprites.put("Hache1", new Image("file:src/main/resources/application/arme/sprite_hache1.png"));
         listeSprites.put("Pioche1", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
         listeSprites.put("Epee1", new Image("file:src/main/resources/application/arme/sprite_epee1.png"));
@@ -71,11 +72,6 @@ public class ArmeVue {
             rt.play();
         }
     }
-
-    public HashMap<String, Image> getListeSprites() {
-        return listeSprites;
-    }
-
     public ImageView getSpriteArme() {
         return spriteArme;
     }

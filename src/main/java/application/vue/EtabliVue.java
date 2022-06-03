@@ -3,6 +3,7 @@ package application.vue;
 import application.modele.Etabli;
 import application.modele.MapJeu;
 import application.modele.objets.*;
+import application.vue.vueEnv.ChargeurRessources;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -22,17 +23,15 @@ public class EtabliVue {
     private BorderPane bPaneEtabli;
     private ImageView spriteEtabli;
     private HashMap<String, Image> listeSprites;
-    private HashMap<String, Image> listeImagesMateriaux;
+//    private HashMap<String, Image> listeImagesMateriaux;
 
     public EtabliVue(Etabli etabli, ImageView spriteEtabli, BorderPane bPaneEtabli, ArmeVue armeVue) {
         this.etabli = etabli;
         this.spriteEtabli = spriteEtabli;
         this.bPaneEtabli = bPaneEtabli;
-        listeSprites = new HashMap<>();
-        listeSprites.putAll(armeVue.getListeSprites());
-        listeSprites.put("Etabli", new Image("file:src/main/resources/application/sprite_etabli.png"));
+        listeSprites = ChargeurRessources.iconObjets;
         initSpriteEtabli();
-        initListeImagesMateriaux();
+//        initListeImagesMateriaux();
         bPaneEtabli.setVisible(false);
 
         Iterator iterator = etabli.getListeMateriauxArmesID().iterator();
@@ -42,18 +41,19 @@ public class EtabliVue {
     }
 
     private void initSpriteEtabli() {
+        listeSprites.put("Etabli", new Image("file:src/main/resources/application/sprite_etabli.png"));
         spriteEtabli.setX(15 * TUILE_TAILLE);
         spriteEtabli.setY(11 * TUILE_TAILLE);
     }
 
-    private void initListeImagesMateriaux() {
-        listeImagesMateriaux = new HashMap<>() {{
-            put("Bois", new Image("file:src/main/resources/application/pack1/Bois.png"));
-            put("Pierre", new Image("file:src/main/resources/application/pack1/Pierre.png"));
-            put("Fer", new Image("file:src/main/resources/application/pack1/Fer.png"));
-            put("Platine", new Image("file:src/main/resources/application/pack1/Platine.png"));
-        }};
-    }
+//    private void initListeImagesMateriaux() {
+//        listeImagesMateriaux = new HashMap<>() {{
+//            put("Bois", new Image("file:src/main/resources/application/pack1/Bois.png"));
+//            put("Pierre", new Image("file:src/main/resources/application/pack1/Pierre.png"));
+//            put("Fer", new Image("file:src/main/resources/application/pack1/Fer.png"));
+//            put("Platine", new Image("file:src/main/resources/application/pack1/Platine.png"));
+//        }};
+//    }
 
     public void affichageArmeSelected(Color color) {
         ((HBox) ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelected()))
@@ -68,7 +68,7 @@ public class EtabliVue {
         int i = 0;
         for (String materiau : etabli.getListeMateriauxArmeSelected().keySet()) {
             i++;
-            ((ImageView) paneMateriaux.lookup("#imgViewMateriau" + i)).setImage(listeImagesMateriaux.get(materiau));
+            ((ImageView) paneMateriaux.lookup("#imgViewMateriau" + i)).setImage(listeSprites.get(materiau));
             ((Label) paneMateriaux.lookup("#labelMateriau" + i)).setText(etabli.getListeMateriauxArmeSelected().get(materiau).toString());
         }
 

@@ -131,7 +131,7 @@ public class Etabli {
 
     public boolean peutFabriquer() {
         Set listeMateriaux = null;
-        if (armeSelected.equals("Etabli"))
+        if (armeSelected.equals("Etabli") && niveauProperty.getValue() < 3)
             listeMateriaux = this.listeMateriauxEtabli[niveauProperty.getValue()].entrySet();
         else if (Character.getNumericValue(armeSelected.charAt(armeSelected.length() - 1)) <= niveauProperty.getValue())
             listeMateriaux = this.listeMateriauxArmes.get(armeSelected).entrySet();
