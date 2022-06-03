@@ -62,29 +62,6 @@ public class Environnement {
         }
     }
 
-    public void interaction(int x, int y) {
-        if (!minage(x,y))
-            couper(x,y);
-    }
-
-    private boolean couper(int x, int y) {
-        Arbre arbre = getArbre(x,y);
-        if (arbre != null) {
-            arbre.frappe(personnage.getArme());
-            return true;
-        }
-        return false;
-    }
-
-    private boolean minage(int x, int y) {
-        Materiau minerai = getMinerai(x,y);
-        if (minerai != null) {
-            minerai.frappe(personnage.getArme());
-            return true;
-        }
-        return false;
-    }
-
     public void supprimerObjetEnvironnement(Entite obj) {
         System.out.println(this.listeEntites.remove(obj));
     }

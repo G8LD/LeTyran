@@ -2,10 +2,9 @@ package application.modele;
 
 import application.modele.armes.Arme;
 import application.modele.armes.Pioche;
+import application.modele.objets.Arbre;
 import application.modele.objets.Materiau;
 import javafx.beans.property.*;
-
-import java.util.HashMap;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 
@@ -37,6 +36,29 @@ public class Personnage extends Entite {
         System.out.println(this.getCollider());
         System.out.println(this.getCollider().getHitBox());
         //inventaire.ajouterObjet();
+    }
+
+    public void interagit(int x, int y) {
+        if (!miner(x,y))
+            couper(x,y);
+    }
+
+    private boolean couper(int x, int y) {
+        Arbre arbre = getEnv().getArbre(x,y);
+        if (arbre != null) {
+            arbre.frappe(armeProperty.getValue());
+            return true;
+        }
+        return false;
+    }
+
+    private boolean miner(int x, int y) {
+        Materiau minerai = getEnv().getMinerai(x,y);
+        if (minerai != null) {
+            minerai.frappe(armeProperty.getValue());
+            return true;
+        }
+        return false;
     }
 
     public void seDeplacer() {
