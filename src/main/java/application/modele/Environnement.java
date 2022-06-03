@@ -3,6 +3,7 @@ package application.modele;
 import application.modele.objets.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.media.AudioClip;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 import static application.modele.MapJeu.WIDTH;
@@ -16,6 +17,8 @@ public class Environnement {
     private ObservableList<Materiau> listeMateriaux;
     private ObservableList<Arbre> listeArbres;
     private ObservableList< Coffre> listeCoffres;
+    private AudioClip sound = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
+
 
 
     public Environnement() {
@@ -151,6 +154,9 @@ public class Environnement {
         Coffre coffre = getCoffre(x,y);
         Entite bois= new Bois(this, x, y);
         if(coffre != null){
+            //On baisse le son de l'audio
+            sound.setVolume(5. / 30.);
+            sound.play();
             this.getPersonnage().getInventaire().ajouterObjet(bois);
             listeCoffres.remove(coffre);
             mapJeu.getTabMap()[y][x] = 58;

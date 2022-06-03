@@ -31,6 +31,7 @@ public class Controleur implements Initializable {
     private VieVue vievue;
     private EnnemieVue ennemieVue;
     private EnnemiControleur ennemiControleur;
+    private  Ennemie ennemie;
 
     private Timeline gameLoop;
 
@@ -53,8 +54,9 @@ public class Controleur implements Initializable {
         objetVue = new ObjetVue(this.env, this.root);
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
         vievue = new VieVue(root);
-        this.ennemieVue= new EnnemieVue(root,tileSol);
-        this.ennemiControleur= new EnnemiControleur(root,env, tileSol);
+        this.ennemie= new Ennemie(env);
+        this.ennemieVue= new EnnemieVue(root,tileSol,ennemie,env);
+        this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie);
 
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));

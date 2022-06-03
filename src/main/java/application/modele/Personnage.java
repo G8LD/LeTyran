@@ -83,6 +83,12 @@ public class Personnage extends Entite {
         if (avanceProperty.getValue()) seDeplacer();
 
     }
+    public boolean estMort(){
+        if(this.getPv()==0){
+            return true ;
+        }
+        return false;
+    }
 
     @Override
     public void quandCollisionDetectee(Entite ent) {

@@ -1,5 +1,7 @@
 package application.vue;
 
+import application.modele.Ennemie;
+import application.modele.Environnement;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
@@ -9,11 +11,15 @@ public class EnnemieVue {
     private Pane rootPane;
     private ImageView image;
     private TilePane tileSol;
+    private Ennemie ennemi;
+    private Environnement env;
 
 
-    public EnnemieVue(Pane root, TilePane tilesol){
+    public EnnemieVue(Pane root, TilePane tilesol, Ennemie ennemie, Environnement env){
         this.rootPane=root;
         this.tileSol=tilesol;
+        this.env=env;
+        this.ennemi=new Ennemie(env);
         this.image=new ImageView(new Image("file:src/main/resources/application/perso/cadavre.png"));
         rootPane.getChildren().add(image);
         image.setLayoutX(500);
@@ -25,6 +31,7 @@ public class EnnemieVue {
 
     }
     public void afficherCadavres(){
+        if(this.ennemi.estMort())
         this.image=new ImageView(new Image("file:src/main/resources/application/perso/cadavre.png"));
     }
 
