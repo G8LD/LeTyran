@@ -47,6 +47,7 @@ public class EtabliControleur {
                 etabliVue.affichageInfosArmeSelected();
             fabricable();
         });
+
         //pour afficher les infos d'une arme lorsque cliquée
         for (int i = 1; i < vBoxArmes.getChildren().size(); i++) {
             vBoxArmes.getChildren().get(i).setOnMouseClicked(mouseEvent -> {
@@ -79,13 +80,12 @@ public class EtabliControleur {
         env.getEtabli().getNiveauProperty().addListener(((observableValue, number, t1) -> etabliVue.amelioration()));
 
         //simule un clique pour l'initialisation
-        vBoxArmes.lookup("#" + env.getEtabli().getArmeSelected()).fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
+        vBoxArmes.lookup("#Etabli").fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
                 0, 0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
                 true, true, true, true, true, true, null));
     }
 
     private void fabricable() {
-        System.out.println(env.getEtabli().peutFabriquer());
         if (env.getEtabli().peutFabriquer()) {
             boutonFabriquer.setDisable(false);
             etabliVue.affichageBouton(1);

@@ -85,6 +85,8 @@ public class EtabliVue {
 
     public void affichageEtabli() {
         bPaneEtabli.setVisible(!bPaneEtabli.isVisible());
+        if (bPaneEtabli.isVisible())
+            affichageArmeSelected(Color.WHITE);
     }
 
     public BorderPane getbPaneEtabli() {

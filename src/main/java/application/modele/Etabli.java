@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
+import java.lang.annotation.Target;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -178,6 +179,7 @@ public class Etabli {
             case "Lance" : arme = new Lance(env, Character.getNumericValue(armeSelected.charAt(armeSelected.length()-1))); break;
             default: arme = null; break;
         }
+        System.out.println(arme.getClass().getSimpleName() + arme.getQualite());
         return arme;
     }
 
