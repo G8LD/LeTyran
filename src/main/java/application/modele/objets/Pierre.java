@@ -23,10 +23,4 @@ public class Pierre extends Materiau {
             decrementerPv(1);
         }
     }
-
-    @Override
-    public void quandDetruit() {
-        Pierre pierre = new Pierre(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32);
-        this.getEnv().getListeEntites().add(pierre);
-    }
 }

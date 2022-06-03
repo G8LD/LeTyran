@@ -37,7 +37,7 @@ public class EtabliVue {
 
         Iterator iterator = etabli.getListeMateriauxArmesID().iterator();
         while (iterator.hasNext()) {
-            ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + (String) iterator.next()).setOpacity(0.5);
+            ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + iterator.next()).setOpacity(0.5);
         }
     }
 
@@ -92,6 +92,7 @@ public class EtabliVue {
     }
 
     public void amelioration() {
+        ((Label) bPaneEtabli.lookup("#labelEtabli")).setText("Etabli niveau " + etabli.getNiveau());
         Iterator iterator = etabli.getListeMateriauxArmesID().iterator();
         String idArme;
         while (iterator.hasNext()) {

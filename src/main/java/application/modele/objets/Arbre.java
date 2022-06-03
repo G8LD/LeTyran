@@ -7,9 +7,7 @@ import application.modele.armes.Hache;
 
 public class Arbre extends Entite {
 
-    private final static int PV_MAX = 8;
-
-
+    private final static int PV_MAX = 12;
     private int pv;
 
     public Arbre(Environnement env, int x, int y) {
@@ -44,11 +42,5 @@ public class Arbre extends Entite {
 
     public int getPv() {
         return pv;
-    }
-
-    @Override
-    public void quandDetruit() {
-        Bois bois = new Bois(this.getEnv(), (int)this.getX() * 32, (int)this.getY() * 32);
-        this.getEnv().getListeEntites().add(bois);
     }
 }

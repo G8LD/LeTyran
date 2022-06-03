@@ -116,9 +116,6 @@ public class Entite {
         this.pv.setValue(value);
     }
 
-
-
-
     public void detruire() {
         this.quandDetruit();
     }

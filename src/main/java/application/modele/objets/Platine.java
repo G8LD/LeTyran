@@ -18,6 +18,7 @@ public class Platine extends Materiau {
 
     @Override
     public void frappe(Arme arme) {
+        System.out.println("platine");
         if (arme instanceof Pioche) {
             decrementerPv(arme.nbDegat());
         } else {

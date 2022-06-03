@@ -40,7 +40,7 @@ public class Environnement {
         listeArbres = FXCollections.observableArrayList();
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
-                if (mapJeu.getTabMap()[i][j] == 54) {
+                if (mapJeu.getTabMap()[i][j] == 55) {
                     listeArbres.add(new Arbre(this, j, i));
                 }
             }
@@ -54,11 +54,11 @@ public class Environnement {
                 switch (mapJeu.getTabMap()[i][j]) {
                     case 34:
                         listeMateriaux.add(new Terre(this, j, i));
-                    case 42:
-                        listeMateriaux.add(new Fer(this, j, i));
                     case 52:
                         listeMateriaux.add(new Pierre(this, j, i));
                     case 53:
+                        listeMateriaux.add(new Fer(this, j, i));
+                    case 54:
                         listeMateriaux.add(new Platine(this, j, i));
                     default:
                         break;
@@ -76,7 +76,8 @@ public class Environnement {
         Arbre arbre = getArbre(x,y);
 
         if (arbre != null) {
-            arbre.frappe(personnage.getArme());
+            for (int i = 0; i< arbre.frappe(personnage.getArme()); i++)
+                listeEntites.add(new Bois(this, (int)arbre.getX() * 32, (int)arbre.getY() * 32));
             if (arbre.getPv() <= 0) {
                 listeArbres.remove(arbre);
                 mapJeu.getTabMap()[y][x] = 0;
@@ -145,7 +146,7 @@ public class Environnement {
     }
 
     private boolean estUnObstacle(int x, int y) {
-        return mapJeu.getTabMap()[y][x] == 34 || mapJeu.getTabMap()[y][x] == 42 || mapJeu.getTabMap()[y][x] == 52 || mapJeu.getTabMap()[y][x] == 53;
+        return mapJeu.getTabMap()[y][x] == 34 || mapJeu.getTabMap()[y][x] == 54 || mapJeu.getTabMap()[y][x] == 52 || mapJeu.getTabMap()[y][x] == 53;
     }
 
     public Personnage getPersonnage() {
@@ -168,8 +169,8 @@ public class Environnement {
     }
 
     public Arbre getArbre(int x, int y) {
-        if (mapJeu.getTabMap()[y][x] == 55) y++;
-        else if (mapJeu.getTabMap()[y][x] == 56) y+=2;
+        if (mapJeu.getTabMap()[y][x] == 56) y++;
+        else if (mapJeu.getTabMap()[y][x] == 57) y+=2;
 
         for (Arbre arbre : listeArbres)
             if (arbre.getX() == x && arbre.getY() == y)

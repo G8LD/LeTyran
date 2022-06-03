@@ -62,7 +62,7 @@ public class Etabli {
         listeMateriauxArmes.put("Lance1", new HashMap<>() {{
             put("Bois", 25);
             put("Pierre", 10);
-        }});
+        }});/*
         listeMateriauxArmes.put("Hache2", new HashMap<>() {{
             put("Bois", 5);
             put("Fer", 5);
@@ -100,7 +100,7 @@ public class Etabli {
         listeMateriauxArmes.put("Lance3", new HashMap<>() {{
             put("Bois", 30);
             put("Platine", 17);
-        }});
+        }});*/
     }
 
     public void fabriquer() {
