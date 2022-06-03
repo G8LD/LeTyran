@@ -3,20 +3,15 @@ package application.vue;
 import application.controleur.listeners.ArmeListener;
 import application.modele.Direction;
 import application.modele.Personnage;
-import application.modele.armes.Arme;
 import application.vue.vueEnv.ChargeurRessources;
 import javafx.animation.RotateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class ArmeVue {
 
     private Personnage personnage;
-    private HashMap<String, Image> listeSprites;
     private ImageView spriteArme;
     private RotateTransition rt;
 
@@ -24,31 +19,29 @@ public class ArmeVue {
         this.personnage = personnage;
         this.spriteArme = spriteArme;
 
-        initListeSprites();
-
+        initSprites();
         rt = new RotateTransition(Duration.millis(150), spriteArme);
-        spriteArme.setImage(listeSprites.get("Pioche1"));
+        spriteArme.setImage(ChargeurRessources.iconObjets.get("Pioche1"));
         spriteArme.setVisible(false);
         personnage.getArmeProperty().addListener(new ArmeListener(this));
     }
 
-    private void initListeSprites() {
-        listeSprites = ChargeurRessources.iconObjets;
-        listeSprites.put("Hache1", new Image("file:src/main/resources/application/arme/sprite_hache1.png"));
-        listeSprites.put("Pioche1", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
-        listeSprites.put("Epee1", new Image("file:src/main/resources/application/arme/sprite_epee1.png"));
-        listeSprites.put("Arc1", new Image("file:src/main/resources/application/arme/sprite_arc1.png"));
-        listeSprites.put("Lance1", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
-        listeSprites.put("Hache2", new Image("file:src/main/resources/application/arme/sprite_hache2.png"));
-        listeSprites.put("Pioche2", new Image("file:src/main/resources/application/arme/sprite_pioche2.png"));
-        listeSprites.put("Epee2", new Image("file:src/main/resources/application/arme/sprite_epee2.png"));
-        listeSprites.put("Arc2", new Image("file:src/main/resources/application/arme/sprite_arc2.png"));
-        listeSprites.put("Lance2", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
-        listeSprites.put("Hache3", new Image("file:src/main/resources/application/arme/sprite_hache3.png"));
-        listeSprites.put("Pioche3", new Image("file:src/main/resources/application/arme/sprite_pioche3.png"));
-        listeSprites.put("Epee3", new Image("file:src/main/resources/application/arme/sprite_epee3.png"));
-        listeSprites.put("Arc3", new Image("file:src/main/resources/application/arme/sprite_arc3.png"));
-        listeSprites.put("Lance3", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
+    private void initSprites() {
+        ChargeurRessources.iconObjets.put("Hache1", new Image("file:src/main/resources/application/arme/sprite_hache1.png"));
+        ChargeurRessources.iconObjets.put("Pioche1", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
+        ChargeurRessources.iconObjets.put("Epee1", new Image("file:src/main/resources/application/arme/sprite_epee1.png"));
+        ChargeurRessources.iconObjets.put("Arc1", new Image("file:src/main/resources/application/arme/sprite_arc1.png"));
+        ChargeurRessources.iconObjets.put("Lance1", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
+        ChargeurRessources.iconObjets.put("Hache2", new Image("file:src/main/resources/application/arme/sprite_hache2.png"));
+        ChargeurRessources.iconObjets.put("Pioche2", new Image("file:src/main/resources/application/arme/sprite_pioche2.png"));
+        ChargeurRessources.iconObjets.put("Epee2", new Image("file:src/main/resources/application/arme/sprite_epee2.png"));
+        ChargeurRessources.iconObjets.put("Arc2", new Image("file:src/main/resources/application/arme/sprite_arc2.png"));
+        ChargeurRessources.iconObjets.put("Lance2", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
+        ChargeurRessources.iconObjets.put("Hache3", new Image("file:src/main/resources/application/arme/sprite_hache3.png"));
+        ChargeurRessources.iconObjets.put("Pioche3", new Image("file:src/main/resources/application/arme/sprite_pioche3.png"));
+        ChargeurRessources.iconObjets.put("Epee3", new Image("file:src/main/resources/application/arme/sprite_epee3.png"));
+        ChargeurRessources.iconObjets.put("Arc3", new Image("file:src/main/resources/application/arme/sprite_arc3.png"));
+        ChargeurRessources.iconObjets.put("Lance3", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
         //TODO trouver et mettre les autres sprites
     }
 

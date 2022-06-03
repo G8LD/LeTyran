@@ -43,5 +43,8 @@ public class ChargeurRessources {
         iconObjets.put("Pierre", new Image("file:src/main/resources/application/pack1/Pierre.png"));
         iconObjets.put("Fer", new Image("file:src/main/resources/application/pack1/Fer.png"));
         iconObjets.put("Platine", new Image("file:src/main/resources/application/pack1/Platine.png"));
+        iconObjets.put("Armure1", new Image("file:src/main/resources/application/arme/sprite_armure1.png"));
+        iconObjets.put("Armure2", new Image("file:src/main/resources/application/arme/sprite_armure2.png"));
+        iconObjets.put("Armure3", new Image("file:src/main/resources/application/arme/sprite_armure3.png"));
     }
 }
