@@ -36,12 +36,12 @@ public class ArmeVue {
         ChargeurRessources.iconObjets.put("Pioche2", new Image("file:src/main/resources/application/arme/sprite_pioche2.png"));
         ChargeurRessources.iconObjets.put("Epee2", new Image("file:src/main/resources/application/arme/sprite_epee2.png"));
         ChargeurRessources.iconObjets.put("Arc2", new Image("file:src/main/resources/application/arme/sprite_arc2.png"));
-        ChargeurRessources.iconObjets.put("Lance2", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
+        ChargeurRessources.iconObjets.put("Lance2", new Image("file:src/main/resources/application/arme/sprite_lance2.png"));
         ChargeurRessources.iconObjets.put("Hache3", new Image("file:src/main/resources/application/arme/sprite_hache3.png"));
         ChargeurRessources.iconObjets.put("Pioche3", new Image("file:src/main/resources/application/arme/sprite_pioche3.png"));
         ChargeurRessources.iconObjets.put("Epee3", new Image("file:src/main/resources/application/arme/sprite_epee3.png"));
         ChargeurRessources.iconObjets.put("Arc3", new Image("file:src/main/resources/application/arme/sprite_arc3.png"));
-        ChargeurRessources.iconObjets.put("Lance3", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
+        ChargeurRessources.iconObjets.put("Lance3", new Image("file:src/main/resources/application/arme/sprite_lance3.png"));
         //TODO trouver et mettre les autres sprites
     }
 

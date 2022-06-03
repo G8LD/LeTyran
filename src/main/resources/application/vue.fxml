@@ -146,7 +146,7 @@
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@arme/sprite_lance1.png" />
+                                    <Image url="@arme/sprite_lance2.png" />
                                  </image>
                               </ImageView>
                               <Label prefHeight="64.0" prefWidth="126.0" text="Lance en Fer" textFill="WHITE" />
@@ -206,7 +206,7 @@
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@arme/sprite_lance1.png" />
+                                    <Image url="@arme/sprite_lance3.png" />
                                  </image>
                               </ImageView>
                               <Label prefHeight="64.0" prefWidth="126.0" text="Lance en Platine" textFill="WHITE" />
