@@ -39,14 +39,14 @@ public class ArmeVue {
         listeSprites.put("Epee1", new Image("file:src/main/resources/application/arme/sprite_epee1.png"));
         listeSprites.put("Arc1", new Image("file:src/main/resources/application/arme/sprite_arc1.png"));
         listeSprites.put("Lance1", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
-        listeSprites.put("Hache2", new Image("file:src/main/resources/application/arme/sprite_hache1.png"));
-        listeSprites.put("Pioche2", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
-        listeSprites.put("Epee2", new Image("file:src/main/resources/application/arme/sprite_epee1.png"));
+        listeSprites.put("Hache2", new Image("file:src/main/resources/application/arme/sprite_hache2.png"));
+        listeSprites.put("Pioche2", new Image("file:src/main/resources/application/arme/sprite_pioche2.png"));
+        listeSprites.put("Epee2", new Image("file:src/main/resources/application/arme/sprite_epee2.png"));
         listeSprites.put("Arc2", new Image("file:src/main/resources/application/arme/sprite_arc1.png"));
         listeSprites.put("Lance2", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
-        listeSprites.put("Hache3", new Image("file:src/main/resources/application/arme/sprite_hache1.png"));
-        listeSprites.put("Pioche3", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
-        listeSprites.put("Epee3", new Image("file:src/main/resources/application/arme/sprite_epee1.png"));
+        listeSprites.put("Hache3", new Image("file:src/main/resources/application/arme/sprite_hache3.png"));
+        listeSprites.put("Pioche3", new Image("file:src/main/resources/application/arme/sprite_pioche3.png"));
+        listeSprites.put("Epee3", new Image("file:src/main/resources/application/arme/sprite_epee3.png"));
         listeSprites.put("Arc3", new Image("file:src/main/resources/application/arme/sprite_arc1.png"));
         listeSprites.put("Lance3", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
         //TODO trouver et mettre les autres sprites

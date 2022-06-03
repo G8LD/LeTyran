@@ -63,10 +63,10 @@ public class EnvironnementVue {
                             img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
                             break;
                         case 1:
-                            img = new ImageView(new Image("file:src/main/resources/application/pack1/tile000.png"));
+                            img = new ImageView(new Image("file:src/main/resources/application/pack1/sprite_epee1.png"));
                             break;
                         case 3:
-                            img = new ImageView(new Image("file:src/main/resources/application/pack1/tile002.png"));
+                            img = new ImageView(new Image("file:src/main/resources/application/pack1/sprite_pioche1.png"));
                             break;
                         case 5:
                             img = new ImageView(new Image("file:src/main/resources/application/pack1/tile004.png"));

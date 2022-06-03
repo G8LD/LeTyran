@@ -96,7 +96,7 @@
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@arme/sprite_hache1.png" />
+                                    <Image url="@arme/sprite_hache2.png" />
                                  </image>
                               </ImageView>
                               <Label prefHeight="64.0" prefWidth="126.0" text="Hache en Fer" textFill="WHITE" />
@@ -106,7 +106,7 @@
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@arme/sprite_pioche1.png" />
+                                    <Image url="@arme/sprite_pioche2.png" />
                                  </image>
                               </ImageView>
                               <Label prefHeight="64.0" prefWidth="126.0" text="Pioche en Fer" textFill="WHITE" />
@@ -116,7 +116,7 @@
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@arme/sprite_epee1.png" />
+                                    <Image url="@arme/sprite_epee2.png" />
                                  </image>
                               </ImageView>
                               <Label prefHeight="64.0" prefWidth="126.0" text="Epee en Fer" textFill="WHITE" />
@@ -146,7 +146,7 @@
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@arme/sprite_hache1.png" />
+                                    <Image url="@arme/sprite_hache3.png" />
                                  </image>
                               </ImageView>
                               <Label prefHeight="64.0" prefWidth="126.0" text="Hache en Platine" textFill="WHITE" />
@@ -156,7 +156,7 @@
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@arme/sprite_pioche1.png" />
+                                    <Image url="@arme/sprite_pioche3.png" />
                                  </image>
                               </ImageView>
                               <Label prefHeight="64.0" prefWidth="126.0" text="Pioche en Platine" textFill="WHITE" />
@@ -166,7 +166,7 @@
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@arme/sprite_epee1.png" />
+                                    <Image url="@arme/sprite_epee3.png" />
                                  </image>
                               </ImageView>
                               <Label prefHeight="64.0" prefWidth="126.0" text="Epee en Platine" textFill="WHITE" />
