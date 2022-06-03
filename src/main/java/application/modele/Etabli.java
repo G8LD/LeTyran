@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
-import java.lang.annotation.Target;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -17,9 +16,9 @@ public class Etabli {
     private IntegerProperty niveauProperty;
     private Environnement env;
     private Inventaire inventaire;
-    private ObservableMap<String, HashMap<String, Integer>> listeMateriauxArmes;
+    private ObservableMap<String, HashMap<String, Integer>> listeMateriauxObjets;
     private HashMap<String, Integer>[] listeMateriauxEtabli;
-    private String armeSelected;
+    private String objetSelected;
 
     public Etabli(Environnement env) {
         niveauProperty = new SimpleIntegerProperty(0);
@@ -27,7 +26,7 @@ public class Etabli {
         inventaire = env.getPersonnage().getInventaire();
         initListeMateriauxEtabli();
         initListeMateriauxArmes();
-        armeSelected = "Etabli";
+        objetSelected = "Etabli";
     }
 
     private void initListeMateriauxEtabli() {
@@ -43,62 +42,62 @@ public class Etabli {
         }};
     }
 
-    //TODO ajouter les autres armes
+    //TODO ajouter les autres objets
     private void initListeMateriauxArmes() {
-        listeMateriauxArmes = FXCollections.observableHashMap();
-        listeMateriauxArmes.put("Hache1", new HashMap<>() {{
+        listeMateriauxObjets = FXCollections.observableHashMap();
+        listeMateriauxObjets.put("Hache1", new HashMap<>() {{
             put("Bois", 3);
             put("Pierre", 1);
         }});
-        listeMateriauxArmes.put("Pioche1", new HashMap<>() {{
+        listeMateriauxObjets.put("Pioche1", new HashMap<>() {{
             put("Bois", 3);
             put("Pierre", 1);
         }});
-        listeMateriauxArmes.put("Epee1", new HashMap<>() {{
+        listeMateriauxObjets.put("Epee1", new HashMap<>() {{
             put("Bois", 10);
         }});
-        listeMateriauxArmes.put("Arc1", new HashMap<>() {{
+        listeMateriauxObjets.put("Arc1", new HashMap<>() {{
             put("Bois", 15);
         }});
-        listeMateriauxArmes.put("Lance1", new HashMap<>() {{
+        listeMateriauxObjets.put("Lance1", new HashMap<>() {{
             put("Bois", 25);
             put("Pierre", 10);
         }});
-        listeMateriauxArmes.put("Hache2", new HashMap<>() {{
+        listeMateriauxObjets.put("Hache2", new HashMap<>() {{
             put("Bois", 5);
             put("Fer", 5);
         }});
-        listeMateriauxArmes.put("Pioche2", new HashMap<>() {{
+        listeMateriauxObjets.put("Pioche2", new HashMap<>() {{
             put("Bois", 5);
             put("Fer", 5);
         }});
-        listeMateriauxArmes.put("Epee2", new HashMap<>() {{
+        listeMateriauxObjets.put("Epee2", new HashMap<>() {{
             put("Fer", 10);
         }});
-        listeMateriauxArmes.put("Arc2", new HashMap<>() {{
+        listeMateriauxObjets.put("Arc2", new HashMap<>() {{
             put("Bois", 15);
             put("Fer", 10);
         }});
-        listeMateriauxArmes.put("Lance2", new HashMap<>() {{
+        listeMateriauxObjets.put("Lance2", new HashMap<>() {{
             put("Bois", 30);
             put("Fer", 15);
         }});
-        listeMateriauxArmes.put("Hache3", new HashMap<>() {{
+        listeMateriauxObjets.put("Hache3", new HashMap<>() {{
             put("Bois", 10);
             put("Platine", 10);
         }});
-        listeMateriauxArmes.put("Pioche3", new HashMap<>() {{
+        listeMateriauxObjets.put("Pioche3", new HashMap<>() {{
             put("Bois", 10);
             put("Platine", 10);
         }});
-        listeMateriauxArmes.put("Epee3", new HashMap<>() {{
+        listeMateriauxObjets.put("Epee3", new HashMap<>() {{
             put("Platine", 10);
         }});
-        listeMateriauxArmes.put("Arc3", new HashMap<>() {{
+        listeMateriauxObjets.put("Arc3", new HashMap<>() {{
             put("Bois", 15);
             put("Platine", 10);
         }});
-        listeMateriauxArmes.put("Lance3", new HashMap<>() {{
+        listeMateriauxObjets.put("Lance3", new HashMap<>() {{
             put("Bois", 30);
             put("Platine", 17);
         }});
@@ -106,10 +105,10 @@ public class Etabli {
 
     public void fabriquer() {
         Set listeMateriaux;
-        if (armeSelected.equals("Etabli"))
+        if (objetSelected.equals("Etabli"))
             listeMateriaux = this.listeMateriauxEtabli[niveauProperty.getValue()].entrySet();
         else
-            listeMateriaux = this.listeMateriauxArmes.get(armeSelected).entrySet();
+            listeMateriaux = this.listeMateriauxObjets.get(objetSelected).entrySet();
         Iterator iterator = listeMateriaux.iterator();
         Map.Entry materiau;
         int cpt, i;
@@ -124,7 +123,7 @@ public class Etabli {
                 i++;
             }
         }
-        if (armeSelected.equals("Etabli"))
+        if (objetSelected.equals("Etabli"))
             niveauProperty.setValue(niveauProperty.getValue() + 1);
         else
             inventaire.ajouterObjet(armeCorrespondant());
@@ -132,10 +131,10 @@ public class Etabli {
 
     public boolean peutFabriquer() {
         Set listeMateriaux = null;
-        if (armeSelected.equals("Etabli") && niveauProperty.getValue() < 3)
+        if (objetSelected.equals("Etabli") && niveauProperty.getValue() < 3)
             listeMateriaux = this.listeMateriauxEtabli[niveauProperty.getValue()].entrySet();
-        else if (Character.getNumericValue(armeSelected.charAt(armeSelected.length() - 1)) <= niveauProperty.getValue())
-            listeMateriaux = this.listeMateriauxArmes.get(armeSelected).entrySet();
+        else if (Character.getNumericValue(objetSelected.charAt(objetSelected.length() - 1)) <= niveauProperty.getValue())
+            listeMateriaux = this.listeMateriauxObjets.get(objetSelected).entrySet();
 
         if (listeMateriaux != null) {
             boolean fabricable;
@@ -161,37 +160,37 @@ public class Etabli {
             return false;
     }
 
-    public String getArmeSelected() {
-        return armeSelected;
+    public String getObjetSelected() {
+        return objetSelected;
     }
 
-    public void setArmeSelected(String armeSelected) {
-        this.armeSelected = armeSelected;
+    public void setObjetSelected(String objetSelected) {
+        this.objetSelected = objetSelected;
     }
 
     private Arme armeCorrespondant() {
         Arme arme;
-        switch (armeSelected.substring(0, armeSelected.length() - 1)) {
-            case "Hache": arme = new Hache(env, Character.getNumericValue(armeSelected.charAt(armeSelected.length()-1))); break;
-            case "Pioche" : arme = new Pioche(env, Character.getNumericValue(armeSelected.charAt(armeSelected.length()-1))); break;
-            case "Epee" : arme = new Epee(env, Character.getNumericValue(armeSelected.charAt(armeSelected.length()-1))); break;
-            case "Arc" : arme = new Arc(env, Character.getNumericValue(armeSelected.charAt(armeSelected.length()-1))); break;
-            case "Lance" : arme = new Lance(env, Character.getNumericValue(armeSelected.charAt(armeSelected.length()-1))); break;
+        switch (objetSelected.substring(0, objetSelected.length() - 1)) {
+            case "Hache": arme = new Hache(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
+            case "Pioche" : arme = new Pioche(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
+            case "Epee" : arme = new Epee(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
+            case "Arc" : arme = new Arc(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
+            case "Lance" : arme = new Lance(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
             default: arme = null; break;
         }
         System.out.println(arme.getClass().getSimpleName() + arme.getQualite());
         return arme;
     }
 
-    public Set<String> getListeMateriauxArmesID() {
-        return listeMateriauxArmes.keySet();
+    public Set<String> getObjetsID() {
+        return listeMateriauxObjets.keySet();
     }
 
-    public HashMap<String, Integer> getListeMateriauxArmeSelected() {
-        if (armeSelected.equals("Etabli"))
+    public HashMap<String, Integer> getListeMateriauxObjetSelected() {
+        if (objetSelected.equals("Etabli"))
             return listeMateriauxEtabli[niveauProperty.getValue()];
         else
-            return listeMateriauxArmes.get(armeSelected);
+            return listeMateriauxObjets.get(objetSelected);
     }
 
     public final int getNiveau() {

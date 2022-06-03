@@ -1,8 +1,6 @@
 package application.vue;
 
 import application.modele.Etabli;
-import application.modele.MapJeu;
-import application.modele.objets.*;
 import application.vue.vueEnv.ChargeurRessources;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -34,7 +32,7 @@ public class EtabliVue {
 //        initListeImagesMateriaux();
         bPaneEtabli.setVisible(false);
 
-        Iterator iterator = etabli.getListeMateriauxArmesID().iterator();
+        Iterator iterator = etabli.getObjetsID().iterator();
         while (iterator.hasNext()) {
             ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + iterator.next()).setOpacity(0.5);
         }
@@ -56,20 +54,20 @@ public class EtabliVue {
 //    }
 
     public void affichageArmeSelected(Color color) {
-        ((HBox) ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getArmeSelected()))
+        ((HBox) ((ScrollPane) bPaneEtabli.lookup("#sPArmes")).getContent().lookup("#" + etabli.getObjetSelected()))
                 .setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
     }
 
     public void affichageInfosArmeSelected() {
         Node vBoxFabriquer = bPaneEtabli.lookup("#VboxFabriquer");
-        ((ImageView) vBoxFabriquer.lookup("#imgViewArme")).setImage(listeSprites.get(etabli.getArmeSelected()));
+        ((ImageView) vBoxFabriquer.lookup("#imgViewArme")).setImage(listeSprites.get(etabli.getObjetSelected()));
 
         Node paneMateriaux = vBoxFabriquer.lookup("#PaneMateriaux");
         int i = 0;
-        for (String materiau : etabli.getListeMateriauxArmeSelected().keySet()) {
+        for (String materiau : etabli.getListeMateriauxObjetSelected().keySet()) {
             i++;
             ((ImageView) paneMateriaux.lookup("#imgViewMateriau" + i)).setImage(listeSprites.get(materiau));
-            ((Label) paneMateriaux.lookup("#labelMateriau" + i)).setText(etabli.getListeMateriauxArmeSelected().get(materiau).toString());
+            ((Label) paneMateriaux.lookup("#labelMateriau" + i)).setText(etabli.getListeMateriauxObjetSelected().get(materiau).toString());
         }
 
         if (i == 1) {
@@ -95,7 +93,7 @@ public class EtabliVue {
 
     public void amelioration() {
         ((Label) bPaneEtabli.lookup("#labelEtabli")).setText("Etabli niveau " + etabli.getNiveau());
-        Iterator iterator = etabli.getListeMateriauxArmesID().iterator();
+        Iterator iterator = etabli.getObjetsID().iterator();
         String idArme;
         while (iterator.hasNext()) {
             idArme = (String) iterator.next();

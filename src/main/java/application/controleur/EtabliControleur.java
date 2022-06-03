@@ -11,8 +11,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import java.util.Iterator;
-
 import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class EtabliControleur {
@@ -41,7 +39,7 @@ public class EtabliControleur {
 
         vBoxArmes.getChildren().get(0).setOnMouseClicked(mouseEvent -> {
             etabliVue.affichageArmeSelected(Color.BLACK);
-            env.getEtabli().setArmeSelected(((HBox)mouseEvent.getSource()).getId());
+            env.getEtabli().setObjetSelected(((HBox)mouseEvent.getSource()).getId());
             etabliVue.affichageArmeSelected(Color.WHITE);
             if (env.getEtabli().getNiveau() < 3)
                 etabliVue.affichageInfosArmeSelected();
@@ -52,7 +50,7 @@ public class EtabliControleur {
         for (int i = 1; i < vBoxArmes.getChildren().size(); i++) {
             vBoxArmes.getChildren().get(i).setOnMouseClicked(mouseEvent -> {
                 etabliVue.affichageArmeSelected(Color.BLACK);
-                env.getEtabli().setArmeSelected(((HBox)mouseEvent.getSource()).getId());
+                env.getEtabli().setObjetSelected(((HBox)mouseEvent.getSource()).getId());
                 etabliVue.affichageArmeSelected(Color.WHITE);
                 etabliVue.affichageInfosArmeSelected();
                 fabricable();
@@ -62,7 +60,7 @@ public class EtabliControleur {
         //pour lancer la fabrication
         boutonFabriquer.setOnAction(actionEvent -> {
             env.getEtabli().fabriquer();
-            if (env.getEtabli().getArmeSelected().equals("Etabli"))
+            if (env.getEtabli().getObjetSelected().equals("Etabli"))
                 if (env.getEtabli().getNiveau() < 3)
                     etabliVue.affichageInfosArmeSelected();
                 else
