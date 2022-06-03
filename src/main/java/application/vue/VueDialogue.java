@@ -31,11 +31,13 @@ public class VueDialogue {
 
     }
 
-    public void afficherDebut() {
+    public void prochainePartie() {
         this.afficherFin = false;
         partieTexteAffiche = 0;
         caractereActuel = 0;
+
     }
+
     public void afficherFin() {
         this.afficherFin = true;
     }

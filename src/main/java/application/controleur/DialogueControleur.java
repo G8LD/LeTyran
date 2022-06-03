@@ -22,17 +22,14 @@ public class DialogueControleur implements EventHandler<MouseEvent> {
 
         nombreClick++;
 
-        if(nombreClick == 3) {
-            this.vueDialogue.fermer();
-        } else {
-            this.vueDialogue.afficherDebut();
-        }
-
-
         if (nombreClick == 1) {
             this.vueDialogue.afficherFin();
         } else if(nombreClick == 2 && !this.modDialog.dernierePartie()) {
+            this.vueDialogue.prochainePartie();
             this.modDialog.avancerPartie();
+           nombreClick = 0;
+        } else if(nombreClick == 3 || nombreClick == 2 && this.modDialog.dernierePartie()) {
+            this.vueDialogue.fermer();
         }
 
     }

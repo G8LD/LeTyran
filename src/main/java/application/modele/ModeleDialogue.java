@@ -9,8 +9,11 @@ public class ModeleDialogue {
 
     public ModeleDialogue () {
         texteEntier = new ArrayList<>();
-        texteEntier.add(new String("Bonjour, bienvenue au village Village"));
-        texteEntier.add(new String("Je suis le chef de ce village"));
+        texteEntier.add("Bonjour, bienvenue au village Village");
+        texteEntier.add("Je suis le chef de ce village");
+        texteEntier.add("Nous devons arrêter le méchant Steven");
+        texteEntier.add("Il nous a volé nos précieuses cartes pokémons");
+        texteEntier.add("Ayoub a tenté de les récupérer, cependant il est décédé après avoir trébuché sur un oustiti");
 
         partieActuelle = 0;
         nombrePartieTotal = texteEntier.size() - 1;
