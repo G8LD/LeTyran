@@ -1,6 +1,8 @@
 package application.modele.armes;
 
-public abstract class Arme {
+import application.modele.Entite;
+
+public abstract class Arme extends Entite {
 
     private int qualite;
 

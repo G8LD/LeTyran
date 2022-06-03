@@ -32,7 +32,7 @@ public class Personnage extends Entite {
         //this.getCollider().scaleCollider(32,32);
         System.out.println(this.getCollider());
         System.out.println(this.getCollider().getHitBox());
-        //inventaire.ajouterObjet();
+        inventaire.ajouterObjet(new Pioche(1));
     }
 
     public void seDeplacer() {

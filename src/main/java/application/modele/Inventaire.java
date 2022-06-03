@@ -1,5 +1,6 @@
 package application.modele;
 
+import application.modele.armes.Pioche;
 import application.vue.controls.InvItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,17 +11,17 @@ import java.util.HashMap;
 public class Inventaire {
     private int MAX_OBJET = 1;
     private ObservableList<ObjetInventaire> objets = FXCollections.observableArrayList();
-    private ArrayList<Integer> placesDisponibles;
 
     private int stackMax = 5;
-    public final static int PLACE_INVENTAIRE = 32;
+    public final static int PLACE_INVENTAIRE = 20;
+    public final static int PLACE_MAIN_PERSONNAGE = 5;
 
     private Environnement env;
     public Inventaire(Environnement env) {
 
 
         this.env = env;
-
+        //this.ajouterObjet(new Pioche(10));
 
     }
 
@@ -29,12 +30,25 @@ public class Inventaire {
         return objets;
     }
 
+    public void trierObjetInventaireParPlace() {
+        int j;
+        for (int i = 0; i < objets.size(); i++) {
+            ObjetInventaire objEnCours = objets.get(i);
+            j = i;
+            while(j > 0 && objets.get(j - 1).getPlaceInventaire() > objEnCours.getPlaceInventaire()) {
+                objets.set(j, objets.get(j));
+                j = j - 1;
+            }
+
+            objets.set(j,objEnCours);
+        }
+    }
+
 
     public void ajouterObjetVersionDeux(Entite ent) {
 
         ArrayList<Integer> placeDisponible = new ArrayList<>();
         for(int i = 0; i < PLACE_INVENTAIRE; i++) {
-
             placeDisponible.add(i);
         }
 
@@ -50,24 +64,32 @@ public class Inventaire {
             placeDisponible.remove(objetStockee.getPlaceInventaire());
 
             if(objetStockee.getEntite().getClass() == ent.getClass()) {
-                if(objetStockee.getNombre() < stackMax && (placeActuel < 0 || placeActuel < objetStockee.getPlaceInventaire())) {
+
+                if(objetStockee.getNombre() < stackMax && placeActuel < objetStockee.getPlaceInventaire()) {
                     placeActuel = objetStockee.getPlaceInventaire();
                     indexStack = i;
                 }
             }
 
-            System.out.println(objetStockee.getPlaceInventaire());
-
-
         }
 
-        if(indexStack >= 0) {
-            this.getObjets().get(indexStack).ajouterDansStack();
-        } else {
 
+        if(indexStack < 0) {
+            System.out.print("Place dispo : [");
+            for(int place : placeDisponible) {
+                System.out.print(place +",");
+            }
+            System.out.println("]");
             ObjetInventaire nouvObjet = new ObjetInventaire(ent);
-            nouvObjet.setPlaceInventaire(placeDisponible.get(0));
+            if(this.getObjets().size() > 0) {
+                nouvObjet.setPlaceInventaire(this.getObjets().get(this.getObjets().size() - 1).getPlaceInventaire() + 1);
+            } else {
+                nouvObjet.setPlaceInventaire(0);
+            }
+
             this.getObjets().add(nouvObjet);
+        } else {
+            this.getObjets().get(indexStack).ajouterDansStack();
 
         }
 
@@ -80,9 +102,11 @@ public class Inventaire {
 
 
     public void ajouterObjet(Entite obj) {
-
+        trierObjetInventaireParPlace();
         ajouterObjetVersionDeux(obj);
-        this.env.getEntites().remove(obj);
+        if (this.env.getEntites() != null) {
+            this.env.getEntites().remove(obj);
+        }
 
 
     }

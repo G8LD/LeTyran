@@ -6,6 +6,8 @@ import javafx.scene.layout.Pane;
 
 public class InvSlot extends Pane {
     private ImageView imgView;
+    private boolean estPlaceMain;
+    private int index;
 
     public InvSlot(Image img) {
         this.imgView = new ImageView();
@@ -14,9 +16,27 @@ public class InvSlot extends Pane {
         this.getChildren().add(imgView);
     }
 
+    public InvSlot(Image img, boolean placeMain) {
+        this.imgView = new ImageView();
+        imgView.setImage(img);
+
+        this.getChildren().add(imgView);
+        this.estPlaceMain = placeMain;
+    }
+
+    public void setIndex(int indx) {
+        this.index = indx;
+    }
+
     public void setSize(int x, int y) {
         this.imgView.setFitWidth(x);
         this.imgView.setFitHeight(y);
 
     }
+
+    public boolean getEstPlaceMain() {
+        return estPlaceMain;
+    }
+
+
 }

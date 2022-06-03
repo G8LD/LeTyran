@@ -11,6 +11,7 @@ public class ObjetInventaire {
     public ObjetInventaire(Entite ent) {
         this.entite = ent;
         this.stackActuel = new SimpleIntegerProperty(1);
+
     }
 
     public int getPlaceInventaire() {
@@ -18,6 +19,7 @@ public class ObjetInventaire {
     }
 
     public void setPlaceInventaire(int nouvellePlace) {
+
         this.placeInventaire = nouvellePlace;
     }
 

@@ -16,6 +16,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.media.AudioClip;
 
+import static application.modele.Inventaire.PLACE_INVENTAIRE;
+import static application.modele.Inventaire.PLACE_MAIN_PERSONNAGE;
+
 public class InventaireVue {
     private Inventaire inv;
 
@@ -39,6 +42,7 @@ public class InventaireVue {
 
         this.invPaneConteneur.setVisible(false);
         this.ajouterListeObjets();
+        this.ajouterListeObjetDansLaMain();
 
         this.inv.getObjets().addListener(new ListChangeListener<ObjetInventaire>() {
             @Override
@@ -144,13 +148,13 @@ public class InventaireVue {
         color.setPaint(Color.RED);
 
         int indexItem = 0;
-        for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < PLACE_INVENTAIRE / 10; i++) {
             for(int j =0; j < 10; j++) {
                 InvSlot invSlot = new InvSlot(slotImg);
 
                 invSlot.setSize(48,48);
                 invSlot.setLayoutX(48 * j);
-                invSlot.setLayoutY(48 * i);
+                invSlot.setLayoutY(48 * (i+1));
 
                 //Ajouter un autre conteneur pour les items
                 this.invPaneConteneur.getChildren().add(invSlot);
@@ -189,6 +193,36 @@ public class InventaireVue {
 
         }
     }
+
+    public void ajouterListeObjetDansLaMain() {
+
+        int indexItem = 0;
+
+        for(int j =0; j < PLACE_MAIN_PERSONNAGE; j++) {
+            InvSlot invSlot = new InvSlot(slotImg, true);
+            invSlot.setIndex(j);
+            invSlot.setSize(48,48);
+            invSlot.setLayoutX(48 * j /*+ 48 * (PLACE_INVENTAIRE/10)*/);
+
+
+            //invSlot.setLayoutY(10);
+
+            //Ajouter un autre conteneur pour les items
+            this.invPaneConteneur.getChildren().add(invSlot);
+
+            //On vérifie que l'index ne dépasse pas le nombre d'objets actuellement portés
+            if (indexItem < inv.getObjets().size()) {
+
+                InvItem slot = new InvItem(this, inv.getObjets().get(indexItem), invSlot);
+                slot.setPrefWidth(32);
+                slot.setPrefHeight(32);
+
+                invSlot.getChildren().add(slot);
+                indexItem++;
+            }
+        }
+    }
+
 
     public void lacherObjetInventaire(InvItem item) {
         this.controleur.lacherObjet(item);
