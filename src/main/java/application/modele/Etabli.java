@@ -60,8 +60,8 @@ public class Etabli {
             put("Bois", 15);
         }});
         listeMateriauxObjets.put("Lance1", new HashMap<>() {{
-            put("Bois", 25);
-            put("Pierre", 10);
+            put("Bois", 20);
+            put("Pierre", 15);
         }});
         listeMateriauxObjets.put("Armure1", new HashMap<>() {{
             put("Bois", 20);
@@ -82,7 +82,7 @@ public class Etabli {
             put("Fer", 10);
         }});
         listeMateriauxObjets.put("Lance2", new HashMap<>() {{
-            put("Bois", 30);
+            put("Bois", 20);
             put("Fer", 15);
         }});
         listeMateriauxObjets.put("Armure2", new HashMap<>() {{
@@ -104,8 +104,8 @@ public class Etabli {
             put("Platine", 10);
         }});
         listeMateriauxObjets.put("Lance3", new HashMap<>() {{
-            put("Bois", 30);
-            put("Platine", 17);
+            put("Bois", 20);
+            put("Platine", 15);
         }});
         listeMateriauxObjets.put("Armure3", new HashMap<>() {{
             put("Platine", 20);
