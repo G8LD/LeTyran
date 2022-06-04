@@ -23,7 +23,7 @@ public class Etabli {
     public Etabli(Environnement env) {
         niveauProperty = new SimpleIntegerProperty(0);
         this.env = env;
-        inventaire = env.getPersonnage().getInventaire();
+        inventaire = env.getJoueur().getInventaire();
         initListeMateriauxEtabli();
         initListeMateriauxArmes();
         objetSelected = "Etabli";

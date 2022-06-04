@@ -16,9 +16,9 @@ public class MousePressed implements EventHandler<MouseEvent> {
     }
     @Override
     public void handle(MouseEvent mouseEvent) {
-        if(mouseEvent.getX() <= env.getPersonnage().getX()+2*TUILE_TAILLE && mouseEvent.getX() >= env.getPersonnage().getX()-TUILE_TAILLE
-                && mouseEvent.getY() <= env.getPersonnage().getY()+2*TUILE_TAILLE && mouseEvent.getY() >= env.getPersonnage().getY()-TUILE_TAILLE) {
-            env.getPersonnage().interagit((int) mouseEvent.getX() / TUILE_TAILLE,(int) mouseEvent.getY() / TUILE_TAILLE);
+        if(mouseEvent.getX() <= env.getJoueur().getX()+2*TUILE_TAILLE && mouseEvent.getX() >= env.getJoueur().getX()-TUILE_TAILLE
+                && mouseEvent.getY() <= env.getJoueur().getY()+2*TUILE_TAILLE && mouseEvent.getY() >= env.getJoueur().getY()-TUILE_TAILLE) {
+            env.getJoueur().interagit((int) mouseEvent.getX() / TUILE_TAILLE,(int) mouseEvent.getY() / TUILE_TAILLE);
             controleur.getArmeVue().animationFrappe();
         }
     }

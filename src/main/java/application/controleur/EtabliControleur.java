@@ -29,11 +29,11 @@ public class EtabliControleur {
         boutonFabriquer = (Button) etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer");
 
         root.lookup("#spriteEtabli").setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getX() <= env.getPersonnage().getX()+2*TUILE_TAILLE && mouseEvent.getX() >= env.getPersonnage().getX()-TUILE_TAILLE
-                    && mouseEvent.getY() <= env.getPersonnage().getY()+2*TUILE_TAILLE && mouseEvent.getY() >= env.getPersonnage().getY()-TUILE_TAILLE) {
+            if (mouseEvent.getX() <= env.getJoueur().getX()+2*TUILE_TAILLE && mouseEvent.getX() >= env.getJoueur().getX()-TUILE_TAILLE
+                    && mouseEvent.getY() <= env.getJoueur().getY()+2*TUILE_TAILLE && mouseEvent.getY() >= env.getJoueur().getY()-TUILE_TAILLE) {
                 fabricable();
                 etabliVue.affichageEtabli();
-                env.getPersonnage().freezer();
+                env.getJoueur().freezer();
             }
         });
 
@@ -71,7 +71,7 @@ public class EtabliControleur {
 
         ((Button) etabliVue.getbPaneEtabli().lookup("#boutonFermer")).setOnAction(actionEvent -> {
             etabliVue.affichageEtabli();
-            env.getPersonnage().freezer();
+            env.getJoueur().freezer();
             root.requestFocus();
         });
 

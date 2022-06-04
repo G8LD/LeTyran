@@ -54,8 +54,8 @@ public class Inventaire {
 
 
         //On veut afficher l'objet sur la carte
-        ent.setX(this.env.getPersonnage().getX() + 32);
-        ent.setY(this.env.getPersonnage().getY());
+        ent.setX(this.env.getJoueur().getX() + 32);
+        ent.setY(this.env.getJoueur().getY());
 
         this.env.getListeEntites().add(ent);
         ent.getCollider().setIgnoreCollision(false);

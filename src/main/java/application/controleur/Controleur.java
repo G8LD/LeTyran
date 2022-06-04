@@ -1,6 +1,5 @@
 package application.controleur;
 
-import application.controleur.listeners.PersonnageListener;
 import application.controleur.listeners.VieListener;
 import application.modele.Environnement;
 import application.vue.ArmeVue;
@@ -45,10 +44,10 @@ public class Controleur implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         env = new Environnement();
 
-        personnageVue = new PersonnageVue(env.getPersonnage(), spriteJoueur);
+        personnageVue = new PersonnageVue(env.getJoueur(), spriteJoueur);
         mapVue = new EnvironnementVue(env, tileSol, tileDecors, tileFond);
         objetVue = new ObjetVue(this.env, this.root);
-        armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
+        armeVue = new ArmeVue(env.getJoueur(), spriteArme);
         vievue = new VieVue(root);
         etabliVue =new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
 
@@ -56,7 +55,7 @@ public class Controleur implements Initializable {
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
-        this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
+        this.env.getJoueur().getPVProperty().addListener(new VieListener(vievue, this.env.getJoueur()));
         new EtabliControleur(root,env, etabliVue);
         initAnimation();
         gameLoop.play();
@@ -70,7 +69,7 @@ public class Controleur implements Initializable {
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.017),
                 (ev ->{
-                    env.getPersonnage().update();
+                    env.getJoueur().update();
                     objetVue.update();
                     this.env.update();
 

@@ -2,19 +2,12 @@ package application.modele;
 
 import application.modele.armes.Arme;
 import application.modele.armes.Pioche;
-import application.modele.objets.Arbre;
 import application.modele.objets.Materiau;
 import javafx.beans.property.*;
 
-import static application.modele.MapJeu.TUILE_TAILLE;
-
-public class Personnage extends Entite {
-
-    private final static int HAUTEUR_MAX = 2 * TUILE_TAILLE;
-    private final static int VITESSE = 3;
+public abstract class Personnage extends Entite {
 
     private ObjectProperty<Direction> directionProperty;
-    private Inventaire inventaire;
     private boolean saute;
     private boolean tombe;
     private boolean freeze;
@@ -22,51 +15,25 @@ public class Personnage extends Entite {
     private int hauteurSaut;
     private ObjectProperty<Arme> armeProperty;
 
-
     public Personnage(Environnement env) {
         super(env);
         saute = false; tombe = false; freeze = false;
         avanceProperty = new SimpleBooleanProperty(false);
-
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
         hauteurSaut = 0;
         armeProperty = new SimpleObjectProperty<>(new Pioche(env, 1));
-        this.inventaire = new Inventaire(super.getEnv());
         //this.getCollider().scaleCollider(32,32);
         System.out.println(this.getCollider());
         System.out.println(this.getCollider().getHitBox());
         //inventaire.ajouterObjet();
     }
 
-    public void interagit(int x, int y) {
-        if (!miner(x,y))
-            couper(x,y);
-    }
-
-    private boolean couper(int x, int y) {
-        Arbre arbre = getEnv().getArbre(x,y);
-        if (arbre != null) {
-            arbre.frappe(armeProperty.getValue());
-            return true;
-        }
-        return false;
-    }
-
-    private boolean miner(int x, int y) {
-        Materiau minerai = getEnv().getMinerai(x,y);
-        if (minerai != null) {
-            minerai.frappe(armeProperty.getValue());
-            return true;
-        }
-        return false;
-    }
-
     public void seDeplacer() {
         int distance;
         if (tombe || saute)
-            distance = 2;
+            distance = getVitesse() - 1;
         else
-            distance = VITESSE;
+            distance = getVitesse();
         int i = 0;
         while (i < distance && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), directionProperty.getValue())) {
             i++;
@@ -79,24 +46,24 @@ public class Personnage extends Entite {
 
     public void sauter() {
         int i = 0;
-        while (i < VITESSE && !tombe && hauteurSaut < HAUTEUR_MAX && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Haut)) {
+        while (i < getVitesse() && !tombe && hauteurSaut < getHauteurMax() && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Haut)) {
             i++;
             super.setY(super.getY() - 1);
             hauteurSaut +=1;
         }
-        if (i < VITESSE)
+        if (i < getVitesse())
             saute = false;
     }
 
     public void tomber() {
         int i = 0;
-        while (i < VITESSE && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Bas)) {
+        while (i < getVitesse() && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Bas)) {
             i++;
             tombe = true;
             super.setY(super.getY() + 1);
         }
 
-        if (i < VITESSE) {
+        if (i < getVitesse()) {
             tombe = false;
             hauteurSaut = 0;
         }
@@ -112,16 +79,13 @@ public class Personnage extends Entite {
 
     }
 
-    @Override
-    public void quandCollisionDetectee(Entite ent) {
-        if (ent instanceof ObjetJeu || ent instanceof Materiau) {
-            this.inventaire.ajouterObjet(ent);
-        }
-    }
-
     public void freezer() {
         freeze = !freeze;
     }
+
+    protected abstract int getHauteurMax();
+
+    protected abstract int getVitesse();
 
     //region Getter & Setter
     public final Direction getDirection() {
@@ -162,10 +126,6 @@ public class Personnage extends Entite {
 
     public void setTombe(boolean tombe) {
         this.tombe = tombe;
-    }
-
-    public Inventaire getInventaire() {
-        return this.inventaire;
     }
 
     public final Arme getArme() {

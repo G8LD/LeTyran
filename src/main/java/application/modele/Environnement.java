@@ -9,7 +9,7 @@ import static application.modele.MapJeu.WIDTH;
 
 public class Environnement {
 
-    private Personnage personnage;
+    private Joueur joueur;
     private MapJeu mapJeu;
     private Etabli etabli;
     private ObservableList<Entite> listeEntites;
@@ -17,7 +17,7 @@ public class Environnement {
     private ObservableList<Arbre> listeArbres;
 
     public Environnement() {
-        personnage = new Personnage(this);
+        joueur = new Joueur(this);
         mapJeu = new MapJeu();
         etabli = new Etabli(this);
 
@@ -30,7 +30,7 @@ public class Environnement {
         nouvObj2.setY(2 * 32);
         /*this.listeEntites.add(nouvObj);
         this.listeEntites.add(nouvObj2);*/
-        this.listeEntites.add(personnage);
+        this.listeEntites.add(joueur);
 
         initListeMinerais();
         initListeArbres();
@@ -106,8 +106,8 @@ public class Environnement {
         return mapJeu.getTabMap()[y][x] == 34 || mapJeu.getTabMap()[y][x] == 54 || mapJeu.getTabMap()[y][x] == 52 || mapJeu.getTabMap()[y][x] == 53;
     }
 
-    public Personnage getPersonnage() {
-        return personnage;
+    public Joueur getJoueur() {
+        return joueur;
     }
 
     public MapJeu getMapJeu() {

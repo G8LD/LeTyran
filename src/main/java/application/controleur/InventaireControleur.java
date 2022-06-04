@@ -7,11 +7,9 @@ import application.vue.InventaireVue;
 import application.vue.controls.InvItem;
 import javafx.event.EventHandler;
 
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
 public class InventaireControleur implements EventHandler<KeyEvent> {
 
@@ -29,7 +27,7 @@ public class InventaireControleur implements EventHandler<KeyEvent> {
         this.root = root;
         this.jeu = jeu;
 
-        this.inv = this.jeu.getPersonnage().getInventaire();
+        this.inv = this.jeu.getJoueur().getInventaire();
 
         this.invVue = new InventaireVue(inv, root, this);
 

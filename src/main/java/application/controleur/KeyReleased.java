@@ -1,9 +1,7 @@
 package application.controleur;
 
-import application.modele.Direction;
 import application.modele.Environnement;
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class KeyReleased implements EventHandler<KeyEvent> {
@@ -20,11 +18,11 @@ public class KeyReleased implements EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         switch (event.getCode()) {
             case SPACE:
-                jeu.getPersonnage().setSaute(false);
+                jeu.getJoueur().setSaute(false);
                 break;
             case Q:
             case D:
-                jeu.getPersonnage().setAvance(false);
+                jeu.getJoueur().setAvance(false);
                 break;
             default:
                 break;
