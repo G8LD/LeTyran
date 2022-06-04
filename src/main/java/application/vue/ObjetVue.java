@@ -2,7 +2,7 @@ package application.vue;
 
 import application.modele.Entite;
 import application.modele.Environnement;
-import application.modele.Personnage;
+import application.modele.personnages.Personnage;
 import application.vue.controls.ObjetView;
 import javafx.collections.ListChangeListener;
 import javafx.scene.image.ImageView;

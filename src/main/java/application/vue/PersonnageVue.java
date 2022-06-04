@@ -2,7 +2,7 @@ package application.vue;
 
 import application.controleur.listeners.PersonnageListener;
 import application.modele.Direction;
-import application.modele.Personnage;
+import application.modele.personnages.Personnage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.util.ArrayList;

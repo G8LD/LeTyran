@@ -1,6 +1,6 @@
 package application.controleur.listeners;
 
-import application.modele.Personnage;
+import application.modele.personnages.Personnage;
 import application.vue.VieVue;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

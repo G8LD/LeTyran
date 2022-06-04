@@ -2,7 +2,7 @@ package application.vue;
 
 import application.controleur.listeners.ArmeListener;
 import application.modele.Direction;
-import application.modele.Personnage;
+import application.modele.personnages.Personnage;
 import application.vue.vueEnv.ChargeurRessources;
 import javafx.animation.RotateTransition;
 import javafx.scene.image.Image;

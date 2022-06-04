@@ -1,8 +1,10 @@
-package application.modele;
+package application.modele.personnages;
 
+import application.modele.Direction;
+import application.modele.Entite;
+import application.modele.Environnement;
 import application.modele.armes.Arme;
 import application.modele.armes.Pioche;
-import application.modele.objets.Materiau;
 import javafx.beans.property.*;
 
 public abstract class Personnage extends Entite {
@@ -10,25 +12,37 @@ public abstract class Personnage extends Entite {
     private ObjectProperty<Direction> directionProperty;
     private boolean saute;
     private boolean tombe;
-    private boolean freeze;
     private BooleanProperty avanceProperty;
     private int hauteurSaut;
     private ObjectProperty<Arme> armeProperty;
 
-    public Personnage(Environnement env) {
+    public Personnage(Environnement env, Arme arme) {
         super(env);
-        saute = false; tombe = false; freeze = false;
+        saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
         hauteurSaut = 0;
-        armeProperty = new SimpleObjectProperty<>(new Pioche(env, 1));
+        armeProperty = new SimpleObjectProperty<>(arme);
         //this.getCollider().scaleCollider(32,32);
         System.out.println(this.getCollider());
         System.out.println(this.getCollider().getHitBox());
         //inventaire.ajouterObjet();
     }
 
-    public void seDeplacer() {
+    public Personnage(Environnement env, Arme arme, int x, int y) {
+        super(env, x, y);
+        saute = false; tombe = false;
+        avanceProperty = new SimpleBooleanProperty(false);
+        directionProperty = new SimpleObjectProperty<>(Direction.Droit);
+        hauteurSaut = 0;
+        armeProperty = new SimpleObjectProperty<>(arme);
+        //this.getCollider().scaleCollider(32,32);
+        System.out.println(this.getCollider());
+        System.out.println(this.getCollider().getHitBox());
+        //inventaire.ajouterObjet();
+    }
+
+    protected void seDeplacer() {
         int distance;
         if (tombe || saute)
             distance = getVitesse() - 1;
@@ -44,7 +58,7 @@ public abstract class Personnage extends Entite {
         }
     }
 
-    public void sauter() {
+    protected void sauter() {
         int i = 0;
         while (i < getVitesse() && !tombe && hauteurSaut < getHauteurMax() && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Haut)) {
             i++;
@@ -55,7 +69,7 @@ public abstract class Personnage extends Entite {
             saute = false;
     }
 
-    public void tomber() {
+    protected void tomber() {
         int i = 0;
         while (i < getVitesse() && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Bas)) {
             i++;
@@ -69,19 +83,7 @@ public abstract class Personnage extends Entite {
         }
     }
 
-    public void update() {
-        super.collide();
-        if (!freeze) {
-            if (saute) sauter();
-            if (avanceProperty.getValue()) seDeplacer();
-        }
-        if (!saute) tomber();
-
-    }
-
-    public void freezer() {
-        freeze = !freeze;
-    }
+    public abstract void update();
 
     protected abstract int getHauteurMax();
 

@@ -22,9 +22,9 @@ public abstract class Materiau extends Entite {
     }
 
     //appelé quand le bloc est cliqué décremente selon la qualité si le joueur a la bonne arme sinon de 1
-    public void frappe(Arme arme) {
-        if (arme instanceof Pioche)
-            decrementerPv(arme.nbDegat());
+    public void frappe() {
+        if (env.getJoueur().getArme() instanceof Pioche)
+            decrementerPv(env.getJoueur().getArme().nbDegat());
         else
             decrementerPv(1);
 

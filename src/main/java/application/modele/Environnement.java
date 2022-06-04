@@ -1,6 +1,7 @@
 package application.modele;
 
 import application.modele.objets.*;
+import application.modele.personnages.Joueur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

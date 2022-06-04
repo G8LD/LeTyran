@@ -13,11 +13,11 @@ public class Arbre extends Entite {
         super(env, x, y, PV_MAX);
     }
     //retourne le nombre de bois drop
-    public void frappe(Arme arme) {
+    public void frappe() {
         int nbDegats;
 
-        if (arme instanceof Hache) {
-            nbDegats = arme.nbDegat();
+        if (getEnv().getJoueur().getArme() instanceof Hache) {
+            nbDegats = getEnv().getJoueur().getArme().nbDegat();
         } else {
             nbDegats = 1;
         }

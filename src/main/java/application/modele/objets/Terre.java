@@ -15,7 +15,7 @@ public class Terre extends Materiau {
     }
 
     @Override
-    public void frappe(Arme arme) {
+    public void frappe() {
         detruire();
     }
 

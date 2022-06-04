@@ -19,4 +19,6 @@ module application.letyran {
     opens application.modele.objets to javafx.fxml;
     exports application.modele.collisions;
     opens application.modele.collisions to javafx.fxml;
+    exports application.modele.personnages;
+    opens application.modele.personnages to javafx.fxml;
 }
