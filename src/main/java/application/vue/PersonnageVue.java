@@ -37,7 +37,7 @@ public class PersonnageVue {
         new PersonnageListener(personnage, this);
     }
 
-    public void animationDeplacement() {
+    public void animerDeplacement() {
         long now = System.nanoTime();
         //modifie les sprites tout les 150 ms
         if (now - lastUpdate >= 150_000_000) {
@@ -50,8 +50,8 @@ public class PersonnageVue {
         }
     }
 
-    public void inversionSprite() {
-        //inverse l'image selon la direction
+    //inverse l'image selon la direction
+    public void inverserSprite() {
         if (personnage.getDirection() == Direction.Droit)
             spriteJoueur.setScaleX(1);
         else

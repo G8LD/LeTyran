@@ -52,7 +52,7 @@ public class Controleur implements Initializable {
         vievue = new VieVue(root);
         etabliVue =new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
 
-        root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));

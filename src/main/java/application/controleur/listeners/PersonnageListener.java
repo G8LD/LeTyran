@@ -12,7 +12,7 @@ public class PersonnageListener {
         perso.getXProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                persoVue.animationDeplacement();
+                persoVue.animerDeplacement();
             }
         });
         //si le joueur n'avance plus pour mettre le sprite du personnage immobile
@@ -26,7 +26,7 @@ public class PersonnageListener {
         perso.getDirectionProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
-                persoVue.inversionSprite();
+                persoVue.inverserSprite();
             }
         });
     }

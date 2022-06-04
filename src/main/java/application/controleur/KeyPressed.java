@@ -8,11 +8,9 @@ import javafx.scene.input.KeyEvent;
 
 public class KeyPressed implements EventHandler<KeyEvent> {
 
-    private Controleur controleur;
     private Environnement env;
 
-    public KeyPressed(Controleur controleur, Environnement jeu) {
-        this.controleur = controleur;
+    public KeyPressed(Environnement jeu) {
         this.env = jeu;
     }
 
