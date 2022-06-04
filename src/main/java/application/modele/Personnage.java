@@ -13,7 +13,7 @@ public class Personnage extends Entite {
     private final static int HAUTEUR_MAX = 2 * TUILE_TAILLE;
     private final static int VITESSE = 3;
 
-    private Direction direction;
+    private ObjectProperty<Direction> directionProperty;
     private Inventaire inventaire;
     private boolean saute;
     private boolean tombe;
@@ -28,7 +28,7 @@ public class Personnage extends Entite {
         saute = false; tombe = false; freeze = false;
         avanceProperty = new SimpleBooleanProperty(false);
 
-        direction = Direction.Droit;
+        directionProperty = new SimpleObjectProperty<>(Direction.Droit);
         hauteurSaut = 0;
         armeProperty = new SimpleObjectProperty<>(new Pioche(env, 1));
         this.inventaire = new Inventaire(super.getEnv());
@@ -68,9 +68,9 @@ public class Personnage extends Entite {
         else
             distance = VITESSE;
         int i = 0;
-        while (i < distance && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), direction)) {
+        while (i < distance && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), directionProperty.getValue())) {
             i++;
-            if (direction == Direction.Droit)
+            if (directionProperty.getValue() == Direction.Droit)
                 super.setX(super.getX() + 0.45f);
             else
                 super.setX(super.getX() - 0.45f);
@@ -124,14 +124,17 @@ public class Personnage extends Entite {
     }
 
     //region Getter & Setter
-    public Direction getDirection() {
-        return direction;
+    public final Direction getDirection() {
+        return directionProperty.getValue();
     }
 
-    public void setDirection(Direction direction) {
-        this.direction = direction;
+    public final void setDirection(Direction direction) {
+        this.directionProperty.setValue(direction);
     }
 
+    public final ObjectProperty getDirectionProperty() {
+        return directionProperty;
+    }
 
     public boolean getSaute() {
         return saute;

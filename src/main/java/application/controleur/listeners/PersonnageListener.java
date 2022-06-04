@@ -22,5 +22,12 @@ public class PersonnageListener {
                 if (!t1) persoVue.immobile();
             }
         });
+        //retourne le sprite du persp
+        perso.getDirectionProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                persoVue.inversionSprite();
+            }
+        });
     }
 }

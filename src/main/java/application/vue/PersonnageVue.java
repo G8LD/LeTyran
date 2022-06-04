@@ -47,12 +47,15 @@ public class PersonnageVue {
                 spriteJoueur.setImage(listeSprites.get(2));
             else
                 spriteJoueur.setImage(listeSprites.get(1));
-            //inverse l'image selon la direction
-            if (personnage.getDirection() == Direction.Droit)
-                spriteJoueur.setScaleX(1);
-            else
-                spriteJoueur.setScaleX(-1);
         }
+    }
+
+    public void inversionSprite() {
+        //inverse l'image selon la direction
+        if (personnage.getDirection() == Direction.Droit)
+            spriteJoueur.setScaleX(1);
+        else
+            spriteJoueur.setScaleX(-1);
     }
 
     public void immobile(){
