@@ -36,6 +36,9 @@ public class ChargeurRessources {
         iconObjets.put("Bois", new Image("file:src/main/resources/application/resources/Bois.png"));
         iconObjets.put("Pierre", new Image("file:src/main/resources/application/resources/Pierre.png"));
 
+        iconObjets.put("inventaireMain", new Image("file:src/main/resources/application/inventaire/icon_main.png"));
+        iconObjets.put("inventaireSac", new Image("file:src/main/resources/application/inventaire/inventaire_sac.png"));
+
 
     }
 }

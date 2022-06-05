@@ -10,6 +10,7 @@ import application.vue.VieVue;
 import application.vue.vueEnv.EnvironnementVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
@@ -43,6 +44,9 @@ public class Controleur implements Initializable {
     @FXML private ImageView spriteJoueur;
     @FXML private ImageView spriteArme;
 
+    @FXML private Pane inventaireMain;
+    @FXML private Pane inventaireSac;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         env = new Environnement();
@@ -55,7 +59,7 @@ public class Controleur implements Initializable {
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
-        root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
+        root.addEventHandler(Event.ANY, new InventaireControleur(root, env, inventaireMain, inventaireSac));
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
 
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
