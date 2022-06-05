@@ -22,10 +22,10 @@ public class PersonnageVue {
             add(new Image("file:src/main/resources/application/perso/perso_mouvement2.png"));
         }});
         put("Ennemi", new ArrayList<>() {{
-            add(new Image("file:src/main/resources/application/perso/perso_immobile.png"));
-            add(new Image("file:src/main/resources/application/perso/perso_mouvement1.png"));
-            add(new Image("file:src/main/resources/application/perso/perso_immobile.png"));
-            add(new Image("file:src/main/resources/application/perso/perso_mouvement2.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi_immobile.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi_mouvement1.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi_immobile.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi_mouvement2.png"));
         }});
     }};
 
@@ -38,7 +38,6 @@ public class PersonnageVue {
         this.personnage = personnage;
         this.spritePerso = spritesJoueur;
         lastUpdate = System.nanoTime();
-
         construirePerso();
     }
 
@@ -67,7 +66,7 @@ public class PersonnageVue {
     public void animerDeplacement() {
         long now = System.nanoTime();
         //modifie les sprites tout les 150 ms
-        if (now - lastUpdate >= 150_000_000) {
+        if (now - lastUpdate >= 200_000_000) {
             lastUpdate = now;
             //change le sprite du joueur
 //            if (spritePerso.getImage() == LISTE_SPRITES.get(personnage.getClass().getSimpleName()).get(1))

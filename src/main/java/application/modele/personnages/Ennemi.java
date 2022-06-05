@@ -12,27 +12,42 @@ public class Ennemi extends Personnage {
 
     private static int id = 0;
 
-    private int origine;
+    private int origineX;
+    private int origineY;
     private int distance;
 
     public Ennemi(Environnement env, Arme arme, int x, int y, int distance) {
         super(env, "Ennemi" + id++, arme, x*TUILE_TAILLE, y*TUILE_TAILLE);
-        origine = x*TUILE_TAILLE;
+        origineX = x*TUILE_TAILLE;
+        origineY = y*TUILE_TAILLE;
         this.distance = distance*TUILE_TAILLE;
     }
 
     private void deplacement() {
-        if ((getX() < origine && getDirection() == Gauche) || (getX() > origine + distance && getDirection() == Droit)
-                || (super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), getDirection()) && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), getDirectionOpposee())))
-            changerDirection();
-        seDeplacer();
+        if (Math.abs(getEnv().getJoueur().getX() - getX()) > 1 || Math.abs(getEnv().getJoueur().getY() - getY()) > 2 * TUILE_TAILLE) {
+            if (Math.abs(getEnv().getJoueur().getX() - getX()) < distance && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE)
+                if (getEnv().getJoueur().getX() - getX() > 0)
+                    setDirection(Droit);
+                else
+                    setDirection(Gauche);
+            else if (getX() >= origineX && getX() <= origineX + distance && getY() == origineY && estBloque())
+                setDirection(getDirectionOpposee());
+            else if (((getX() < origineX && getDirection() == Gauche) || (getX() > origineX + distance && getDirection() == Droit)))
+                setDirection(getDirectionOpposee());
+            else if (estBloque()) {
+                if (getDirection() == Gauche)
+                    origineX = (int) getX();
+                else
+                    origineX = (int) (getX() - distance);
+                origineY = (int) getY();
+            }
+            seDeplacer();
+        }
     }
 
-    private void changerDirection() {
-        if (getDirection() == Droit)
-            setDirection(Gauche);
-        else
-            setDirection(Droit);
+    private boolean estBloque() {
+        return super.getEnv().entreEnCollision((int) super.getX(), (int) super.getY(), getDirection())
+                && !super.getEnv().entreEnCollision((int) super.getX(), (int) super.getY(), getDirectionOpposee());
     }
 
     private Direction getDirectionOpposee() {
@@ -55,6 +70,6 @@ public class Ennemi extends Personnage {
 
     @Override
     protected int getVitesse() {
-        return 3;
+        return 4;
     }
 }
