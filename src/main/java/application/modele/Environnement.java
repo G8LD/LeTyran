@@ -144,7 +144,6 @@ public class Environnement {
     }
 
     public void supprimerObjetEnvironnement(Entite obj) {
-        System.out.println(this.listeEntites.remove(obj));
     }
 
 

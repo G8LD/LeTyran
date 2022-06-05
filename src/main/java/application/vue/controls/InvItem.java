@@ -1,7 +1,6 @@
 package application.vue.controls;
 
 import application.modele.ObjetInventaire;
-import application.modele.ObjetJeu;
 import application.vue.InventaireVue;
 import application.vue.vueEnv.ChargeurRessources;
 import javafx.scene.Parent;
@@ -10,8 +9,11 @@ import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+
+import static application.vue.InventaireVue.TAILLE_ICON_INVENTAIRE;
 
 public class InvItem extends StackPane {
     private ColorInput color;
@@ -25,15 +27,17 @@ public class InvItem extends StackPane {
 
     private InventaireVue invVue;
 
+    private double decalageBas;
+
     //Permet de vérifier si on est entrain de porter un objet
     private boolean dragActive =false;
 
 
-    public InvItem(InventaireVue invVue, ObjetInventaire obj, InvSlot viewParent) {
+    public InvItem(InventaireVue invVue, ObjetInventaire obj, double decalageBas) {
 
         this.invVue = invVue;
         this.Objet = obj;
-
+        this.decalageBas = decalageBas;
 
         Image img = ChargeurRessources.iconObjets.get(obj.getEntite().getClass().getSimpleName());
         if(img == null) {
@@ -46,8 +50,6 @@ public class InvItem extends StackPane {
         this.imgVObjet.setFitHeight(TAILLE_IMG_OBJET);
         this.imgVObjet.setFitWidth(TAILLE_IMG_OBJET);
 
-        this.setLayoutX(8);
-        this.setLayoutY(8);
 
         color = new ColorInput();
 
@@ -66,25 +68,32 @@ public class InvItem extends StackPane {
         this.setOnMouseReleased(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
                 dragActive = false;
-                this.invVue.lacherObjet(this);
+                this.invVue.lacherObjet(mouseEvent.getSceneY());
             }
         });
 
         this.setOnMousePressed(mouseEvent -> {
+
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+                System.out.println("L'objet est situé à la place " + obj.getPlaceInventaire()  + " parent " + this.getParent());
                 this.invVue.definirObjetPrit(this);
                 dragActive = true;
             } else if (mouseEvent.getButton() == MouseButton.SECONDARY && !dragActive) {
-                this.invVue.lacherObjetInventaire(this);
+                this.invVue.jeterObjetInventaire(this);
             }
         });
 
         this.setOnMouseDragged(mouseEvent ->
         {
+            int decalage = 0;
+
+            if(obj.getPlaceInventaire() > 5) {
+                decalage = TAILLE_ICON_INVENTAIRE;
+            }
             if (dragActive) {
                 Parent parent = this.getParent();
                 this.setLayoutX(mouseEvent.getSceneX() - parent.getLayoutX() - this.getPrefWidth() / 2);
-                this.setLayoutY(mouseEvent.getSceneY() - parent.getLayoutY() - this.getPrefHeight() / 2);
+                this.setLayoutY((mouseEvent.getSceneY() - parent.getLayoutY() - decalage - this.getPrefHeight() / 2));
             }
         });
 

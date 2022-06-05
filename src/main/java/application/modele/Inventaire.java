@@ -1,26 +1,31 @@
 package application.modele;
 
-import application.modele.armes.Pioche;
-import application.vue.controls.InvItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Inventaire {
     private int MAX_OBJET = 1;
     private ObservableList<ObjetInventaire> objets = FXCollections.observableArrayList();
 
-    private int stackMax = 5;
-    public final static int PLACE_INVENTAIRE = 20;
+    private int stackMax = 1;
+    public final static int PLACE_INVENTAIRE = 25;
     public final static int PLACE_MAIN_PERSONNAGE = 5;
+
+
+    private HashMap<Integer, Boolean> placesDisponible;
 
     private Environnement env;
     public Inventaire(Environnement env) {
 
-
+        placesDisponible = new HashMap<>();
         this.env = env;
+
+        for(int i = 0; i < PLACE_INVENTAIRE; i++) {
+
+            placesDisponible.put(i, true);
+        }
         //this.ajouterObjet(new Pioche(10));
 
     }
@@ -30,27 +35,49 @@ public class Inventaire {
         return objets;
     }
 
+    public void definirPlacePrise(int place) {
+        this.placesDisponible.put(place, false);
+    }
+
+    public void libererPlacePrise(int place) {
+        this.placesDisponible.put(place, true);
+    }
+
+    public int recupererPlaceDispo() {
+        int i = 0;
+        int placeTrouve = -1;
+        while(i < placesDisponible.size() && placeTrouve < 0) {
+            if(placesDisponible.get(i) != null && placesDisponible.get(i)) {
+                placeTrouve = i;
+            }
+            i++;
+        }
+        return placeTrouve;
+    }
+
     public void trierObjetInventaireParPlace() {
         int j;
+        ObjetInventaire actuel;
         for (int i = 0; i < objets.size(); i++) {
-            ObjetInventaire objEnCours = objets.get(i);
             j = i;
-            while(j > 0 && objets.get(j - 1).getPlaceInventaire() > objEnCours.getPlaceInventaire()) {
-                objets.set(j, objets.get(j));
+            actuel = objets.get(i);
+
+
+            while(j > 0 &&  objets.get(j-1).getPlaceInventaire() > actuel.getPlaceInventaire()) {
+                objets.set(j, objets.get(j-1));
+
                 j = j - 1;
             }
 
-            objets.set(j,objEnCours);
+            objets.set(i,actuel);
+
+
         }
     }
 
+    public boolean ajouterObjetVersionDeux(Entite ent) {
 
-    public void ajouterObjetVersionDeux(Entite ent) {
-
-        ArrayList<Integer> placeDisponible = new ArrayList<>();
-        for(int i = 0; i < PLACE_INVENTAIRE; i++) {
-            placeDisponible.add(i);
-        }
+        boolean ajouter = false;
 
 
         //On stock l'index de l'endroit dans lequel on peut empiler
@@ -61,7 +88,6 @@ public class Inventaire {
 
         for(int i = 0; i < this.getObjets().size(); i++) {
             ObjetInventaire objetStockee = this.getObjets().get(i);
-            placeDisponible.remove(objetStockee.getPlaceInventaire());
 
             if(objetStockee.getEntite().getClass() == ent.getClass()) {
 
@@ -75,38 +101,41 @@ public class Inventaire {
 
 
         if(indexStack < 0) {
-            System.out.print("Place dispo : [");
-            for(int place : placeDisponible) {
-                System.out.print(place +",");
-            }
-            System.out.println("]");
-            ObjetInventaire nouvObjet = new ObjetInventaire(ent);
-            if(this.getObjets().size() > 0) {
-                nouvObjet.setPlaceInventaire(this.getObjets().get(this.getObjets().size() - 1).getPlaceInventaire() + 1);
-            } else {
-                nouvObjet.setPlaceInventaire(0);
-            }
+            int placeTrouve = recupererPlaceDispo();
 
-            this.getObjets().add(nouvObjet);
+            if(placeTrouve >= 0) {
+                ObjetInventaire nouvObjet = new ObjetInventaire(ent);
+
+                System.out.println("Place trouvé " + placeTrouve);
+                nouvObjet.setPlaceInventaire(placeTrouve);
+
+                definirPlacePrise(placeTrouve);
+
+                this.getObjets().add(nouvObjet);
+                ajouter = true;
+            } else {
+                System.out.println("L'inventaire est rempli");
+            }
         } else {
             this.getObjets().get(indexStack).ajouterDansStack();
+            ajouter = true;
 
         }
-
-
+        return ajouter;
     }
 
-    /*public void definirPlacePrise(int i, boolean prit) {
-        placesPrise.put(i,prit);
-    };*/
-
-
     public void ajouterObjet(Entite obj) {
-        trierObjetInventaireParPlace();
-        ajouterObjetVersionDeux(obj);
-        if (this.env.getEntites() != null) {
-            this.env.getEntites().remove(obj);
+
+        if(ajouterObjetVersionDeux(obj)) {
+            if (this.env.getEntites() != null) {
+                this.env.getEntites().remove(obj);
+            }
+
+            trierObjetInventaireParPlace();
         }
+
+
+
 
 
     }
@@ -124,6 +153,10 @@ public class Inventaire {
         this.env.getEntites().add(ent);
         ent.getCollider().setIgnoreCollision(false);
 
+    }
+
+    public String toString() {
+        return "[Inventaire]" + "\nPlace Main : " + PLACE_MAIN_PERSONNAGE + "\nPlaceTotal" + PLACE_INVENTAIRE;
     }
 
 

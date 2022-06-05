@@ -2,7 +2,9 @@ package application.vue.controls;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class InvSlot extends Pane {
     private ImageView imgView;
@@ -14,6 +16,7 @@ public class InvSlot extends Pane {
         imgView.setImage(img);
 
         this.getChildren().add(imgView);
+        //this.setBackground(Background.);
     }
 
     public InvSlot(Image img, boolean placeMain) {
@@ -32,6 +35,10 @@ public class InvSlot extends Pane {
         this.imgView.setFitWidth(x);
         this.imgView.setFitHeight(y);
 
+    }
+
+    public int getIndex() {
+        return this.index;
     }
 
     public boolean getEstPlaceMain() {

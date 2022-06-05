@@ -1,20 +1,21 @@
 package application.vue;
 
 import application.controleur.InventaireControleur;
-import application.modele.Entite;
 import application.modele.ObjetInventaire;
-import application.modele.ObjetJeu;
 import application.vue.controls.InvItem;
 import application.modele.Inventaire;
 import application.vue.controls.InvSlot;
+import application.vue.vueEnv.ChargeurRessources;
 import javafx.collections.ListChangeListener;
-import javafx.scene.Node;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.media.AudioClip;
+
+import java.util.ArrayList;
 
 import static application.modele.Inventaire.PLACE_INVENTAIRE;
 import static application.modele.Inventaire.PLACE_MAIN_PERSONNAGE;
@@ -25,24 +26,32 @@ public class InventaireVue {
     private InvItem objPrit;
     private boolean affiche = false;
 
-    private Pane invPaneConteneur;
+    private Pane paneSacInventaire;
+    private Pane paneInventaireMain;
 
-    private Pane rootPane;
     private InventaireControleur controleur;
+    public final static int TAILLE_ICON_INVENTAIRE = 32;
 
-    private Image slotImg = new Image("file:src/main/resources/application/inventaire/slot.png");
     private AudioClip sound = new AudioClip(getClass().getResource("/application/sons/ui_menu_button_click_24.mp3").toExternalForm());
 
-    public InventaireVue(Inventaire inv, Pane root, InventaireControleur controleur) {
-        this.rootPane = root;
+    public InventaireVue(Inventaire inv, InventaireControleur controleur, Pane paneInventaireMain, Pane paneSacInventaire) {
         this.inv = inv;
         this.controleur = controleur;
 
-        this.invPaneConteneur = new Pane();
+        this.paneInventaireMain = paneInventaireMain;
+        this.paneSacInventaire = paneSacInventaire;
 
-        this.invPaneConteneur.setVisible(false);
-        this.ajouterListeObjets();
+        this.paneSacInventaire.setLayoutY(32);
+
+        this.paneInventaireMain.setPrefWidth(TAILLE_ICON_INVENTAIRE * PLACE_MAIN_PERSONNAGE);
+        this.paneInventaireMain.setPrefHeight(TAILLE_ICON_INVENTAIRE);
+
+        this.paneInventaireMain.setBackground(Background.fill(Color.BLUE));
+        this.paneSacInventaire.setVisible(false);
+
         this.ajouterListeObjetDansLaMain();
+        this.ajouterListeObjetsSac();
+
 
         this.inv.getObjets().addListener(new ListChangeListener<ObjetInventaire>() {
             @Override
@@ -63,46 +72,58 @@ public class InventaireVue {
 
     }
 
-    public void lacherObjet(InvItem invItem) {
-        if(this.invPaneConteneur != null) {
+    //On va récupérer l'élément le plus proche dans le pane par rapport à l'objet déplacer
+    public int regarderDansPane(Pane paneChoisi) {
+        boolean trouver = false;
+        float minDist = 0;
+        int index = 0;
+        int indexConteneurTrouve = -1;
 
-            boolean found = false;
-            float minDist = 0;
+        while(!trouver && index < paneChoisi.getChildren().size()) {
+            //System.out.println(index + " " + this.invPaneConteneur.getChildren().get(index));
+            if(paneChoisi.getChildren().get(index) instanceof InvSlot) {
+                InvSlot img = (InvSlot) paneChoisi.getChildren().get(index);
+                InvSlot parent = (InvSlot)this.objPrit.getParent();
+                float distanceX = (float) Math.abs(img.getLayoutX() - this.objPrit.getLayoutX() - parent.getLayoutX());
+                float distanceY = (float) Math.abs(img.getLayoutY() - this.objPrit.getLayoutY() - parent.getLayoutY());
+
+
+                float totalDist = distanceX + distanceY;
+                if(minDist == 0 || totalDist < minDist) {
+                    minDist = totalDist;
+                    indexConteneurTrouve = index;
+                }
+            }
+            index++;
+        }
+        return indexConteneurTrouve;
+    }
+
+
+    public void lacherObjet(double positionYSouris) {
+        if(this.paneSacInventaire != null) {
+
             InvSlot seletecSlot = null;
-            int index = 0;
-            int indexConteneurTrouve = -1;
-            int nouvellePlace = 0;
 
-            int nombreObjetsInventaire = this.inv.getObjets().size();
+            int indexConteneurTrouve = -1;
 
             InvSlot slotParent = (InvSlot) this.objPrit.getParent();
+            if(positionYSouris < TAILLE_ICON_INVENTAIRE) {
+                seletecSlot = (InvSlot) this.paneInventaireMain.getChildren().get(regarderDansPane(this.paneInventaireMain));
+            } else {
+                seletecSlot = (InvSlot) this.paneSacInventaire.getChildren().get(regarderDansPane(this.paneSacInventaire));
 
-
-            //On vérifie parmis tout les conteneurs qui est le plus proche
-            while(!found && index < this.invPaneConteneur.getChildren().size()) {
-                //System.out.println(index + " " + this.invPaneConteneur.getChildren().get(index));
-                if(this.invPaneConteneur.getChildren().get(index) instanceof InvSlot) {
-                    InvSlot img = (InvSlot) this.invPaneConteneur.getChildren().get(index);
-                    InvSlot parent = (InvSlot)this.objPrit.getParent();
-                    float distanceX = (float) Math.abs(img.getLayoutX() - this.objPrit.getLayoutX() - parent.getLayoutX());
-                    float distanceY = (float) Math.abs(img.getLayoutY() - this.objPrit.getLayoutY() - parent.getLayoutY());
-
-
-                    float totalDist = distanceX + distanceY;
-                    if(minDist == 0 || totalDist < minDist) {
-                        seletecSlot = img;
-                        minDist = totalDist;
-                        indexConteneurTrouve = index;
-                    }
-                }
-                index++;
             }
+            //InvSlot comparerDeux = (InvSlot) this.paneSacInventaire.getChildren().get(regarderDansPane(this.paneSacInventaire));
+
+            //seletecSlot = prendrePlusPetit(comparerUn, comparerDeux, this.paneInventaireMain.getLayoutY(), this.paneSacInventaire.getLayoutY());
 
             if(seletecSlot != slotParent) {
 
+                //On vérifie si il y a un objet ou non dans la case la plus proche, si c'est le cas, on interverti les deux objets
                 if (seletecSlot.getChildren().size() == 2) {
                     //Code pour échanger deux items
-                    int autrePlace = this.invPaneConteneur.getChildren().indexOf(slotParent);
+                    int autrePlace = this.paneSacInventaire.getChildren().indexOf(slotParent);
 
                     InvItem selectSlotItem = (InvItem) seletecSlot.getChildren().get(1);
                     seletecSlot.getChildren().remove(selectSlotItem);
@@ -113,29 +134,42 @@ public class InventaireVue {
 
                     this.controleur.echangerObjet(this.objPrit, selectSlotItem, indexConteneurTrouve, autrePlace);
 
-                } else {
+                } else {;
+
+                    this.controleur.objetPlaceInventaireChanger(objPrit, slotParent.getIndex(), seletecSlot.getIndex());
+
                     slotParent.getChildren().remove(this.objPrit);
                     seletecSlot.getChildren().add(this.objPrit);
 
                     //On calcul la place en prenant en sachant que ça fait + 1 après avoir placé l'imageview et l'objet à affiché
-                    this.controleur.objetPlaceInventaireChanger(objPrit, nouvellePlace + 1);
+
+
                 }
 
-                this.objPrit.setLayoutX(8);
-                this.objPrit.setLayoutY(8);
+
 
                 //On baisse le son de l'audio
                 sound.setVolume(1. / 30.);
                 sound.play();
             }
+            this.objPrit.setLayoutX(0);
+            this.objPrit.setLayoutY(0);
             this.objPrit = null;
         }
     }
 
-    public void ajouterUnObjet(ObjetInventaire obj) {
-        InvSlot slot = (InvSlot) this.invPaneConteneur.getChildren().get(obj.getPlaceInventaire());
 
-        InvItem item = new InvItem(this, obj, slot);
+
+    public void ajouterUnObjet(ObjetInventaire obj) {
+        InvSlot slot;
+        if(obj.getPlaceInventaire() < 5) {
+            slot = (InvSlot) this.paneInventaireMain.getChildren().get(obj.getPlaceInventaire());
+        } else {
+            slot = (InvSlot) this.paneSacInventaire.getChildren().get(obj.getPlaceInventaire() - 5);
+        }
+
+
+        InvItem item = new InvItem(this, obj, TAILLE_ICON_INVENTAIRE);
         item.setPrefWidth(32);
         item.setPrefHeight(32);
 
@@ -143,26 +177,30 @@ public class InventaireVue {
 
     }
 
-    public void ajouterListeObjets() {
+
+    public void ajouterListeObjetsSac() {
         ColorInput color = new ColorInput();
         color.setPaint(Color.RED);
 
         int indexItem = 0;
         for(int i = 0; i < PLACE_INVENTAIRE / 10; i++) {
             for(int j =0; j < 10; j++) {
-                InvSlot invSlot = new InvSlot(slotImg);
+                InvSlot invSlot = new InvSlot(ChargeurRessources.iconObjets.get("inventaireSac"));
 
-                invSlot.setSize(48,48);
-                invSlot.setLayoutX(48 * j);
-                invSlot.setLayoutY(48 * (i+1));
+                invSlot.setSize(TAILLE_ICON_INVENTAIRE,TAILLE_ICON_INVENTAIRE);
+                invSlot.setLayoutX(TAILLE_ICON_INVENTAIRE * j);
+                invSlot.setLayoutY(TAILLE_ICON_INVENTAIRE * i);
+
+                invSlot.setIndex(PLACE_MAIN_PERSONNAGE + (i *10) + j);
 
                 //Ajouter un autre conteneur pour les items
-                this.invPaneConteneur.getChildren().add(invSlot);
+                this.paneSacInventaire.getChildren().add(invSlot);
+
 
                 //On vérifie que l'index ne dépasse pas le nombre d'objets actuellement portés
-                if (indexItem < inv.getObjets().size()) {
+                if (indexItem < inv.getObjets().size() && inv.getObjets().get(indexItem).getPlaceInventaire() > 5) {
 
-                    InvItem slot = new InvItem(this, inv.getObjets().get(indexItem), invSlot);
+                    InvItem slot = new InvItem(this, inv.getObjets().get(indexItem), 0);
                     slot.setPrefWidth(32);
                     slot.setPrefHeight(32);
 
@@ -172,17 +210,44 @@ public class InventaireVue {
             }
         }
 
-        this.rootPane.getChildren().add(this.invPaneConteneur);
     }
 
+    public void ajouterListeObjetDansLaMain() {
+
+        int indexItem = 0;
+
+        for(int j =0; j < PLACE_MAIN_PERSONNAGE; j++) {
+            InvSlot invSlot = new InvSlot(ChargeurRessources.iconObjets.get("inventaireMain"), true);
+            invSlot.setIndex(j);
+            invSlot.setSize(TAILLE_ICON_INVENTAIRE,TAILLE_ICON_INVENTAIRE);
+            invSlot.setLayoutX(TAILLE_ICON_INVENTAIRE * j);
+
+            //Ajouter un autre conteneur pour les items
+            this.paneInventaireMain.getChildren().add(invSlot);
+
+            //On vérifie que l'index ne dépasse pas le nombre d'objets actuellement portés
+            if (indexItem < inv.getObjets().size() && inv.getObjets().get(indexItem).getPlaceInventaire() < 5) {
+
+                InvItem slot = new InvItem(this, inv.getObjets().get(indexItem), TAILLE_ICON_INVENTAIRE);
+                slot.setPrefWidth(32);
+                slot.setPrefHeight(32);
+
+                invSlot.getChildren().add(slot);
+                indexItem++;
+            }
+        }
+
+    }
+
+
     public void afficherInventaire() {
-        this.invPaneConteneur.setVisible(!this.invPaneConteneur.isVisible());
+        this.paneSacInventaire.setVisible(!this.paneSacInventaire.isVisible());
 
     }
 
     public void retirerObjetAffichage(ObjetInventaire obj) {
-        for(int i = 0; i < this.invPaneConteneur.getChildren().size(); i++) {
-            InvSlot node = (InvSlot) this.invPaneConteneur.getChildren().get(i);
+        for(int i = 0; i < this.paneSacInventaire.getChildren().size(); i++) {
+            InvSlot node = (InvSlot) this.paneSacInventaire.getChildren().get(i);
 
             if(node.getChildren().size() == 2) {
                 InvItem invItem = (InvItem) node.getChildren().get(1);
@@ -194,42 +259,13 @@ public class InventaireVue {
         }
     }
 
-    public void ajouterListeObjetDansLaMain() {
-
-        int indexItem = 0;
-
-        for(int j =0; j < PLACE_MAIN_PERSONNAGE; j++) {
-            InvSlot invSlot = new InvSlot(slotImg, true);
-            invSlot.setIndex(j);
-            invSlot.setSize(48,48);
-            invSlot.setLayoutX(48 * j /*+ 48 * (PLACE_INVENTAIRE/10)*/);
 
 
-            //invSlot.setLayoutY(10);
-
-            //Ajouter un autre conteneur pour les items
-            this.invPaneConteneur.getChildren().add(invSlot);
-
-            //On vérifie que l'index ne dépasse pas le nombre d'objets actuellement portés
-            if (indexItem < inv.getObjets().size()) {
-
-                InvItem slot = new InvItem(this, inv.getObjets().get(indexItem), invSlot);
-                slot.setPrefWidth(32);
-                slot.setPrefHeight(32);
-
-                invSlot.getChildren().add(slot);
-                indexItem++;
-            }
-        }
-    }
-
-
-    public void lacherObjetInventaire(InvItem item) {
-        this.controleur.lacherObjet(item);
+    public void jeterObjetInventaire(InvItem item) {
+        this.controleur.jeterObjet(item);
     }
 
     public void definirObjetPrit(InvItem obj) {
-        System.out.println(obj);
         this.objPrit = obj;
     }
 }

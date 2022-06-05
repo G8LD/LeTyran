@@ -29,9 +29,6 @@ public class Personnage extends Entite {
         hauteurSaut = 0;
         armeProperty = new SimpleObjectProperty<>(new Pioche(1));
         this.inventaire = new Inventaire(super.getEnv());
-        //this.getCollider().scaleCollider(32,32);
-        System.out.println(this.getCollider());
-        System.out.println(this.getCollider().getHitBox());
         inventaire.ajouterObjet(new Pioche(1));
     }
 
