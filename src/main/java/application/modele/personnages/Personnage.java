@@ -4,11 +4,11 @@ import application.modele.Direction;
 import application.modele.Entite;
 import application.modele.Environnement;
 import application.modele.armes.Arme;
-import application.modele.armes.Pioche;
 import javafx.beans.property.*;
 
 public abstract class Personnage extends Entite {
 
+    private String id;
     private ObjectProperty<Direction> directionProperty;
     private boolean saute;
     private boolean tombe;
@@ -18,6 +18,7 @@ public abstract class Personnage extends Entite {
 
     public Personnage(Environnement env, Arme arme) {
         super(env);
+        id = "Joueur";
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
@@ -29,8 +30,9 @@ public abstract class Personnage extends Entite {
         //inventaire.ajouterObjet();
     }
 
-    public Personnage(Environnement env, Arme arme, int x, int y) {
+    public Personnage(Environnement env, String id, Arme arme, int x, int y) {
         super(env, x, y);
+        this.id = id;
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
@@ -85,11 +87,11 @@ public abstract class Personnage extends Entite {
 
     public abstract void update();
 
+    //region Getter & Setter
     protected abstract int getHauteurMax();
 
     protected abstract int getVitesse();
 
-    //region Getter & Setter
     public final Direction getDirection() {
         return directionProperty.getValue();
     }
@@ -141,5 +143,10 @@ public abstract class Personnage extends Entite {
     public final void setArme(Arme arme) {
         armeProperty.setValue(arme);
     }
+
+    public String getId() {
+        return id;
+    }
+
     //endregion
 }

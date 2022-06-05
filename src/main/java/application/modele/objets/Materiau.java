@@ -7,8 +7,6 @@ import application.modele.armes.Pioche;
 
 public abstract class Materiau extends Entite {
 
-    private Environnement env;
-
     public Materiau() {
         super(null, 0, 0, 0);
     }
@@ -23,8 +21,8 @@ public abstract class Materiau extends Entite {
 
     //appelé quand le bloc est cliqué décremente selon la qualité si le joueur a la bonne arme sinon de 1
     public void frappe() {
-        if (env.getJoueur().getArme() instanceof Pioche)
-            decrementerPv(env.getJoueur().getArme().nbDegat());
+        if (getEnv().getJoueur().getArme() instanceof Pioche)
+            decrementerPv(getEnv().getJoueur().getArme().nbDegat());
         else
             decrementerPv(1);
 

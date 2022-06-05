@@ -25,6 +25,7 @@ public class ChargeurRessources {
             String path = "file:src/main/resources/application/pack1/tile"+ fileName + ".png";
             tileMapAssets.add(i, new Image(path));
         }
+        tileMapAssets.add(34, new Image("file:src/main/resources/application/pack1/Terre.png"));
         tileMapAssets.add(52, new Image("file:src/main/resources/application/pack1/Pierre.png"));
         tileMapAssets.add(53, new Image("file:src/main/resources/application/pack1/Fer.png"));
         tileMapAssets.add(54, new Image("file:src/main/resources/application/pack1/Platine.png"));

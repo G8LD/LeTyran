@@ -1,6 +1,8 @@
 package application.modele;
 
+import application.modele.armes.Epee;
 import application.modele.objets.*;
+import application.modele.personnages.Ennemi;
 import application.modele.personnages.Joueur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +18,7 @@ public class Environnement {
     private ObservableList<Entite> listeEntites;
     private ObservableList<Materiau> listeMateriaux;
     private ObservableList<Arbre> listeArbres;
+    private ObservableList<Ennemi> listeEnnemis;
 
     public Environnement() {
         joueur = new Joueur(this);
@@ -35,6 +38,7 @@ public class Environnement {
 
         initListeMinerais();
         initListeArbres();
+        initListeEnnemis();
     }
 
     private void initListeArbres() {
@@ -61,6 +65,12 @@ public class Environnement {
                 }
             }
         }
+    }
+
+
+    private void initListeEnnemis() {
+        listeEnnemis = FXCollections.observableArrayList();
+        listeEnnemis.add(new Ennemi(this, new Epee(this, 1), 15, 11, 5));
     }
 
     public void supprimerObjetEnvironnement(Entite obj) {
@@ -107,18 +117,6 @@ public class Environnement {
         return mapJeu.getTabMap()[y][x] == 34 || mapJeu.getTabMap()[y][x] == 54 || mapJeu.getTabMap()[y][x] == 52 || mapJeu.getTabMap()[y][x] == 53;
     }
 
-    public Joueur getJoueur() {
-        return joueur;
-    }
-
-    public MapJeu getMapJeu() {
-        return mapJeu;
-    }
-
-    public Etabli getEtabli() {
-        return etabli;
-    }
-
     public Materiau getMinerai(int x, int y) {
         for (Materiau minerai : listeMateriaux)
             if (minerai.getX() == x && minerai.getY() == y)
@@ -136,18 +134,6 @@ public class Environnement {
         return null;
     }
 
-    public ObservableList<Entite> getListeEntites() {
-        return listeEntites;
-    }
-
-    public ObservableList<Materiau> getListeMateriaux() {
-        return listeMateriaux;
-    }
-
-    public ObservableList<Arbre> getListeArbres() {
-        return listeArbres;
-    }
-
     public void update() {
         for(int i = 0; i < this.listeEntites.size(); i++) {
             Entite obj = this.listeEntites.get(i);
@@ -155,6 +141,9 @@ public class Environnement {
 
             //appliquerGravite();
         }
+
+        for (Ennemi ennemi : listeEnnemis)
+            ennemi.update();
     }
 
     /*public void appliquerGravite() {
@@ -168,5 +157,35 @@ public class Environnement {
             };
         }
     }*/
+
+    //region Getter & Setter
+    public ObservableList<Entite> getListeEntites() {
+        return listeEntites;
+    }
+
+    public ObservableList<Materiau> getListeMateriaux() {
+        return listeMateriaux;
+    }
+
+    public ObservableList<Arbre> getListeArbres() {
+        return listeArbres;
+    }
+
+    public ObservableList<Ennemi> getListeEnnemis() {
+        return listeEnnemis;
+    }
+
+    public Joueur getJoueur() {
+        return joueur;
+    }
+
+    public MapJeu getMapJeu() {
+        return mapJeu;
+    }
+
+    public Etabli getEtabli() {
+        return etabli;
+    }
+    //endregion
 
 }

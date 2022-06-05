@@ -2,9 +2,12 @@ package application.vue.vueEnv;
 
 import application.controleur.listeners.EnvironnementListener;
 import application.modele.Environnement;
+import application.modele.personnages.Ennemi;
+import application.vue.PersonnageVue;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import java.io.BufferedReader;
@@ -20,7 +23,7 @@ public class EnvironnementVue {
     private TilePane tileDecors;
     private TilePane tileFond;
 
-    public EnvironnementVue(Environnement env, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
+    public EnvironnementVue(Environnement env, Pane root, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
         this.env = env;
         this.tileSol = tileSol;
         this.tileDecors = tileDecors;
@@ -31,6 +34,10 @@ public class EnvironnementVue {
         construireMap();
         construireDecor();
         construireFond();
+
+        for (Ennemi ennemi : env.getListeEnnemis()) {
+            new PersonnageVue(root, ennemi);
+        }
     }
 
     private void construireMap() {
@@ -63,10 +70,10 @@ public class EnvironnementVue {
                             img = new ImageView(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
                             break;
                         case 1:
-                            img = new ImageView(new Image("file:src/main/resources/application/pack1/sprite_epee1.png"));
+                            img = new ImageView(new Image("file:src/main/resources/application/pack1/tile000.png"));
                             break;
                         case 3:
-                            img = new ImageView(new Image("file:src/main/resources/application/pack1/sprite_pioche1.png"));
+                            img = new ImageView(new Image("file:src/main/resources/application/pack1/tile002.png"));
                             break;
                         case 5:
                             img = new ImageView(new Image("file:src/main/resources/application/pack1/tile004.png"));
@@ -89,7 +96,7 @@ public class EnvironnementVue {
     private void construireFond() {
         this.tileFond.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
         Image imageTransparent = new Image("file:src/main/resources/application/pack1/tile_transparent.png");
-        Image imageTerre = new Image("file:src/main/resources/application/pack1/Terre.png");
+        Image imageTerre = new Image("file:src/main/resources/application/pack1/Sol.png");
         tileFond.setBackground(Background.fill(Color.LIGHTBLUE));
         InputStream is = getClass().getResourceAsStream("/application/tiles/TileFond.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
