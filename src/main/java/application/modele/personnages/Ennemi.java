@@ -17,14 +17,14 @@ public class Ennemi extends Personnage {
     private int distance;
 
     public Ennemi(Environnement env, Arme arme, int x, int y, int distance) {
-        super(env, "Ennemi" + id++, arme, x*TUILE_TAILLE, y*TUILE_TAILLE);
+        super(env, "Ennemi" + id++, arme, x*TUILE_TAILLE, y*TUILE_TAILLE, 20);
         origineX = x*TUILE_TAILLE;
         origineY = y*TUILE_TAILLE;
         this.distance = distance*TUILE_TAILLE;
     }
 
     private void deplacement() {
-        if (Math.abs(getEnv().getJoueur().getX() - getX()) > 1 || Math.abs(getEnv().getJoueur().getY() - getY()) > 2 * TUILE_TAILLE) {
+        if (Math.abs(getEnv().getJoueur().getX() - getX()) > TUILE_TAILLE || Math.abs(getEnv().getJoueur().getY() - getY()) > 2 * TUILE_TAILLE) {
             if (Math.abs(getEnv().getJoueur().getX() - getX()) < distance && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE)
                 if (getEnv().getJoueur().getX() - getX() > 0)
                     setDirection(Droit);

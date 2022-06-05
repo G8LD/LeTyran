@@ -17,7 +17,7 @@ public class Bois extends Materiau {
     }
 
     @Override
-    public void frappe() {
+    public void estFrappe() {
         if (getEnv().getJoueur().getArme() instanceof Hache)
             decrementerPv(2);
         else

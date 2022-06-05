@@ -2,6 +2,7 @@ package application.modele.armes;
 
 import application.modele.Entite;
 import application.modele.Environnement;
+import application.modele.personnages.Personnage;
 
 public abstract class Arme extends Entite {
 
@@ -14,7 +15,10 @@ public abstract class Arme extends Entite {
     }
 
     //pour les ennemis
-    public abstract void frapper();
+    public void frapper(Personnage perso) {
+        perso.decrementerPV(nbDegat());
+        decrementerPV();
+    }
 
     //renvoie les dégâts de l'arme selon la qualité
     public  abstract int nbDegat();

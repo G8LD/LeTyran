@@ -2,7 +2,6 @@ package application.modele.objets;
 
 import application.modele.Entite;
 import application.modele.Environnement;
-import application.modele.armes.Arme;
 import application.modele.armes.Hache;
 
 public class Arbre extends Entite {
@@ -13,7 +12,7 @@ public class Arbre extends Entite {
         super(env, x, y, PV_MAX);
     }
     //retourne le nombre de bois drop
-    public void frappe() {
+    public void estFrappe() {
         int nbDegats;
 
         if (getEnv().getJoueur().getArme() instanceof Hache) {

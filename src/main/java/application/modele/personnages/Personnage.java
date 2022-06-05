@@ -30,8 +30,8 @@ public abstract class Personnage extends Entite {
         //inventaire.ajouterObjet();
     }
 
-    public Personnage(Environnement env, String id, Arme arme, int x, int y) {
-        super(env, x, y);
+    public Personnage(Environnement env, String id, Arme arme, int x, int y, int pv) {
+        super(env, x, y, pv);
         this.id = id;
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);

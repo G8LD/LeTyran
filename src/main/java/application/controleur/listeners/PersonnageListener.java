@@ -1,5 +1,6 @@
 package application.controleur.listeners;
 
+import application.modele.personnages.Ennemi;
 import application.modele.personnages.Personnage;
 import application.vue.PersonnageVue;
 import javafx.beans.value.ChangeListener;
@@ -22,12 +23,20 @@ public class PersonnageListener {
                 if (!t1) persoVue.immobile();
             }
         });
-        //retourne le sprite du persp
+        //retourne le sprite du perso
         perso.getDirectionProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 persoVue.inverserSprite();
             }
         });
+        if (perso instanceof Ennemi)
+            perso.getPVProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                    if ((int) t1 <= 0)
+                        perso.getEnv().getListeEnnemis().remove(perso);
+                }
+            });
     }
 }

@@ -10,10 +10,6 @@ public class Pioche extends Arme {
         super(env, qualite);
     }
 
-    @Override
-    public void frapper() {
-    }
-
     public int nbDegat() {
         if (getQualite() == 1) {
             return 2;

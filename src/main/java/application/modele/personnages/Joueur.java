@@ -22,14 +22,25 @@ public class Joueur extends Personnage {
     }
 
     public void interagit(int x, int y) {
-        if (!miner(x,y))
-            couper(x,y);
+        if (!frapper(x,y))
+            if (!miner(x,y))
+                couper(x,y);
+    }
+
+    private boolean frapper(int x, int y) {
+        Ennemi ennemi = getEnv().getEnnemi(x,y);
+        System.out.println(ennemi);
+        if (ennemi != null) {
+            getArme().frapper(ennemi);
+            return true;
+        }
+        return false;
     }
 
     private boolean couper(int x, int y) {
         Arbre arbre = getEnv().getArbre(x,y);
         if (arbre != null) {
-            arbre.frappe();
+            arbre.estFrappe();
             getArme().decrementerPV();
             return true;
         }
@@ -39,7 +50,7 @@ public class Joueur extends Personnage {
     private boolean miner(int x, int y) {
         Materiau minerai = getEnv().getMinerai(x,y);
         if (minerai != null) {
-            minerai.frappe();
+            minerai.estFrappe();
             getArme().decrementerPV();
             return true;
         }

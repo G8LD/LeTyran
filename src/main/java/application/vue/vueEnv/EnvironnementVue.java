@@ -19,12 +19,14 @@ import static application.modele.MapJeu.*;
 public class EnvironnementVue {
 
     private Environnement env;
+    private Pane root;
     private TilePane tileSol;
     private TilePane tileDecors;
     private TilePane tileFond;
 
     public EnvironnementVue(Environnement env, Pane root, TilePane tileSol, TilePane tileDecors, TilePane tileFond) {
         this.env = env;
+        this.root = root;
         this.tileSol = tileSol;
         this.tileDecors = tileDecors;
         this.tileFond = tileFond;
@@ -132,5 +134,9 @@ public class EnvironnementVue {
             img = (ImageView) tileSol.getChildren().get(id - i * WIDTH);
             img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
         }
+    }
+
+    public void supprimerEnnemi(String id) {
+        root.getChildren().remove(root.lookup("#" + id));
     }
 }

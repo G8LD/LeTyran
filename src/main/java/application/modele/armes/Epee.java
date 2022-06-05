@@ -10,10 +10,6 @@ public class Epee extends Arme {
         super(env, qualite);
     }
 
-    @Override
-    public void frapper() {
-    }
-
     public int nbDegat() {
         if (getQualite() == 1) {
             return 3;

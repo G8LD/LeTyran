@@ -18,7 +18,6 @@ public class VieListener implements ChangeListener {
     @Override
     public void changed(ObservableValue observableValue, Object o, Object t1) {
         vieVue.afficherVie(personnage.getPv());
-
         System.out.println(personnage.getPv());
     }
 }

@@ -134,6 +134,14 @@ public class Environnement {
         return null;
     }
 
+    public Ennemi getEnnemi(int x, int y) {
+        for (Ennemi ennemi : listeEnnemis) {
+            if (Math.abs(ennemi.getX() / TUILE_TAILLE - x) < 1 && (int) ennemi.getY() / TUILE_TAILLE == y)
+                return ennemi;
+        }
+        return null;
+    }
+
     public void update() {
         for(int i = 0; i < this.listeEntites.size(); i++) {
             Entite obj = this.listeEntites.get(i);

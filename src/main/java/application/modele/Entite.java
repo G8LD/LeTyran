@@ -78,6 +78,10 @@ public class Entite {
         pv.setValue(pv.getValue() - 1);
     }
 
+    public void decrementerPV(int degat) {
+        pv.setValue(pv.getValue() - degat);
+    }
+
     //Fonctions qui ont pour but d'être override
     public void quandCollisionDetectee(Entite ent) {}
 
