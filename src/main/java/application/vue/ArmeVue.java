@@ -47,31 +47,21 @@ public class ArmeVue {
         spriteArme.setImage(ChargeurRessources.iconObjets.get(perso.getArme().getClass().getSimpleName() + perso.getArme().getQualite()));
     }
 
-    public void initRt() {
+    private void initRt() {
         rt = new RotateTransition(Duration.millis(90), spriteArme);
         if (perso.getDirection() == Direction.Droit)
-            dir = 1;
-        else
             dir = -1;
-        spriteArme.setScaleX(-dir);
+        else
+            dir = 1;
+        spriteArme.setScaleX(dir);
         rt.setByAngle(dir * 50);
+        rt.setOnFinished(actionEvent -> inverserSprite());
         rt.play();
     }
 
     public void animationFrappe() {
         if (rt.getCurrentRate() == 0) {
             if (perso instanceof Joueur) rendreVisible();
-            rt.setByAngle(dir * 90);
-            rt.setOnFinished(actionEvent -> {
-                rt.setByAngle(dir * -90);
-                rt.setOnFinished(actionEvent1 -> {
-                    spriteArme.setVisible(rendreVisible);
-                    rendreVisible = false;
-                    if (perso.getDirection() == Direction.Droit && dir == -1 || perso.getDirection() == Direction.Gauche && dir == 1)
-                        inverserSprite();
-                });
-                rt.play();
-            });
             rt.play();
         }
     }
@@ -82,20 +72,30 @@ public class ArmeVue {
             rt.setDuration(Duration.ONE);
             dir = -dir;
             spriteArme.setScaleX(-dir);
+            rt.setAutoReverse(false);
+            rt.setCycleCount(1);
             rt.setByAngle(dir * 100);
             rt.setOnFinished(actionEvent1 -> {});
             rt.play();
             rt.setDuration(Duration.millis(150));
+            rt.setByAngle(dir * 90);
+            rt.setAutoReverse(true);
+            rt.setCycleCount(2);
+            rt.setOnFinished(actionEvent -> {
+                spriteArme.setVisible(rendreVisible);
+                rendreVisible = false;
+                if (perso.getDirection() == Direction.Droit && dir == -1 || perso.getDirection() == Direction.Gauche && dir == 1)
+                    inverserSprite();
+            });
         }
     }
 
     public void rendreVisible() {
-        if (rt.getCurrentRate() == 0) {
-            updatePositon();
+        updatePositon();
+        if (rt.getCurrentRate() == 0)
             spriteArme.setVisible(true);
-        } else {
+        else
             rendreVisible = true;
-        }
     }
 
     public ImageView getSpriteArme() {

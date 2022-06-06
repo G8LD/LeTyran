@@ -64,20 +64,26 @@ public class Ennemi extends Personnage {
     }
 
     private void detectionJoueur() {
-        if (Math.abs(getEnv().getJoueur().getX() - getX()) < TUILE_TAILLE && Math.abs(getEnv().getJoueur().getY() - getY()) < TUILE_TAILLE) {
+        if (joueurEnFace()) {
             attaqueProperty.setValue(true);
             delai = 0;
         }
     }
 
     private void attaquer() {
-        if (delai++ >= 40) {
-            if (Math.abs(getEnv().getJoueur().getX() - getX()) < TUILE_TAILLE && Math.abs(getEnv().getJoueur().getY() - getY()) < TUILE_TAILLE)
+        if (delai++ >= 20) {
+            if (joueurEnFace())
                 getArme().frapper(getEnv().getJoueur());
             attaqueProperty.setValue(false);
         }
     }
 
+    private boolean joueurEnFace() {
+        return Math.abs(getEnv().getJoueur().getX() - getX()) < TUILE_TAILLE
+                && Math.abs(getEnv().getJoueur().getY() - getY()) < TUILE_TAILLE
+                && ((getDirection() == Gauche && getEnv().getJoueur().getX() - getX() <= 0)
+                || (getDirection() == Droit && getEnv().getJoueur().getX() - getX() >= 0));
+    }
     @Override
     public void update() {
         tomber();
