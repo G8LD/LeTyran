@@ -1,11 +1,10 @@
 package application.vue.controls;
 
 import application.modele.ObjetInventaire;
-import application.modele.ObjetJeu;
 import application.modele.armes.Arme;
 import application.modele.armes.Armure;
 import application.vue.InventaireVue;
-import application.vue.vueEnv.ChargeurRessources;
+import application.vue.ChargeurRessources;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorInput;

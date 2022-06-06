@@ -1,17 +1,16 @@
 package application.vue;
 
 import application.controleur.listeners.ArmeListener;
+import application.controleur.listeners.AttaqueListener;
 import application.modele.Direction;
+import application.modele.personnages.Ennemi;
 import application.modele.personnages.Joueur;
 import application.modele.personnages.Personnage;
-import application.vue.vueEnv.ChargeurRessources;
 import javafx.animation.RotateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-
-import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class ArmeVue {
 
@@ -19,15 +18,24 @@ public class ArmeVue {
     private ImageView spriteArme;
     private RotateTransition rt;
     private int dir;
+    private boolean rendreVisible;
+
+    public ArmeVue(Personnage perso, ImageView spriteArme) {
+        this.perso = perso;
+        this.spriteArme = spriteArme;
+        spriteArme.setVisible(false);
+        spriteArme.setImage(ChargeurRessources.iconObjets.get(perso.getArme().getClass().getSimpleName() + perso.getArme().getQualite()));
+        initRt();
+        perso.getArmeProperty().addListener(new ArmeListener(this));
+        rendreVisible = false;
+    }
 
     public ArmeVue(Pane root, Personnage perso) {
         this.perso = perso;
         initSprite(); initRt();
-        if (perso instanceof Joueur)
-            root.getChildren().add(spriteArme);
-        else
-            root.getChildren().add(root.getChildren().size() - 3, spriteArme);
-        perso.getArmeProperty().addListener(new ArmeListener(this));
+        root.getChildren().add(root.getChildren().size() - 2, spriteArme);
+        ((Ennemi) perso).getAttaqueProperty().addListener(new AttaqueListener(this));
+        rendreVisible = false;
     }
 
     private void initSprite() {
@@ -52,21 +60,19 @@ public class ArmeVue {
 
     public void animationFrappe() {
         if (rt.getCurrentRate() == 0) {
-            if (perso.getDirection() == Direction.Droit && dir == -1 || perso.getDirection() == Direction.Gauche && dir == 1)
-                inverserSprite();
-            else {
-                spriteArme.setVisible(true);
-                updatePositon();
-                rt.setByAngle(dir * 90);
-                rt.setOnFinished(actionEvent -> {
-                    rt.setByAngle(dir * -90);
-                    rt.setOnFinished(actionEvent1 -> {
-                        spriteArme.setVisible(false);
-                    });
-                    rt.play();
+            if (perso instanceof Joueur) rendreVisible();
+            rt.setByAngle(dir * 90);
+            rt.setOnFinished(actionEvent -> {
+                rt.setByAngle(dir * -90);
+                rt.setOnFinished(actionEvent1 -> {
+                    spriteArme.setVisible(rendreVisible);
+                    rendreVisible = false;
+                    if (perso.getDirection() == Direction.Droit && dir == -1 || perso.getDirection() == Direction.Gauche && dir == 1)
+                        inverserSprite();
                 });
                 rt.play();
-            }
+            });
+            rt.play();
         }
     }
 
@@ -77,8 +83,18 @@ public class ArmeVue {
             dir = -dir;
             spriteArme.setScaleX(-dir);
             rt.setByAngle(dir * 100);
+            rt.setOnFinished(actionEvent1 -> {});
             rt.play();
             rt.setDuration(Duration.millis(150));
+        }
+    }
+
+    public void rendreVisible() {
+        if (rt.getCurrentRate() == 0) {
+            updatePositon();
+            spriteArme.setVisible(true);
+        } else {
+            rendreVisible = true;
         }
     }
 

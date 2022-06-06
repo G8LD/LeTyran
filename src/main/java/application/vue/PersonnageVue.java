@@ -1,6 +1,7 @@
 package application.vue;
 
 import application.modele.Direction;
+import application.modele.personnages.Ennemi;
 import application.modele.personnages.Personnage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,7 +46,7 @@ public class PersonnageVue {
         lastUpdate = System.nanoTime();
         creationSprite();
         construirePerso();
-        root.getChildren().add(root.getChildren().size() - 3, spritePerso);
+        root.getChildren().add(root.getChildren().size() - 2, spritePerso);
     }
 
     private void creationSprite() {

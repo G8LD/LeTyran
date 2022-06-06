@@ -1,8 +1,7 @@
 package application.vue.controls;
 
 import application.modele.Entite;
-import application.modele.ObjetJeu;
-import application.vue.vueEnv.ChargeurRessources;
+import application.vue.ChargeurRessources;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

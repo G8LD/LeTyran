@@ -1,6 +1,6 @@
 package application.controleur;
 
-import application.controleur.listeners.PersonnageListener;
+import application.controleur.listeners.PersonnageListeners;
 import application.controleur.listeners.VieListener;
 import application.modele.Environnement;
 import application.vue.ArmeVue;
@@ -8,7 +8,7 @@ import application.vue.EtabliVue;
 import application.vue.ObjetVue;
 import application.vue.PersonnageVue;
 import application.vue.VieVue;
-import application.vue.vueEnv.EnvironnementVue;
+import application.vue.EnvironnementVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -38,6 +38,7 @@ public class Controleur implements Initializable {
     @FXML private TilePane tileDecors;
     @FXML private TilePane tileFond;
     @FXML private ImageView spriteJoueur;
+    @FXML private ImageView spriteArme;
     @FXML private BorderPane bPaneEtabli;
     @FXML private ImageView spriteEtabli;
     @Override
@@ -47,17 +48,19 @@ public class Controleur implements Initializable {
         personnageVue = new PersonnageVue(env.getJoueur(), spriteJoueur);
         mapVue = new EnvironnementVue(env, root, tileSol, tileDecors, tileFond);
         objetVue = new ObjetVue(this.env, this.root);
-        armeVue = new ArmeVue(root, env.getJoueur());
+        armeVue = new ArmeVue(env.getJoueur(), spriteArme);
         vievue = new VieVue(root);
-        etabliVue =new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
+        etabliVue = new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
+
         this.env.getJoueur().getPVProperty().addListener(new VieListener(vievue, this.env.getJoueur()));
         new EtabliControleur(root,env, etabliVue);
-        new PersonnageListener(env.getJoueur(), personnageVue, armeVue);
+        new PersonnageListeners(env.getJoueur(), personnageVue, armeVue);
+
         initAnimation();
         gameLoop.play();
     }

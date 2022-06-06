@@ -22,14 +22,14 @@
          </image>
       </ImageView>
       <ImageView fx:id="spriteJoueur" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
-<!--      <ImageView fx:id="spriteArme" fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />-->
+      <ImageView fx:id="spriteArme" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" />
       <BorderPane fx:id="bPaneEtabli" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="457.0" style="-fx-background-color: #42280E; -fx-border-color: black; -fx-border-width: 5;">
          <left>
             <ScrollPane fx:id="sPObjets" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="207.0" style="-fx-background-color: transparent; -fx-background: transparent;" BorderPane.alignment="CENTER">
                <content>
                   <VBox fx:id="VBoxObjets" maxWidth="-Infinity" prefWidth="187.0">
                      <children>
-                        <HBox fx:id="Etabli" layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="200.0">
+                        <HBox fx:id="Etabli" prefHeight="64.0" prefWidth="200.0">
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

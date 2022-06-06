@@ -5,9 +5,9 @@ import application.modele.personnages.Personnage;
 import application.vue.ArmeVue;
 import application.vue.PersonnageVue;
 
-public class PersonnageListener {
+public class PersonnageListeners {
 
-    public PersonnageListener(Personnage perso, PersonnageVue persoVue, ArmeVue armeVue) {
+    public PersonnageListeners(Personnage perso, PersonnageVue persoVue, ArmeVue armeVue) {
         //appel la méthode animationDeplacement à chaque fois que x change et donc que le joueur se déplace
         perso.getXProperty().addListener((observableValue, number, t1) -> persoVue.animerDeplacement());
 

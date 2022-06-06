@@ -2,7 +2,7 @@ package application.controleur.listeners;
 
 import application.modele.armes.Arme;
 import application.vue.ArmeVue;
-import application.vue.vueEnv.ChargeurRessources;
+import application.vue.ChargeurRessources;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 

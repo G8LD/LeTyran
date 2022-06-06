@@ -1,7 +1,6 @@
 package application.vue;
 
 import application.modele.Etabli;
-import application.vue.vueEnv.ChargeurRessources;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;

@@ -1,18 +1,17 @@
 package application.controleur.listeners;
 
 import application.modele.Environnement;
-import application.modele.ObjetInventaire;
 import application.modele.objets.Arbre;
 import application.modele.objets.Materiau;
 import application.modele.personnages.Ennemi;
-import application.vue.vueEnv.EnvironnementVue;
+import application.vue.EnvironnementVue;
 import javafx.collections.ListChangeListener;
 
 import static application.modele.MapJeu.WIDTH;
 
-public class EnvironnementListener {
+public class EnvironnementListeners {
 
-    public EnvironnementListener(EnvironnementVue envVue, Environnement env) {
+    public EnvironnementListeners(EnvironnementVue envVue, Environnement env) {
         env.getListeMateriaux().addListener(new ListChangeListener<Materiau>() {
             @Override
             public void onChanged(Change<? extends Materiau> change) {

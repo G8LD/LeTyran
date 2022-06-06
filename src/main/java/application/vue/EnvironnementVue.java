@@ -1,9 +1,9 @@
-package application.vue.vueEnv;
+package application.vue;
 
-import application.controleur.listeners.EnvironnementListener;
+import application.controleur.listeners.EnvironnementListeners;
+import application.controleur.listeners.PersonnageListeners;
 import application.modele.Environnement;
 import application.modele.personnages.Ennemi;
-import application.vue.PersonnageVue;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -31,14 +31,14 @@ public class EnvironnementVue {
         this.tileDecors = tileDecors;
         this.tileFond = tileFond;
 
-        new EnvironnementListener(this, env);
+        new EnvironnementListeners(this, env);
 
         construireMap();
         construireDecor();
         construireFond();
 
         for (Ennemi ennemi : env.getListeEnnemis()) {
-            new PersonnageVue(root, ennemi);
+            new PersonnageListeners(ennemi, new PersonnageVue(root, ennemi), new ArmeVue(root, ennemi));
         }
     }
 
@@ -138,5 +138,6 @@ public class EnvironnementVue {
 
     public void supprimerEnnemi(String id) {
         root.getChildren().remove(root.lookup("#" + id));
+        root.getChildren().remove(root.lookup("#" + id + "Arme"));
     }
 }

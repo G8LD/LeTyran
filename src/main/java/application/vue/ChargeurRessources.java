@@ -1,4 +1,4 @@
-package application.vue.vueEnv;
+package application.vue;
 
 import application.modele.armes.Arme;
 import application.vue.ArmeVue;
