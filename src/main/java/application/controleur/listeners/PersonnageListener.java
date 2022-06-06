@@ -2,41 +2,30 @@ package application.controleur.listeners;
 
 import application.modele.personnages.Ennemi;
 import application.modele.personnages.Personnage;
+import application.vue.ArmeVue;
 import application.vue.PersonnageVue;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 public class PersonnageListener {
 
-    public PersonnageListener(Personnage perso, PersonnageVue persoVue) {
+    public PersonnageListener(Personnage perso, PersonnageVue persoVue, ArmeVue armeVue) {
         //appel la méthode animationDeplacement à chaque fois que x change et donc que le joueur se déplace
-        perso.getXProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                persoVue.animerDeplacement();
-            }
-        });
+        perso.getXProperty().addListener((observableValue, number, t1) -> persoVue.animerDeplacement());
+
         //si le joueur n'avance plus pour mettre le sprite du personnage immobile
-        perso.getAvanceProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                if (!t1) persoVue.immobile();
-            }
-        });
+        perso.getAvanceProperty().addListener((observableValue, aBoolean, t1) -> {if (!t1) persoVue.immobile();});
+
         //retourne le sprite du perso
-        perso.getDirectionProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observableValue, Object o, Object t1) {
+        perso.getDirectionProperty().addListener((observableValue, o, t1) ->  {
                 persoVue.inverserSprite();
+                armeVue.inverserSprite();
             }
-        });
+        );
+
+        //retire le sprite de l'ennemi si mort
         if (perso instanceof Ennemi)
-            perso.getPVProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+            perso.getPVProperty().addListener((observableValue, number, t1) -> {
                     if ((int) t1 <= 0)
                         perso.getEnv().getListeEnnemis().remove(perso);
-                }
             });
     }
 }

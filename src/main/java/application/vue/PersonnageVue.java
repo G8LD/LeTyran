@@ -1,6 +1,5 @@
 package application.vue;
 
-import application.controleur.listeners.PersonnageListener;
 import application.modele.Direction;
 import application.modele.personnages.Personnage;
 import javafx.scene.image.Image;
@@ -29,20 +28,20 @@ public class PersonnageVue {
         }});
     }};
 
-    private Personnage personnage;
+    private Personnage perso;
     private ImageView spritePerso;
     private int indexSprite = 0;
     private long lastUpdate;
 
-    public PersonnageVue(Personnage personnage, ImageView spritesJoueur) {
-        this.personnage = personnage;
+    public PersonnageVue(Personnage perso, ImageView spritesJoueur) {
+        this.perso = perso;
         this.spritePerso = spritesJoueur;
         lastUpdate = System.nanoTime();
         construirePerso();
     }
 
-    public PersonnageVue(Pane root, Personnage personnage) {
-        this.personnage = personnage;
+    public PersonnageVue(Pane root, Personnage perso) {
+        this.perso = perso;
         lastUpdate = System.nanoTime();
         creationSprite();
         construirePerso();
@@ -51,16 +50,15 @@ public class PersonnageVue {
 
     private void creationSprite() {
         spritePerso = new ImageView();
-        spritePerso.setId(personnage.getId());
+        spritePerso.setId(perso.getId());
         spritePerso.setFitWidth(TUILE_TAILLE);
         spritePerso.setFitHeight(TUILE_TAILLE);
     }
 
     private void construirePerso() {
-        spritePerso.setImage(LISTE_SPRITES.get(personnage.getClass().getSimpleName()).get(0));
-        spritePerso.translateXProperty().bind(personnage.getXProperty());
-        spritePerso.translateYProperty().bind(personnage.getYProperty());
-        new PersonnageListener(personnage, this);
+        spritePerso.setImage(LISTE_SPRITES.get(perso.getClass().getSimpleName()).get(0));
+        spritePerso.translateXProperty().bind(perso.getXProperty());
+        spritePerso.translateYProperty().bind(perso.getYProperty());
     }
 
     public void animerDeplacement() {
@@ -73,20 +71,20 @@ public class PersonnageVue {
 //                spritePerso.setImage(LISTE_SPRITES.get(personnage.getClass().getSimpleName()).get(2));
 //            else
 //                spritePerso.setImage(LISTE_SPRITES.get(personnage.getClass().getSimpleName()).get(1));
-            spritePerso.setImage(LISTE_SPRITES.get(personnage.getClass().getSimpleName()).get(indexSprite++));
-            if (indexSprite == LISTE_SPRITES.get(personnage.getClass().getSimpleName()).size()) indexSprite = 0;
+            spritePerso.setImage(LISTE_SPRITES.get(perso.getClass().getSimpleName()).get(indexSprite++));
+            if (indexSprite == LISTE_SPRITES.get(perso.getClass().getSimpleName()).size()) indexSprite = 0;
         }
     }
 
     //inverse l'image selon la direction
     public void inverserSprite() {
-        if (personnage.getDirection() == Direction.Droit)
+        if (perso.getDirection() == Direction.Droit)
             spritePerso.setScaleX(1);
         else
             spritePerso.setScaleX(-1);
     }
 
     public void immobile(){
-        spritePerso.setImage(LISTE_SPRITES.get(personnage.getClass().getSimpleName()).get(0));
+        spritePerso.setImage(LISTE_SPRITES.get(perso.getClass().getSimpleName()).get(0));
     }
 }

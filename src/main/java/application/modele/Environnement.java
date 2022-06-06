@@ -71,6 +71,7 @@ public class Environnement {
     private void initListeEnnemis() {
         listeEnnemis = FXCollections.observableArrayList();
         listeEnnemis.add(new Ennemi(this, new Epee(this, 1), 15, 11, 5));
+        listeEnnemis.add(new Ennemi(this, new Epee(this, 1), 20, 0, 5));
     }
 
     public void supprimerObjetEnvironnement(Entite obj) {
