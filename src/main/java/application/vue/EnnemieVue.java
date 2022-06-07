@@ -35,7 +35,8 @@ public class EnnemieVue {
     }
 
     public void supprimerCadavre() {
-        this.image.setImage(new Image("file:src/main/resources/application/pack1/vide.png"));
+        System.out.println("remove cadavre");
+        this.rootPane.getChildren().remove(image);
     }
 
     public ImageView getImage(){

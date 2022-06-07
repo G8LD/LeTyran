@@ -17,6 +17,8 @@ import javafx.scene.media.AudioClip;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static application.modele.MapJeu.TUILE_TAILLE;
+
 public class EnnemiControleur{
 
     private Pane root;
@@ -29,17 +31,18 @@ public class EnnemiControleur{
     private AudioClip sound = new AudioClip(getClass().getResource("/application/sons/bruitLoorr.mp3").toExternalForm());
     private AudioClip sound1 = new AudioClip(getClass().getResource("/application/sons/zip.mp3").toExternalForm());
 
-    public EnnemiControleur(Pane root, Environnement env, TilePane tilesol, Ennemie ennemie) {
+    public EnnemiControleur(Pane root, Environnement env, TilePane tilesol, Ennemie ennemie, EnnemieVue ennemieVue) {
         this.root = root;
         this.tileSol=tilesol;
         this.env=env;
         this.ennemie= ennemie;
-        this.ennemieVue= new EnnemieVue(this.root, this.tileSol, this.ennemie);
+        this.ennemieVue= ennemieVue;
 
         this.ennemieVue.getImage().setOnMouseClicked(mouseEvent ->{
-            this.prendreLoot();
-           this.ennemieVue.supprimerCadavre();
 
+                this.prendreLoot();
+                this.ennemieVue.supprimerCadavre();
+                System.out.println("ok");
         });
          }
 

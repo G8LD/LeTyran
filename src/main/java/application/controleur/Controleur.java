@@ -56,14 +56,13 @@ public class Controleur implements Initializable {
         vievue = new VieVue(root);
         this.ennemie= new Ennemie(env);
         this.ennemieVue= new EnnemieVue(root,tileSol,ennemie);
-        this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie);
+        this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie,this.ennemieVue);
 
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
-        this.ennemieVue.afficherCadavres();
 
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
 
