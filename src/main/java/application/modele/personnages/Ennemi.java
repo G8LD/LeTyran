@@ -21,6 +21,7 @@ public class Ennemi extends Personnage {
     private int distance;
     private BooleanProperty attaqueProperty;
     private int delai;
+    private boolean retourZone;
 
     public Ennemi(Environnement env, Arme arme, int x, int y, int distance) {
         super(env, "Ennemi" + id++, arme, x * TUILE_TAILLE, y * TUILE_TAILLE, 20);
@@ -29,6 +30,7 @@ public class Ennemi extends Personnage {
         this.distance = distance * TUILE_TAILLE;
         attaqueProperty = new SimpleBooleanProperty(false);
         delai = 0;
+        retourZone = false;
     }
 
     private void deplacement() {
@@ -49,23 +51,29 @@ public class Ennemi extends Personnage {
 //            origineY = (int) getY();
 //        }
 //        seDeplacer();
+        if (((getX() < origineX - 2 * distance && getDirection() == Gauche) || (getX() > origineX + 3 * distance && getDirection() == Droit)) && !retourZone) {
+            setDirection(getDirectionOpposee());
+            retourZone = true;
+        } else if (getX() >= origineX && getX() <= origineX + distance && getY() == origineY && retourZone)
+            retourZone = false;
 
-        if (Math.abs(getEnv().getJoueur().getX() - getX()) < distance && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE)
-            if (getEnv().getJoueur().getX() - getX() > 0)
-                setDirection(Droit);
-            else
-                setDirection(Gauche);
-        else if (getX() >= origineX && getX() <= origineX + distance && getY() == origineY && estBloque())
-            setDirection(getDirectionOpposee());
-        else if (((getX() < origineX && getDirection() == Gauche) || (getX() > origineX + distance && getDirection() == Droit)))
-            setDirection(getDirectionOpposee());
-        else if (estBloque()) {
-            if (getDirection() == Gauche)
-                origineX = (int) getX();
-            else
-                origineX = (int) (getX() - distance);
-            origineY = (int) getY();
-        }
+        if (!retourZone)
+            if (Math.abs(getEnv().getJoueur().getX() - getX()) < distance && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE)
+                if (getEnv().getJoueur().getX() - getX() > 0)
+                    setDirection(Droit);
+                else
+                    setDirection(Gauche);
+            else if (getX() >= origineX && getX() <= origineX + distance && getY() == origineY && estBloque())
+                setDirection(getDirectionOpposee());
+            else if (((getX() < origineX && getDirection() == Gauche) || (getX() > origineX + distance && getDirection() == Droit)))
+                setDirection(getDirectionOpposee());
+            else if (estBloque()) {
+                if (getDirection() == Gauche)
+                    origineX = (int) getX();
+                else
+                    origineX = (int) (getX() - distance);
+                origineY = (int) getY();
+            }
         seDeplacer();
     }
 

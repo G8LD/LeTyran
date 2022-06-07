@@ -23,7 +23,7 @@ public class VieVue  {
         this.rootPane=root;
         this.viePane=new Pane();
         this.listeVie= new Image[11];
-        this.image= new ImageView(new Image("file:src/main/resources/application/Vie/10.png"));
+        this.image= new ImageView();
         this.viePane.setMaxWidth(200);// dimension du pane
         this.viePane.setMaxHeight(100);
 
@@ -37,7 +37,7 @@ public class VieVue  {
         this.rootPane.getChildren().add(this.viePane);
 
 
-        this.afficherVie(50);
+        this.afficherVie(100);
 
     }
     // fonction pour cree une image View qui contient toute les images de la vie
