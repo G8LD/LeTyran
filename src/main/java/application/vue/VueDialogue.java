@@ -65,6 +65,14 @@ public class VueDialogue {
         }
     }
 
+    public void afficher() {
+        this.dialogFlow.setVisible(!this.dialogFlow.isVisible());
+    }
+
+    public boolean estAffiche() {
+        return this.dialogFlow.isVisible();
+    }
+
     public void fermer() {
         this.dialogFlow.setVisible(false);
     }

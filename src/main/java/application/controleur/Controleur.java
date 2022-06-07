@@ -9,10 +9,13 @@ import application.vue.*;
 import application.vue.vueEnv.EnvironnementVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -73,7 +76,7 @@ public class Controleur implements Initializable {
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
         root.addEventHandler(KeyEvent.KEY_PRESSED, new InventaireControleur(root, env));
-        root.addEventHandler(MouseEvent.MOUSE_CLICKED, new DialogueControleur(vueDialog, modeleDialogue));
+        root.addEventHandler(Event.ANY, new DialogueControleur(vueDialog, modeleDialogue));
 
 
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));

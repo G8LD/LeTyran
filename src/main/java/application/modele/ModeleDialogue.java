@@ -7,6 +7,7 @@ public class ModeleDialogue {
     private int nombrePartieTotal;
     private ArrayList<String> texteEntier;
 
+
     public ModeleDialogue () {
         texteEntier = new ArrayList<>();
         texteEntier.add("Bonjour, bienvenue au village Village");
@@ -17,6 +18,10 @@ public class ModeleDialogue {
 
         partieActuelle = 0;
         nombrePartieTotal = texteEntier.size() - 1;
+    }
+
+    public void reinitialiserDialogue() {
+        partieActuelle = 0;
     }
 
     public String getTexteDialogue() {
