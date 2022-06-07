@@ -55,7 +55,7 @@ public class Controleur implements Initializable {
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
         vievue = new VieVue(root);
         this.ennemie= new Ennemie(env);
-        this.ennemieVue= new EnnemieVue(root,tileSol,ennemie,env);
+        this.ennemieVue= new EnnemieVue(root,tileSol,ennemie);
         this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie);
 
 

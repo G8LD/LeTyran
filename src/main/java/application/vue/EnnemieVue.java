@@ -12,31 +12,30 @@ public class EnnemieVue {
     private ImageView image;
     private TilePane tileSol;
     private Ennemie ennemi;
-    private Environnement env;
 
 
-    public EnnemieVue(Pane root, TilePane tilesol, Ennemie ennemie, Environnement env){
+    public EnnemieVue(Pane root, TilePane tilesol, Ennemie ennemie){
         this.rootPane=root;
         this.tileSol=tilesol;
-        this.env=env;
-        this.ennemi=new Ennemie(env);
-        this.image=new ImageView(new Image("file:src/main/resources/application/perso/mortChevalier.png"));
-        rootPane.getChildren().add(image);
+        this.ennemi=ennemie;
+        afficherCadavres();
         image.setLayoutX(500);
         image.setLayoutY(350);
         image.setFitWidth(50);
         image.setFitHeight(45);
-       // afficherCadavres();
+        rootPane.getChildren().add(image);
 
 
     }
     public void afficherCadavres(){
-        if(this.ennemi.estMort())
+        if(!(this.ennemi.estMort())){
+
+        }
         this.image=new ImageView(new Image("file:src/main/resources/application/perso/mortChevalier.png"));
     }
 
-    public void supprimerCadavre(ImageView img) {
-        img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
+    public void supprimerCadavre() {
+        this.image.setImage(new Image("file:src/main/resources/application/pack1/vide.png"));
     }
 
     public ImageView getImage(){

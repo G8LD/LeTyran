@@ -31,17 +31,14 @@ public class EnnemiControleur{
 
     public EnnemiControleur(Pane root, Environnement env, TilePane tilesol, Ennemie ennemie) {
         this.root = root;
-        this.env = env;
         this.tileSol=tilesol;
         this.env=env;
         this.ennemie= ennemie;
-        this.ennemieVue= new EnnemieVue(root, tilesol, ennemie, env);
+        this.ennemieVue= new EnnemieVue(this.root, this.tileSol, this.ennemie);
 
         this.ennemieVue.getImage().setOnMouseClicked(mouseEvent ->{
-            System.out.println("On passe");
             this.prendreLoot();
-            this.ennemieVue.supprimerCadavre(this.ennemieVue.getImage());
-            System.out.println("fini 3");
+           this.ennemieVue.supprimerCadavre();
 
         });
          }
@@ -49,7 +46,7 @@ public class EnnemiControleur{
         public void prendreLoot(){
             Entite bois= new Bois(this.env,0,0);
             this.env.getPersonnage().getInventaire().ajouterObjet(bois);
-            System.out.println(this.env.getPersonnage().getInventaire());//On baisse le son de l'audio
+            //On baisse le son de l'audio
             sound.setVolume(15. / 30.);
             sound.play();
             sound1.setVolume(15. / 30.);
