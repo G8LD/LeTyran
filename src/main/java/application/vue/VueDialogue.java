@@ -67,6 +67,9 @@ public class VueDialogue {
 
     public void afficher() {
         this.dialogFlow.setVisible(!this.dialogFlow.isVisible());
+        if(this.dialogFlow.isVisible()) {
+            caractereActuel = 0;
+        }
     }
 
     public boolean estAffiche() {
