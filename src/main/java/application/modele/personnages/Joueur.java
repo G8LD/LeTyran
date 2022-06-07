@@ -30,7 +30,6 @@ public class Joueur extends Personnage {
 
     private boolean frapper(int x, int y) {
         Ennemi ennemi = getEnv().getEnnemi(x,y);
-        System.out.println(ennemi);
         if (ennemi != null) {
             getArme().frapper(ennemi);
             return true;

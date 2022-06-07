@@ -32,6 +32,24 @@ public class Ennemi extends Personnage {
     }
 
     private void deplacement() {
+//        if (Math.abs(getEnv().getJoueur().getX() - getX()) < distance && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE)
+//            if (getEnv().getJoueur().getX() - getX() > 0)
+//                setDirection(Droit);
+//            else
+//                setDirection(Gauche);
+//        else if (getX() >= origineX && getX() <= origineX + distance && getY() == origineY && estBloque())
+//            setDirection(getDirectionOpposee());
+//        else if (((getX() < origineX && getDirection() == Gauche) || (getX() > origineX + distance && getDirection() == Droit)))
+//            setDirection(getDirectionOpposee());
+//        else if (estBloque()) {
+//            if (getDirection() == Gauche)
+//                origineX = (int) getX();
+//            else
+//                origineX = (int) (getX() - distance);
+//            origineY = (int) getY();
+//        }
+//        seDeplacer();
+
         if (Math.abs(getEnv().getJoueur().getX() - getX()) < distance && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE)
             if (getEnv().getJoueur().getX() - getX() > 0)
                 setDirection(Droit);
