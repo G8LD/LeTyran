@@ -1,16 +1,17 @@
 package application.modele;
 
-import application.modele.objets.Bois;
-import application.modele.objets.Coffre;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Ennemie extends Personnage {
     private ObservableList<Ennemie> listeCadavres;
+    private int x ;
+    private int y ;
 
-
-    public Ennemie(Environnement env) {
+    public Ennemie(Environnement env, int x , int y ) {
         super(env);
+        this.x=x;
+        this.y=y ;
         listeCadavres = FXCollections.observableArrayList();
 
     }
@@ -19,7 +20,13 @@ public class Ennemie extends Personnage {
         return this.getEnv().getPersonnage().getPv() - nbdegat;
     }
 
+    @Override
+    public float getX() {
+        return x;
+    }
 
-
-
+    @Override
+    public float getY() {
+        return y;
+    }
 }

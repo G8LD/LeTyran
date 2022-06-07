@@ -39,10 +39,14 @@ public class EnnemiControleur{
         this.ennemieVue= ennemieVue;
 
         this.ennemieVue.getImage().setOnMouseClicked(mouseEvent ->{
-
+            System.out.println(this.ennemie.getX());
+            System.out.println(this.ennemie.getY());
+            if((this.ennemie.getX() <= this.env.getPersonnage().getX()+2*TUILE_TAILLE && this.ennemie.getX() >= this.env.getPersonnage().getX()-TUILE_TAILLE && this.ennemie.getY() <= this.env.getPersonnage().getY()+2*TUILE_TAILLE && this.ennemie.getY() >= this.env.getPersonnage().getY()-TUILE_TAILLE)) {
                 this.prendreLoot();
                 this.ennemieVue.supprimerCadavre();
                 System.out.println("ok");
+            }
+            System.out.println("ok2");
         });
          }
 

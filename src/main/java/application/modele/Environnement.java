@@ -23,7 +23,7 @@ public class Environnement {
 
     public Environnement() {
         personnage = new Personnage(this);
-        this.ennemie=new Ennemie(this);
+        this.ennemie=new Ennemie(this, 500 ,350);
         mapJeu = new MapJeu();
         listeMateriaux = FXCollections.observableArrayList();
         listeEntites = FXCollections.observableArrayList();
