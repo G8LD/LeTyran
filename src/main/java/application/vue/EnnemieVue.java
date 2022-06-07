@@ -20,19 +20,19 @@ public class EnnemieVue {
         this.tileSol=tilesol;
         this.env=env;
         this.ennemi=new Ennemie(env);
-        this.image=new ImageView(new Image("file:src/main/resources/application/perso/cadavre.png"));
+        this.image=new ImageView(new Image("file:src/main/resources/application/perso/mortChevalier.png"));
         rootPane.getChildren().add(image);
         image.setLayoutX(500);
-        image.setLayoutY(362);
-        image.setFitWidth(75);
-        image.setFitHeight(25);
+        image.setLayoutY(350);
+        image.setFitWidth(50);
+        image.setFitHeight(45);
        // afficherCadavres();
 
 
     }
     public void afficherCadavres(){
         if(this.ennemi.estMort())
-        this.image=new ImageView(new Image("file:src/main/resources/application/perso/cadavre.png"));
+        this.image=new ImageView(new Image("file:src/main/resources/application/perso/mortChevalier.png"));
     }
 
     public void supprimerCadavre(ImageView img) {
