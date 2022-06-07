@@ -42,8 +42,11 @@ public class InventaireControleur implements EventHandler<Event> {
     public void gererEntreeSouris(ScrollEvent scrollEvent) {
         if(scrollEvent.getDeltaY() > 0) {
             System.out.println("-1");
+            this.inv.scrollObjetMain(-1);
         } else if(scrollEvent.getDeltaY() < 0) {
             System.out.println("+1");
+            this.inv.scrollObjetMain(+1);
+
         }
     }
 

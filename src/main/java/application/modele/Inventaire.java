@@ -13,6 +13,9 @@ public class Inventaire {
     public final static int PLACE_INVENTAIRE = 25;
     public final static int PLACE_MAIN_PERSONNAGE = 5;
 
+    private int objetMainIndex;
+    private ObjetInventaire objetMain;
+
 
     private HashMap<Integer, Boolean> placesDisponible;
 
@@ -26,13 +29,42 @@ public class Inventaire {
 
             placesDisponible.put(i, true);
         }
-        //this.ajouterObjet(new Pioche(10));
+
+        objetMainIndex = 0;
 
     }
 
     public ObservableList<ObjetInventaire> getObjets(){
 
         return objets;
+    }
+
+    public void equiperObjet(int index) {
+        if(objetMain != null && objetMain.getPlaceInventaire() != index){
+            objetMain = null;
+        }
+
+        int i = 0;
+        boolean trouver = false;
+        while (i < this.getObjets().size() && !trouver) {
+            ObjetInventaire obj = this.getObjets().get(i);
+            if (obj.getPlaceInventaire() == index) {
+                this.objetMain = obj;
+            }
+            i++;
+        }
+    }
+
+    public void scrollObjetMain(int delta) {
+        objetMainIndex += delta;
+        if(objetMainIndex > PLACE_MAIN_PERSONNAGE - 1) {
+            objetMainIndex = 0;
+        } else if(objetMainIndex < 0) {
+            objetMainIndex = PLACE_MAIN_PERSONNAGE - 1;
+        }
+
+        equiperObjet(objetMainIndex);
+        System.out.println("VOus vous équipez de l'objet situé à la place " + objetMainIndex + " " + objetMain);
     }
 
     public void definirPlacePrise(int place) {
