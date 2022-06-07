@@ -181,7 +181,7 @@ public class Inventaire {
                 this.env.getEntites().remove(obj);
             }
 
-            trierObjetInventaireParPlace();
+            //trierObjetInventaireParPlace();
         }
 
     }

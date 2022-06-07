@@ -57,15 +57,21 @@ public class InventaireVue {
             @Override
             public void onChanged(Change<? extends ObjetInventaire> change) {
                 change.next();
-                for(int i = 0; i < change.getRemovedSize(); i++) {
-                    ObjetInventaire obj = change.getRemoved().get(i);
-                    retirerObjetAffichage(obj);
 
-                }
+                if(change.getRemovedSize() > 0) {
+                    System.out.println("des trucs on été retirés " + change.getRemoved().get(0).getEntite());
+                    for (int i = 0; i < change.getRemovedSize(); i++) {
+                        ObjetInventaire obj = change.getRemoved().get(i);
+                        retirerObjetAffichage(obj);
 
-                for(int i = 0; i < change.getAddedSize(); i++) {
-                    ObjetInventaire obj = change.getAddedSubList().get(i);
-                    ajouterUnObjet(obj);
+                    }
+                } else if(change.getAddedSize() > 0) {
+
+                    for (int i = 0; i < change.getAddedSize(); i++) {
+
+                        ObjetInventaire obj = change.getAddedSubList().get(i);
+                        ajouterUnObjet(obj);
+                    }
                 }
             }
         });
@@ -121,8 +127,9 @@ public class InventaireVue {
             if(seletecSlot != slotParent) {
 
                 //On vérifie si il y a un objet ou non dans la case la plus proche, si c'est le cas, on interverti les deux objets
-                if (seletecSlot.getChildren().size() == 2) {
+                if (seletecSlot.getChildren().size() > 1) {
                     //Code pour échanger deux items
+                    System.out.println(slotParent.getId());
                     int autrePlace = this.paneSacInventaire.getChildren().indexOf(slotParent);
 
                     InvItem selectSlotItem = (InvItem) seletecSlot.getChildren().get(1);
@@ -135,7 +142,7 @@ public class InventaireVue {
                     this.controleur.echangerObjet(this.objPrit, selectSlotItem, indexConteneurTrouve, autrePlace);
 
                 } else {;
-
+                    System.out.println("Slot attribué" + seletecSlot.getId());
                     this.controleur.objetPlaceInventaireChanger(objPrit, slotParent.getIndex(), seletecSlot.getIndex());
 
                     slotParent.getChildren().remove(this.objPrit);
@@ -157,12 +164,22 @@ public class InventaireVue {
 
 
     public void ajouterUnObjet(ObjetInventaire obj) {
+        //System.out.println(obj.getPlaceInventaire());
         InvSlot slot;
+
         if(obj.getPlaceInventaire() < 5) {
-            slot = (InvSlot) this.paneInventaireMain.getChildren().get(obj.getPlaceInventaire());
+            //System.out.println("On cherche le slot" + obj.getPlaceInventaire());
+
+            //slot = (InvSlot) this.paneInventaireMain.getChildren().get(obj.getPlaceInventaire());
+            slot = (InvSlot) this.paneInventaireMain.lookup("#slot"+obj.getPlaceInventaire());
         } else {
-            slot = (InvSlot) this.paneSacInventaire.getChildren().get(obj.getPlaceInventaire() - 5);
+            //System.out.println("On cherche le slot" + (obj.getPlaceInventaire()));
+
+            slot = (InvSlot) this.paneSacInventaire.lookup("#slot"+(obj.getPlaceInventaire()));
+            //slot = (InvSlot) this.paneSacInventaire.lookup("#slot"+16);
+            System.out.println(slot);
         }
+
 
 
         InvItem item = new InvItem(this, obj, TAILLE_ICON_INVENTAIRE);
@@ -182,7 +199,7 @@ public class InventaireVue {
         for(int i = 0; i < PLACE_INVENTAIRE / 10; i++) {
             for(int j =0; j < 10; j++) {
                 InvSlot invSlot = new InvSlot(ChargeurRessources.iconObjets.get("inventaireSac"));
-
+                invSlot.setId("slot"+((i * 10) + j + PLACE_MAIN_PERSONNAGE));
                 invSlot.setSize(TAILLE_ICON_INVENTAIRE,TAILLE_ICON_INVENTAIRE);
                 invSlot.setLayoutX(TAILLE_ICON_INVENTAIRE * j);
                 invSlot.setLayoutY(TAILLE_ICON_INVENTAIRE * i);
@@ -214,6 +231,7 @@ public class InventaireVue {
 
         for(int j =0; j < PLACE_MAIN_PERSONNAGE; j++) {
             InvSlot invSlot = new InvSlot(ChargeurRessources.iconObjets.get("inventaireMain"), true);
+            invSlot.setId("slot"+j);
             invSlot.setIndex(j);
             invSlot.setSize(TAILLE_ICON_INVENTAIRE,TAILLE_ICON_INVENTAIRE);
             invSlot.setLayoutX(TAILLE_ICON_INVENTAIRE * j);
