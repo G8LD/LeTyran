@@ -30,6 +30,7 @@ public class Personnage extends Entite {
         armeProperty = new SimpleObjectProperty<>(new Pioche(1));
         this.inventaire = new Inventaire(super.getEnv());
         inventaire.ajouterObjet(new Pioche(1));
+        inventaire.ajouterObjet(new Hache(1));
     }
 
     public void seDeplacer() {

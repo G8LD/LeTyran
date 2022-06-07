@@ -3,6 +3,7 @@ package application.controleur;
 import application.controleur.listeners.ObjetSupprimeListener;
 import application.modele.Inventaire;
 import application.modele.Environnement;
+import application.modele.ObjetInventaire;
 import application.vue.InventaireVue;
 import application.vue.controls.InvItem;
 import javafx.event.Event;
@@ -10,6 +11,7 @@ import javafx.event.EventHandler;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 
@@ -22,15 +24,27 @@ public class InventaireControleur implements EventHandler<Event> {
 
     private InventaireVue invVue;
 
-    public InventaireControleur(Pane root, Environnement jeu, Pane inventaireMain, Pane inventaireSac) {
+    public InventaireControleur(Pane root, Environnement jeu, Pane inventaireMain, Pane inventaireSac, Pane inventaireEquip) {
         this.root = root;
         this.jeu = jeu;
 
         this.inv = this.jeu.getPersonnage().getInventaire();
 
-        this.invVue = new InventaireVue(inv, this, inventaireMain, inventaireSac);
+        this.invVue = new InventaireVue(inv, this, inventaireMain, inventaireSac, inventaireEquip);
 
         this.inv.getObjets().addListener(new ObjetSupprimeListener(this));
+
+        inventaireEquip.getChildren().get(0).setPickOnBounds(true);
+        inventaireEquip.getChildren().get(0).setOnMouseClicked(mouseEvent -> {
+            inv.desequiperArmure();
+            this.invVue.enleverEquipement("armure");
+        });
+
+        inventaireEquip.getChildren().get(1).setOnMouseClicked(mouseEvent -> {
+            inv.desequiperArme();
+            this.invVue.enleverEquipement("arme");
+        });
+
     }
 
     public void gererEntreeClavier(KeyEvent keyvent) {
@@ -38,6 +52,7 @@ public class InventaireControleur implements EventHandler<Event> {
             this.invVue.afficherInventaire();
         }
     }
+
 
     public void gererEntreeSouris(ScrollEvent scrollEvent) {
         if(scrollEvent.getDeltaY() > 0) {

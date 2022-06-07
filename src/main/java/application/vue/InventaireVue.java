@@ -2,20 +2,18 @@ package application.vue;
 
 import application.controleur.InventaireControleur;
 import application.modele.ObjetInventaire;
+import application.modele.armes.Hache;
 import application.vue.controls.InvItem;
 import application.modele.Inventaire;
 import application.vue.controls.InvSlot;
 import application.vue.vueEnv.ChargeurRessources;
 import javafx.collections.ListChangeListener;
 import javafx.scene.effect.ColorInput;
-import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.media.AudioClip;
-
-import java.util.ArrayList;
 
 import static application.modele.Inventaire.PLACE_INVENTAIRE;
 import static application.modele.Inventaire.PLACE_MAIN_PERSONNAGE;
@@ -28,18 +26,20 @@ public class InventaireVue {
 
     private Pane paneSacInventaire;
     private Pane paneInventaireMain;
+    private Pane inventaireArmure;
 
     private InventaireControleur controleur;
     public final static int TAILLE_ICON_INVENTAIRE = 32;
 
     private AudioClip sound = new AudioClip(getClass().getResource("/application/sons/ui_menu_button_click_24.mp3").toExternalForm());
 
-    public InventaireVue(Inventaire inv, InventaireControleur controleur, Pane paneInventaireMain, Pane paneSacInventaire) {
+    public InventaireVue(Inventaire inv, InventaireControleur controleur, Pane paneInventaireMain, Pane paneSacInventaire, Pane inventaireArmure) {
         this.inv = inv;
         this.controleur = controleur;
 
         this.paneInventaireMain = paneInventaireMain;
         this.paneSacInventaire = paneSacInventaire;
+        this.inventaireArmure = inventaireArmure;
 
         this.paneSacInventaire.setLayoutY(32);
 
@@ -142,11 +142,7 @@ public class InventaireVue {
                     seletecSlot.getChildren().add(this.objPrit);
 
                     //On calcul la place en prenant en sachant que ça fait + 1 après avoir placé l'imageview et l'objet à affiché
-
-
                 }
-
-
 
                 //On baisse le son de l'audio
                 sound.setVolume(1. / 30.);
@@ -239,9 +235,37 @@ public class InventaireVue {
 
     }
 
+    public void mettreEquipement(ObjetInventaire obj) {
+        String emplacement = "";
+
+        if(obj.getEntite() instanceof Hache) {
+            emplacement = "#armeEquipement";
+
+        } else {
+            emplacement = "#armureEmplacement";
+        }
+
+        ImageView img = (ImageView) this.inventaireArmure.lookup(emplacement);
+
+        img.setImage(ChargeurRessources.iconObjets.get("Bois"));
+    }
+
+    public void enleverEquipement(String type)
+    {
+        if(type.equals("armure")) {
+            ImageView img = (ImageView) this.inventaireArmure.lookup("#armureEmplacement");
+            img.setImage(null);
+        } else {
+            ImageView img = (ImageView) this.inventaireArmure.lookup("#armeEquipement");
+            img.setImage(null);
+        }
+
+    }
+
 
     public void afficherInventaire() {
         this.paneSacInventaire.setVisible(!this.paneSacInventaire.isVisible());
+        this.inventaireArmure.setVisible(!this.inventaireArmure.isVisible());
 
     }
 
@@ -262,7 +286,10 @@ public class InventaireVue {
 
 
     public void jeterObjetInventaire(InvItem item) {
-        this.controleur.jeterObjet(item);
+        //Faire en sorte d'équiper quand c'est une armure
+        this.inv.mettreEquipement(item.getObjetInventaire());
+        this.mettreEquipement(item.getObjetInventaire());
+        //this.controleur.jeterObjet(item);
     }
 
     public void definirObjetPrit(InvItem obj) {

@@ -1,5 +1,7 @@
 package application.modele;
 
+import application.modele.armes.Arme;
+import application.modele.armures.Armure;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -18,6 +20,9 @@ public class Inventaire {
 
 
     private HashMap<Integer, Boolean> placesDisponible;
+
+    private ObjetInventaire armure;
+    private ObjetInventaire arme;
 
     private Environnement env;
     public Inventaire(Environnement env) {
@@ -39,7 +44,26 @@ public class Inventaire {
         return objets;
     }
 
-    public void equiperObjet(int index) {
+    public void mettreEquipement(ObjetInventaire objetInventaire) {
+        if(objetInventaire.getEntite() instanceof Armure) {
+            System.out.println("Vous vous êtes équiper de " + objetInventaire);
+            armure = objetInventaire;
+        } else if (objetInventaire.getEntite() instanceof Arme) {
+            arme = objetInventaire;
+        }
+    }
+
+    public void desequiperArmure() {
+        System.out.println("Vous avez retirer l'objet");
+        armure = null;
+    }
+
+    public void desequiperArme() {
+        arme = null;
+    }
+
+
+    public void selectionnerObjetDansMain(int index) {
         if(objetMain != null && objetMain.getPlaceInventaire() != index){
             objetMain = null;
         }
@@ -63,7 +87,7 @@ public class Inventaire {
             objetMainIndex = PLACE_MAIN_PERSONNAGE - 1;
         }
 
-        equiperObjet(objetMainIndex);
+        selectionnerObjetDansMain(objetMainIndex);
         System.out.println("VOus vous équipez de l'objet situé à la place " + objetMainIndex + " " + objetMain);
     }
 
@@ -110,8 +134,6 @@ public class Inventaire {
     public boolean ajouterObjetVersionDeux(Entite ent) {
 
         boolean ajouter = false;
-
-
         //On stock l'index de l'endroit dans lequel on peut empiler
         int indexStack = -1;
         //ça permet de vérifier qu'elle est le premier bloc a pouvoir être empiler
@@ -120,7 +142,6 @@ public class Inventaire {
 
         for(int i = 0; i < this.getObjets().size(); i++) {
             ObjetInventaire objetStockee = this.getObjets().get(i);
-
             if(objetStockee.getEntite().getClass() == ent.getClass()) {
 
                 if(objetStockee.getNombre() < stackMax && placeActuel < objetStockee.getPlaceInventaire()) {
@@ -128,10 +149,7 @@ public class Inventaire {
                     indexStack = i;
                 }
             }
-
         }
-
-
         if(indexStack < 0) {
             int placeTrouve = recupererPlaceDispo();
 
@@ -165,10 +183,6 @@ public class Inventaire {
 
             trierObjetInventaireParPlace();
         }
-
-
-
-
 
     }
 

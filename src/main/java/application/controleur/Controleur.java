@@ -46,6 +46,7 @@ public class Controleur implements Initializable {
 
     @FXML private Pane inventaireMain;
     @FXML private Pane inventaireSac;
+    @FXML private Pane inventaireEquipement;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,7 +60,7 @@ public class Controleur implements Initializable {
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(this, env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, keyReleased);
-        root.addEventHandler(Event.ANY, new InventaireControleur(root, env, inventaireMain, inventaireSac));
+        root.addEventHandler(Event.ANY, new InventaireControleur(root, env, inventaireMain, inventaireSac, inventaireEquipement));
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
 
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
