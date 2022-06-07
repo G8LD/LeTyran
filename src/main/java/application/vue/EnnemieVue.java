@@ -28,9 +28,6 @@ public class EnnemieVue {
 
     }
     public void afficherCadavres(){
-        if(!(this.ennemi.estMort())){
-
-        }
         this.image=new ImageView(new Image("file:src/main/resources/application/perso/mortChevalier.png"));
     }
 
