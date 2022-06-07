@@ -51,7 +51,7 @@ public class Ennemi extends Personnage {
 //            origineY = (int) getY();
 //        }
 //        seDeplacer();
-        if (((getX() < origineX - 2 * distance && getDirection() == Gauche) || (getX() > origineX + 3 * distance && getDirection() == Droit)) && !retourZone) {
+        if (((getX() < origineX - 10*TUILE_TAILLE && getDirection() == Gauche) || (getX() > origineX + 15*TUILE_TAILLE  && getDirection() == Droit)) && !retourZone) {
             setDirection(getDirectionOpposee());
             retourZone = true;
         } else if (getX() >= origineX && getX() <= origineX + distance && getY() == origineY && retourZone)
