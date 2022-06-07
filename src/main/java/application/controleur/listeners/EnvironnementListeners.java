@@ -16,8 +16,8 @@ public class EnvironnementListeners {
             @Override
             public void onChanged(Change<? extends Materiau> change) {
                 change.next();
-                for (int i = 0; i < change.getRemoved().size(); i++)
-                    envVue.supprimerBloc((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
+                for (int i = 0; i < change.getRemovedSize(); i++)
+                    envVue.supprimerBloc((int)change.getRemoved().get(i).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
             }
         });
 
@@ -25,8 +25,8 @@ public class EnvironnementListeners {
             @Override
             public void onChanged(Change<? extends Arbre> change) {
                 change.next();
-                for (int i = 0; i < change.getRemoved().size(); i++)
-                    envVue.supprimerArbre((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
+                for (int i = 0; i < change.getRemovedSize(); i++)
+                    envVue.supprimerArbre((int)change.getRemoved().get(i).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
             }
         });
 
@@ -34,7 +34,7 @@ public class EnvironnementListeners {
             @Override
             public void onChanged(Change<? extends Ennemi> change) {
                change.next();
-               for (int i = 0; i < change.getRemoved().size(); i++)
+               for (int i = 0; i < change.getRemovedSize(); i++)
                     envVue.supprimerEnnemi(change.getRemoved().get(i).getId());
             }
         });
