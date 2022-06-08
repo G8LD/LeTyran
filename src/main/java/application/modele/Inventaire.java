@@ -11,7 +11,7 @@ public class Inventaire {
     private int MAX_OBJET = 1;
     private ObservableList<ObjetInventaire> objets = FXCollections.observableArrayList();
 
-    private int stackMax = 1;
+    private int stackMax = 5;
     public final static int PLACE_INVENTAIRE = 25;
     public final static int PLACE_MAIN_PERSONNAGE = 5;
 
