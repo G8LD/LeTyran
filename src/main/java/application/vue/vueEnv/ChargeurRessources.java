@@ -31,6 +31,10 @@ public class ChargeurRessources {
         tileMapAssets.add(55, new Image("file:src/main/resources/application/pack1/arbre_bas.png"));
         tileMapAssets.add(56, new Image("file:src/main/resources/application/pack1/arbre_milieu.png"));
         tileMapAssets.add(57, new Image("file:src/main/resources/application/pack1/arbre_haut.png"));
+        tileMapAssets.add(58, new Image("file:src/main/resources/application/Coffre/CoffreOrFerm.png"));
+
+
+
 
         //Icon objets
 //        iconObjets.put("Terre", new Image("file:src/main/resources/application/ressources/Terre.png"));

@@ -3,8 +3,11 @@ package application.modele;
 import application.modele.armes.Arme;
 import application.modele.armes.Pioche;
 import application.modele.objets.Arbre;
+import application.modele.objets.Bois;
+import application.modele.objets.Coffre;
 import application.modele.objets.Materiau;
 import javafx.beans.property.*;
+import javafx.scene.media.AudioClip;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 
@@ -22,6 +25,9 @@ public class Personnage extends Entite {
     private int hauteurSaut;
     private ObjectProperty<Arme> armeProperty;
 
+    private AudioClip bruitCoffre = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
+
+
 
     public Personnage(Environnement env) {
         super(env);
@@ -36,7 +42,26 @@ public class Personnage extends Entite {
 
     public void interagit(int x, int y) {
         if (!miner(x,y))
-            couper(x,y);
+            if(!couper(x,y)) {
+                ouvert(x,y);
+            }
+    }
+
+    private boolean ouvert(int x, int y){
+        Coffre coffre = getEnv().getCoffre(x, y);
+        Entite bois= new Bois(getEnv(), x, y);
+        if(coffre != null){
+            //On baisse le son de l'audio
+            bruitCoffre.setVolume(5. / 30.);
+            bruitCoffre.play();
+            this.getInventaire().ajouterObjet(bois);
+            getEnv().getListeCoffres().remove(coffre);
+            getEnv().getMapJeu().getTabMap()[y][x] = 59;
+            coffre.detruire();
+            System.out.println(this.getInventaire());
+            return  true;
+        }
+        return false;
     }
 
     private boolean couper(int x, int y) {

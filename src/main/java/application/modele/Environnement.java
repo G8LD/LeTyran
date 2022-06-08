@@ -17,7 +17,8 @@ public class Environnement {
     private ObservableList<Materiau> listeMateriaux;
     private ObservableList<Arbre> listeArbres;
     private ObservableList< Coffre> listeCoffres;
-    private AudioClip sound = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
+
+    private Ennemie ennemie;
 
     public Environnement() {
         personnage = new Personnage(this);
@@ -27,6 +28,8 @@ public class Environnement {
         etabli = new Etabli(this);
 
         listeEntites = FXCollections.observableArrayList();
+        listeCoffres = FXCollections.observableArrayList();
+
         ObjetJeu nouvObj = new ObjetJeu(this, "Epee", 1);
         ObjetJeu nouvObj2 = new ObjetJeu(this,  "Bois", 1);
         nouvObj.setX(2 * 32);
@@ -71,7 +74,7 @@ public class Environnement {
     private void initListeCoffres() {
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
-                if (mapJeu.getTabMap()[i][j] == 57) {
+                if (mapJeu.getTabMap()[i][j] == 58) {
                     listeCoffres.add(new Coffre(this, j, i));
                 }
             }
@@ -172,22 +175,7 @@ public class Environnement {
         return listeArbres;
     }
 
-    private boolean ouvert(int x, int y){
-        Coffre coffre = getCoffre(x,y);
-        Entite bois= new Bois(this, x, y);
-        if(coffre != null){
-            //On baisse le son de l'audio
-            sound.setVolume(5. / 30.);
-            sound.play();
-            this.getPersonnage().getInventaire().ajouterObjet(bois);
-            listeCoffres.remove(coffre);
-            mapJeu.getTabMap()[y][x] = 58;
-            coffre.detruire();
-            System.out.println(this.getPersonnage().getInventaire());
-            return  true;
-        }
-        return false;
-    }
+
 
     public Coffre getCoffre(int x, int y) {
         for (Coffre coffre : listeCoffres)

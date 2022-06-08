@@ -2,12 +2,9 @@ package application.controleur;
 
 import application.controleur.listeners.PersonnageListener;
 import application.controleur.listeners.VieListener;
+import application.modele.Ennemie;
 import application.modele.Environnement;
-import application.vue.ArmeVue;
-import application.vue.EtabliVue;
-import application.vue.ObjetVue;
-import application.vue.PersonnageVue;
-import application.vue.VieVue;
+import application.vue.*;
 import application.vue.vueEnv.EnvironnementVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
