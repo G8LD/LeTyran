@@ -3,6 +3,7 @@ package application.modele;
 import application.modele.objets.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.media.AudioClip;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 import static application.modele.MapJeu.WIDTH;
@@ -15,9 +16,13 @@ public class Environnement {
     private ObservableList<Entite> listeEntites;
     private ObservableList<Materiau> listeMateriaux;
     private ObservableList<Arbre> listeArbres;
+    private ObservableList< Coffre> listeCoffres;
+    private AudioClip sound = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
 
     public Environnement() {
         personnage = new Personnage(this);
+        this.ennemie=new Ennemie(this, 500 ,350);
+
         mapJeu = new MapJeu();
         etabli = new Etabli(this);
 
@@ -34,6 +39,7 @@ public class Environnement {
 
         initListeMinerais();
         initListeArbres();
+        initListeCoffres();
     }
 
     private void initListeArbres() {
@@ -57,6 +63,16 @@ public class Environnement {
                     case 53: listeMateriaux.add(new Fer(this, j, i)); break;
                     case 54: listeMateriaux.add(new Platine(this, j, i)); break;
                     default: break;
+                }
+            }
+        }
+    }
+
+    private void initListeCoffres() {
+        for (int i = 0; i < MapJeu.HEIGHT; i++) {
+            for (int j = 0; j < MapJeu.WIDTH; j++) {
+                if (mapJeu.getTabMap()[i][j] == 57) {
+                    listeCoffres.add(new Coffre(this, j, i));
                 }
             }
         }
@@ -139,12 +155,45 @@ public class Environnement {
         return listeEntites;
     }
 
+    public Ennemie getEnnemie(){
+        return this.ennemie;
+    }
+
+    public ObservableList<Coffre> getListeCoffres() {
+        return listeCoffres;
+    }
+
+
     public ObservableList<Materiau> getListeMateriaux() {
         return listeMateriaux;
     }
 
     public ObservableList<Arbre> getListeArbres() {
         return listeArbres;
+    }
+
+    private boolean ouvert(int x, int y){
+        Coffre coffre = getCoffre(x,y);
+        Entite bois= new Bois(this, x, y);
+        if(coffre != null){
+            //On baisse le son de l'audio
+            sound.setVolume(5. / 30.);
+            sound.play();
+            this.getPersonnage().getInventaire().ajouterObjet(bois);
+            listeCoffres.remove(coffre);
+            mapJeu.getTabMap()[y][x] = 58;
+            coffre.detruire();
+            System.out.println(this.getPersonnage().getInventaire());
+            return  true;
+        }
+        return false;
+    }
+
+    public Coffre getCoffre(int x, int y) {
+        for (Coffre coffre : listeCoffres)
+            if (coffre.getX() == x && coffre.getY() == y)
+                return coffre;
+        return null;
     }
 
     public void update() {

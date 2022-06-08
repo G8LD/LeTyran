@@ -107,6 +107,12 @@ public class Personnage extends Entite {
         if (!saute) tomber();
 
     }
+    public boolean estMort(){
+        if(this.getPv()==0){
+            return true ;
+        }
+        return false;
+    }
 
     @Override
     public void quandCollisionDetectee(Entite ent) {

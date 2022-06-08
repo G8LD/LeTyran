@@ -17,6 +17,7 @@ public class Entite {
     private boolean tombe = false;
 
     public Entite(Environnement env) {
+        pv= new SimpleIntegerProperty(100);
         this.xProperty = new SimpleFloatProperty(0);
         this.yProperty = new SimpleFloatProperty(0);
         this.collider = new Collider(this);
