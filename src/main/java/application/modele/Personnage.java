@@ -32,8 +32,6 @@ public class Personnage extends Entite {
         hauteurSaut = 0;
         armeProperty = new SimpleObjectProperty<>(new Pioche(env, 1));
         this.inventaire = new Inventaire(super.getEnv());
-        inventaire.ajouterObjet(new Pioche(1));
-        inventaire.ajouterObjet(new Hache(1));
     }
 
     public void interagit(int x, int y) {

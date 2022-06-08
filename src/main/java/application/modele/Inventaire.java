@@ -177,8 +177,8 @@ public class Inventaire {
     public void ajouterObjet(Entite obj) {
 
         if(ajouterObjetVersionDeux(obj)) {
-            if (this.env.getEntites() != null) {
-                this.env.getEntites().remove(obj);
+            if (this.env.getListeEntites() != null) {
+                this.env.getListeEntites().remove(obj);
             }
 
             //trierObjetInventaireParPlace();
@@ -196,7 +196,7 @@ public class Inventaire {
         ent.setX(this.env.getPersonnage().getX() + 32);
         ent.setY(this.env.getPersonnage().getY());
 
-        this.env.getEntites().add(ent);
+        this.env.getListeEntites().add(ent);
         ent.getCollider().setIgnoreCollision(false);
 
     }

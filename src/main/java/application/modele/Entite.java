@@ -43,6 +43,11 @@ public class Entite {
         this.pv = new SimpleIntegerProperty(pv);
     }
 
+    public Entite() {
+        this.xProperty = new SimpleFloatProperty(0);
+        this.yProperty = new SimpleFloatProperty(0);
+    }
+
     public void update() {
         if(this.getCollider() != null) {
             collide();

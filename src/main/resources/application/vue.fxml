@@ -16,6 +16,8 @@
       <TilePane fx:id="tileFond" prefHeight="200.0" prefWidth="200.0" />
       <TilePane fx:id="tileSol" prefHeight="200.0" prefWidth="200.0" />
       <TilePane fx:id="tileDecors" prefHeight="200.0" prefWidth="200.0" />
+      <Pane fx:id="inventaireMain" prefHeight="32.0" prefWidth="200.0" />
+      <Pane fx:id="inventaireSac" layoutY="168.0" prefHeight="32.0" prefWidth="200.0" />
       <ImageView fx:id="spriteEtabli" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@sprite_etabli.png" />
