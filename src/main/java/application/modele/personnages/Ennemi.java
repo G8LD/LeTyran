@@ -12,7 +12,7 @@ import static application.modele.Direction.Droit;
 import static application.modele.Direction.Gauche;
 import static application.modele.MapJeu.TUILE_TAILLE;
 
-public class Ennemi extends Personnage {
+public class Ennemi extends PNJ {
 
     private static int id = 0;
 
@@ -25,6 +25,16 @@ public class Ennemi extends Personnage {
 
     public Ennemi(Environnement env, Arme arme, int x, int y, int distance) {
         super(env, "Ennemi" + id++, arme, x * TUILE_TAILLE, y * TUILE_TAILLE, 20);
+        origineX = x * TUILE_TAILLE;
+        origineY = y * TUILE_TAILLE;
+        this.distance = distance * TUILE_TAILLE;
+        attaqueProperty = new SimpleBooleanProperty(false);
+        delai = 0;
+        retourZone = false;
+    }
+
+    public Ennemi(Environnement env, String id, int x, int y, int distance) {
+        super(env, id, x * TUILE_TAILLE, y * TUILE_TAILLE, 20);
         origineX = x * TUILE_TAILLE;
         origineY = y * TUILE_TAILLE;
         this.distance = distance * TUILE_TAILLE;
@@ -51,7 +61,8 @@ public class Ennemi extends Personnage {
 //            origineY = (int) getY();
 //        }
 //        seDeplacer();
-        if (((getX() < origineX - 10*TUILE_TAILLE && getDirection() == Gauche) || (getX() > origineX + 15*TUILE_TAILLE  && getDirection() == Droit)) && !retourZone) {
+        if (((getX() < origineX - 10 * TUILE_TAILLE && getDirection() == Gauche)
+                || (getX() > origineX + 15 * TUILE_TAILLE  && getDirection() == Droit)) && !retourZone) {
             setDirection(getDirectionOpposee());
             retourZone = true;
         } else if (getX() >= origineX && getX() <= origineX + distance && getY() == origineY && retourZone)
