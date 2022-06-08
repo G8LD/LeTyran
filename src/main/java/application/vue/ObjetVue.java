@@ -31,7 +31,6 @@ public class ObjetVue {
                 }
 
                 for(int i = 0; i < change.getAddedSize(); i++) {
-                    System.out.println("on ajoute ");
                     ajouterObjet((Entite) change.getAddedSubList().get(i));
                 }
 
@@ -52,7 +51,6 @@ public class ObjetVue {
     }
 
     public void ajouterObjet(Entite objet) {
-        System.out.println("On affiche l'objet " + objet.toString());
         ObjetView objView = new ObjetView(objet);
         this.objetImageView.add(objView);
         this.root.getChildren().add(objView);
@@ -62,7 +60,6 @@ public class ObjetVue {
         for(int i = 0; i < this.objetImageView.size(); i++) {
             ObjetView img = this.objetImageView.get(i);
             if(img.getObjet() == objet) {
-                System.out.println("trouver");
                 this.root.getChildren().remove(img);
             }
         }
