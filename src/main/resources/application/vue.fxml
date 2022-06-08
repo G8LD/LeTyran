@@ -277,5 +277,30 @@
             </HBox>
          </top>
       </BorderPane>
+
+      <Pane fx:id="inventaireEquipement" layoutX="10.0" layoutY="100.0" prefHeight="90.0" prefWidth="40.0" visible="false">
+         <children>
+            <Pane layoutY="13.0" prefHeight="32.0" prefWidth="32.0">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@inventaire/equipment_01.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="armureEmplacement" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane layoutY="51.0" prefHeight="32.0" prefWidth="32.0">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@inventaire/equipment_06.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="armeEquipement" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
    </children>
 </Pane>
