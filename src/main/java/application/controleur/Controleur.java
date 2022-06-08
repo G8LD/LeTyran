@@ -4,6 +4,7 @@ import application.controleur.listeners.PersonnageListener;
 import application.controleur.listeners.VieListener;
 import application.modele.Ennemie;
 import application.modele.Environnement;
+import application.modele.ModeleDialogue;
 import application.vue.*;
 import application.vue.vueEnv.EnvironnementVue;
 import javafx.animation.KeyFrame;
@@ -55,7 +56,6 @@ public class Controleur implements Initializable {
     @FXML private Pane inventaireEquipement;
 
     @FXML private Text texteDialogue;
-    @FXML private ScrollPane scrollDialogue;
     @FXML private TextFlow dialogFlow;
 
 
@@ -81,8 +81,10 @@ public class Controleur implements Initializable {
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
         root.addEventHandler(Event.ANY, new InventaireControleur(root, env, inventaireMain, inventaireSac, inventaireEquipement));
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
+        root.addEventHandler(Event.ANY, new DialogueControleur(vueDialog, modeleDialogue));
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
         new EtabliControleur(root,env, etabliVue);
+
         initAnimation();
         gameLoop.play();
     }
