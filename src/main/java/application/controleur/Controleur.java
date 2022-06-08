@@ -11,10 +11,13 @@ import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,6 +35,10 @@ public class Controleur implements Initializable {
     private EnnemiControleur ennemiControleur;
     private  Ennemie ennemie;
 
+    private VueDialogue vueDialog;
+
+    private ModeleDialogue modeleDialogue;
+
     private Timeline gameLoop;
 
     @FXML private Pane root;
@@ -47,10 +54,16 @@ public class Controleur implements Initializable {
     @FXML private Pane inventaireSac;
     @FXML private Pane inventaireEquipement;
 
+    @FXML private Text texteDialogue;
+    @FXML private ScrollPane scrollDialogue;
+    @FXML private TextFlow dialogFlow;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         env = new Environnement();
+        modeleDialogue = new ModeleDialogue();
+
 
         personnageVue = new PersonnageVue(env.getPersonnage(), spriteJoueur);
         mapVue = new EnvironnementVue(env, tileSol, tileDecors, tileFond);
@@ -58,6 +71,7 @@ public class Controleur implements Initializable {
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
         vievue = new VieVue(root);
         etabliVue =new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
+        vueDialog = new VueDialogue(modeleDialogue, dialogFlow,  texteDialogue);
 
         this.ennemie= new Ennemie(env, 500, 350);
         this.ennemieVue= new EnnemieVue(root,tileSol,ennemie);
@@ -83,6 +97,7 @@ public class Controleur implements Initializable {
                 (ev ->{
                     env.getPersonnage().update();
                     objetVue.update();
+                    vueDialog.animer(0.017);
                     this.env.update();
 
                 })
