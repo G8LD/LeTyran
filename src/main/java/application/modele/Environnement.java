@@ -1,6 +1,8 @@
 package application.modele;
 
 import application.modele.objets.*;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.media.AudioClip;
@@ -17,6 +19,7 @@ public class Environnement {
     private ObservableList<Materiau> listeMateriaux;
     private ObservableList<Arbre> listeArbres;
     private ObservableList< Coffre> listeCoffres;
+
 
     private Ennemie ennemie;
 
@@ -36,6 +39,7 @@ public class Environnement {
         nouvObj.setY(4 * 32);
         nouvObj2.setX(2 * 32);
         nouvObj2.setY(2 * 32);
+
         /*this.listeEntites.add(nouvObj);
         this.listeEntites.add(nouvObj2);*/
         this.listeEntites.add(personnage);
@@ -81,6 +85,7 @@ public class Environnement {
         }
     }
 
+
     public void supprimerObjetEnvironnement(Entite obj) {
         System.out.println(this.listeEntites.remove(obj));
     }
@@ -90,8 +95,9 @@ public class Environnement {
         int x,y;
         switch (dir) {
             case Droit:
-                x = (xPerso+TUILE_TAILLE+1)/TUILE_TAILLE;
+                x = ((xPerso+TUILE_TAILLE+1)/TUILE_TAILLE);
                 y = yPerso/TUILE_TAILLE;
+                //x -= ((int)(positionX.getValue() / TUILE_TAILLE);
                 if ((xPerso+TUILE_TAILLE+1) % TUILE_TAILLE == 0) x--;
                 if (x >= WIDTH || estUnObstacle(x, y) || (yPerso % TUILE_TAILLE != 0 && estUnObstacle(x,y+1)))
                     collision = true;

@@ -2,6 +2,7 @@ package application.vue;
 
 import application.controleur.listeners.ArmeListener;
 import application.modele.Direction;
+import application.modele.MapJeu;
 import application.modele.Personnage;
 import application.vue.vueEnv.ChargeurRessources;
 import javafx.animation.RotateTransition;
@@ -50,12 +51,12 @@ public class ArmeVue {
             if (directionDroite) {
                 spriteArme.setScaleX(-1);
                 rt.setByAngle(90);
-                spriteArme.setTranslateX(personnage.getX());
+                spriteArme.setTranslateX((MapJeu.WIDTH / 2) * MapJeu.TUILE_TAILLE);
                 spriteArme.setTranslateY(personnage.getY() - 10);
             } else {
                 spriteArme.setScaleX(1);
                 rt.setByAngle(-90);
-                spriteArme.setTranslateX(personnage.getX() - 20);
+                spriteArme.setTranslateX(((MapJeu.WIDTH / 2) * MapJeu.TUILE_TAILLE) - 20);
                 spriteArme.setTranslateY(personnage.getY() - 10);
             }
             rt.setOnFinished(actionEvent -> {
