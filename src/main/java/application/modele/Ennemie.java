@@ -1,5 +1,6 @@
 package application.modele;
 
+import application.modele.personnages.Personnage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,7 +18,7 @@ public class Ennemie extends Personnage {
     }
 
     public int attaqueJoueur(int nbdegat) {
-        return this.getEnv().getPersonnage().getPv() - nbdegat;
+        return this.getEnv().getJoueur().getPv() - nbdegat;
     }
 
     @Override

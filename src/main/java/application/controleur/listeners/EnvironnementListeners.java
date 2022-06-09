@@ -2,6 +2,7 @@ package application.controleur.listeners;
 
 import application.modele.Environnement;
 import application.modele.objets.Arbre;
+import application.modele.objets.Coffre;
 import application.modele.objets.Materiau;
 import application.modele.personnages.Ennemi;
 import application.vue.EnvironnementVue;
@@ -36,6 +37,15 @@ public class EnvironnementListeners {
                change.next();
                for (int i = 0; i < change.getRemovedSize(); i++)
                     envVue.supprimerEnnemi(change.getRemoved().get(i).getId());
+            }
+        });
+
+        env.getListeCoffres().addListener(new ListChangeListener<Coffre>() {
+            @Override
+            public void onChanged(Change<? extends Coffre> change) {
+                change.next();
+                for (int i = 0; i < change.getRemovedSize(); i++)
+                    envVue.changerImgCoffre((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
             }
         });
     }

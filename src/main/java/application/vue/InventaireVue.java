@@ -8,7 +8,6 @@ import application.modele.armes.Hache;
 import application.vue.controls.InvItem;
 import application.modele.Inventaire;
 import application.vue.controls.InvSlot;
-import application.vue.vueEnv.ChargeurRessources;
 import javafx.collections.ListChangeListener;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.ImageView;

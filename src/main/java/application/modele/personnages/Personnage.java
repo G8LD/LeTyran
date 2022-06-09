@@ -16,17 +16,13 @@ public abstract class Personnage extends Entite {
 
     private String id;
     private ObjectProperty<Direction> directionProperty;
-    private Inventaire inventaire;
     private boolean saute;
     private boolean tombe;
-    private boolean freeze;
     private BooleanProperty avanceProperty;
     private int hauteurSaut;
     private ObjectProperty<Arme> armeProperty;
 
     private AudioClip bruitCoffre = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
-
-
 
     public Personnage(Environnement env, Arme arme) {
         super(env);
@@ -68,20 +64,6 @@ public abstract class Personnage extends Entite {
         System.out.println(this.getCollider());
         System.out.println(this.getCollider().getHitBox());
         //inventaire.ajouterObjet();
-    }
-
-    public void interagit(int x, int y) {
-        if (!miner(x,y))
-            couper(x,y);
-    }
-
-    private boolean couper(int x, int y) {
-        Arbre arbre = getEnv().getArbre(x,y);
-        if (arbre != null) {
-            arbre.frappe(armeProperty.getValue());
-            return true;
-        }
-        return false;
     }
 
     protected void seDeplacer() {

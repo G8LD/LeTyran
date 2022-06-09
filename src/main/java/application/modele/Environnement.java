@@ -161,24 +161,7 @@ public class Environnement {
                 return ennemi;
         }
         return null;
-    public ObservableList<Entite> getListeEntites() {
-        return listeEntites;
     }
-
-    public Ennemie getEnnemie(){
-        return this.ennemie;
-    }
-
-    public ObservableList<Coffre> getListeCoffres() {
-        return listeCoffres;
-    }
-
-
-    public ObservableList<Materiau> getListeMateriaux() {
-        return listeMateriaux;
-    }
-
-
 
     public Coffre getCoffre(int x, int y) {
         for (Coffre coffre : listeCoffres)
@@ -228,6 +211,10 @@ public class Environnement {
         return listeEnnemis;
     }
 
+    public ObservableList<Coffre> getListeCoffres() {
+        return listeCoffres;
+    }
+
     public Joueur getJoueur() {
         return joueur;
     }
@@ -238,6 +225,10 @@ public class Environnement {
 
     public Etabli getEtabli() {
         return etabli;
+    }
+
+    public Ennemie getEnnemie(){
+        return this.ennemie;
     }
     //endregion
 
