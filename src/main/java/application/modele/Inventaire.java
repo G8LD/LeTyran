@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import java.util.HashMap;
 
 public class Inventaire {
-    private int MAX_OBJET = 1;
     private ObservableList<ObjetInventaire> objets = FXCollections.observableArrayList();
 
     private int stackMax = 5;
@@ -44,6 +43,20 @@ public class Inventaire {
         return objets;
     }
 
+    public Arme getArme() {
+        if(arme == null) {
+            return null;
+        }
+        return (Arme)arme.getEntite();
+    }
+
+    public Armure getArmure() {
+        if(armure == null) {
+            return null;
+        }
+        return (Armure)armure.getEntite();
+    }
+
     public void mettreEquipement(ObjetInventaire objetInventaire) {
         if(objetInventaire.getEntite() instanceof Armure) {
             System.out.println("Vous vous êtes équiper de " + objetInventaire);
@@ -59,6 +72,7 @@ public class Inventaire {
     }
 
     public void desequiperArme() {
+        System.out.println("Vous déséquiper l'arme");
         arme = null;
     }
 

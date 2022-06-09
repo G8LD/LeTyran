@@ -1,6 +1,8 @@
 package application.controleur;
 
 import application.modele.Environnement;
+import application.modele.Inventaire;
+import application.modele.armes.Arme;
 import application.vue.PersonnageVue;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -32,8 +34,15 @@ public class MousePressed implements EventHandler<MouseEvent> {
         if(mouseX > 0) {
             if (mouseX <= persoPosX + 2 && mouseX >= persoPosX - 2
                     && mouseY <= persoPosY + 2 * TUILE_TAILLE && mouseY >= persoPosY - TUILE_TAILLE) {
-                env.getPersonnage().interagit(mouseX, mouseY / TUILE_TAILLE);
-                controleur.getArmeVue().animationFrappe();
+
+                if(env.getPersonnage().interagit(mouseX, mouseY / TUILE_TAILLE)) {
+                    controleur.getArmeVue().animationFrappe();
+
+                    Inventaire inv = env.getPersonnage().getInventaire();
+                    Arme arme = inv.getArme();
+                    //TODO améliorer
+                    controleur.getArmeVue().mettreAJourImage(""+ arme.getClass().getSimpleName() + arme.getQualite());
+                }
             }
         }
     }

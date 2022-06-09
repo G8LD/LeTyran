@@ -44,6 +44,10 @@ public class ArmeVue {
         ChargeurRessources.iconObjets.put("Lance3", new Image("file:src/main/resources/application/arme/sprite_lance3.png"));
     }
 
+    public void mettreAJourImage(String nomImage) {
+        this.spriteArme.setImage(ChargeurRessources.iconObjets.get(nomImage));
+    }
+
     public void animationFrappe() {
         if (rt.getCurrentRate() == 0) {
             spriteArme.setVisible(true);

@@ -38,13 +38,19 @@ public class Personnage extends Entite {
         hauteurSaut = 0;
         armeProperty = new SimpleObjectProperty<>(new Pioche(env, 1));
         this.inventaire = new Inventaire(super.getEnv());
+
+        this.inventaire.ajouterObjet(new Pioche(this.getEnv(), 1));
     }
 
-    public void interagit(int x, int y) {
-        if (!miner(x,y))
-            if(!couper(x,y)) {
-                ouvert(x,y);
-            }
+    public boolean interagit(int x, int y) {
+        if(this.inventaire.getArme() != null) {
+            if (!miner(x, y))
+                if (!couper(x, y)) {
+                    ouvert(x, y);
+                }
+            return true;
+        }
+        return false;
     }
 
     private boolean ouvert(int x, int y){
