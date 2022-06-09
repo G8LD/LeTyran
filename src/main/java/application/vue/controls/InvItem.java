@@ -1,6 +1,8 @@
 package application.vue.controls;
 
 import application.modele.ObjetInventaire;
+import application.modele.armes.Arme;
+import application.modele.armes.Armure;
 import application.vue.InventaireVue;
 import application.vue.vueEnv.ChargeurRessources;
 import javafx.scene.Parent;
@@ -39,10 +41,13 @@ public class InvItem extends StackPane {
         this.Objet = obj;
         this.decalageBas = decalageBas;
 
-        Image img = ChargeurRessources.iconObjets.get(obj.getEntite().getClass().getSimpleName());
-        if(img == null) {
-            img = new Image("file:src/main/resources/application/inventaire/food/bananas.png");
-        }
+        Image img;
+        if (obj.getEntite().getClass().getSuperclass().getSimpleName().equals("Arme"))
+            img = ChargeurRessources.iconObjets.get(obj.getEntite().getClass().getSimpleName() + ((Arme) obj.getEntite()).getQualite());
+        else if (obj.getEntite().getClass().getSimpleName().equals("Armure"))
+            img = ChargeurRessources.iconObjets.get(obj.getEntite().getClass().getSimpleName() + ((Armure) obj.getEntite()).getQualite());
+        else
+            img = ChargeurRessources.iconObjets.get(obj.getEntite().getClass().getSimpleName());
 
         this.imgVObjet = new ImageView(img);
 

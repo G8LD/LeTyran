@@ -2,6 +2,8 @@ package application.vue;
 
 import application.controleur.InventaireControleur;
 import application.modele.ObjetInventaire;
+import application.modele.armes.Arme;
+import application.modele.armes.Armure;
 import application.modele.armes.Hache;
 import application.vue.controls.InvItem;
 import application.modele.Inventaire;
@@ -265,7 +267,10 @@ public class InventaireVue {
 
         ImageView img = (ImageView) this.inventaireArmure.lookup(emplacement);
 
-        img.setImage(ChargeurRessources.iconObjets.get("Bois"));
+        if (obj.getEntite().getClass().getSuperclass().getSimpleName().equals("Arme"))
+            img.setImage(ChargeurRessources.iconObjets.get(obj.getEntite().getClass().getSimpleName() + ((Arme) obj.getEntite()).getQualite()));
+        else if (obj.getEntite().getClass().getSimpleName().equals("Armure"))
+            img.setImage(ChargeurRessources.iconObjets.get(obj.getEntite().getClass().getSimpleName() + ((Armure) obj.getEntite()).getQualite()));
     }
 
     public void enleverEquipement(String type)

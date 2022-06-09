@@ -19,14 +19,13 @@ public class ArmeVue {
         this.personnage = personnage;
         this.spriteArme = spriteArme;
 
-        initSprites();
         rt = new RotateTransition(Duration.millis(150), spriteArme);
         spriteArme.setImage(ChargeurRessources.iconObjets.get("Pioche1"));
         spriteArme.setVisible(false);
         personnage.getArmeProperty().addListener(new ArmeListener(this));
     }
 
-    private void initSprites() {
+    public static void initSprites() {
         ChargeurRessources.iconObjets.put("Hache1", new Image("file:src/main/resources/application/arme/sprite_hache1.png"));
         ChargeurRessources.iconObjets.put("Pioche1", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
         ChargeurRessources.iconObjets.put("Epee1", new Image("file:src/main/resources/application/arme/sprite_epee1.png"));
@@ -42,7 +41,6 @@ public class ArmeVue {
         ChargeurRessources.iconObjets.put("Epee3", new Image("file:src/main/resources/application/arme/sprite_epee3.png"));
         ChargeurRessources.iconObjets.put("Arc3", new Image("file:src/main/resources/application/arme/sprite_arc3.png"));
         ChargeurRessources.iconObjets.put("Lance3", new Image("file:src/main/resources/application/arme/sprite_lance3.png"));
-        //TODO trouver et mettre les autres sprites
     }
 
     public void animationFrappe() {

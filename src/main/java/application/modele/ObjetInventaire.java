@@ -37,7 +37,6 @@ public class ObjetInventaire {
 
     public void retirerDansStack() {
         this.stackActuel.setValue(this.stackActuel.getValue() - 1);
-        System.out.println(stackActuel.getValue());
     }
 
     public void ajouterDansStack(int valeur) {

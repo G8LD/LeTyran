@@ -1,5 +1,6 @@
 package application.vue.vueEnv;
 
+import application.vue.ArmeVue;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -54,5 +55,7 @@ public class ChargeurRessources {
 
         iconObjets.put("inventaireMain", new Image("file:src/main/resources/application/inventaire/icon_main.png"));
         iconObjets.put("inventaireSac", new Image("file:src/main/resources/application/inventaire/inventaire_sac.png"));
+
+        ArmeVue.initSprites();
     }
 }
