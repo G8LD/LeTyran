@@ -51,7 +51,7 @@ public class VieVue  {
     public void afficherVie(int pv ){
         this.listeImageVie();
 
-        if  (pv>=100){
+        if  (pv==100){
             image.setImage(this.listeVie[10]);
         }
         else if (pv>=90){

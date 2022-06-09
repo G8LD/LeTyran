@@ -3,7 +3,6 @@ package application.modele;
 import application.modele.objets.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.media.AudioClip;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 import static application.modele.MapJeu.WIDTH;
@@ -18,11 +17,11 @@ public class Environnement {
     private ObservableList<Arbre> listeArbres;
     private ObservableList< Coffre> listeCoffres;
 
-    private Ennemie ennemie;
+    private Ennemi ennemie;
 
     public Environnement() {
         personnage = new Personnage(this);
-        this.ennemie=new Ennemie(this, 500 ,350);
+        this.ennemie=new Ennemi(this, 500 ,350);
 
         mapJeu = new MapJeu();
         etabli = new Etabli(this);
@@ -158,7 +157,7 @@ public class Environnement {
         return listeEntites;
     }
 
-    public Ennemie getEnnemie(){
+    public Ennemi getEnnemie(){
         return this.ennemie;
     }
 

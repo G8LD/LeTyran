@@ -1,8 +1,7 @@
 package application.controleur;
 
-import application.controleur.listeners.PersonnageListener;
 import application.controleur.listeners.VieListener;
-import application.modele.Ennemie;
+import application.modele.Ennemi;
 import application.modele.Environnement;
 import application.modele.ModeleDialogue;
 import application.vue.*;
@@ -12,7 +11,6 @@ import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -32,9 +30,9 @@ public class Controleur implements Initializable {
     private VieVue vievue;
     private ObjetVue objetVue;
     private EtabliVue etabliVue;
-    private EnnemieVue ennemieVue;
+    private EnnemiVue ennemieVue;
     private EnnemiControleur ennemiControleur;
-    private  Ennemie ennemie;
+    private Ennemi ennemie;
 
     private VueDialogue vueDialog;
 
@@ -73,8 +71,8 @@ public class Controleur implements Initializable {
         etabliVue =new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
         vueDialog = new VueDialogue(modeleDialogue, dialogFlow,  texteDialogue);
 
-        this.ennemie= new Ennemie(env, 500, 350);
-        this.ennemieVue= new EnnemieVue(root,tileSol,ennemie);
+        this.ennemie= new Ennemi(env, 500, 350);
+        this.ennemieVue= new EnnemiVue(root,tileSol,ennemie);
         this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie,this.ennemieVue);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(env));

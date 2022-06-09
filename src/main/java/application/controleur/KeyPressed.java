@@ -34,10 +34,10 @@ public class KeyPressed implements EventHandler<KeyEvent> {
                 }
                 break;
             case W:
-                this.env.getPersonnage().setPv(this.env.getPersonnage().getPv() - 10);
+                this.env.getPersonnage().decrementerPv();
                 break;
             case X:
-                this.env.getPersonnage().setPv(this.env.getPersonnage().getPv() + 10);
+                this.env.getPersonnage().augmenterPv();
                 break;
             default:
                 break;

@@ -1,20 +1,19 @@
 package application.vue;
 
-import application.modele.Ennemie;
-import application.modele.Environnement;
+import application.modele.Ennemi;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 
-public class EnnemieVue {
+public class EnnemiVue {
     private Pane rootPane;
     private ImageView image;
     private TilePane tileSol;
-    private Ennemie ennemi;
+    private Ennemi ennemi;
 
 
-    public EnnemieVue(Pane root, TilePane tilesol, Ennemie ennemie){
+    public EnnemiVue(Pane root, TilePane tilesol, Ennemi ennemie){
         this.rootPane=root;
         this.tileSol=tilesol;
         this.ennemi=ennemie;
@@ -32,7 +31,6 @@ public class EnnemieVue {
     }
 
     public void supprimerCadavre() {
-        System.out.println("remove cadavre");
         this.rootPane.getChildren().remove(image);
     }
 

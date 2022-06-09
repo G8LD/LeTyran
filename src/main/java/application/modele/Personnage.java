@@ -49,12 +49,15 @@ public class Personnage extends Entite {
 
     private boolean ouvert(int x, int y){
         Coffre coffre = getEnv().getCoffre(x, y);
-        Entite bois= new Bois(getEnv(), x, y);
         if(coffre != null){
             //On baisse le son de l'audio
             bruitCoffre.setVolume(5. / 30.);
             bruitCoffre.play();
-            this.getInventaire().ajouterObjet(bois);
+            System.out.println("avant l a boucle ");
+            for(int i=0 ; i<coffre.getLoot().size();i++) {
+                System.out.println("j'entre dans la boucle");
+                this.getInventaire().ajouterObjet(coffre.getLoot().get(i));
+            }
             getEnv().getListeCoffres().remove(coffre);
             getEnv().getMapJeu().getTabMap()[y][x] = 59;
             coffre.detruire();
@@ -80,6 +83,17 @@ public class Personnage extends Entite {
             return true;
         }
         return false;
+    }
+    public void decrementerPv(){
+        if(getPv()>0) {
+            setPv(getPv() - 10);
+        }
+    }
+
+    public void augmenterPv(){
+        if(getPv()<100) {
+            setPv(getPv() + 10);
+        }
     }
 
     public void seDeplacer() {
