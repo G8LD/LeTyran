@@ -4,6 +4,7 @@ import application.controleur.listeners.PersonnageListener;
 import application.controleur.listeners.VieListener;
 import application.modele.Ennemie;
 import application.modele.Environnement;
+import application.modele.MapJeu;
 import application.modele.ModeleDialogue;
 import application.vue.*;
 import application.vue.vueEnv.EnvironnementVue;
@@ -21,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
@@ -51,6 +53,8 @@ public class Controleur implements Initializable {
     @FXML private BorderPane bPaneEtabli;
     @FXML private ImageView spriteEtabli;
 
+    @FXML private Pane paneDecors;
+
     @FXML private Pane inventaireMain;
     @FXML private Pane inventaireSac;
     @FXML private Pane inventaireEquipement;
@@ -67,14 +71,14 @@ public class Controleur implements Initializable {
 
         personnageVue = new PersonnageVue(env.getPersonnage(), spriteJoueur);
         mapVue = new EnvironnementVue(env, tileSol, tileDecors, tileFond);
-        objetVue = new ObjetVue(this.env, this.root);
+        objetVue = new ObjetVue(this.env, this.paneDecors);
         armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
         vievue = new VieVue(root);
         etabliVue =new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
         vueDialog = new VueDialogue(modeleDialogue, dialogFlow,  texteDialogue);
 
         this.ennemie= new Ennemie(env, 500, 350);
-        this.ennemieVue= new EnnemieVue(root,tileSol,ennemie);
+        this.ennemieVue= new EnnemieVue(root,paneDecors,ennemie);
         this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie,this.ennemieVue);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(env));
@@ -83,7 +87,11 @@ public class Controleur implements Initializable {
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
         root.addEventHandler(Event.ANY, new DialogueControleur(vueDialog, modeleDialogue));
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
-        new EtabliControleur(root,env, etabliVue);
+
+        tileSol.translateXProperty().bind(env.getPersonnage().getXProperty().multiply(-1).add(((MapJeu.TUILE_TAILLE * MapJeu.WIDTH)) / 2));
+        paneDecors.translateXProperty().bind(env.getPersonnage().getXProperty().multiply(-1).add(((MapJeu.TUILE_TAILLE * MapJeu.WIDTH)) /2));
+
+        new EtabliControleur(paneDecors,env, etabliVue);
 
         initAnimation();
         gameLoop.play();

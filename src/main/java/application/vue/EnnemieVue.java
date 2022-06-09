@@ -10,20 +10,21 @@ import javafx.scene.layout.TilePane;
 public class EnnemieVue {
     private Pane rootPane;
     private ImageView image;
-    private TilePane tileSol;
+    private Pane paneDecors;
     private Ennemie ennemi;
 
 
-    public EnnemieVue(Pane root, TilePane tilesol, Ennemie ennemie){
+    public EnnemieVue(Pane root, Pane tilesol, Ennemie ennemie){
         this.rootPane=root;
-        this.tileSol=tilesol;
+        this.paneDecors=tilesol;
         this.ennemi=ennemie;
         afficherCadavres();
         image.setLayoutX(500);
         image.setLayoutY(350);
         image.setFitWidth(50);
         image.setFitHeight(45);
-        rootPane.getChildren().add(image);
+
+        paneDecors.getChildren().add(image);
 
 
     }

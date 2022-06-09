@@ -3,6 +3,7 @@ package application.vue;
 import application.modele.Entite;
 import application.modele.Environnement;
 import application.modele.Personnage;
+import application.modele.objets.Materiau;
 import application.vue.controls.ObjetView;
 import javafx.collections.ListChangeListener;
 import javafx.scene.image.ImageView;
@@ -21,6 +22,7 @@ public class ObjetVue {
         this.objetImageView = new ArrayList<>();
         this.root = root;
         enregistrerTousLesObjets();
+
 
         this.env.getListeEntites().addListener(new ListChangeListener<Entite>() {
             @Override
@@ -52,6 +54,14 @@ public class ObjetVue {
 
     public void ajouterObjet(Entite objet) {
         ObjetView objView = new ObjetView(objet);
+        this.objetImageView.add(objView);
+        this.root.getChildren().add(objView);
+    }
+
+    public void ajouterObjet(Entite objet,int x, int y) {
+        ObjetView objView = new ObjetView(objet);
+        objView.setTranslateX(x);
+        objView.setTranslateY(y);
         this.objetImageView.add(objView);
         this.root.getChildren().add(objView);
     }

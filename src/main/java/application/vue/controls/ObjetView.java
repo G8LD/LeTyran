@@ -19,6 +19,8 @@ public class ObjetView extends ImageView {
         if(img == null) {
             img = new Image("file:src/main/resources/application/inventaire/food/bananas.png");
         }
+
+        this.setTranslateX(-15);
         this.setFitHeight(32);
         this.setFitWidth(32);
         this.setOpacity(0.5);

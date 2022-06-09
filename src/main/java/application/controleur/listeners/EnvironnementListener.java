@@ -17,8 +17,9 @@ public class EnvironnementListener {
             @Override
             public void onChanged(Change<? extends Materiau> change) {
                 while (change.next())
-                    if (change.wasRemoved())
-                        envVue.supprimerBloc((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
+                    if (change.wasRemoved()) {
+                        envVue.supprimerBloc((int) change.getRemoved().get(0).getY() * WIDTH + (int) change.getRemoved().get(0).getX());
+                    }
             }
         });
 

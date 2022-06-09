@@ -1,10 +1,12 @@
 package application.controleur;
 
 import application.modele.Environnement;
+import application.vue.PersonnageVue;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
+import static application.modele.MapJeu.WIDTH;
 
 public class MousePressed implements EventHandler<MouseEvent> {
     private Controleur controleur;
@@ -16,10 +18,23 @@ public class MousePressed implements EventHandler<MouseEvent> {
     }
     @Override
     public void handle(MouseEvent mouseEvent) {
-        if(mouseEvent.getX() <= env.getPersonnage().getX()+2*TUILE_TAILLE && mouseEvent.getX() >= env.getPersonnage().getX()-TUILE_TAILLE
-                && mouseEvent.getY() <= env.getPersonnage().getY()+2*TUILE_TAILLE && mouseEvent.getY() >= env.getPersonnage().getY()-TUILE_TAILLE) {
-            env.getPersonnage().interagit((int) mouseEvent.getX() / TUILE_TAILLE,(int) mouseEvent.getY() / TUILE_TAILLE);
-            controleur.getArmeVue().animationFrappe();
+
+
+
+        float persoPosX = env.getPersonnage().getX() / TUILE_TAILLE;
+        float persoPosY = env.getPersonnage().getY();
+
+
+        int mouseX = ((int)mouseEvent.getX()/TUILE_TAILLE) - (WIDTH / 2) + (int)persoPosX;
+        int mouseY = (int)mouseEvent.getY();
+
+
+        if(mouseX > 0) {
+            if (mouseX <= persoPosX + 2 && mouseX >= persoPosX - 2
+                    && mouseY <= persoPosY + 2 * TUILE_TAILLE && mouseY >= persoPosY - TUILE_TAILLE) {
+                env.getPersonnage().interagit(mouseX, mouseY / TUILE_TAILLE);
+                controleur.getArmeVue().animationFrappe();
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ package application.vue;
 
 import application.controleur.listeners.PersonnageListener;
 import application.modele.Direction;
+import application.modele.MapJeu;
 import application.modele.Personnage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +14,8 @@ public class PersonnageVue {
     private ImageView spriteJoueur;
     private ArrayList<Image> listeSprites;
     private long lastUpdate;
+
+    public final static int POSITION_VUE_PERSONNAGE = (MapJeu.WIDTH * MapJeu.TUILE_TAILLE) / 2;
 
     public PersonnageVue(Personnage personnage, ImageView spritesJoueur) {
         this.personnage = personnage;
@@ -32,7 +35,7 @@ public class PersonnageVue {
 
     private void construirePerso() {
         spriteJoueur.setImage(listeSprites.get(0));
-        spriteJoueur.translateXProperty().bind(personnage.getXProperty());
+        spriteJoueur.setTranslateX((MapJeu.WIDTH * MapJeu.TUILE_TAILLE) / 2);
         spriteJoueur.translateYProperty().bind(personnage.getYProperty());
         new PersonnageListener(personnage, this);
     }
