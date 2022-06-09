@@ -126,8 +126,10 @@ public class Etabli {
             cpt = 0; i = 0;
             while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
                 if (inventaire.getObjets().get(i).getEntite().getClass().getSimpleName().equals(materiau.getKey())) {
-                    inventaire.getObjets().remove(i);
-                    cpt++;
+                    for (int j = 0; j < inventaire.getObjets().get(i).getNombre() && cpt < (int) materiau.getValue(); j++) {
+                        inventaire.getObjets().get(j).retirerDansStack();
+                        cpt++;
+                    }
                 }
                 i++;
             }
@@ -156,7 +158,9 @@ public class Etabli {
                 i = 0;
                 while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
                     if (inventaire.getObjets().get(i).getEntite().getClass().getSimpleName().equals(materiau.getKey()))
-                        cpt++;
+                        for (int j = 0; j < inventaire.getObjets().get(i).getNombre() && cpt < (int) materiau.getValue(); j++)
+                            cpt++;
+                    System.out.println(inventaire.getObjets().get(i).getEntite());
                     i++;
                 }
                 if (cpt == (int) materiau.getValue())
