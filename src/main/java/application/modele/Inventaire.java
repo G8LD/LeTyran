@@ -196,9 +196,44 @@ public class Inventaire {
         ent.setX(this.env.getPersonnage().getX() + 32);
         ent.setY(this.env.getPersonnage().getY());
 
-        this.env.getEntites().add(ent);
+        this.env.getListeEntites().add(ent);
         ent.getCollider().setIgnoreCollision(false);
 
+    }
+
+    public int recupererNombreRessources(String nom) {
+        int nombre = 0;
+        for(int i = 0; i < this.getObjets().size(); i++) {
+            ObjetInventaire obj = this.getObjets().get(i);
+            if(obj.getEntite().getClass().getSimpleName() == nom) {
+                nombre += obj.getNombre();
+            }
+        }
+
+        return nombre;
+    }
+
+    public boolean retirerNbRessources(String nom, int nombre) {
+        boolean aToutRetirer = false;
+        int i = 0;
+        int nbRetirer = 0;
+
+        while(i < this.getObjets().size() && !aToutRetirer) {
+            ObjetInventaire obj = this.getObjets().get(i);
+            if(obj.getEntite().getClass().getSimpleName() == nom) {
+                while(nbRetirer < nombre && obj.getNombre() > 0) {
+                    obj.retirerDansStack();
+                    nbRetirer += 1;
+                }
+
+                if(nbRetirer == nombre) {
+                    aToutRetirer = true;
+                }
+            }
+            i++;
+        }
+
+        return aToutRetirer;
     }
 
     public String toString() {
