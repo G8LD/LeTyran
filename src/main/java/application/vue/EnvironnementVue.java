@@ -3,7 +3,6 @@ package application.vue;
 import application.controleur.listeners.EnvironnementListeners;
 import application.controleur.listeners.PersonnageListeners;
 import application.modele.Environnement;
-import application.modele.personnages.Ennemi;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -140,4 +139,10 @@ public class EnvironnementVue {
         root.getChildren().remove(root.lookup("#" + id));
         root.getChildren().remove(root.lookup("#" + id + "Arme"));
     }
+    
+    public void changerImgCoffre(int id) {
+        ImageView img = (ImageView) tileSol.getChildren().get(id);
+        img.setImage(new Image("file:src/main/resources/application/Coffre/CoffreOrOuv.png"));
+    }
+
 }

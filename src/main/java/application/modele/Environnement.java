@@ -6,6 +6,7 @@ import application.modele.personnages.Ennemi;
 import application.modele.personnages.Joueur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.media.AudioClip;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 import static application.modele.MapJeu.WIDTH;
@@ -18,14 +19,21 @@ public class Environnement {
     private ObservableList<Entite> listeEntites;
     private ObservableList<Materiau> listeMateriaux;
     private ObservableList<Arbre> listeArbres;
+    private ObservableList< Coffre> listeCoffres;
     private ObservableList<Ennemi> listeEnnemis;
+
+    private Ennemie ennemie;
 
     public Environnement() {
         joueur = new Joueur(this);
+        this.ennemie=new Ennemie(this, 500 ,350);
+
         mapJeu = new MapJeu();
         etabli = new Etabli(this);
 
         listeEntites = FXCollections.observableArrayList();
+        listeCoffres = FXCollections.observableArrayList();
+
         ObjetJeu nouvObj = new ObjetJeu(this, "Epee", 1);
         ObjetJeu nouvObj2 = new ObjetJeu(this,  "Bois", 1);
         nouvObj.setX(2 * 32);
@@ -38,6 +46,7 @@ public class Environnement {
 
         initListeMinerais();
         initListeArbres();
+        initListeCoffres();
         initListeEnnemis();
     }
 
@@ -73,6 +82,16 @@ public class Environnement {
         listeEnnemis.add(new Ennemi(this, new Epee(this, 3), 15, 11, 5));
         listeEnnemis.add(new Ennemi(this, new Epee(this, 3), 20, 0, 5));
         listeEnnemis.add(new Ennemi(this, new Epee(this, 3), 18, 18, 10));
+    }
+
+    private void initListeCoffres() {
+        for (int i = 0; i < MapJeu.HEIGHT; i++) {
+            for (int j = 0; j < MapJeu.WIDTH; j++) {
+                if (mapJeu.getTabMap()[i][j] == 58) {
+                    listeCoffres.add(new Coffre(this, j, i));
+                }
+            }
+        }
     }
 
     public void supprimerObjetEnvironnement(Entite obj) {
@@ -141,6 +160,30 @@ public class Environnement {
             if (Math.abs(ennemi.getX() / TUILE_TAILLE - x) < 1 && (int) ennemi.getY() / TUILE_TAILLE == y)
                 return ennemi;
         }
+        return null;
+    public ObservableList<Entite> getListeEntites() {
+        return listeEntites;
+    }
+
+    public Ennemie getEnnemie(){
+        return this.ennemie;
+    }
+
+    public ObservableList<Coffre> getListeCoffres() {
+        return listeCoffres;
+    }
+
+
+    public ObservableList<Materiau> getListeMateriaux() {
+        return listeMateriaux;
+    }
+
+
+
+    public Coffre getCoffre(int x, int y) {
+        for (Coffre coffre : listeCoffres)
+            if (coffre.getX() == x && coffre.getY() == y)
+                return coffre;
         return null;
     }
 

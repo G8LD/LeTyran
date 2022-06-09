@@ -16,6 +16,8 @@
       <TilePane fx:id="tileFond" prefHeight="200.0" prefWidth="200.0" />
       <TilePane fx:id="tileSol" prefHeight="200.0" prefWidth="200.0" />
       <TilePane fx:id="tileDecors" prefHeight="200.0" prefWidth="200.0" />
+      <Pane fx:id="inventaireMain" prefHeight="32.0" prefWidth="200.0" />
+      <Pane fx:id="inventaireSac" layoutY="168.0" prefHeight="32.0" prefWidth="200.0" />
       <ImageView fx:id="spriteEtabli" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@sprite_etabli.png" />
@@ -23,6 +25,11 @@
       </ImageView>
       <ImageView fx:id="spriteJoueur" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="spriteArme" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" />
+      <TextFlow fx:id="dialogFlow" layoutX="1.0" layoutY="278.0" prefHeight="108.0" prefWidth="598.0" styleClass="fondDialogue" stylesheets="@style.css" visible="false">
+         <children>
+            <Text fx:id="texteDialogue" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="dialogText" translateX="10.0" />
+         </children>
+      </TextFlow>
       <BorderPane fx:id="bPaneEtabli" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="457.0" style="-fx-background-color: #42280E; -fx-border-color: black; -fx-border-width: 5;">
          <left>
             <ScrollPane fx:id="sPObjets" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="207.0" style="-fx-background-color: transparent; -fx-background: transparent;" BorderPane.alignment="CENTER">
@@ -277,5 +284,30 @@
             </HBox>
          </top>
       </BorderPane>
+
+      <Pane fx:id="inventaireEquipement" layoutX="10.0" layoutY="100.0" prefHeight="90.0" prefWidth="40.0" visible="false">
+         <children>
+            <Pane layoutY="13.0" prefHeight="32.0" prefWidth="32.0">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@inventaire/equipment_01.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="armureEmplacement" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane layoutY="51.0" prefHeight="32.0" prefWidth="32.0">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@inventaire/equipment_06.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="armeEquipement" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
    </children>
 </Pane>

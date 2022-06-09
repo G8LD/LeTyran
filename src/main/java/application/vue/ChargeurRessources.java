@@ -2,6 +2,7 @@ package application.vue;
 
 import application.modele.armes.Arme;
 import application.vue.ArmeVue;
+import application.vue.ArmeVue;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -34,6 +35,10 @@ public class ChargeurRessources {
         tileMapAssets.add(55, new Image("file:src/main/resources/application/pack1/arbre_bas.png"));
         tileMapAssets.add(56, new Image("file:src/main/resources/application/pack1/arbre_milieu.png"));
         tileMapAssets.add(57, new Image("file:src/main/resources/application/pack1/arbre_haut.png"));
+        tileMapAssets.add(58, new Image("file:src/main/resources/application/Coffre/CoffreOrFerm.png"));
+
+
+
 
         //Icon objets
 //        iconObjets.put("Terre", new Image("file:src/main/resources/application/ressources/Terre.png"));
@@ -49,6 +54,11 @@ public class ChargeurRessources {
         iconObjets.put("Armure1", new Image("file:src/main/resources/application/arme/sprite_armure1.png"));
         iconObjets.put("Armure2", new Image("file:src/main/resources/application/arme/sprite_armure2.png"));
         iconObjets.put("Armure3", new Image("file:src/main/resources/application/arme/sprite_armure3.png"));
+
+
+        iconObjets.put("inventaireMain", new Image("file:src/main/resources/application/inventaire/icon_main.png"));
+        iconObjets.put("inventaireSac", new Image("file:src/main/resources/application/inventaire/inventaire_sac.png"));
+
         ArmeVue.initSprites();
     }
 }

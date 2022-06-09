@@ -126,8 +126,11 @@ public class Etabli {
             cpt = 0; i = 0;
             while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
                 if (inventaire.getObjets().get(i).getEntite().getClass().getSimpleName().equals(materiau.getKey())) {
-                    inventaire.getObjets().remove(i);
-                    cpt++;
+                    int quantite = inventaire.getObjets().get(i).getNombre();
+                    for (int j = 0; j < quantite && cpt < (int) materiau.getValue(); j++) {
+                        inventaire.getObjets().get(i).retirerDansStack();
+                        cpt++;
+                    }
                 }
                 i++;
             }
@@ -156,13 +159,11 @@ public class Etabli {
                 i = 0;
                 while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
                     if (inventaire.getObjets().get(i).getEntite().getClass().getSimpleName().equals(materiau.getKey()))
-                        cpt++;
+                        for (int j = 0; j < inventaire.getObjets().get(i).getNombre() && cpt < (int) materiau.getValue(); j++)
+                            cpt++;
                     i++;
                 }
-                if (cpt == (int) materiau.getValue())
-                    fabricable = true;
-                else
-                    fabricable = false;
+                fabricable = cpt == (int) materiau.getValue();
             } while (iterator.hasNext() && fabricable);
             return fabricable;
         } else
