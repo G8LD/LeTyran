@@ -127,7 +127,7 @@ public class Etabli {
             while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
                 if (inventaire.getObjets().get(i).getEntite().getClass().getSimpleName().equals(materiau.getKey())) {
                     for (int j = 0; j < inventaire.getObjets().get(i).getNombre() && cpt < (int) materiau.getValue(); j++) {
-                        inventaire.getObjets().get(j).retirerDansStack();
+                        inventaire.getObjets().get(i).retirerDansStack();
                         cpt++;
                     }
                 }
