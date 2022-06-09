@@ -126,4 +126,9 @@ public class EnvironnementVue {
             img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
         }
     }
+    public void changerImgCoffre(int id) {
+        ImageView img = (ImageView) tileSol.getChildren().get(id);
+        img.setImage(new Image("file:src/main/resources/application/Coffre/CoffreOrOuv.png"));
+    }
+
 }

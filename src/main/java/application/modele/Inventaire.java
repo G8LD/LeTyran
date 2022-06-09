@@ -177,8 +177,8 @@ public class Inventaire {
     public void ajouterObjet(Entite obj) {
 
         if(ajouterObjetVersionDeux(obj)) {
-            if (this.env.getEntites() != null) {
-                this.env.getEntites().remove(obj);
+            if (this.env.getListeEntites() != null) {
+                this.env.getListeEntites().remove(obj);
             }
 
             //trierObjetInventaireParPlace();

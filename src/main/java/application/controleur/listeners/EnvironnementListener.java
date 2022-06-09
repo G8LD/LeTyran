@@ -1,7 +1,9 @@
 package application.controleur.listeners;
 
+import application.modele.Ennemie;
 import application.modele.Environnement;
 import application.modele.objets.Arbre;
+import application.modele.objets.Coffre;
 import application.modele.objets.Materiau;
 import application.vue.vueEnv.EnvironnementVue;
 import javafx.collections.ListChangeListener;
@@ -28,5 +30,16 @@ public class EnvironnementListener {
                         envVue.supprimerArbre((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
             }
         });
+        env.getListeCoffres().addListener(new ListChangeListener<Coffre>() {
+            @Override
+            public void onChanged(Change<? extends Coffre> change) {
+                while (change.next()) {
+                    if (change.wasRemoved()) {
+                        envVue.changerImgCoffre((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
+                    }
+                }
+            }
+        });
+
     }
 }

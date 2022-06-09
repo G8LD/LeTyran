@@ -3,6 +3,7 @@ package application.modele;
 import application.modele.objets.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.media.AudioClip;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 import static application.modele.MapJeu.WIDTH;
@@ -15,13 +16,20 @@ public class Environnement {
     private ObservableList<Entite> listeEntites;
     private ObservableList<Materiau> listeMateriaux;
     private ObservableList<Arbre> listeArbres;
+    private ObservableList< Coffre> listeCoffres;
+
+    private Ennemie ennemie;
 
     public Environnement() {
         personnage = new Personnage(this);
+        this.ennemie=new Ennemie(this, 500 ,350);
+
         mapJeu = new MapJeu();
         etabli = new Etabli(this);
 
         listeEntites = FXCollections.observableArrayList();
+        listeCoffres = FXCollections.observableArrayList();
+
         ObjetJeu nouvObj = new ObjetJeu(this, "Epee", 1);
         ObjetJeu nouvObj2 = new ObjetJeu(this,  "Bois", 1);
         nouvObj.setX(2 * 32);
@@ -34,6 +42,7 @@ public class Environnement {
 
         initListeMinerais();
         initListeArbres();
+        initListeCoffres();
     }
 
     private void initListeArbres() {
@@ -57,6 +66,16 @@ public class Environnement {
                     case 53: listeMateriaux.add(new Fer(this, j, i)); break;
                     case 54: listeMateriaux.add(new Platine(this, j, i)); break;
                     default: break;
+                }
+            }
+        }
+    }
+
+    private void initListeCoffres() {
+        for (int i = 0; i < MapJeu.HEIGHT; i++) {
+            for (int j = 0; j < MapJeu.WIDTH; j++) {
+                if (mapJeu.getTabMap()[i][j] == 58) {
+                    listeCoffres.add(new Coffre(this, j, i));
                 }
             }
         }
@@ -139,12 +158,30 @@ public class Environnement {
         return listeEntites;
     }
 
+    public Ennemie getEnnemie(){
+        return this.ennemie;
+    }
+
+    public ObservableList<Coffre> getListeCoffres() {
+        return listeCoffres;
+    }
+
+
     public ObservableList<Materiau> getListeMateriaux() {
         return listeMateriaux;
     }
 
     public ObservableList<Arbre> getListeArbres() {
         return listeArbres;
+    }
+
+
+
+    public Coffre getCoffre(int x, int y) {
+        for (Coffre coffre : listeCoffres)
+            if (coffre.getX() == x && coffre.getY() == y)
+                return coffre;
+        return null;
     }
 
     public void update() {

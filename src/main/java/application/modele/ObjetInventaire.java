@@ -1,12 +1,17 @@
 package application.modele;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class ObjetInventaire {
     private Entite entite;
     private int placeInventaire;
-    private int nombre;
+    private IntegerProperty stackActuel;
 
     public ObjetInventaire(Entite ent) {
         this.entite = ent;
+        this.stackActuel = new SimpleIntegerProperty(1);
+
     }
 
     public int getPlaceInventaire() {
@@ -14,15 +19,24 @@ public class ObjetInventaire {
     }
 
     public void setPlaceInventaire(int nouvellePlace) {
+        System.out.println("nouvelle place " + nouvellePlace);
         this.placeInventaire = nouvellePlace;
     }
 
-    public int getNombre() {
-        return this.nombre;
+    public IntegerProperty getStackActuelProperty() {
+        return this.stackActuel;
     }
 
-    public void setNombre(int val) {
-        this.nombre = val;
+    public int getNombre() {
+        return this.stackActuel.getValue();
+    }
+
+    public void ajouterDansStack() {
+        this.stackActuel.setValue(this.stackActuel.getValue() + 1);
+    }
+
+    public void ajouterDansStack(int valeur) {
+        this.stackActuel.setValue(valeur);
     }
 
     public Entite getEntite() {
