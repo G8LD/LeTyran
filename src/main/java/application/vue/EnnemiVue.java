@@ -22,7 +22,7 @@ public class EnnemieVue extends PersonnageVue {
         image.setLayoutY(350);
         image.setFitWidth(50);
         image.setFitHeight(45);
-        rootPane.getChildren().add(image);
+        root.getChildren().add(image);
 
 
     }
@@ -31,7 +31,7 @@ public class EnnemieVue extends PersonnageVue {
     }
 
     public void supprimerCadavre() {
-        this.rootPane.getChildren().remove(image);
+        this.root.getChildren().remove(image);
     }
 
     public ImageView getImage(){

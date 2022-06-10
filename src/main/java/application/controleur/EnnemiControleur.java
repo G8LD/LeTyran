@@ -54,7 +54,7 @@ public class EnnemiControleur{
             sound.play();
             sound1.setVolume(15. / 30.);
             sound1.play();
-            for (int i=0 ; i<this.ennemie.getLoot().size();i++) {
+            for (int i=0 ; i<this.ennemieVue.getLoot().size();i++) {
                 this.env.getPersonnage().getInventaire().ajouterObjet(this.ennemie.getLoot().get(i));
             }
         }
