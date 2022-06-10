@@ -36,7 +36,7 @@ public class PersonnageVue {
     private void construirePerso() {
         spriteJoueur.setImage(listeSprites.get(0));
         spriteJoueur.setTranslateX((MapJeu.WIDTH * MapJeu.TUILE_TAILLE) / 2);
-        spriteJoueur.translateYProperty().bind(personnage.getYProperty());
+        spriteJoueur.setTranslateY((MapJeu.HEIGHT * MapJeu.TUILE_TAILLE) / 2);
         new PersonnageListener(personnage, this);
     }
 

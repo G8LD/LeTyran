@@ -90,6 +90,8 @@ public class Controleur implements Initializable {
 
         tileSol.translateXProperty().bind(env.getPersonnage().getXProperty().multiply(-1).add(((MapJeu.TUILE_TAILLE * MapJeu.WIDTH)) / 2));
         paneDecors.translateXProperty().bind(env.getPersonnage().getXProperty().multiply(-1).add(((MapJeu.TUILE_TAILLE * MapJeu.WIDTH)) /2));
+        tileSol.translateYProperty().bind(env.getPersonnage().getYProperty().multiply(-1).add(((MapJeu.TUILE_TAILLE * MapJeu.HEIGHT)) / 2));
+        paneDecors.translateYProperty().bind(env.getPersonnage().getYProperty().multiply(-1).add(((MapJeu.TUILE_TAILLE * MapJeu.HEIGHT)) / 2));
 
         new EtabliControleur(paneDecors,env, etabliVue);
 

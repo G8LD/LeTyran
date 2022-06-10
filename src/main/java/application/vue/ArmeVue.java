@@ -56,12 +56,12 @@ public class ArmeVue {
                 spriteArme.setScaleX(-1);
                 rt.setByAngle(90);
                 spriteArme.setTranslateX((MapJeu.WIDTH / 2) * MapJeu.TUILE_TAILLE);
-                spriteArme.setTranslateY(personnage.getY() - 10);
+                spriteArme.setTranslateY((MapJeu.HEIGHT / 2) * MapJeu.TUILE_TAILLE);
             } else {
                 spriteArme.setScaleX(1);
                 rt.setByAngle(-90);
                 spriteArme.setTranslateX(((MapJeu.WIDTH / 2) * MapJeu.TUILE_TAILLE) - 20);
-                spriteArme.setTranslateY(personnage.getY() - 10);
+                spriteArme.setTranslateY((MapJeu.HEIGHT / 2) * MapJeu.TUILE_TAILLE);
             }
             rt.setOnFinished(actionEvent -> {
                 spriteArme.setVisible(false);
