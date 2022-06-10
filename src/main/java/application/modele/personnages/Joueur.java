@@ -7,6 +7,8 @@ import application.modele.ObjetJeu;
 import application.modele.armes.Hache;
 import application.modele.armes.Lance;
 import application.modele.armes.Pioche;
+import application.modele.armes.arc.Arc;
+import application.modele.armes.arc.Fleche;
 import application.modele.objets.Arbre;
 import application.modele.objets.Materiau;
 
@@ -18,7 +20,7 @@ public class Joueur extends Personnage {
     private boolean freeze;
 
     public Joueur(Environnement env) {
-        super(env, new Lance(env,3));
+        super(env, new Arc(env,3));
         this.inventaire = new Inventaire(super.getEnv());
         freeze = false;
     }
@@ -30,12 +32,17 @@ public class Joueur extends Personnage {
     }
 
     private boolean frapper(int x, int y) {
-        Ennemi ennemi = getEnv().getEnnemi(x,y);
-        if (ennemi != null) {
-            getArme().frapper(this, ennemi);
+        if (getArme() instanceof Arc) {
+            getArme().frapper(this, null);
             return true;
+        } else {
+            Ennemi ennemi = getEnv().getEnnemi(x, y);
+            if (ennemi != null) {
+                getArme().frapper(this, ennemi);
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
     private boolean couper(int x, int y) {

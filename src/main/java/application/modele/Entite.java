@@ -70,13 +70,14 @@ public class Entite {
 
     public void collide() {
         if(!this.getCollider().getIgnoreCollision()) {
-            for (int i = 0; i < this.env.getListeEntites().size(); i++) {
-                Entite ent = this.env.getListeEntites().get(i);
-                if (ent != this && !ent.getCollider().getIgnoreCollision() && this.getCollider().intersect(ent)) {
-                    //System.out.println("x:" + this.getX() + " y : " + this.getY() + " x:" + ent.getX() + " y :" + ent.getY());
-                    this.quandCollisionDetectee(ent);
+            for (String nom : env.getHashMapListes().keySet())
+                for (int i = 0; i < env.getHashMapListes().get(nom).size(); i++) {
+                    Entite ent = (Entite) env.getHashMapListes().get(nom).get(i);
+                    if (ent != this && !ent.getCollider().getIgnoreCollision() && this.getCollider().intersect(ent)) {
+                        //System.out.println("x:" + this.getX() + " y : " + this.getY() + " x:" + ent.getX() + " y :" + ent.getY());
+                        this.quandCollisionDetectee(ent);
+                    }
                 }
-            }
         }
     }
 

@@ -1,8 +1,11 @@
 package application.modele.armes.arc;
 
+import application.modele.Direction;
 import application.modele.Environnement;
 import application.modele.armes.Arme;
 import application.modele.personnages.Personnage;
+
+import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class Arc extends Arme {
 
@@ -12,7 +15,7 @@ public class Arc extends Arme {
 
     @Override
     public void frapper(Personnage perso, Personnage ennemi) {
-        getEnv().getListeFleches().add(new Fleche(getEnv(), (int) perso.getX(), (int) perso.getY(), perso.getDirection(), getDistance(), nbDegat()));
+        getEnv().getListeFleches().add(new Fleche(getEnv(), (int) perso.getX(), (int) perso.getY() - 10 , perso.getDirection(), getDistance()*TUILE_TAILLE, nbDegat()));
     }
 
     public int nbDegat() {

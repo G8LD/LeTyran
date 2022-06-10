@@ -140,6 +140,11 @@ public class ArmeVue {
         return spriteArme;
     }
 
+    public void updatePositon() {
+        spriteArme.setTranslateX(perso.getX() + dir * 10);
+        spriteArme.setTranslateY(perso.getY());
+    }
+
     public static void initSprites() {
         ChargeurRessources.iconObjets.put("Hache1", new Image("file:src/main/resources/application/arme/sprite_hache1.png"));
         ChargeurRessources.iconObjets.put("Pioche1", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
@@ -156,10 +161,5 @@ public class ArmeVue {
         ChargeurRessources.iconObjets.put("Epee3", new Image("file:src/main/resources/application/arme/sprite_epee3.png"));
         ChargeurRessources.iconObjets.put("Arc3", new Image("file:src/main/resources/application/arme/sprite_arc3.png"));
         ChargeurRessources.iconObjets.put("Lance3", new Image("file:src/main/resources/application/arme/sprite_lance3.png"));
-    }
-
-    public void updatePositon() {
-        spriteArme.setTranslateX(perso.getX() + dir * 10);
-        spriteArme.setTranslateY(perso.getY());
     }
 }

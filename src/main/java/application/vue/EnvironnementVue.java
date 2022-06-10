@@ -150,4 +150,11 @@ public class EnvironnementVue {
         img.setImage(new Image("file:src/main/resources/application/Coffre/CoffreOrOuv.png"));
     }
 
+    public void supprimerFleche(String id) {
+        root.getChildren().remove(root.lookup("#" + id));
+    }
+
+    public Pane getRoot() {
+        return root;
+    }
 }

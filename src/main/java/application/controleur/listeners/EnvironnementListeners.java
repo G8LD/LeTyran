@@ -1,11 +1,13 @@
 package application.controleur.listeners;
 
 import application.modele.Environnement;
+import application.modele.armes.arc.Fleche;
 import application.modele.objets.Arbre;
 import application.modele.objets.Coffre;
 import application.modele.objets.Materiau;
 import application.modele.personnages.Ennemi;
 import application.vue.EnvironnementVue;
+import application.vue.FlecheVue;
 import javafx.collections.ListChangeListener;
 
 import static application.modele.MapJeu.WIDTH;
@@ -46,6 +48,17 @@ public class EnvironnementListeners {
                 change.next();
                 for (int i = 0; i < change.getRemovedSize(); i++)
                     envVue.changerImgCoffre((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
+            }
+        });
+
+        env.getListeFleches().addListener(new ListChangeListener<Fleche>() {
+            @Override
+            public void onChanged(Change<? extends Fleche> change) {
+                change.next();
+                for (int i = 0; i < change.getAddedSize(); i++)
+                    new FlecheVue(envVue.getRoot(), change.getAddedSubList().get(i));
+                for (int i = 0; i < change.getRemovedSize(); i++)
+                    envVue.supprimerFleche(change.getRemoved().get(i).getId());
             }
         });
     }
