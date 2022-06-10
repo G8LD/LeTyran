@@ -2,6 +2,7 @@ package application.modele;
 
 import application.modele.armes.Epee;
 import application.modele.armes.Lance;
+import application.modele.armes.arc.Fleche;
 import application.modele.objets.*;
 import application.modele.personnages.Ennemi;
 import application.modele.personnages.Joueur;
@@ -23,6 +24,7 @@ public class Environnement {
     private ObservableList<Arbre> listeArbres;
     private ObservableList< Coffre> listeCoffres;
     private ObservableList<Ennemi> listeEnnemis;
+    private ObservableList<Fleche> listeFleches;
 
     private Ennemie ennemie;
 
@@ -50,6 +52,7 @@ public class Environnement {
         initListeArbres();
         initListeCoffres();
         initListeEnnemis();
+        listeFleches = FXCollections.observableArrayList();
     }
 
     private void initListeArbres() {

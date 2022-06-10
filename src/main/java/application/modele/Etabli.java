@@ -1,6 +1,7 @@
 package application.modele;
 
 import application.modele.armes.*;
+import application.modele.armes.arc.Arc;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;

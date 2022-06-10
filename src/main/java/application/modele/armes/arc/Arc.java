@@ -1,8 +1,9 @@
-package application.modele.armes;
+package application.modele.armes.arc;
 
 import application.modele.Environnement;
+import application.modele.armes.Arme;
 
-public class Arc extends Arme{
+public class Arc extends Arme {
 
     public Arc(Environnement env, int qualite) {
         super(env, qualite);
