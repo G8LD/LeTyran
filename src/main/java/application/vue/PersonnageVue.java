@@ -16,16 +16,21 @@ public class PersonnageVue {
 
     private final static HashMap<String,ArrayList<Image>> LISTE_SPRITES = new HashMap<>() {{
         put("Joueur", new ArrayList<>() {{
-            add(new Image("file:src/main/resources/application/perso/perso_immobile.png"));
-            add(new Image("file:src/main/resources/application/perso/perso_mouvement1.png"));
-            add(new Image("file:src/main/resources/application/perso/perso_immobile.png"));
-            add(new Image("file:src/main/resources/application/perso/perso_mouvement2.png"));
+            add(new Image("file:src/main/resources/application/perso/joueur/perso_immobile.png"));
+            add(new Image("file:src/main/resources/application/perso/joueur/perso_mouvement1.png"));
+            add(new Image("file:src/main/resources/application/perso/joueur/perso_immobile.png"));
+            add(new Image("file:src/main/resources/application/perso/joueur/perso_mouvement2.png"));
         }});
         put("Ennemi", new ArrayList<>() {{
-            add(new Image("file:src/main/resources/application/perso/ennemi_immobile.png"));
-            add(new Image("file:src/main/resources/application/perso/ennemi_mouvement1.png"));
-            add(new Image("file:src/main/resources/application/perso/ennemi_immobile.png"));
-            add(new Image("file:src/main/resources/application/perso/ennemi_mouvement2.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_immobile.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_mouvement1.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_immobile.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_mouvement2.png"));
+        }});
+        put("Lapin", new ArrayList<>() {{
+            add(new Image("file:src/main/resources/application/perso/lapin/lapin_1.png"));
+            add(new Image("file:src/main/resources/application/perso/lapin/lapin_2.png"));
+            add(new Image("file:src/main/resources/application/perso/lapin/lapin_3.png"));
         }});
     }};
 

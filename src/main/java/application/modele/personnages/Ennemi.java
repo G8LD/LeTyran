@@ -16,8 +16,8 @@ public class Ennemi extends PNJ {
 
     private static int id = 0;
 
-    private int origineX;
-    private int origineY;
+    private float origineX;
+    private float origineY;
     private int distance;
     private BooleanProperty attaqueProperty;
     private int delai;
@@ -43,24 +43,7 @@ public class Ennemi extends PNJ {
         retourZone = false;
     }
 
-    private void deplacement() {
-//        if (Math.abs(getEnv().getJoueur().getX() - getX()) < distance && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE)
-//            if (getEnv().getJoueur().getX() - getX() > 0)
-//                setDirection(Droit);
-//            else
-//                setDirection(Gauche);
-//        else if (getX() >= origineX && getX() <= origineX + distance && getY() == origineY && estBloque())
-//            setDirection(getDirectionOpposee());
-//        else if (((getX() < origineX && getDirection() == Gauche) || (getX() > origineX + distance && getDirection() == Droit)))
-//            setDirection(getDirectionOpposee());
-//        else if (estBloque()) {
-//            if (getDirection() == Gauche)
-//                origineX = (int) getX();
-//            else
-//                origineX = (int) (getX() - distance);
-//            origineY = (int) getY();
-//        }
-//        seDeplacer();
+    protected void deplacement() {
         if (((getX() < origineX - 10 * TUILE_TAILLE && getDirection() == Gauche)
                 || (getX() > origineX + 15 * TUILE_TAILLE  && getDirection() == Droit)) && !retourZone) {
             setDirection(getDirectionOpposee());
@@ -80,20 +63,20 @@ public class Ennemi extends PNJ {
                 setDirection(getDirectionOpposee());
             else if (estBloque()) {
                 if (getDirection() == Gauche)
-                    origineX = (int) getX();
+                    origineX = getX();
                 else
-                    origineX = (int) (getX() - distance);
-                origineY = (int) getY();
+                    origineX = getX() - distance;
+                origineY = getY();
             }
         seDeplacer();
     }
 
-    private boolean estBloque() {
+    protected boolean estBloque() {
         return super.getEnv().entreEnCollision((int) super.getX(), (int) super.getY(), getDirection())
                 && !super.getEnv().entreEnCollision((int) super.getX(), (int) super.getY(), getDirectionOpposee());
     }
 
-    private Direction getDirectionOpposee() {
+    protected Direction getDirectionOpposee() {
         if (getDirection() == Droit)
             return Gauche;
         else
@@ -121,6 +104,7 @@ public class Ennemi extends PNJ {
                 && ((getDirection() == Gauche && getEnv().getJoueur().getX() - getX() <= 0)
                 || (getDirection() == Droit && getEnv().getJoueur().getX() - getX() >= 0));
     }
+    
     @Override
     public void update() {
         tomber();
@@ -143,7 +127,31 @@ public class Ennemi extends PNJ {
         return 4;
     }
 
+    public final boolean getAttaque() {
+        return attaqueProperty.getValue();
+    }
+    
     public final BooleanProperty getAttaqueProperty() {
         return attaqueProperty;
+    }
+
+    public float getOrigineX() {
+        return origineX;
+    }
+
+    public float getOrigineY() {
+        return origineY;
+    }
+
+    public void setOrigineX(float origineX) {
+        this.origineX = origineX;
+    }
+
+    public void setOrigineY(float origineY) {
+        this.origineY = origineY;
+    }
+
+    public int getDistance() {
+        return distance;
     }
 }

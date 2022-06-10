@@ -78,9 +78,9 @@ public class Controleur implements Initializable {
         etabliVue =new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
         vueDialog = new VueDialogue(modeleDialogue, dialogFlow,  texteDialogue);
 
-        this.ennemie= new Ennemie(env, 500, 350);
-        this.ennemieVue= new EnnemieVue(root, ennemie);
-        this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie,this.ennemieVue);
+        //this.ennemie= new Ennemie(env, 500, 350);
+        //this.ennemieVue= new EnnemieVue(root, ennemie);
+        //this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie,this.ennemieVue);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));

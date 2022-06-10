@@ -4,6 +4,7 @@ import application.controleur.listeners.EnvironnementListeners;
 import application.controleur.listeners.PersonnageListeners;
 import application.modele.Environnement;
 import application.modele.personnages.Ennemi;
+import application.modele.personnages.Lapin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -38,7 +39,10 @@ public class EnvironnementVue {
         construireFond();
 
         for (Ennemi ennemi : env.getListeEnnemis()) {
-            new PersonnageListeners(ennemi, new PersonnageVue(root, ennemi), new ArmeVue(root, ennemi));
+            if (ennemi instanceof Lapin)
+                new PersonnageListeners(ennemi, new PersonnageVue(root, ennemi));
+            else
+                new PersonnageListeners(ennemi, new PersonnageVue(root, ennemi), new ArmeVue(root, ennemi));
         }
     }
 
