@@ -1,6 +1,7 @@
 package application.controleur.listeners;
 
 import application.modele.armes.Arme;
+import application.modele.armes.Lance;
 import application.vue.ArmeVue;
 import application.vue.ChargeurRessources;
 import javafx.beans.value.ChangeListener;
@@ -17,5 +18,7 @@ public class ArmeListener implements ChangeListener<Arme> {
     @Override
     public void changed(ObservableValue<? extends Arme> observableValue, Arme arme, Arme t1) {
         armeVue.getSpriteArme().setImage(ChargeurRessources.iconObjets.get(t1.getClass().getSimpleName() + t1.getQualite()));
+        if ((arme instanceof Lance && !(t1 instanceof Lance)) || (!(arme instanceof Lance) && t1 instanceof Lance))
+            armeVue.initAnimation();
     }
 }

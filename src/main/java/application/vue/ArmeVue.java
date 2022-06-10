@@ -31,22 +31,23 @@ public class ArmeVue {
         this.spriteArme = spriteArme;
         spriteArme.setVisible(false);
         spriteArme.setImage(ChargeurRessources.iconObjets.get(perso.getArme().getClass().getSimpleName() + perso.getArme().getQualite()));
+        rt = new RotateTransition(Duration.millis(90), spriteArme);
+        tt = new TranslateTransition(Duration.millis(150), spriteArme);
         initDirection();
-        if (perso.getArme() instanceof Lance)
-            initTt();
-        else
-            initRt();
+        initAnimation();
+        initTt();
         perso.getArmeProperty().addListener(new ArmeListener(this));
         rendreVisible = false;
     }
 
     public ArmeVue(Pane root, Personnage perso) {
         this.perso = perso;
-        initSprite(); initDirection();
-        if (perso.getArme() instanceof Lance)
-            initTt();
-        else
-            initRt();
+        initSprite();
+        rt = new RotateTransition(Duration.millis(90), spriteArme);
+        tt = new TranslateTransition(Duration.millis(150), spriteArme);
+        initDirection();
+        initAnimation();
+        if (perso.getArme() instanceof Lance) initTt();
         root.getChildren().add(root.getChildren().size() - 2, spriteArme);
         ((Ennemi) perso).getAttaqueProperty().addListener(new AttaqueListener(this));
         rendreVisible = false;
@@ -70,20 +71,16 @@ public class ArmeVue {
         spriteArme.setScaleX(dir);
     }
 
-    private void initRt() {
-        rt = new RotateTransition(Duration.millis(90), spriteArme);
-        rt.setByAngle(dir * 50);
+    public void initAnimation() {
+        if (perso.getArme() instanceof Lance)
+            rt.setByAngle(dir * 135);
+        else
+            rt.setByAngle(dir * 50);
         rt.setOnFinished(actionEvent -> inverserSprite());
         rt.play();
-        tt = new TranslateTransition();
     }
 
     private void initTt() {
-        rt = new RotateTransition(Duration.ONE, spriteArme);
-        rt.setByAngle(dir * 135);
-        rt.setOnFinished(actionEvent -> inverserSprite());
-        rt.play();
-        tt = new TranslateTransition(Duration.millis(150), spriteArme);
         tt.setAutoReverse(true);
         tt.setCycleCount(2);
         tt.setOnFinished(actionEvent -> {
@@ -94,6 +91,7 @@ public class ArmeVue {
         });
     }
     //endregion
+
     public void animationFrappe() {
         if (rt.getCurrentRate() == 0 && tt.getCurrentRate() == 0) {
             if (perso instanceof Joueur) rendreVisible();

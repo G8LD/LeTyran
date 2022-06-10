@@ -1,6 +1,7 @@
 package application.modele;
 
 import application.modele.armes.Epee;
+import application.modele.armes.Lance;
 import application.modele.objets.*;
 import application.modele.personnages.Ennemi;
 import application.modele.personnages.Joueur;
@@ -80,7 +81,7 @@ public class Environnement {
 
     private void initListeEnnemis() {
         listeEnnemis = FXCollections.observableArrayList();
-        listeEnnemis.add(new Ennemi(this, new Epee(this, 3), 15, 11, 5));
+        listeEnnemis.add(new Ennemi(this, new Lance(this, 3), 15, 11, 5));
         listeEnnemis.add(new Ennemi(this, new Epee(this, 3), 20, 0, 5));
         listeEnnemis.add(new Ennemi(this, new Epee(this, 3), 18, 18, 10));
         listeEnnemis.add(new Lapin(this, 1, 0, 5));
