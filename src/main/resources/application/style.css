@@ -1,3 +1,8 @@
+@font-face {
+	font-family: 'IMMORTAL';
+	src: url('fonts/IMMORTAL.ttf');
+}
+
 .fondDialogue {
     -fx-background-color:rgba(0,0,108,1);
     -fx-background-radius:12px;
@@ -10,4 +15,23 @@
     -fx-fill:white;
     -fx-font-family:elusiveicons;
     -fx-font-size:19px;
+}
+
+.fondAccueil {
+
+  -fx-background-color:
+        -fx-box-border, linear-gradient(#454fed, #6db3f6); 
+
+}
+
+.boutonAccueil {
+	-fx-background: transparent; 
+	-fx-background-color: transparent;
+	-fx-font-family:'IMMORTAL';
+	-fx-font-size:20px;
+
+}
+
+.boutonAccueil:hover {
+	-fx-text-fill:yellow;
 }
