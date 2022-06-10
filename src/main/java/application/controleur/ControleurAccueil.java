@@ -103,10 +103,12 @@ public class ControleurAccueil implements Initializable {
 
     public void ajouterNuages() {
         ImageView previous = null;
+        int minWidth = 100;
+        int maxWidth = 150;
         for(int i = 0; i < 7; i++) {
-            ImageView imgView = new ImageView(new Image("file:src/main/resources/application/cloud.png"));
-            imgView.setFitWidth(60);
-            imgView.setFitHeight(30);
+            ImageView imgView = new ImageView(new Image("file:src/main/resources/application/ciel/nuage_" + (int)(Math.random() * 6 +1) + ".png"));
+            imgView.setFitWidth(100);
+            imgView.setFitHeight(50);
 
             if (i > 0) {
                 imgView.setTranslateY(previous.getTranslateY());
@@ -117,7 +119,7 @@ public class ControleurAccueil implements Initializable {
                 imgView.setTranslateY(0);
             }
 
-            imgView.setTranslateX((i *2) * imgView.getFitWidth() + Math.random() * imgView.getFitWidth());
+            imgView.setTranslateX(((i *3) + i % 2) * imgView.getFitWidth() + Math.random() * imgView.getFitWidth());
             this.paneNuages.getChildren().add(imgView);
             previous = imgView;
         }
