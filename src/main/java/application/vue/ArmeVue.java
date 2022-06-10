@@ -3,20 +3,26 @@ package application.vue;
 import application.controleur.listeners.ArmeListener;
 import application.controleur.listeners.AttaqueListener;
 import application.modele.Direction;
+import application.modele.MapJeu;
+import application.modele.armes.Lance;
 import application.modele.personnages.Ennemi;
 import application.modele.personnages.Joueur;
 import application.modele.personnages.Personnage;
 import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+
+import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class ArmeVue {
 
     private Personnage perso;
     private ImageView spriteArme;
     private RotateTransition rt;
+    private TranslateTransition tt;
     private int dir;
     private boolean rendreVisible;
 
@@ -25,19 +31,28 @@ public class ArmeVue {
         this.spriteArme = spriteArme;
         spriteArme.setVisible(false);
         spriteArme.setImage(ChargeurRessources.iconObjets.get(perso.getArme().getClass().getSimpleName() + perso.getArme().getQualite()));
-        initRt();
+        initDirection();
+        if (perso.getArme() instanceof Lance)
+            initTt();
+        else
+            initRt();
         perso.getArmeProperty().addListener(new ArmeListener(this));
         rendreVisible = false;
     }
 
     public ArmeVue(Pane root, Personnage perso) {
         this.perso = perso;
-        initSprite(); initRt();
+        initSprite(); initDirection();
+        if (perso.getArme() instanceof Lance)
+            initTt();
+        else
+            initRt();
         root.getChildren().add(root.getChildren().size() - 2, spriteArme);
         ((Ennemi) perso).getAttaqueProperty().addListener(new AttaqueListener(this));
         rendreVisible = false;
     }
 
+    //region INITIALISATION
     private void initSprite() {
         spriteArme = new ImageView();
         spriteArme.setVisible(false);
@@ -47,45 +62,73 @@ public class ArmeVue {
         spriteArme.setImage(ChargeurRessources.iconObjets.get(perso.getArme().getClass().getSimpleName() + perso.getArme().getQualite()));
     }
 
-    private void initRt() {
-        rt = new RotateTransition(Duration.millis(90), spriteArme);
+    private void initDirection() {
         if (perso.getDirection() == Direction.Droit)
             dir = -1;
         else
             dir = 1;
         spriteArme.setScaleX(dir);
+    }
+
+    private void initRt() {
+        rt = new RotateTransition(Duration.millis(90), spriteArme);
         rt.setByAngle(dir * 50);
         rt.setOnFinished(actionEvent -> inverserSprite());
         rt.play();
+        tt = new TranslateTransition();
     }
 
+    private void initTt() {
+        rt = new RotateTransition(Duration.ONE, spriteArme);
+        rt.setByAngle(dir * 135);
+        rt.setOnFinished(actionEvent -> inverserSprite());
+        rt.play();
+        tt = new TranslateTransition(Duration.millis(150), spriteArme);
+        tt.setAutoReverse(true);
+        tt.setCycleCount(2);
+        tt.setOnFinished(actionEvent -> {
+            spriteArme.setVisible(rendreVisible);
+            rendreVisible = false;
+            if (perso.getDirection() == Direction.Droit && dir == -1 || perso.getDirection() == Direction.Gauche && dir == 1)
+                inverserSprite();
+        });
+    }
+    //endregion
     public void animationFrappe() {
-        if (rt.getCurrentRate() == 0) {
+        if (rt.getCurrentRate() == 0 && tt.getCurrentRate() == 0) {
             if (perso instanceof Joueur) rendreVisible();
-            rt.setDuration(Duration.millis(150));
-            rt.setByAngle(dir * 90);
-            rt.setAutoReverse(true);
-            rt.setCycleCount(2);
-            rt.setOnFinished(actionEvent -> {
-                spriteArme.setVisible(rendreVisible);
-                rendreVisible = false;
-                if (perso.getDirection() == Direction.Droit && dir == -1 || perso.getDirection() == Direction.Gauche && dir == 1)
-                    inverserSprite();
-            });
-            rt.play();
+            if (perso.getArme() instanceof Lance) {
+                tt.setByX(dir*TUILE_TAILLE);
+                tt.play();
+            } else {
+                rt.setDuration(Duration.millis(150));
+                rt.setByAngle(dir * 90);
+                rt.setAutoReverse(true);
+                rt.setCycleCount(2);
+                rt.setOnFinished(actionEvent -> {
+                    spriteArme.setVisible(rendreVisible);
+                    rendreVisible = false;
+                    if (perso.getDirection() == Direction.Droit && dir == -1 || perso.getDirection() == Direction.Gauche && dir == 1)
+                        inverserSprite();
+                });
+                rt.play();
+            }
         }
     }
 
     //inverse l'image selon la direction
     public void inverserSprite() {
-        if (rt.getCurrentRate() == 0) {
-            rt.setDuration(Duration.ONE);
+        if (rt.getCurrentRate() == 0 && tt.getCurrentRate() == 0) {
+            spriteArme.setScaleX(dir);
             dir = -dir;
-            spriteArme.setScaleX(-dir);
-            rt.setAutoReverse(false);
+            rt.setDuration(Duration.ONE);
             rt.setCycleCount(1);
-            rt.setByAngle(dir * 100);
             rt.setOnFinished(actionEvent1 -> {});
+            if (perso.getArme() instanceof Lance) {
+                rt.setByAngle(dir * -90);
+            } else {
+                rt.setByAngle(dir * 100);
+            }
             rt.play();
         }
     }
@@ -118,7 +161,6 @@ public class ArmeVue {
         ChargeurRessources.iconObjets.put("Epee3", new Image("file:src/main/resources/application/arme/sprite_epee3.png"));
         ChargeurRessources.iconObjets.put("Arc3", new Image("file:src/main/resources/application/arme/sprite_arc3.png"));
         ChargeurRessources.iconObjets.put("Lance3", new Image("file:src/main/resources/application/arme/sprite_lance3.png"));
-        //TODO trouver et mettre les autres sprites
     }
 
     public void updatePositon() {

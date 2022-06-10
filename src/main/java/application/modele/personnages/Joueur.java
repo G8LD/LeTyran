@@ -5,6 +5,7 @@ import application.modele.Environnement;
 import application.modele.Inventaire;
 import application.modele.ObjetJeu;
 import application.modele.armes.Hache;
+import application.modele.armes.Lance;
 import application.modele.armes.Pioche;
 import application.modele.objets.Arbre;
 import application.modele.objets.Materiau;
@@ -17,7 +18,7 @@ public class Joueur extends Personnage {
     private boolean freeze;
 
     public Joueur(Environnement env) {
-        super(env, new Hache(env,3));
+        super(env, new Lance(env,3));
         this.inventaire = new Inventaire(super.getEnv());
         freeze = false;
     }

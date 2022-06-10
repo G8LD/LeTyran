@@ -75,7 +75,6 @@ public class Controleur implements Initializable {
         armeVue = new ArmeVue(env.getJoueur(), spriteArme);
         vievue = new VieVue(root);
         etabliVue = new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
-        etabliVue =new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
         vueDialog = new VueDialogue(modeleDialogue, dialogFlow,  texteDialogue);
 
         //this.ennemie= new Ennemie(env, 500, 350);
