@@ -67,11 +67,6 @@ public class PersonnageVue {
         //modifie les sprites tout les 150 ms
         if (now - lastUpdate >= 200_000_000) {
             lastUpdate = now;
-            //change le sprite du joueur
-//            if (spritePerso.getImage() == LISTE_SPRITES.get(personnage.getClass().getSimpleName()).get(1))
-//                spritePerso.setImage(LISTE_SPRITES.get(personnage.getClass().getSimpleName()).get(2));
-//            else
-//                spritePerso.setImage(LISTE_SPRITES.get(personnage.getClass().getSimpleName()).get(1));
             spritePerso.setImage(LISTE_SPRITES.get(perso.getClass().getSimpleName()).get(indexSprite++));
             if (indexSprite == LISTE_SPRITES.get(perso.getClass().getSimpleName()).size()) indexSprite = 0;
         }

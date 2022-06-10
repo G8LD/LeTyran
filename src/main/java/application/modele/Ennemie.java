@@ -1,5 +1,6 @@
 package application.modele;
 
+import application.modele.armes.Epee;
 import application.modele.personnages.Personnage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,8 +10,8 @@ public class Ennemie extends Personnage {
     private int x ;
     private int y ;
 
-    public Ennemie(Environnement env, int x , int y ) {
-        super(env);
+    public Ennemie(Environnement env, int x , int y) {
+        super(env, new Epee(env, 1));
         this.x=x;
         this.y=y ;
         listeCadavres = FXCollections.observableArrayList();
@@ -29,5 +30,20 @@ public class Ennemie extends Personnage {
     @Override
     public float getY() {
         return y;
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    protected int getHauteurMax() {
+        return 0;
+    }
+
+    @Override
+    protected int getVitesse() {
+        return 0;
     }
 }
