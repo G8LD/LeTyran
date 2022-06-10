@@ -3,6 +3,8 @@ package application.modele.armes.arc;
 import application.modele.Direction;
 import application.modele.Entite;
 import application.modele.Environnement;
+import application.modele.objets.Arbre;
+import application.modele.personnages.Personnage;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 
@@ -11,6 +13,7 @@ public class Fleche extends Entite {
     private static int idMax = 0;
     
     private String id;
+    private Personnage perso;
     private Direction direction;
     private int distanceMax;
     private float distanceParcourue;
@@ -20,9 +23,10 @@ public class Fleche extends Entite {
     public Fleche() {
     }
 
-    public Fleche(Environnement env, int x, int y, Direction direction, int distanceMax, int degat) {
-        super(env, x, y);
-        this.direction = direction;
+    public Fleche(Environnement env, Personnage perso, int distanceMax, int degat) {
+        super(env, (int) perso.getX(), (int) (perso.getY() - 10));
+        this.perso = perso;
+        this.direction = perso.getDirection();
         this.distanceMax = distanceMax;
         this.degat = degat;
         id = "Fleche" + idMax++;
@@ -32,15 +36,15 @@ public class Fleche extends Entite {
 
     private void seDeplace() {
         int i = 0;
-        while (i < 5 && distanceParcourue < distanceMax) {
+        while (i < 7 && distanceParcourue < distanceMax) {
             i++;
             switch (direction) {
-                case Droit: super.setX(super.getX() + 0.45f); break;
-                case Gauche: super.setX(super.getX() - 0.45f); break;
-                case Bas: super.setY(super.getY() + 0.45f); break;
-                case Haut: super.setY(super.getY() - 0.45f); break;
+                case Droit: super.setX(super.getX() + 0.5f); break;
+                case Gauche: super.setX(super.getX() - 0.5f); break;
+                case Bas: super.setY(super.getY() + 0.5f); break;
+                case Haut: super.setY(super.getY() - 0.5f); break;
             }
-            distanceParcourue+=0.45f;
+            distanceParcourue+=0.5f;
             collide();
         }
 
@@ -54,7 +58,7 @@ public class Fleche extends Entite {
 
     @Override
     public void quandCollisionDetectee(Entite ent) {
-        if (!touche) {
+        if (!touche && ent != perso && !(ent instanceof Fleche) && !(ent instanceof Arbre)) {
             System.out.println(ent);
             touche = true;
             ent.decrementerPV(degat);

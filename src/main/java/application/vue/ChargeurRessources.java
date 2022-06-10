@@ -51,15 +51,29 @@ public class ChargeurRessources {
         iconObjets.put("Pierre", new Image("file:src/main/resources/application/pack1/Pierre.png"));
         iconObjets.put("Fer", new Image("file:src/main/resources/application/pack1/Fer.png"));
         iconObjets.put("Platine", new Image("file:src/main/resources/application/pack1/Platine.png"));
-        iconObjets.put("Armure1", new Image("file:src/main/resources/application/arme/sprite_armure1.png"));
-        iconObjets.put("Armure2", new Image("file:src/main/resources/application/arme/sprite_armure2.png"));
-        iconObjets.put("Armure3", new Image("file:src/main/resources/application/arme/sprite_armure3.png"));
 
 
         iconObjets.put("inventaireMain", new Image("file:src/main/resources/application/inventaire/icon_main.png"));
         iconObjets.put("inventaireSac", new Image("file:src/main/resources/application/inventaire/inventaire_sac.png"));
-        iconObjets.put("Fleche", new Image("file:src/main/resources/application/arme/sprite_fleche.png"));
 
-        ArmeVue.initSprites();
+        iconObjets.put("Fleche", new Image("file:src/main/resources/application/arme/sprite_fleche.png"));
+        iconObjets.put("Hache1", new Image("file:src/main/resources/application/arme/sprite_hache1.png"));
+        iconObjets.put("Pioche1", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
+        iconObjets.put("Epee1", new Image("file:src/main/resources/application/arme/sprite_epee1.png"));
+        iconObjets.put("Arc1", new Image("file:src/main/resources/application/arme/sprite_arc1.png"));
+        iconObjets.put("Lance1", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
+        iconObjets.put("Hache2", new Image("file:src/main/resources/application/arme/sprite_hache2.png"));
+        iconObjets.put("Pioche2", new Image("file:src/main/resources/application/arme/sprite_pioche2.png"));
+        iconObjets.put("Epee2", new Image("file:src/main/resources/application/arme/sprite_epee2.png"));
+        iconObjets.put("Arc2", new Image("file:src/main/resources/application/arme/sprite_arc2.png"));
+        iconObjets.put("Lance2", new Image("file:src/main/resources/application/arme/sprite_lance2.png"));
+        iconObjets.put("Hache3", new Image("file:src/main/resources/application/arme/sprite_hache3.png"));
+        iconObjets.put("Pioche3", new Image("file:src/main/resources/application/arme/sprite_pioche3.png"));
+        iconObjets.put("Epee3", new Image("file:src/main/resources/application/arme/sprite_epee3.png"));
+        iconObjets.put("Arc3", new Image("file:src/main/resources/application/arme/sprite_arc3.png"));
+        iconObjets.put("Lance3", new Image("file:src/main/resources/application/arme/sprite_lance3.png"));
+        iconObjets.put("Armure1", new Image("file:src/main/resources/application/arme/sprite_armure1.png"));
+        iconObjets.put("Armure2", new Image("file:src/main/resources/application/arme/sprite_armure2.png"));
+        iconObjets.put("Armure3", new Image("file:src/main/resources/application/arme/sprite_armure3.png"));
     }
 }

@@ -4,7 +4,9 @@ import application.controleur.listeners.ArmeListener;
 import application.controleur.listeners.AttaqueListener;
 import application.modele.Direction;
 import application.modele.MapJeu;
+import application.modele.armes.Hache;
 import application.modele.armes.Lance;
+import application.modele.armes.arc.Arc;
 import application.modele.personnages.Ennemi;
 import application.modele.personnages.Joueur;
 import application.modele.personnages.Personnage;
@@ -65,12 +67,13 @@ public class ArmeVue {
             dir = -1;
         else
             dir = 1;
-        spriteArme.setScaleX(dir);
     }
 
     public void initAnimation() {
         if (perso.getArme() instanceof Lance)
             rt.setByAngle(dir * 135);
+        else if (perso.getArme() instanceof Arc)
+            rt.setByAngle(dir * 233);
         else
             rt.setByAngle(dir * 50);
         rt.setOnFinished(actionEvent -> inverserSprite());
@@ -78,8 +81,8 @@ public class ArmeVue {
     }
 
     private void initTt() {
-        tt.setAutoReverse(true);
         tt.setCycleCount(2);
+        tt.setAutoReverse(true);
         tt.setOnFinished(actionEvent -> {
             spriteArme.setVisible(rendreVisible);
             rendreVisible = false;
@@ -97,9 +100,13 @@ public class ArmeVue {
                 tt.play();
             } else {
                 rt.setDuration(Duration.millis(150));
-                rt.setByAngle(dir * 90);
-                rt.setAutoReverse(true);
-                rt.setCycleCount(2);
+                if (perso.getArme() instanceof Arc) {
+                    rt.setByAngle(0);
+                } else {
+                    rt.setByAngle(dir * 90);
+                    rt.setAutoReverse(true);
+                    rt.setCycleCount(2);
+                }
                 rt.setOnFinished(actionEvent -> {
                     spriteArme.setVisible(rendreVisible);
                     rendreVisible = false;
@@ -136,30 +143,12 @@ public class ArmeVue {
             rendreVisible = true;
     }
 
-    public ImageView getSpriteArme() {
-        return spriteArme;
-    }
-
     public void updatePositon() {
         spriteArme.setTranslateX(perso.getX() + dir * 10);
         spriteArme.setTranslateY(perso.getY());
     }
 
-    public static void initSprites() {
-        ChargeurRessources.iconObjets.put("Hache1", new Image("file:src/main/resources/application/arme/sprite_hache1.png"));
-        ChargeurRessources.iconObjets.put("Pioche1", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
-        ChargeurRessources.iconObjets.put("Epee1", new Image("file:src/main/resources/application/arme/sprite_epee1.png"));
-        ChargeurRessources.iconObjets.put("Arc1", new Image("file:src/main/resources/application/arme/sprite_arc1.png"));
-        ChargeurRessources.iconObjets.put("Lance1", new Image("file:src/main/resources/application/arme/sprite_lance1.png"));
-        ChargeurRessources.iconObjets.put("Hache2", new Image("file:src/main/resources/application/arme/sprite_hache2.png"));
-        ChargeurRessources.iconObjets.put("Pioche2", new Image("file:src/main/resources/application/arme/sprite_pioche2.png"));
-        ChargeurRessources.iconObjets.put("Epee2", new Image("file:src/main/resources/application/arme/sprite_epee2.png"));
-        ChargeurRessources.iconObjets.put("Arc2", new Image("file:src/main/resources/application/arme/sprite_arc2.png"));
-        ChargeurRessources.iconObjets.put("Lance2", new Image("file:src/main/resources/application/arme/sprite_lance2.png"));
-        ChargeurRessources.iconObjets.put("Hache3", new Image("file:src/main/resources/application/arme/sprite_hache3.png"));
-        ChargeurRessources.iconObjets.put("Pioche3", new Image("file:src/main/resources/application/arme/sprite_pioche3.png"));
-        ChargeurRessources.iconObjets.put("Epee3", new Image("file:src/main/resources/application/arme/sprite_epee3.png"));
-        ChargeurRessources.iconObjets.put("Arc3", new Image("file:src/main/resources/application/arme/sprite_arc3.png"));
-        ChargeurRessources.iconObjets.put("Lance3", new Image("file:src/main/resources/application/arme/sprite_lance3.png"));
+    public ImageView getSpriteArme() {
+        return spriteArme;
     }
 }

@@ -90,8 +90,8 @@ public abstract class Personnage extends Entite {
         int i = 0;
         while (i < getVitesse() && !tombe && hauteurSaut < getHauteurMax() && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Haut)) {
             i++;
-            super.setY(super.getY() - 0.45f);
-            hauteurSaut +=0.45f;
+            super.setY(super.getY() - 0.60f);
+            hauteurSaut +=0.60f;
         }
         if (i < getVitesse())
             saute = false;
@@ -102,7 +102,7 @@ public abstract class Personnage extends Entite {
         while (i < getVitesse() && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Bas)) {
             i++;
             tombe = true;
-            super.setY(super.getY() + 0.45f);
+            super.setY(super.getY() + 0.60f);
         }
 
         if (i < getVitesse()) {

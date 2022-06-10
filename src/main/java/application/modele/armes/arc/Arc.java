@@ -15,7 +15,7 @@ public class Arc extends Arme {
 
     @Override
     public void frapper(Personnage perso, Personnage ennemi) {
-        getEnv().getListeFleches().add(new Fleche(getEnv(), (int) perso.getX(), (int) perso.getY() - 10 , perso.getDirection(), getDistance()*TUILE_TAILLE, nbDegat()));
+        getEnv().getListeFleches().add(new Fleche(getEnv(), perso, getDistance()*TUILE_TAILLE, nbDegat()));
     }
 
     public int nbDegat() {
