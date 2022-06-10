@@ -2,11 +2,17 @@ package application.modele.armes.arc;
 
 import application.modele.Environnement;
 import application.modele.armes.Arme;
+import application.modele.personnages.Personnage;
 
 public class Arc extends Arme {
 
     public Arc(Environnement env, int qualite) {
         super(env, qualite);
+    }
+
+    @Override
+    public void frapper(Personnage perso, Personnage ennemi) {
+        getEnv().getListeFleches().add(new Fleche(getEnv(), (int) perso.getX(), (int) perso.getY(), perso.getDirection(), getDistance(), nbDegat()));
     }
 
     public int nbDegat() {

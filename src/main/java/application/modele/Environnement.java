@@ -221,6 +221,10 @@ public class Environnement {
         return listeCoffres;
     }
 
+    public ObservableList<Fleche> getListeFleches() {
+        return listeFleches;
+    }
+
     public Joueur getJoueur() {
         return joueur;
     }
