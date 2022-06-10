@@ -20,14 +20,12 @@ public class Ennemi extends Personnage {
         this.y = y;
         listeCadavres = FXCollections.observableArrayList();
         loot = new ArrayList<Entite>();
-        remplirLoot();
+        this.remplirLoot();
 
     }
 
     private ArrayList<Entite> remplirLoot() {
         int x=(int) (Math.random() * 3 + 1);
-        System.out.println("Ennemi = "+x);
-
         this.loot.add(new Epee(getEnv(), x));
         this.loot.add(new Armure(getEnv(), (int) ((Math.random() * 3) + 1)));
 

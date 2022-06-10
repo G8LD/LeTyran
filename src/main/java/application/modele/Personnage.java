@@ -53,9 +53,8 @@ public class Personnage extends Entite {
             //On baisse le son de l'audio
             bruitCoffre.setVolume(5. / 30.);
             bruitCoffre.play();
-            System.out.println("avant l a boucle ");
+
             for(int i=0 ; i<coffre.getLoot().size();i++) {
-                System.out.println("j'entre dans la boucle");
                 this.getInventaire().ajouterObjet(coffre.getLoot().get(i));
             }
             getEnv().getListeCoffres().remove(coffre);

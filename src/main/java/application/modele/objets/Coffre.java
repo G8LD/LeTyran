@@ -14,13 +14,11 @@ public class Coffre extends Entite {
     public Coffre(Environnement env, int x, int y) {
         super(env, x, y);
         loot= new ArrayList<Entite>();
-        remplirLoot();
+        this.remplirLoot();
 
     }
     private ArrayList<Entite> remplirLoot(){
         int x=(int) (Math.random() * 3 + 1);
-        System.out.println("Coffre = "+x);
-
         this.loot.add(new Epee(getEnv(), x));
             for (int j=0 ; j<5;j++){
                 this.loot.add(new Pierre(getEnv(),0,0 ));
