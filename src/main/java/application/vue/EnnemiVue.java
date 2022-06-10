@@ -22,15 +22,16 @@ public class EnnemieVue extends PersonnageVue {
         image.setLayoutY(350);
         image.setFitWidth(50);
         image.setFitHeight(45);
-        this.root.getChildren().add(image);
+        rootPane.getChildren().add(image);
+
+
     }
     public void afficherCadavres(){
         this.image=new ImageView(new Image("file:src/main/resources/application/perso/mortChevalier.png"));
     }
 
     public void supprimerCadavre() {
-        System.out.println("remove cadavre");
-        this.root.getChildren().remove(image);
+        this.rootPane.getChildren().remove(image);
     }
 
     public ImageView getImage(){

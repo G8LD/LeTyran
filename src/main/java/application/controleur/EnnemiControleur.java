@@ -39,22 +39,24 @@ public class EnnemiControleur{
         this.ennemieVue= ennemieVue;
 
         this.ennemieVue.getImage().setOnMouseClicked(mouseEvent ->{
-            if((this.ennemie.getX() <= this.env.getJoueur().getX()+2*TUILE_TAILLE && this.ennemie.getX() >= this.env.getJoueur().getX()-TUILE_TAILLE && this.ennemie.getY() <= this.env.getJoueur().getY()+2*TUILE_TAILLE && this.ennemie.getY() >= this.env.getJoueur().getY()-TUILE_TAILLE)) {
+            if((this.ennemie.getX() <= this.env.getPersonnage().getX()+2*TUILE_TAILLE && this.ennemie.getX() >= this.env.getPersonnage().getX()-TUILE_TAILLE && this.ennemie.getY() <= this.env.getPersonnage().getY()+2*TUILE_TAILLE && this.ennemie.getY() >= this.env.getPersonnage().getY()-TUILE_TAILLE)) {
                 this.prendreLoot();
                 this.ennemieVue.supprimerCadavre();
+                System.out.println("ok");
             }
+            System.out.println("ok2");
         });
          }
 
         public void prendreLoot(){
-            Entite bois= new Bois(this.env,0,0);
-            this.env.getJoueur().getInventaire().ajouterObjet(bois);
             //On baisse le son de l'audio
             sound.setVolume(15. / 30.);
             sound.play();
             sound1.setVolume(15. / 30.);
             sound1.play();
-
+            for (int i=0 ; i<this.ennemie.getLoot().size();i++) {
+                this.env.getPersonnage().getInventaire().ajouterObjet(this.ennemie.getLoot().get(i));
+            }
         }
 
 

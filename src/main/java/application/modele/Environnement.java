@@ -14,7 +14,7 @@ import static application.modele.MapJeu.WIDTH;
 
 public class Environnement {
 
-    private Joueur joueur;
+    private Personnage personnage;
     private MapJeu mapJeu;
     private Etabli etabli;
     private ObservableList<Entite> listeEntites;
@@ -140,6 +140,18 @@ public class Environnement {
         return mapJeu.getTabMap()[y][x] == 34 || mapJeu.getTabMap()[y][x] == 54 || mapJeu.getTabMap()[y][x] == 52 || mapJeu.getTabMap()[y][x] == 53;
     }
 
+    public Personnage getPersonnage() {
+        return personnage;
+    }
+
+    public MapJeu getMapJeu() {
+        return mapJeu;
+    }
+
+    public Etabli getEtabli() {
+        return etabli;
+    }
+
     public Materiau getMinerai(int x, int y) {
         for (Materiau minerai : listeMateriaux)
             if (minerai.getX() == x && minerai.getY() == y)
@@ -164,6 +176,21 @@ public class Environnement {
         }
         return null;
     }
+
+    public ObservableList<Coffre> getListeCoffres() {
+        return listeCoffres;
+    }
+
+
+    public ObservableList<Materiau> getListeMateriaux() {
+        return listeMateriaux;
+    }
+
+    public ObservableList<Arbre> getListeArbres() {
+        return listeArbres;
+    }
+
+
 
     public Coffre getCoffre(int x, int y) {
         for (Coffre coffre : listeCoffres)
