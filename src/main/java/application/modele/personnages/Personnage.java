@@ -19,7 +19,7 @@ public abstract class Personnage extends Entite {
     private boolean saute;
     private boolean tombe;
     private BooleanProperty avanceProperty;
-    private int hauteurSaut;
+    private float hauteurSaut;
     private int distancePoussee;
     private ObjectProperty<Arme> armeProperty;
 
@@ -90,8 +90,8 @@ public abstract class Personnage extends Entite {
         int i = 0;
         while (i < getVitesse() && !tombe && hauteurSaut < getHauteurMax() && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Haut)) {
             i++;
-            super.setY(super.getY() - 1);
-            hauteurSaut +=1;
+            super.setY(super.getY() - 0.45f);
+            hauteurSaut +=0.45f;
         }
         if (i < getVitesse())
             saute = false;
@@ -102,7 +102,7 @@ public abstract class Personnage extends Entite {
         while (i < getVitesse() && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Bas)) {
             i++;
             tombe = true;
-            super.setY(super.getY() + 1);
+            super.setY(super.getY() + 0.45f);
         }
 
         if (i < getVitesse()) {

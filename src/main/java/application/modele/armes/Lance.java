@@ -8,7 +8,6 @@ import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class Lance extends Arme {
 
-
     public Lance(Environnement env, int qualite) {
         super(env, qualite);
     }
