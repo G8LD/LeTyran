@@ -91,7 +91,7 @@ public class Ennemi extends PNJ {
     }
 
     private void attaquer() {
-        if (delai++ >= 20) {
+        if (delai++ >= 30) {
             if (joueurEnFace())
                 getArme().frapper(this, getEnv().getJoueur());
             attaqueProperty.setValue(false);

@@ -4,6 +4,8 @@ import application.modele.Direction;
 import application.modele.Environnement;
 import application.modele.personnages.Personnage;
 
+import static application.modele.MapJeu.TUILE_TAILLE;
+
 public class Lance extends Arme {
 
 
@@ -15,10 +17,10 @@ public class Lance extends Arme {
     public void frapper(Personnage perso, Personnage ennemi) {
         ennemi.decrementerPV(nbDegat());
         decrementerPV();
-        if (perso.getDirection() == Direction.Gauche)
-            ennemi.setDistancePoussee(distanceDeRecul());
+        if (perso.getDirection() == Direction.Droit)
+            ennemi.setDistancePoussee((getQualite()+1) * TUILE_TAILLE);
         else
-            ennemi.setDistancePoussee(-distanceDeRecul());
+            ennemi.setDistancePoussee(-(getQualite()+1) * TUILE_TAILLE);
     }
 
     public int nbDegat() {
@@ -28,16 +30,6 @@ public class Lance extends Arme {
             return 6;
         } else {
             return 9;
-        }
-    }
-
-    public int distanceDeRecul() {
-        if (getQualite() == 1) {
-            return 2;
-        } else if (getQualite() == 2) {
-            return 4;
-        } else {
-            return 6;
         }
     }
 

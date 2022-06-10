@@ -113,7 +113,7 @@ public abstract class Personnage extends Entite {
 
     protected void estPoussee() {
         Direction direction;
-        if (distancePoussee < 0)
+        if (distancePoussee > 0)
             direction = Direction.Droit;
         else
             direction = Direction.Gauche;
@@ -122,11 +122,11 @@ public abstract class Personnage extends Entite {
             i++;
             tombe = true;
             if (direction == Direction.Droit) {
-                super.setY(super.getY() - 1);
-                distancePoussee++;
-            } else {
-                super.setY(super.getY() + 1);
+                super.setX(super.getX() + 1);
                 distancePoussee--;
+            } else {
+                super.setX(super.getX() - 1);
+                distancePoussee++;
             }
         }
 
