@@ -1,6 +1,7 @@
 package application.modele.armes;
 
 import application.modele.Environnement;
+import application.modele.personnages.Personnage;
 
 public class Lance extends Arme {
 
@@ -8,6 +9,12 @@ public class Lance extends Arme {
 
     public Lance(Environnement env, int qualite) {
         super(env, qualite);
+    }
+
+    @Override
+    public void frapper(Personnage perso) {
+        perso.decrementerPV(nbDegat());
+        decrementerPV();
     }
 
     public int nbDegat() {
@@ -19,6 +26,7 @@ public class Lance extends Arme {
             return 9;
         }
     }
+
     public int distanceDeRecul() {
         if (getQualite() == 1) {
             return 2;
@@ -29,4 +37,7 @@ public class Lance extends Arme {
         }
     }
 
+    public int getDistance() {
+        return 2;
+    }
 }

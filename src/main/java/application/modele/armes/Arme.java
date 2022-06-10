@@ -14,7 +14,7 @@ public abstract class Arme extends Entite {
         setPv(pv());
     }
 
-    //pour les ennemis
+
     public void frapper(Personnage perso) {
         perso.decrementerPV(nbDegat());
         decrementerPV();
@@ -34,5 +34,9 @@ public abstract class Arme extends Entite {
 
     public int getQualite() {
         return qualite;
+    }
+
+    public int getDistance() {
+        return 1;
     }
 }

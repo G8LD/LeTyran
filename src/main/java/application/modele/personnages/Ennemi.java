@@ -99,8 +99,8 @@ public class Ennemi extends PNJ {
     }
 
     private boolean joueurEnFace() {
-        return Math.abs(getEnv().getJoueur().getX() - getX()) < TUILE_TAILLE
-                && Math.abs(getEnv().getJoueur().getY() - getY()) < TUILE_TAILLE
+        return Math.abs(getEnv().getJoueur().getX() - getX()) < getArme().getDistance()*TUILE_TAILLE
+                && Math.abs(getEnv().getJoueur().getY() - getY()) < getArme().getDistance()*TUILE_TAILLE
                 && ((getDirection() == Gauche && getEnv().getJoueur().getX() - getX() <= 0)
                 || (getDirection() == Droit && getEnv().getJoueur().getX() - getX() >= 0));
     }

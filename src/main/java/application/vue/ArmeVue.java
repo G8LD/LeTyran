@@ -62,6 +62,16 @@ public class ArmeVue {
     public void animationFrappe() {
         if (rt.getCurrentRate() == 0) {
             if (perso instanceof Joueur) rendreVisible();
+            rt.setDuration(Duration.millis(150));
+            rt.setByAngle(dir * 90);
+            rt.setAutoReverse(true);
+            rt.setCycleCount(2);
+            rt.setOnFinished(actionEvent -> {
+                spriteArme.setVisible(rendreVisible);
+                rendreVisible = false;
+                if (perso.getDirection() == Direction.Droit && dir == -1 || perso.getDirection() == Direction.Gauche && dir == 1)
+                    inverserSprite();
+            });
             rt.play();
         }
     }
@@ -77,16 +87,6 @@ public class ArmeVue {
             rt.setByAngle(dir * 100);
             rt.setOnFinished(actionEvent1 -> {});
             rt.play();
-            rt.setDuration(Duration.millis(150));
-            rt.setByAngle(dir * 90);
-            rt.setAutoReverse(true);
-            rt.setCycleCount(2);
-            rt.setOnFinished(actionEvent -> {
-                spriteArme.setVisible(rendreVisible);
-                rendreVisible = false;
-                if (perso.getDirection() == Direction.Droit && dir == -1 || perso.getDirection() == Direction.Gauche && dir == 1)
-                    inverserSprite();
-            });
         }
     }
 

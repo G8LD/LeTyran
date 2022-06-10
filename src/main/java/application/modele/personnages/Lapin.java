@@ -1,11 +1,9 @@
 package application.modele.personnages;
 
 import application.modele.Environnement;
-import application.modele.armes.Arme;
 
 import static application.modele.Direction.Droit;
 import static application.modele.Direction.Gauche;
-import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class Lapin extends Ennemi {
 
@@ -41,6 +39,4 @@ public class Lapin extends Ennemi {
     protected int getVitesse() {
         return 3;
     }
-
-
 }

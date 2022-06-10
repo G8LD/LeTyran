@@ -21,11 +21,11 @@ public class Arc extends Arme{
     }
 
 
-    public int distance() {
+    public int getDistance() {
         if (getQualite() == 1) {
-            return 3;
+            return 5;
         } else if (getQualite() == 2) {
-            return 6;
+            return 7;
         } else {
             return 9;
         }
