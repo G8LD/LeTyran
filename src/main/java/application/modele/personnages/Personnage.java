@@ -20,6 +20,7 @@ public abstract class Personnage extends Entite {
     private boolean tombe;
     private BooleanProperty avanceProperty;
     private int hauteurSaut;
+    private int distancePoussee;
     private ObjectProperty<Arme> armeProperty;
 
     private AudioClip bruitCoffre = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
@@ -31,6 +32,7 @@ public abstract class Personnage extends Entite {
         avanceProperty = new SimpleBooleanProperty(false);
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
         hauteurSaut = 0;
+        distancePoussee = 0;
         armeProperty = new SimpleObjectProperty<>(arme);
         //this.getCollider().scaleCollider(32,32);
         System.out.println(this.getCollider());
@@ -45,6 +47,7 @@ public abstract class Personnage extends Entite {
         avanceProperty = new SimpleBooleanProperty(false);
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
         hauteurSaut = 0;
+        distancePoussee = 0;
         armeProperty = new SimpleObjectProperty<>(arme);
         //this.getCollider().scaleCollider(32,32);
         System.out.println(this.getCollider());
@@ -59,6 +62,7 @@ public abstract class Personnage extends Entite {
         avanceProperty = new SimpleBooleanProperty(false);
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
         hauteurSaut = 0;
+        distancePoussee = 0;
         armeProperty = null;
         //this.getCollider().scaleCollider(32,32);
         System.out.println(this.getCollider());
@@ -104,6 +108,30 @@ public abstract class Personnage extends Entite {
         if (i < getVitesse()) {
             tombe = false;
             hauteurSaut = 0;
+        }
+    }
+
+    protected void estPoussee() {
+        Direction direction;
+        if (distancePoussee < 0)
+            direction = Direction.Droit;
+        else
+            direction = Direction.Gauche;
+        int i = 0;
+        while (i < 3 && distancePoussee != 0 && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), direction)) {
+            i++;
+            tombe = true;
+            if (direction == Direction.Droit) {
+                super.setY(super.getY() - 1);
+                distancePoussee++;
+            } else {
+                super.setY(super.getY() + 1);
+                distancePoussee--;
+            }
+        }
+
+        if (i < 3) {
+            distancePoussee = 0;
         }
     }
 
@@ -168,6 +196,14 @@ public abstract class Personnage extends Entite {
 
     public String getId() {
         return id;
+    }
+
+    public int getDistancePoussee() {
+        return distancePoussee;
+    }
+
+    public void setDistancePoussee(int distancePoussee) {
+        this.distancePoussee = distancePoussee;
     }
 
     //endregion

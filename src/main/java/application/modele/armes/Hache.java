@@ -4,8 +4,6 @@ import application.modele.Environnement;
 
 public class Hache extends Arme {
 
-    private final static int DISTANCE = 1;
-
     public Hache(Environnement env, int qualite) {
         super(env, qualite);
     }

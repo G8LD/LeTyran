@@ -1,20 +1,24 @@
 package application.modele.armes;
 
+import application.modele.Direction;
 import application.modele.Environnement;
 import application.modele.personnages.Personnage;
 
 public class Lance extends Arme {
 
-    private final static int DISTANCE = 3;
 
     public Lance(Environnement env, int qualite) {
         super(env, qualite);
     }
 
     @Override
-    public void frapper(Personnage perso) {
-        perso.decrementerPV(nbDegat());
+    public void frapper(Personnage perso, Personnage ennemi) {
+        ennemi.decrementerPV(nbDegat());
         decrementerPV();
+        if (perso.getDirection() == Direction.Gauche)
+            ennemi.setDistancePoussee(distanceDeRecul());
+        else
+            ennemi.setDistancePoussee(-distanceDeRecul());
     }
 
     public int nbDegat() {

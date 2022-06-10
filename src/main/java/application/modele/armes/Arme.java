@@ -15,8 +15,8 @@ public abstract class Arme extends Entite {
     }
 
 
-    public void frapper(Personnage perso) {
-        perso.decrementerPV(nbDegat());
+    public void frapper(Personnage perso,Personnage ennemi) {
+        ennemi.decrementerPV(nbDegat());
         decrementerPV();
     }
 

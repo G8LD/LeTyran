@@ -32,7 +32,7 @@ public class Joueur extends Personnage {
     private boolean frapper(int x, int y) {
         Ennemi ennemi = getEnv().getEnnemi(x,y);
         if (ennemi != null) {
-            getArme().frapper(ennemi);
+            getArme().frapper(this, ennemi);
             return true;
         }
         return false;
@@ -68,11 +68,15 @@ public class Joueur extends Personnage {
     @Override
     public void update() {
         super.collide();
-        if (!freeze) {
-            if (getSaute()) sauter();
-            if (getAvance()) seDeplacer();
+        if (getDistancePoussee() != 0)
+            estPoussee();
+        else {
+            if (!freeze) {
+                if (getSaute()) sauter();
+                if (getAvance()) seDeplacer();
+            }
+            if (!getSaute()) tomber();
         }
-        if (!getSaute()) tomber();
     }
 
     public void freezer() {

@@ -33,9 +33,7 @@ public class ArmeVue {
         spriteArme.setImage(ChargeurRessources.iconObjets.get(perso.getArme().getClass().getSimpleName() + perso.getArme().getQualite()));
         rt = new RotateTransition(Duration.millis(90), spriteArme);
         tt = new TranslateTransition(Duration.millis(150), spriteArme);
-        initDirection();
-        initAnimation();
-        initTt();
+        initDirection(); initAnimation(); initTt();
         perso.getArmeProperty().addListener(new ArmeListener(this));
         rendreVisible = false;
     }
@@ -45,8 +43,7 @@ public class ArmeVue {
         initSprite();
         rt = new RotateTransition(Duration.millis(90), spriteArme);
         tt = new TranslateTransition(Duration.millis(150), spriteArme);
-        initDirection();
-        initAnimation();
+        initDirection(); initAnimation();
         if (perso.getArme() instanceof Lance) initTt();
         root.getChildren().add(root.getChildren().size() - 2, spriteArme);
         ((Ennemi) perso).getAttaqueProperty().addListener(new AttaqueListener(this));

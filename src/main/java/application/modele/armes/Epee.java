@@ -4,7 +4,6 @@ import application.modele.Environnement;
 
 public class Epee extends Arme {
 
-    private final static int DISTANCE = 1;
 
     public Epee(Environnement env, int qualite) {
         super(env, qualite);

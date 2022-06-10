@@ -93,7 +93,7 @@ public class Ennemi extends PNJ {
     private void attaquer() {
         if (delai++ >= 20) {
             if (joueurEnFace())
-                getArme().frapper(getEnv().getJoueur());
+                getArme().frapper(this, getEnv().getJoueur());
             attaqueProperty.setValue(false);
         }
     }
@@ -107,13 +107,17 @@ public class Ennemi extends PNJ {
     
     @Override
     public void update() {
-        tomber();
-        if (attaqueProperty.getValue())
-            attaquer();
-        if (!attaqueProperty.getValue())
-            detectionJoueur();
-        if (!attaqueProperty.getValue())
-            deplacement();
+        if (getDistancePoussee() != 0)
+            estPoussee();
+        else {
+            tomber();
+            if (attaqueProperty.getValue())
+                attaquer();
+            if (!attaqueProperty.getValue())
+                detectionJoueur();
+            if (!attaqueProperty.getValue())
+                deplacement();
+        }
     }
 
 
