@@ -30,7 +30,7 @@ public class Ennemi extends PNJ {
     private int delai;
     private boolean retourZone;
     private ArrayList<Entite> loot ;
-    private ObservableList<Ennemi> listeCadavres;
+   // private ObservableList<Ennemi> listeCadavres;
 
 
     public Ennemi(Environnement env, Arme arme, int x, int y, int distance) {
@@ -41,8 +41,8 @@ public class Ennemi extends PNJ {
         attaqueProperty = new SimpleBooleanProperty(false);
         delai = 0;
         retourZone = false;
-        listeCadavres = FXCollections.observableArrayList();
-        loot = new ArrayList<Entite>();
+        //listeCadavres = FXCollections.observableArrayList();
+        loot = new ArrayList<>();
         this.remplirLoot();
 
     }

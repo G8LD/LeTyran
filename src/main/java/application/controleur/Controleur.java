@@ -31,6 +31,8 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static application.modele.MapJeu.TUILE_TAILLE;
+
 public class Controleur implements Initializable {
 
     private Environnement env;
@@ -82,7 +84,7 @@ public class Controleur implements Initializable {
         vueDialog = new VueDialogue(modeleDialogue, dialogFlow,  texteDialogue);
 
         this.ennemi = new Ennemi(env,new Epee(env , 2), 500, 350,1);
-        this.ennemieVue= new EnnemiVue(root, ennemi);
+        this.ennemieVue= new EnnemiVue(env,root, ennemi);
         this.ennemiControleur= new EnnemiControleur(root,env, tileSol, ennemi,this.ennemieVue);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(env));
@@ -92,6 +94,21 @@ public class Controleur implements Initializable {
         root.addEventHandler(Event.ANY, new DialogueControleur(vueDialog, modeleDialogue));
 
         this.env.getJoueur().getPVProperty().addListener(new VieListener(vievue, this.env.getJoueur()));
+        this.ennemi.getPVProperty().addListener((old,obs,newP)->{
+            if(this.ennemi.estMort()){
+                System.out.println("je passe");
+                this.env.getListeEnnemis().remove(this.ennemi);
+                this.ennemieVue.afficherCadavres((int) this.ennemi.getOrigineX(), (int) this.ennemi.getOrigineY());
+                this.ennemieVue.getImage().setOnMouseClicked(mouseEvent ->{
+                    if((this.ennemi.getX() <= this.env.getJoueur().getX()+2*TUILE_TAILLE && this.ennemi.getX() >= this.env.getJoueur().getX()-TUILE_TAILLE && this.ennemi.getY() <= this.env.getJoueur().getY()+2*TUILE_TAILLE && this.ennemi.getY() >= this.env.getJoueur().getY()-TUILE_TAILLE)) {
+                        this.ennemiControleur.prendreLoot();
+                        this.ennemieVue.supprimerCadavre();
+                        System.out.println("ok");
+                    }
+                    System.out.println("ok2");
+                });
+            }
+        });
         new EtabliControleur(root,env, etabliVue);
         new PersonnageListeners(env.getJoueur(), personnageVue, armeVue);
 

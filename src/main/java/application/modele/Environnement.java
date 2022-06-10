@@ -175,7 +175,6 @@ public class Environnement {
 
 
 
-
     public Coffre getCoffre(int x, int y) {
         for (Coffre coffre : listeCoffres)
             if (coffre.getX() == x && coffre.getY() == y)

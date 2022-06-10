@@ -29,14 +29,7 @@ public class EnnemiControleur{
         this.ennemi= ennemi;
         this.ennemieVue= ennemieVue;
 
-        this.ennemieVue.getImage().setOnMouseClicked(mouseEvent ->{
-            if((this.ennemi.getX() <= this.env.getJoueur().getX()+2*TUILE_TAILLE && this.ennemi.getX() >= this.env.getJoueur().getX()-TUILE_TAILLE && this.ennemi.getY() <= this.env.getJoueur().getY()+2*TUILE_TAILLE && this.ennemi.getY() >= this.env.getJoueur().getY()-TUILE_TAILLE)) {
-                this.prendreLoot();
-                this.ennemieVue.supprimerCadavre();
-                System.out.println("ok");
-            }
-            System.out.println("ok2");
-        });
+
          }
 
         public void prendreLoot(){

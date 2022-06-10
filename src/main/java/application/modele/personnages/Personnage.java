@@ -107,6 +107,13 @@ public abstract class Personnage extends Entite {
         }
     }
 
+    public boolean estMort(){
+        if(this.getPv()==0){
+            return true;
+        }
+        return false;
+    }
+
     public abstract void update();
 
     //region Getter & Setter

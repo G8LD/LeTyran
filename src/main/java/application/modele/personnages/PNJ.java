@@ -12,4 +12,9 @@ public abstract class PNJ extends Personnage {
     public PNJ(Environnement env, String id, int x, int y, int pv) {
         super(env, id, x, y, pv);
     }
+
+    @Override
+    public boolean estMort() {
+        return super.estMort();
+    }
 }
