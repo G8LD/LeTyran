@@ -22,7 +22,7 @@ public class EtabliVue {
     private HashMap<String, Image> listeSprites;
 //    private HashMap<String, Image> listeImagesMateriaux;
 
-    public EtabliVue(Etabli etabli, ImageView spriteEtabli, BorderPane bPaneEtabli, ArmeVue armeVue) {
+    public EtabliVue(Etabli etabli, ImageView spriteEtabli, BorderPane bPaneEtabli) {
         this.etabli = etabli;
         this.spriteEtabli = spriteEtabli;
         this.bPaneEtabli = bPaneEtabli;

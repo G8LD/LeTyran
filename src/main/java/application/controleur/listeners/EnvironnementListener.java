@@ -4,7 +4,7 @@ import application.modele.Environnement;
 import application.modele.objets.Arbre;
 import application.modele.objets.Coffre;
 import application.modele.objets.Materiau;
-import application.vue.vueEnv.EnvironnementVue;
+import application.vue.EnvironnementVue;
 import javafx.collections.ListChangeListener;
 
 import static application.modele.MapJeu.WIDTH;

@@ -1,19 +1,18 @@
 package application.vue;
 
-import application.modele.Ennemie;
+import application.modele.personnages.Ennemi;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.TilePane;
 
-public class EnnemieVue extends PersonnageVue {
+public class EnnemiVue extends PersonnageVue {
 
     private Pane root;
     private ImageView image;
-    private Ennemie ennemi;
+    private Ennemi ennemi;
 
 
-    public EnnemieVue(Pane root, Ennemie ennemi){
+    public EnnemiVue(Pane root, Ennemi ennemi){
         super(root, ennemi);
         this.root = root;
         this.ennemi=ennemi;
@@ -38,4 +37,7 @@ public class EnnemieVue extends PersonnageVue {
         return this.image;
     }
 
+    public Ennemi getEnnemi() {
+        return ennemi;
+    }
 }

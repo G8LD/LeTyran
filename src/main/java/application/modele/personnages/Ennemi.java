@@ -1,12 +1,19 @@
 package application.modele.personnages;
 
 import application.modele.Direction;
+import application.modele.Entite;
 import application.modele.Environnement;
 import application.modele.armes.Arme;
+import application.modele.armes.Armure;
+import application.modele.armes.Epee;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
 
 import static application.modele.Direction.Droit;
 import static application.modele.Direction.Gauche;
@@ -22,6 +29,9 @@ public class Ennemi extends PNJ {
     private BooleanProperty attaqueProperty;
     private int delai;
     private boolean retourZone;
+    private ArrayList<Entite> loot ;
+    private ObservableList<Ennemi> listeCadavres;
+
 
     public Ennemi(Environnement env, Arme arme, int x, int y, int distance) {
         super(env, "Ennemi" + id++, arme, x * TUILE_TAILLE, y * TUILE_TAILLE, 20);
@@ -31,7 +41,20 @@ public class Ennemi extends PNJ {
         attaqueProperty = new SimpleBooleanProperty(false);
         delai = 0;
         retourZone = false;
+        listeCadavres = FXCollections.observableArrayList();
+        loot = new ArrayList<Entite>();
+        this.remplirLoot();
+
     }
+
+    private ArrayList<Entite> remplirLoot() {
+        int x=(int) (Math.random() * 3 + 1);
+        this.loot.add(new Epee(getEnv(), x));
+        this.loot.add(new Armure(getEnv(), (int) ((Math.random() * 3) + 1)));
+
+        return this.loot;
+    }
+
 
     public Ennemi(Environnement env, String id, int x, int y, int distance) {
         super(env, id, x * TUILE_TAILLE, y * TUILE_TAILLE, 20);
@@ -125,6 +148,10 @@ public class Ennemi extends PNJ {
     @Override
     protected int getVitesse() {
         return 4;
+    }
+
+    public ArrayList<Entite> getLoot() {
+        return this.loot;
     }
 
     public final boolean getAttaque() {

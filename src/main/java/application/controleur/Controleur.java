@@ -1,9 +1,13 @@
 package application.controleur;
 
-import application.controleur.listeners.PersonnageListener;
+
+import application.controleur.listeners.PersonnageListeners;
 import application.controleur.listeners.VieListener;
-import application.modele.Ennemie;
+
 import application.modele.Environnement;
+import application.modele.armes.Epee;
+import application.modele.personnages.Ennemi;
+import application.modele.personnages.Joueur;
 import application.vue.ArmeVue;
 import application.vue.EtabliVue;
 import application.vue.ObjetVue;
@@ -12,13 +16,11 @@ import application.vue.VieVue;
 import application.vue.EnvironnementVue;
 import application.modele.ModeleDialogue;
 import application.vue.*;
-import application.vue.vueEnv.EnvironnementVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -38,9 +40,9 @@ public class Controleur implements Initializable {
     private VieVue vievue;
     private ObjetVue objetVue;
     private EtabliVue etabliVue;
-    private EnnemieVue ennemieVue;
+    private EnnemiVue ennemieVue;
     private EnnemiControleur ennemiControleur;
-    private  Ennemie ennemie;
+    private Ennemi ennemi;
 
     private VueDialogue vueDialog;
 
@@ -71,17 +73,17 @@ public class Controleur implements Initializable {
         modeleDialogue = new ModeleDialogue();
 
 
-        personnageVue = new PersonnageVue(env.getPersonnage(), spriteJoueur);
-        mapVue = new EnvironnementVue(env, tileSol, tileDecors, tileFond);
+        personnageVue = new PersonnageVue(env.getJoueur(),spriteJoueur);
+        mapVue = new EnvironnementVue(env,root, tileSol, tileDecors, tileFond);
         objetVue = new ObjetVue(this.env, this.root);
-        armeVue = new ArmeVue(env.getPersonnage(), spriteArme);
+        armeVue = new ArmeVue(env.getJoueur(), spriteArme);
         vievue = new VieVue(root);
-        etabliVue =new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
+        etabliVue =new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli);
         vueDialog = new VueDialogue(modeleDialogue, dialogFlow,  texteDialogue);
 
-        this.ennemie= new Ennemie(env, 500, 350);
-        this.ennemieVue= new EnnemieVue(root,tileSol,ennemie);
-        this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie,this.ennemieVue);
+        this.ennemi = new Ennemi(env,new Epee(env , 2), 500, 350,1);
+        this.ennemieVue= new EnnemiVue(root, ennemi);
+        this.ennemiControleur= new EnnemiControleur(root,env, tileSol, ennemi,this.ennemieVue);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
@@ -105,7 +107,7 @@ public class Controleur implements Initializable {
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.017),
                 (ev ->{
-                    env.getPersonnage().update();
+                    env.getJoueur().update();
                     objetVue.update();
                     vueDialog.animer(0.017);
                     this.env.update();

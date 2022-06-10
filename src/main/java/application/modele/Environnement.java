@@ -14,7 +14,7 @@ import static application.modele.MapJeu.WIDTH;
 
 public class Environnement {
 
-    private Personnage personnage;
+    private Joueur joueur;
     private MapJeu mapJeu;
     private Etabli etabli;
     private ObservableList<Entite> listeEntites;
@@ -23,11 +23,9 @@ public class Environnement {
     private ObservableList< Coffre> listeCoffres;
     private ObservableList<Ennemi> listeEnnemis;
 
-    private Ennemie ennemie;
 
     public Environnement() {
-        joueur = new Joueur(this);
-        this.ennemie=new Ennemie(this, 500 ,350);
+        this.joueur = new Joueur(this);
 
         mapJeu = new MapJeu();
         etabli = new Etabli(this);
@@ -140,9 +138,7 @@ public class Environnement {
         return mapJeu.getTabMap()[y][x] == 34 || mapJeu.getTabMap()[y][x] == 54 || mapJeu.getTabMap()[y][x] == 52 || mapJeu.getTabMap()[y][x] == 53;
     }
 
-    public Personnage getPersonnage() {
-        return personnage;
-    }
+
 
     public MapJeu getMapJeu() {
         return mapJeu;
@@ -177,18 +173,6 @@ public class Environnement {
         return null;
     }
 
-    public ObservableList<Coffre> getListeCoffres() {
-        return listeCoffres;
-    }
-
-
-    public ObservableList<Materiau> getListeMateriaux() {
-        return listeMateriaux;
-    }
-
-    public ObservableList<Arbre> getListeArbres() {
-        return listeArbres;
-    }
 
 
 
@@ -248,17 +232,7 @@ public class Environnement {
         return joueur;
     }
 
-    public MapJeu getMapJeu() {
-        return mapJeu;
-    }
 
-    public Etabli getEtabli() {
-        return etabli;
-    }
-
-    public Ennemie getEnnemie(){
-        return this.ennemie;
-    }
     //endregion
 
 }

@@ -18,28 +18,28 @@ public class KeyPressed implements EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         switch (event.getCode()) {
             case SPACE:
-                if (!env.getPersonnage().getTombe())
-                    env.getPersonnage().setSaute(true);
+                if (!env.getJoueur().getTombe())
+                    env.getJoueur().setSaute(true);
                 break;
             case Q:
-                if (env.getPersonnage().getDirection() != Direction.Gauche || !env.getPersonnage().getAvance()) {
-                    env.getPersonnage().setDirection(Direction.Gauche);
-                    env.getPersonnage().setAvance(true);
+                if (env.getJoueur().getDirection() != Direction.Gauche || !env.getJoueur().getAvance()) {
+                    env.getJoueur().setDirection(Direction.Gauche);
+                    env.getJoueur().setAvance(true);
                 }
                 break;
             case D:
-                if (env.getPersonnage().getDirection() != Direction.Droit || !env.getPersonnage().getAvance()) {
-                    env.getPersonnage().setDirection(Direction.Droit);
-                    env.getPersonnage().setAvance(true);
+                if (env.getJoueur().getDirection() != Direction.Droit || !env.getJoueur().getAvance()) {
+                    env.getJoueur().setDirection(Direction.Droit);
+                    env.getJoueur().setAvance(true);
                 }
                 break;
             case W:
                 this.env.getJoueur().setPv(this.env.getJoueur().getPv() - 10);
-                this.env.getPersonnage().decrementerPv();
+                this.env.getJoueur().decrementerPv();
                 break;
             case X:
                 this.env.getJoueur().setPv(this.env.getJoueur().getPv() + 10);
-                this.env.getPersonnage().augmenterPv();
+                this.env.getJoueur().augmenterPv();
                 break;
             default:
                 break;
