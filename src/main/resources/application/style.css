@@ -24,11 +24,24 @@
 
 }
 
+.fondgameover {
+
+    -fx-background-color:
+          -fx-box-border, linear-gradient(#5e0000, #ff0000); 
+  
+}
+
 .boutonAccueil {
 	-fx-background: transparent; 
 	-fx-background-color: transparent;
 	-fx-font-family:'IMMORTAL';
 	-fx-font-size:20px;
+
+}
+
+.gameOverText {
+	-fx-font-family:'IMMORTAL';
+	-fx-font-size:40px;
 
 }
 
