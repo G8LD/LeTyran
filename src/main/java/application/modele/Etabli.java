@@ -2,6 +2,7 @@ package application.modele;
 
 import application.modele.armes.*;
 import application.modele.armes.arc.Arc;
+import application.modele.armes.arc.Fleche;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -46,6 +47,9 @@ public class Etabli {
     //TODO ajouter les autres objets
     private void initListeMateriauxArmes() {
         listeMateriauxObjets = FXCollections.observableHashMap();
+        listeMateriauxObjets.put("Fleche1", new HashMap<>() {{
+            put("Bois", 3);
+        }});
         listeMateriauxObjets.put("Hache1", new HashMap<>() {{
             put("Bois", 3);
             put("Pierre", 1);
@@ -182,6 +186,7 @@ public class Etabli {
     private Entite armeCorrespondant() {
         Entite objet;
         switch (objetSelected.substring(0, objetSelected.length() - 1)) {
+            case "Fleche": objet = new Fleche(); break;
             case "Hache": objet = new Hache(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
             case "Pioche" : objet = new Pioche(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
             case "Epee" : objet = new Epee(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;

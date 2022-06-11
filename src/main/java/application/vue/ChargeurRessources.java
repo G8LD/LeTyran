@@ -56,7 +56,7 @@ public class ChargeurRessources {
         iconObjets.put("inventaireMain", new Image("file:src/main/resources/application/inventaire/icon_main.png"));
         iconObjets.put("inventaireSac", new Image("file:src/main/resources/application/inventaire/inventaire_sac.png"));
 
-        iconObjets.put("Fleche", new Image("file:src/main/resources/application/arme/sprite_fleche.png"));
+        iconObjets.put("Fleche1", new Image("file:src/main/resources/application/arme/sprite_fleche.png"));
         iconObjets.put("Hache1", new Image("file:src/main/resources/application/arme/sprite_hache1.png"));
         iconObjets.put("Pioche1", new Image("file:src/main/resources/application/arme/sprite_pioche1.png"));
         iconObjets.put("Epee1", new Image("file:src/main/resources/application/arme/sprite_epee1.png"));
