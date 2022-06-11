@@ -20,7 +20,6 @@ public class EtabliVue {
     private BorderPane bPaneEtabli;
     private ImageView spriteEtabli;
     private HashMap<String, Image> listeSprites;
-//    private HashMap<String, Image> listeImagesMateriaux;
 
     public EtabliVue(Etabli etabli, ImageView spriteEtabli, BorderPane bPaneEtabli, ArmeVue armeVue) {
         this.etabli = etabli;
@@ -28,7 +27,6 @@ public class EtabliVue {
         this.bPaneEtabli = bPaneEtabli;
         listeSprites = ChargeurRessources.iconObjets;
         initSpriteEtabli();
-//        initListeImagesMateriaux();
         bPaneEtabli.setVisible(false);
 
         Iterator iterator = etabli.getObjetsID().iterator();
@@ -42,15 +40,6 @@ public class EtabliVue {
         spriteEtabli.setX(15 * TUILE_TAILLE);
         spriteEtabli.setY(11 * TUILE_TAILLE);
     }
-
-//    private void initListeImagesMateriaux() {
-//        listeImagesMateriaux = new HashMap<>() {{
-//            put("Bois", new Image("file:src/main/resources/application/pack1/Bois.png"));
-//            put("Pierre", new Image("file:src/main/resources/application/pack1/Pierre.png"));
-//            put("Fer", new Image("file:src/main/resources/application/pack1/Fer.png"));
-//            put("Platine", new Image("file:src/main/resources/application/pack1/Platine.png"));
-//        }};
-//    }
 
     public void affichageArmeSelected(Color color) {
         ((HBox) ((ScrollPane) bPaneEtabli.lookup("#sPObjets")).getContent().lookup("#" + etabli.getObjetSelected()))
