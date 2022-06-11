@@ -21,7 +21,13 @@ public class PersonnageVue {
             add(new Image("file:src/main/resources/application/perso/joueur/perso_immobile.png"));
             add(new Image("file:src/main/resources/application/perso/joueur/perso_mouvement2.png"));
         }});
-        put("Ennemi", new ArrayList<>() {{
+        put("Epeiste", new ArrayList<>() {{
+            add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_immobile.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_mouvement1.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_immobile.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_mouvement2.png"));
+        }});
+        put("Lancier", new ArrayList<>() {{
             add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_immobile.png"));
             add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_mouvement1.png"));
             add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_immobile.png"));

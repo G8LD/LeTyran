@@ -5,7 +5,7 @@ import application.modele.Environnement;
 import static application.modele.Direction.Droit;
 import static application.modele.Direction.Gauche;
 
-public class Lapin extends Ennemi {
+public class Lapin extends Animal {
 
     private static int id = 0;
 
@@ -15,17 +15,7 @@ public class Lapin extends Ennemi {
 
     @Override
     public void deplacement() {
-        if (getX() >= getOrigineX() && getX() <= getOrigineX() + getDistance() && getY() == getOrigineY() && estBloque())
-            setDirection(getDirectionOpposee());
-        else if (((getX() < getOrigineX() && getDirection() == Gauche) || (getX() > getOrigineX() + getDistance() && getDirection() == Droit)))
-            setDirection(getDirectionOpposee());
-        else if (estBloque()) {
-            if (getDirection() == Gauche)
-                setOrigineX(getX());
-            else
-                setOrigineX(getX() - getDistance());
-            setOrigineY(getY());
-        }
+        deplacementAllerRetour();
         seDeplacer();
     }
     
@@ -33,6 +23,11 @@ public class Lapin extends Ennemi {
     public void update() {
         tomber();
         deplacement();
+    }
+
+    @Override
+    protected int getHauteurMax() {
+        return 0;
     }
 
     @Override

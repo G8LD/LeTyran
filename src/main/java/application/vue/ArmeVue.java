@@ -99,10 +99,11 @@ public class ArmeVue {
                 tt.setByX(dir*TUILE_TAILLE);
                 tt.play();
             } else {
-                rt.setDuration(Duration.millis(150));
                 if (perso.getArme() instanceof Arc) {
+                    rt.setDuration(Duration.millis(300));
                     rt.setByAngle(0);
                 } else {
+                    rt.setDuration(Duration.millis(150));
                     rt.setByAngle(dir * 90);
                     rt.setAutoReverse(true);
                     rt.setCycleCount(2);

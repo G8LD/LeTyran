@@ -20,7 +20,7 @@ public class Joueur extends Personnage {
     private boolean freeze;
 
     public Joueur(Environnement env) {
-        super(env, new Arc(env,3));
+        super(env, new Pioche(env,3));
         this.inventaire = new Inventaire(super.getEnv());
         freeze = false;
     }

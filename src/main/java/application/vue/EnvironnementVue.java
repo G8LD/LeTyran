@@ -39,9 +39,9 @@ public class EnvironnementVue {
         construireFond();
 
         for (Ennemi ennemi : env.getListeEnnemis()) {
-            if (ennemi instanceof Lapin)
-                new PersonnageListeners(ennemi, new PersonnageVue(root, ennemi));
-            else
+//            if (ennemi instanceof Lapin)
+//                new PersonnageListeners(ennemi, new PersonnageVue(root, ennemi));
+//            else
                 new PersonnageListeners(ennemi, new PersonnageVue(root, ennemi), new ArmeVue(root, ennemi));
         }
     }

@@ -4,9 +4,7 @@ import application.modele.armes.Epee;
 import application.modele.armes.Lance;
 import application.modele.armes.arc.Fleche;
 import application.modele.objets.*;
-import application.modele.personnages.Ennemi;
-import application.modele.personnages.Joueur;
-import application.modele.personnages.Lapin;
+import application.modele.personnages.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.media.AudioClip;
@@ -82,10 +80,9 @@ public class Environnement {
 
 
     private void initListeEnnemis() {
-        getListeEnnemis().add(new Ennemi(this, new Lance(this, 1), 15, 11, 5));
-        getListeEnnemis().add(new Ennemi(this, new Epee(this, 3), 20, 0, 5));
-        getListeEnnemis().add(new Ennemi(this, new Epee(this, 3), 18, 18, 10));
-        getListeEnnemis().add(new Lapin(this, 1, 0, 5));
+        getListeEnnemis().add(new Lancier(this, 1, 15, 11, 0));
+        getListeEnnemis().add(new Epeiste(this,1, 20, 0, 5));
+        getListeEnnemis().add(new Epeiste(this,1, 18, 18, 10));
     }
 
     private void initListeCoffres() {

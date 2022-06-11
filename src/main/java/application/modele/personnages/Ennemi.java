@@ -1,96 +1,38 @@
 package application.modele.personnages;
 
-import application.modele.Direction;
 import application.modele.Environnement;
-import application.modele.armes.Arme;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 
 import static application.modele.Direction.Droit;
 import static application.modele.Direction.Gauche;
 import static application.modele.MapJeu.TUILE_TAILLE;
 
-public class Ennemi extends PNJ {
+public abstract class Ennemi extends PNJ {
 
     private static int id = 0;
 
-    private float origineX;
-    private float origineY;
-    private int distance;
     private BooleanProperty attaqueProperty;
     private int delai;
     private boolean retourZone;
+    private boolean poursuitJoueur;
 
-    public Ennemi(Environnement env, Arme arme, int x, int y, int distance) {
-        super(env, "Ennemi" + id++, arme, x * TUILE_TAILLE, y * TUILE_TAILLE, 20);
-        origineX = x * TUILE_TAILLE;
-        origineY = y * TUILE_TAILLE;
-        this.distance = distance * TUILE_TAILLE;
+    public Ennemi(Environnement env, int x, int y, int distance) {
+        super(env, "Ennemi" + id++, x, y, distance);
         attaqueProperty = new SimpleBooleanProperty(false);
         delai = 0;
         retourZone = false;
+        poursuitJoueur = false;
     }
 
-    public Ennemi(Environnement env, String id, int x, int y, int distance) {
-        super(env, id, x * TUILE_TAILLE, y * TUILE_TAILLE, 20);
-        origineX = x * TUILE_TAILLE;
-        origineY = y * TUILE_TAILLE;
-        this.distance = distance * TUILE_TAILLE;
-        attaqueProperty = new SimpleBooleanProperty(false);
-        delai = 0;
-        retourZone = false;
-    }
-
-    protected void deplacement() {
-        if (((getX() < origineX - 10 * TUILE_TAILLE && getDirection() == Gauche)
-                || (getX() > origineX + 15 * TUILE_TAILLE  && getDirection() == Droit)) && !retourZone) {
-            setDirection(getDirectionOpposee());
-            retourZone = true;
-        } else if (getX() >= origineX && getX() <= origineX + distance && getY() == origineY && retourZone)
-            retourZone = false;
-
-        if (!retourZone)
-            if (Math.abs(getEnv().getJoueur().getX() - getX()) < distance && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE)
-                if (getEnv().getJoueur().getX() - getX() > 0)
-                    setDirection(Droit);
-                else
-                    setDirection(Gauche);
-            else if (getX() >= origineX && getX() <= origineX + distance && getY() == origineY && estBloque())
-                setDirection(getDirectionOpposee());
-            else if (((getX() < origineX && getDirection() == Gauche) || (getX() > origineX + distance && getDirection() == Droit)))
-                setDirection(getDirectionOpposee());
-            else if (estBloque()) {
-                if (getDirection() == Gauche)
-                    origineX = getX();
-                else
-                    origineX = getX() - distance;
-                origineY = getY();
-            }
-        seDeplacer();
-    }
-
-    protected boolean estBloque() {
-        return super.getEnv().entreEnCollision((int) super.getX(), (int) super.getY(), getDirection())
-                && !super.getEnv().entreEnCollision((int) super.getX(), (int) super.getY(), getDirectionOpposee());
-    }
-
-    protected Direction getDirectionOpposee() {
-        if (getDirection() == Droit)
-            return Gauche;
-        else
-            return Droit;
-    }
-
-    private void detectionJoueur() {
+    protected void detectionJoueur() {
         if (joueurEnFace()) {
             attaqueProperty.setValue(true);
             delai = 0;
         }
     }
 
-    private void attaquer() {
+    protected void attaquer() {
         if (delai++ >= 30) {
             if (joueurEnFace())
                 getArme().frapper(this, getEnv().getJoueur());
@@ -104,22 +46,41 @@ public class Ennemi extends PNJ {
                 && ((getDirection() == Gauche && getEnv().getJoueur().getX() - getX() <= 0)
                 || (getDirection() == Droit && getEnv().getJoueur().getX() - getX() >= 0));
     }
-    
+
+    protected void retourneDansZone() {
+        if (((getX() < getOrigineX() - 10 * TUILE_TAILLE && getDirection() == Gauche)
+                || (getX() > getOrigineX() + getDistance() + 10 * TUILE_TAILLE  && getDirection() == Droit)) && !getRetourZone()) {
+            setDirection(getDirectionOpposee());
+            retourZone = true;
+        } else if (getX() >= getOrigineX() && getX() <= getOrigineX() + getDistance() && getY() == getOrigineY() && getRetourZone())
+            retourZone = false;
+    }
+
+    protected void poursuiteJoueur() {
+        if (!retourZone && Math.abs(getEnv().getJoueur().getX() - getX()) < 5 * TUILE_TAILLE && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE) {
+                if (getEnv().getJoueur().getX() - getX() > 0)
+                    setDirection(Droit);
+                else
+                    setDirection(Gauche);
+                poursuitJoueur = true;
+        } else
+            poursuitJoueur = false;
+    }
+
     @Override
     public void update() {
         if (getDistancePoussee() != 0)
             estPoussee();
         else {
             tomber();
-            if (attaqueProperty.getValue())
+            if (getAttaque())
                 attaquer();
-            if (!attaqueProperty.getValue())
+            if (!getAttaque())
                 detectionJoueur();
-            if (!attaqueProperty.getValue())
+            if (!getAttaque())
                 deplacement();
         }
     }
-
 
     @Override
     protected int getHauteurMax() {
@@ -139,23 +100,11 @@ public class Ennemi extends PNJ {
         return attaqueProperty;
     }
 
-    public float getOrigineX() {
-        return origineX;
+    public boolean getRetourZone() {
+        return retourZone;
     }
 
-    public float getOrigineY() {
-        return origineY;
-    }
-
-    public void setOrigineX(float origineX) {
-        this.origineX = origineX;
-    }
-
-    public void setOrigineY(float origineY) {
-        this.origineY = origineY;
-    }
-
-    public int getDistance() {
-        return distance;
+    public boolean getPoursuitJoueur() {
+        return poursuitJoueur;
     }
 }

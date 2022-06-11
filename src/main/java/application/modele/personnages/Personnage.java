@@ -40,8 +40,8 @@ public abstract class Personnage extends Entite {
         //inventaire.ajouterObjet();
     }
 
-    public Personnage(Environnement env, String id, Arme arme, int x, int y, int pv) {
-        super(env, x, y, pv);
+    public Personnage(Environnement env, String id, Arme arme, int x, int y) {
+        super(env, x, y);
         this.id = id;
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
@@ -55,15 +55,15 @@ public abstract class Personnage extends Entite {
         //inventaire.ajouterObjet();
     }
 
-    public Personnage(Environnement env, String id, int x, int y, int pv) {
-        super(env, x, y, pv);
+    public Personnage(Environnement env, String id, int x, int y) {
+        super(env, x, y);
         this.id = id;
         saute = false; tombe = false;
         avanceProperty = new SimpleBooleanProperty(false);
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
         hauteurSaut = 0;
         distancePoussee = 0;
-        armeProperty = null;
+        armeProperty = new SimpleObjectProperty<>();
         //this.getCollider().scaleCollider(32,32);
         System.out.println(this.getCollider());
         System.out.println(this.getCollider().getHitBox());
