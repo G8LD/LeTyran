@@ -1,6 +1,6 @@
 package application.controleur.listeners;
 
-import application.modele.personnages.Ennemi;
+import application.modele.personnages.ennemi.Ennemi;
 import application.modele.personnages.Personnage;
 import application.vue.ArmeVue;
 import application.vue.PersonnageVue;

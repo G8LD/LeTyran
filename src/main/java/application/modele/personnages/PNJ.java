@@ -22,7 +22,6 @@ public abstract class PNJ extends Personnage {
     }
 
     protected void deplacement() {
-
     }
 
     protected void deplacementAllerRetour() {

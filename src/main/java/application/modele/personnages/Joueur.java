@@ -4,13 +4,11 @@ import application.modele.Entite;
 import application.modele.Environnement;
 import application.modele.Inventaire;
 import application.modele.ObjetJeu;
-import application.modele.armes.Hache;
-import application.modele.armes.Lance;
 import application.modele.armes.Pioche;
 import application.modele.armes.arc.Arc;
-import application.modele.armes.arc.Fleche;
 import application.modele.objets.Arbre;
 import application.modele.objets.Materiau;
+import application.modele.personnages.ennemi.Ennemi;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 

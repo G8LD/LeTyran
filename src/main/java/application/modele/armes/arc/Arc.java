@@ -38,7 +38,4 @@ public class Arc extends Arme {
             return 9;
         }
     }
-    //public int nombreDeFleche(int nbFleche){
-
-   // }
 }

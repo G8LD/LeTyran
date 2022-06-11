@@ -1,4 +1,4 @@
-package application.modele.personnages;
+package application.modele.personnages.ennemi;
 
 import application.modele.Environnement;
 import application.modele.armes.Epee;

@@ -44,10 +44,9 @@ public class Etabli {
         }};
     }
 
-    //TODO ajouter les autres objets
     private void initListeMateriauxArmes() {
         listeMateriauxObjets = FXCollections.observableHashMap();
-        listeMateriauxObjets.put("Fleche1", new HashMap<>() {{
+        listeMateriauxObjets.put("Fleche", new HashMap<>() {{
             put("Bois", 3);
         }});
         listeMateriauxObjets.put("Hache1", new HashMap<>() {{
@@ -150,7 +149,7 @@ public class Etabli {
         Set listeMateriaux = null;
         if (objetSelected.equals("Etabli") && niveauProperty.getValue() < 3)
             listeMateriaux = this.listeMateriauxEtabli[niveauProperty.getValue()].entrySet();
-        else if (Character.getNumericValue(objetSelected.charAt(objetSelected.length() - 1)) <= niveauProperty.getValue())
+        else if (objetSelected.equals("Fleche") || Character.getNumericValue(objetSelected.charAt(objetSelected.length() - 1)) <= niveauProperty.getValue())
             listeMateriaux = this.listeMateriauxObjets.get(objetSelected).entrySet();
 
         if (listeMateriaux != null) {
@@ -186,7 +185,7 @@ public class Etabli {
     private Entite armeCorrespondant() {
         Entite objet;
         switch (objetSelected.substring(0, objetSelected.length() - 1)) {
-            case "Fleche": objet = new Fleche(); break;
+            case "Flech": objet = new Fleche(); break;
             case "Hache": objet = new Hache(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
             case "Pioche" : objet = new Pioche(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;
             case "Epee" : objet = new Epee(env, Character.getNumericValue(objetSelected.charAt(objetSelected.length()-1))); break;

@@ -1,6 +1,7 @@
-package application.modele.personnages;
+package application.modele.personnages.ennemi;
 
 import application.modele.Environnement;
+import application.modele.personnages.PNJ;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
@@ -40,8 +41,8 @@ public abstract class Ennemi extends PNJ {
         }
     }
 
-    private boolean joueurEnFace() {
-        return Math.abs(getEnv().getJoueur().getX() - getX()) < getArme().getDistance()*TUILE_TAILLE
+    protected boolean joueurEnFace() {
+        return Math.abs(getEnv().getJoueur().getX() - getX()) < getArme().getDistance() * TUILE_TAILLE
                 && Math.abs(getEnv().getJoueur().getY() - getY()) < TUILE_TAILLE
                 && ((getDirection() == Gauche && getEnv().getJoueur().getX() - getX() <= 0)
                 || (getDirection() == Droit && getEnv().getJoueur().getX() - getX() >= 0));

@@ -1,7 +1,6 @@
 package application.vue;
 
 import application.modele.Direction;
-import application.modele.personnages.Ennemi;
 import application.modele.personnages.Personnage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,6 +27,12 @@ public class PersonnageVue {
             add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_mouvement2.png"));
         }});
         put("Lancier", new ArrayList<>() {{
+            add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_immobile.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_mouvement1.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_immobile.png"));
+            add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_mouvement2.png"));
+        }});
+        put("Archer", new ArrayList<>() {{
             add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_immobile.png"));
             add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_mouvement1.png"));
             add(new Image("file:src/main/resources/application/perso/ennemi/ennemi_immobile.png"));

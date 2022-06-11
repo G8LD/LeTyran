@@ -17,8 +17,6 @@ public class ArmeListener implements ChangeListener<Arme> {
 
     @Override
     public void changed(ObservableValue<? extends Arme> observableValue, Arme arme, Arme t1) {
-        armeVue.getSpriteArme().setImage(ChargeurRessources.iconObjets.get(t1.getClass().getSimpleName() + t1.getQualite()));
-        if ((arme instanceof Lance && !(t1 instanceof Lance)) || (!(arme instanceof Lance) && t1 instanceof Lance))
-            armeVue.initAnimation();
+        armeVue.changementArme();
     }
 }

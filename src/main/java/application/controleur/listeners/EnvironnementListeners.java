@@ -5,7 +5,7 @@ import application.modele.armes.arc.Fleche;
 import application.modele.objets.Arbre;
 import application.modele.objets.Coffre;
 import application.modele.objets.Materiau;
-import application.modele.personnages.Ennemi;
+import application.modele.personnages.ennemi.Ennemi;
 import application.vue.EnvironnementVue;
 import application.vue.FlecheVue;
 import javafx.collections.ListChangeListener;
