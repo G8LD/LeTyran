@@ -9,7 +9,10 @@ public class PersonnageListeners {
 
     public PersonnageListeners(Personnage perso, PersonnageVue persoVue, ArmeVue armeVue) {
         //appel la méthode animationDeplacement à chaque fois que x change et donc que le joueur se déplace
-        perso.getXProperty().addListener((observableValue, number, t1) -> persoVue.animerDeplacement());
+        perso.getXProperty().addListener((observableValue, number, t1) -> {
+            persoVue.animerDeplacement();
+            armeVue.updatePositon();
+        });
 
         //si le joueur n'avance plus pour mettre le sprite du personnage immobile
         perso.getAvanceProperty().addListener((observableValue, aBoolean, t1) -> {if (!t1) persoVue.immobile();});

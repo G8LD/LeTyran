@@ -25,6 +25,7 @@ public class Inventaire {
     private ObjetInventaire arme;
 
     private Environnement env;
+
     public Inventaire(Environnement env) {
 
         placesDisponible = new HashMap<>();

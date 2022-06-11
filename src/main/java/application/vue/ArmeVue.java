@@ -134,7 +134,6 @@ public class ArmeVue {
     }
 
     public void rendreVisible() {
-        updatePositon();
         if (rt.getCurrentRate() == 0)
             spriteArme.setVisible(true);
         else

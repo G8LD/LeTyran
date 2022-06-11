@@ -2,6 +2,7 @@ package application.controleur;
 
 import application.modele.Direction;
 import application.modele.Environnement;
+import application.modele.armes.arc.Fleche;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 
@@ -37,6 +38,9 @@ public class KeyPressed implements EventHandler<KeyEvent> {
                 break;
             case X:
                 this.env.getJoueur().setPv(this.env.getJoueur().getPv() + 10);
+                break;
+            case R:
+                this.env.getJoueur().getInventaire().ajouterObjet(new Fleche());
                 break;
             default:
                 break;
