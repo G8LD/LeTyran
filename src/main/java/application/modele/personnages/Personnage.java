@@ -18,7 +18,6 @@ public abstract class Personnage extends Entite {
     private ObjectProperty<Direction> directionProperty;
     private boolean saute;
     private boolean tombe;
-    private BooleanProperty avanceProperty;
     private float hauteurSaut;
     private int distancePoussee;
     private ObjectProperty<Arme> armeProperty;
@@ -29,7 +28,6 @@ public abstract class Personnage extends Entite {
         super(env);
         id = "Joueur";
         saute = false; tombe = false;
-        avanceProperty = new SimpleBooleanProperty(false);
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
         hauteurSaut = 0;
         distancePoussee = 0;
@@ -44,7 +42,6 @@ public abstract class Personnage extends Entite {
         super(env, x, y);
         this.id = id;
         saute = false; tombe = false;
-        avanceProperty = new SimpleBooleanProperty(false);
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
         hauteurSaut = 0;
         distancePoussee = 0;
@@ -59,7 +56,6 @@ public abstract class Personnage extends Entite {
         super(env, x, y);
         this.id = id;
         saute = false; tombe = false;
-        avanceProperty = new SimpleBooleanProperty(false);
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
         hauteurSaut = 0;
         distancePoussee = 0;
@@ -160,18 +156,6 @@ public abstract class Personnage extends Entite {
 
     public void setSaute(boolean saute) {
         this.saute = saute;
-    }
-
-    public final boolean getAvance() {
-        return avanceProperty.getValue();
-    }
-
-    public final BooleanProperty getAvanceProperty() {
-        return avanceProperty;
-    }
-
-    public void setAvance(boolean avance) {
-        this.avanceProperty.setValue(avance);
     }
 
     public boolean getTombe() {

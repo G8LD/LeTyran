@@ -14,11 +14,14 @@ public class PersonnageListeners {
         this(perso, persoVue, armeVue);
 
         ((Joueur) perso).getMortProperty().addListener(((observableValue, aBoolean, t1) -> {
-            if (t1) {
-                feuDeCampVue.transition();
-                persoVue.immobile();
-            }
+            if (t1)
+                feuDeCampVue.transition(true);
         }));
+
+        //si le joueur n'avance plus pour mettre le sprite du personnage immobile
+        ((Joueur) perso).getAvanceProperty().addListener((observableValue, aBoolean, t1) -> {if (!t1)
+            persoVue.immobile();
+        });
     }
 
     public PersonnageListeners(Personnage perso, PersonnageVue persoVue, ArmeVue armeVue) {
@@ -32,26 +35,10 @@ public class PersonnageListeners {
             armeVue.updatePositon();
         });
 
-        //si le joueur n'avance plus pour mettre le sprite du personnage immobile
-        perso.getAvanceProperty().addListener((observableValue, aBoolean, t1) -> {if (!t1) persoVue.immobile();});
-
         //retourne le sprite du perso
         perso.getDirectionProperty().addListener((observableValue, o, t1) ->  {
                 persoVue.inverserSprite();
                 armeVue.inverserSprite();
-        });
-    }
-
-    public PersonnageListeners(Personnage perso, PersonnageVue persoVue) {
-        //appel la méthode animationDeplacement à chaque fois que x change et donc que le joueur se déplace
-        perso.getXProperty().addListener((observableValue, number, t1) -> persoVue.animerDeplacement());
-
-        //si le joueur n'avance plus pour mettre le sprite du personnage immobile
-        perso.getAvanceProperty().addListener((observableValue, aBoolean, t1) -> {if (!t1) persoVue.immobile();});
-
-        //retourne le sprite du perso
-        perso.getDirectionProperty().addListener((observableValue, o, t1) ->  {
-                    persoVue.inverserSprite();
         });
     }
 }

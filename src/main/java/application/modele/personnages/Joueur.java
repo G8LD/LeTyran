@@ -20,6 +20,7 @@ public class Joueur extends Personnage {
     private boolean freeze;
     private BooleanProperty mortProperty;
     private long delaiMort;
+    private BooleanProperty avanceProperty;
 
     public Joueur(Environnement env) {
         super(env, new Pioche(env, 1));
@@ -30,6 +31,7 @@ public class Joueur extends Personnage {
         freeze = false;
         mortProperty = new SimpleBooleanProperty();
         delaiMort = 0;
+        avanceProperty = new SimpleBooleanProperty(false);
     }
 
     public void interagit(int x, int y) {
@@ -101,12 +103,10 @@ public class Joueur extends Personnage {
         } else if (System.currentTimeMillis() - delaiMort >= 5_000) {
             mortProperty.setValue(false);
         } else if (System.currentTimeMillis() - delaiMort >= 2_000 && getX() != getEnv().getFeuDeCamp().getX()) {
-            System.out.println(getEnv().getFeuDeCamp().getX() + " " + getEnv().getFeuDeCamp().getY());
-            System.out.println(getX() + " " + getY());
+            setSaute(false); setAvance(false); setDistancePoussee(0);
             setX(getEnv().getFeuDeCamp().getX());
             setY(getEnv().getFeuDeCamp().getY());
             getEnv().getFeuDeCamp().seReposer();
-            System.out.println(getX() + " " + getY());
         }
     }
 
@@ -134,5 +134,18 @@ public class Joueur extends Personnage {
 
     public final BooleanProperty getMortProperty() {
         return mortProperty;
+    }
+
+
+    public final boolean getAvance() {
+        return avanceProperty.getValue();
+    }
+
+    public final BooleanProperty getAvanceProperty() {
+        return avanceProperty;
+    }
+
+    public void setAvance(boolean avance) {
+        this.avanceProperty.setValue(avance);
     }
 }

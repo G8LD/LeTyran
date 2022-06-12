@@ -96,7 +96,7 @@ public class PersonnageVue {
             spritePerso.setScaleX(-1);
     }
 
-    public void immobile(){
+    public void immobile() {
         spritePerso.setImage(LISTE_SPRITES.get(perso.getClass().getSimpleName()).get(0));
     }
 }

@@ -31,8 +31,8 @@ public class FeuDeCampVue {
         fade.setDuration(Duration.seconds(2));
     }
 
-    public void transition() {
-        if (labelMort.getText().equals(""))
+    public void transition(boolean mort) {
+        if (mort)
             labelMort.setText("VOUS ETES MORT");
         else
             labelMort.setText("");
