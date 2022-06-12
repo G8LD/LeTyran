@@ -11,14 +11,12 @@ import static application.modele.MapJeu.*;
 
 public class FeuDeCampVue {
 
-    private FeuDeCamp feuDeCamp;
     private ImageView spriteFeuDeCamp;
     private Label labelMort;
     private FadeTransition fade;
 
 
     public FeuDeCampVue(FeuDeCamp feuDeCamp, ImageView spriteFeuDeCamp, Label labelMort) {
-        this.feuDeCamp = feuDeCamp;
         this.spriteFeuDeCamp = spriteFeuDeCamp;
         this.labelMort = labelMort;
 
@@ -34,6 +32,10 @@ public class FeuDeCampVue {
     }
 
     public void transition() {
+        if (labelMort.getText().equals(""))
+            labelMort.setText("VOUS ETES MORT");
+        else
+            labelMort.setText("");
         labelMort.toFront();
         fade.setFromValue(0);
         fade.setToValue(1);
