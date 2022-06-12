@@ -9,6 +9,8 @@ import application.modele.armes.arc.Arc;
 import application.modele.objets.Arbre;
 import application.modele.objets.Materiau;
 import application.modele.personnages.ennemi.Ennemi;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 
@@ -16,20 +18,24 @@ public class Joueur extends Personnage {
 
     private Inventaire inventaire;
     private boolean freeze;
+    private BooleanProperty mortProperty;
+    private long delaiMort;
 
     public Joueur(Environnement env) {
-        super(env, new Pioche(env,1));
+        super(env, new Pioche(env, 1));
         this.inventaire = new Inventaire(super.getEnv());
         System.out.println(getArme());
         this.inventaire.ajouterObjet(getArme());
         System.out.println(inventaire.getObjets().get(0));
         freeze = false;
+        mortProperty = new SimpleBooleanProperty();
+        delaiMort = 0;
     }
 
     public void interagit(int x, int y) {
-        if (!frapper(x,y))
-            if (!miner(x,y))
-                couper(x,y);
+        if (!frapper(x, y))
+            if (!miner(x, y))
+                couper(x, y);
     }
 
     private boolean frapper(int x, int y) {
@@ -47,7 +53,7 @@ public class Joueur extends Personnage {
     }
 
     private boolean couper(int x, int y) {
-        Arbre arbre = getEnv().getArbre(x,y);
+        Arbre arbre = getEnv().getArbre(x, y);
         if (arbre != null) {
             arbre.estFrappe();
             return true;
@@ -56,7 +62,7 @@ public class Joueur extends Personnage {
     }
 
     private boolean miner(int x, int y) {
-        Materiau minerai = getEnv().getMinerai(x,y);
+        Materiau minerai = getEnv().getMinerai(x, y);
         if (minerai != null) {
             minerai.estFrappe();
             return true;
@@ -74,7 +80,9 @@ public class Joueur extends Personnage {
     @Override
     public void update() {
         super.collide();
-        if (getDistancePoussee() != 0)
+        if (mortProperty.getValue())
+            detruire();
+        else if (getDistancePoussee() != 0)
             estPoussee();
         else {
             if (!freeze) {
@@ -82,6 +90,23 @@ public class Joueur extends Personnage {
                 if (getAvance()) seDeplacer();
             }
             if (!getSaute()) tomber();
+        }
+    }
+
+    @Override
+    public void detruire() {
+        if (!mortProperty.getValue()) {
+            mortProperty.setValue(true);
+            delaiMort = System.currentTimeMillis();
+        } else if (System.currentTimeMillis() - delaiMort >= 5_000) {
+            mortProperty.setValue(false);
+        } else if (System.currentTimeMillis() - delaiMort >= 2_000 && getX() != getEnv().getFeuDeCamp().getX()) {
+            System.out.println(getEnv().getFeuDeCamp().getX() + " " + getEnv().getFeuDeCamp().getY());
+            System.out.println(getX() + " " + getY());
+            setX(getEnv().getFeuDeCamp().getX());
+            setY(getEnv().getFeuDeCamp().getY());
+            getEnv().getFeuDeCamp().seReposer();
+            System.out.println(getX() + " " + getY());
         }
     }
 
@@ -101,5 +126,13 @@ public class Joueur extends Personnage {
 
     public Inventaire getInventaire() {
         return this.inventaire;
+    }
+
+    public final boolean getMort() {
+        return mortProperty.getValue();
+    }
+
+    public final BooleanProperty getMortProperty() {
+        return mortProperty;
     }
 }

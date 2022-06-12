@@ -35,8 +35,8 @@ public abstract class Personnage extends Entite {
         distancePoussee = 0;
         armeProperty = new SimpleObjectProperty<>(arme);
         //this.getCollider().scaleCollider(32,32);
-        System.out.println(this.getCollider());
-        System.out.println(this.getCollider().getHitBox());
+        //System.out.println(this.getCollider());
+        //System.out.println(this.getCollider().getHitBox());
         //inventaire.ajouterObjet();
     }
 
@@ -50,8 +50,8 @@ public abstract class Personnage extends Entite {
         distancePoussee = 0;
         armeProperty = new SimpleObjectProperty<>(arme);
         //this.getCollider().scaleCollider(32,32);
-        System.out.println(this.getCollider());
-        System.out.println(this.getCollider().getHitBox());
+        //System.out.println(this.getCollider());
+        //System.out.println(this.getCollider().getHitBox());
         //inventaire.ajouterObjet();
     }
 
@@ -65,8 +65,8 @@ public abstract class Personnage extends Entite {
         distancePoussee = 0;
         armeProperty = new SimpleObjectProperty<>();
         //this.getCollider().scaleCollider(32,32);
-        System.out.println(this.getCollider());
-        System.out.println(this.getCollider().getHitBox());
+        //System.out.println(this.getCollider());
+        //System.out.println(this.getCollider().getHitBox());
         //inventaire.ajouterObjet();
     }
 

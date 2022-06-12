@@ -53,13 +53,13 @@ public class PersonnageVue {
     public PersonnageVue(Personnage perso, ImageView spritesJoueur) {
         this.perso = perso;
         this.spritePerso = spritesJoueur;
-        lastUpdate = System.nanoTime();
+        lastUpdate = System.currentTimeMillis();
         construirePerso();
     }
 
     public PersonnageVue(Pane root, Personnage perso) {
         this.perso = perso;
-        lastUpdate = System.nanoTime();
+        lastUpdate = System.currentTimeMillis();
         creationSprite();
         construirePerso();
         root.getChildren().add(root.getChildren().size() - 2, spritePerso);
@@ -79,9 +79,9 @@ public class PersonnageVue {
     }
 
     public void animerDeplacement() {
-        long now = System.nanoTime();
-        //modifie les sprites tout les 150 ms
-        if (now - lastUpdate >= 200_000_000) {
+        long now = System.currentTimeMillis();
+        //modifie les sprites tout les 200 ms
+        if (now - lastUpdate >= 200) {
             lastUpdate = now;
             spritePerso.setImage(LISTE_SPRITES.get(perso.getClass().getSimpleName()).get(indexSprite++));
             if (indexSprite == LISTE_SPRITES.get(perso.getClass().getSimpleName()).size()) indexSprite = 0;

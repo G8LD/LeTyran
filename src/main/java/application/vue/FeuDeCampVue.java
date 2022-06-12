@@ -2,8 +2,8 @@ package application.vue;
 
 import application.modele.FeuDeCamp;
 import javafx.animation.FadeTransition;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import static application.modele.MapJeu.*;
@@ -13,36 +13,28 @@ public class FeuDeCampVue {
 
     private FeuDeCamp feuDeCamp;
     private ImageView spriteFeuDeCamp;
-    private Pane paneT;
+    private Label labelMort;
     private FadeTransition fade;
 
 
-    public FeuDeCampVue(FeuDeCamp feuDeCamp, ImageView spriteFeuDeCamp, Pane paneT) {
+    public FeuDeCampVue(FeuDeCamp feuDeCamp, ImageView spriteFeuDeCamp, Label labelMort) {
         this.feuDeCamp = feuDeCamp;
         this.spriteFeuDeCamp = spriteFeuDeCamp;
-        this.paneT = paneT;
+        this.labelMort = labelMort;
 
-        initSprite();
-        initFt();
-    }
+        spriteFeuDeCamp.setX(feuDeCamp.getX());
+        spriteFeuDeCamp.setY(feuDeCamp.getY());
 
-    private void initFt() {
-        paneT.toBack();
-        paneT.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        labelMort.toBack();
+        labelMort.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+
         fade = new FadeTransition();
-        fade.setNode(paneT);
+        fade.setNode(labelMort);
         fade.setDuration(Duration.seconds(2));
     }
 
-    private void initSprite() {
-        spriteFeuDeCamp.setX(feuDeCamp.getX());
-        spriteFeuDeCamp.setY(feuDeCamp.getY());
-        spriteFeuDeCamp.setFitWidth(TUILE_TAILLE);
-        spriteFeuDeCamp.setFitHeight(TUILE_TAILLE);
-    }
-
     public void transition() {
-        paneT.toFront();
+        labelMort.toFront();
         fade.setFromValue(0);
         fade.setToValue(1);
         fade.setOnFinished(actionEvent -> {
@@ -51,7 +43,7 @@ public class FeuDeCampVue {
             fade.setOnFinished(actionEvent1 -> {
                 fade.setFromValue(1);
                 fade.setToValue(0);
-                fade.setOnFinished(actionEvent2 -> paneT.toBack());
+                fade.setOnFinished(actionEvent2 -> labelMort.toBack());
                 fade.play();
             });
             fade.play();

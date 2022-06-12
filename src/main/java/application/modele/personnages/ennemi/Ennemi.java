@@ -44,8 +44,8 @@ public abstract class Ennemi extends PNJ {
     protected boolean joueurEnFace() {
         return Math.abs(getEnv().getJoueur().getX() - getX()) < getArme().getDistance() * TUILE_TAILLE
                 && Math.abs(getEnv().getJoueur().getY() - getY()) < TUILE_TAILLE
-                && ((getDirection() == Gauche && getEnv().getJoueur().getX() - getX() <= 0)
-                || (getDirection() == Droit && getEnv().getJoueur().getX() - getX() >= 0));
+                && ((getDirection() == Gauche && getEnv().getJoueur().getX() - getX() < 1)
+                || (getDirection() == Droit && getEnv().getJoueur().getX() - getX() > -1));
     }
 
     protected void retourneDansZone() {
@@ -58,7 +58,7 @@ public abstract class Ennemi extends PNJ {
     }
 
     protected void poursuiteJoueur() {
-        if (!retourZone && Math.abs(getEnv().getJoueur().getX() - getX()) < 5 * TUILE_TAILLE && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE) {
+        if (!retourZone && !joueurEnFace() && Math.abs(getEnv().getJoueur().getX() - getX()) < 5 * TUILE_TAILLE && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE) {
                 if (getEnv().getJoueur().getX() - getX() > 0)
                     setDirection(Droit);
                 else

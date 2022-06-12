@@ -17,6 +17,7 @@ import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -55,7 +56,7 @@ public class Controleur implements Initializable {
     @FXML private ImageView spriteArme;
     @FXML private BorderPane bPaneEtabli;
     @FXML private ImageView spriteEtabli;
-    @FXML private Pane paneTransition;
+    @FXML private Label labelMort;
     @FXML private ImageView spriteFeuDeCamp;
 
     @FXML private Pane inventaireMain;
@@ -78,7 +79,7 @@ public class Controleur implements Initializable {
         armeVue = new ArmeVue(env.getJoueur(), spriteArme);
         vievue = new VieVue(root);
         etabliVue = new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli);
-        feuDeCampVue = new FeuDeCampVue(env.getFeuDeCamp(), spriteFeuDeCamp, paneTransition);
+        feuDeCampVue = new FeuDeCampVue(env.getFeuDeCamp(), spriteFeuDeCamp, labelMort);
         vueDialog = new VueDialogue(modeleDialogue, dialogFlow,  texteDialogue);
 
         //this.ennemie= new Ennemie(env, 500, 350);
@@ -94,7 +95,7 @@ public class Controleur implements Initializable {
         this.env.getJoueur().getPVProperty().addListener(new VieListener(vievue, this.env.getJoueur()));
         new EtabliControleur(root,env, etabliVue);
         new FeuDeCampControleur(env.getFeuDeCamp(), feuDeCampVue);
-        new PersonnageListeners(env.getJoueur(), personnageVue, armeVue);
+        new PersonnageListeners(env.getJoueur(), personnageVue, armeVue, feuDeCampVue);
 
         initAnimation();
         gameLoop.play();
@@ -109,10 +110,11 @@ public class Controleur implements Initializable {
                 Duration.seconds(0.017),
                 (ev ->{
                     env.getJoueur().update();
-                    objetVue.update();
-                    vueDialog.animer(0.017);
-                    this.env.update();
-
+                    if (!env.getJoueur().getMort()) {
+                        objetVue.update();
+                        vueDialog.animer(0.017);
+                        this.env.update();
+                    }
                 })
         );
         gameLoop.getKeyFrames().add(kf);

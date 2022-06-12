@@ -16,7 +16,9 @@ public class Lancier extends Ennemi {
         poursuiteJoueur();
         if (!getPoursuitJoueur())
             deplacementAllerRetour();
-        if (getPoursuitJoueur() || getRetourZone() || (Math.abs(getX() - getOrigineX()) > 1 || Math.abs(getY() - getOrigineY()) > 1))
+        if (getPoursuitJoueur() || getRetourZone() || (Math.abs(getX() - getOrigineX()) > 1 || Math.abs(getY() - getOrigineY()) > 1)) {
+            //System.out.println(getPoursuitJoueur() + " " + getRetourZone() + " " + (Math.abs(getX() - getOrigineX()) > 1 || Math.abs(getY() - getOrigineY()) > 1));
             seDeplacer();
+        }
     }
 }
