@@ -1,4 +1,4 @@
-package application.vue.controls;
+package application.vue.inventaire;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

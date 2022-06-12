@@ -1,4 +1,4 @@
-package application.vue.controls;
+package application.vue.inventaire;
 
 import application.modele.Entite;
 import application.vue.ChargeurRessources;

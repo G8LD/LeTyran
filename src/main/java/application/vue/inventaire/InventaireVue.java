@@ -1,13 +1,14 @@
-package application.vue;
+package application.vue.inventaire;
 
 import application.controleur.InventaireControleur;
 import application.modele.ObjetInventaire;
 import application.modele.armes.Arme;
 import application.modele.armes.Armure;
 import application.modele.armes.Hache;
-import application.vue.controls.InvItem;
+import application.vue.ChargeurRessources;
+import application.vue.inventaire.InvItem;
 import application.modele.Inventaire;
-import application.vue.controls.InvSlot;
+import application.vue.inventaire.InvSlot;
 import javafx.collections.ListChangeListener;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.ImageView;
@@ -54,28 +55,28 @@ public class InventaireVue {
         this.ajouterListeObjetsSac();
 
 
-        this.inv.getObjets().addListener(new ListChangeListener<ObjetInventaire>() {
-            @Override
-            public void onChanged(Change<? extends ObjetInventaire> change) {
-                change.next();
-
-                if(change.getRemovedSize() > 0) {
-                    System.out.println("des trucs on été retirés " + change.getRemoved().get(0).getEntite());
-                    for (int i = 0; i < change.getRemovedSize(); i++) {
-                        ObjetInventaire obj = change.getRemoved().get(i);
-                        retirerObjetAffichage(obj);
-
-                    }
-                } else if(change.getAddedSize() > 0) {
-
-                    for (int i = 0; i < change.getAddedSize(); i++) {
-
-                        ObjetInventaire obj = change.getAddedSubList().get(i);
-                        ajouterUnObjet(obj);
-                    }
-                }
-            }
-        });
+//        this.inv.getObjets().addListener(new ListChangeListener<ObjetInventaire>() {
+//            @Override
+//            public void onChanged(Change<? extends ObjetInventaire> change) {
+//                change.next();
+//
+//                if(change.getRemovedSize() > 0) {
+//                    System.out.println("des trucs on été retirés " + change.getRemoved().get(0).getEntite());
+//                    for (int i = 0; i < change.getRemovedSize(); i++) {
+//                        ObjetInventaire obj = change.getRemoved().get(i);
+//                        retirerObjetAffichage(obj);
+//
+//                    }
+//                } else if(change.getAddedSize() > 0) {
+//
+//                    for (int i = 0; i < change.getAddedSize(); i++) {
+//
+//                        ObjetInventaire obj = change.getAddedSubList().get(i);
+//                        ajouterUnObjet(obj);
+//                    }
+//                }
+//            }
+//        });
 
     }
 
@@ -162,7 +163,12 @@ public class InventaireVue {
         }
     }
 
-
+    public void enleverObjetAffichage(int indexObjetInventaire) {
+        if(indexObjetInventaire < 5)
+            ((Pane) this.paneInventaireMain.lookup("#slot"+indexObjetInventaire)).getChildren().remove(1);
+        else
+            ((Pane) this.paneSacInventaire.lookup("#slot"+indexObjetInventaire)).getChildren().remove(1);
+    }
 
     public void ajouterUnObjet(ObjetInventaire obj) {
         //System.out.println(obj.getPlaceInventaire());

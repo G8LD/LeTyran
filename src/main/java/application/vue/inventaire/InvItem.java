@@ -1,9 +1,8 @@
-package application.vue.controls;
+package application.vue.inventaire;
 
 import application.modele.ObjetInventaire;
 import application.modele.armes.Arme;
 import application.modele.armes.Armure;
-import application.vue.InventaireVue;
 import application.vue.ChargeurRessources;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -11,11 +10,10 @@ import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-import static application.vue.InventaireVue.TAILLE_ICON_INVENTAIRE;
+import static application.vue.inventaire.InventaireVue.TAILLE_ICON_INVENTAIRE;
 
 public class InvItem extends StackPane {
     private ColorInput color;
@@ -42,7 +40,9 @@ public class InvItem extends StackPane {
         this.decalageBas = decalageBas;
 
         Image img;
-        if (obj.getEntite().getClass().getSuperclass().getSimpleName().equals("Arme"))
+        if (obj.getEntite().getClass().getSimpleName().equals("Fleche"))
+            img = ChargeurRessources.iconObjets.get("Fleche1");
+        else if (obj.getEntite().getClass().getSuperclass().getSimpleName().equals("Arme"))
             img = ChargeurRessources.iconObjets.get(obj.getEntite().getClass().getSimpleName() + ((Arme) obj.getEntite()).getQualite());
         else if (obj.getEntite().getClass().getSimpleName().equals("Armure"))
             img = ChargeurRessources.iconObjets.get(obj.getEntite().getClass().getSimpleName() + ((Armure) obj.getEntite()).getQualite());
@@ -103,6 +103,7 @@ public class InvItem extends StackPane {
         });
 
         quantite = new Label();
+        quantite.setTextFill(Color.WHITE);
         quantite.textProperty().bind(obj.getStackActuelProperty().asString());
         this.getChildren().add(this.imgVObjet);
         this.getChildren().add(quantite);

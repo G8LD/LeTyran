@@ -1,9 +1,9 @@
-package application.vue;
+package application.vue.inventaire;
 
 import application.modele.Entite;
 import application.modele.Environnement;
 import application.modele.personnages.Personnage;
-import application.vue.controls.ObjetView;
+import application.vue.inventaire.ObjetView;
 import javafx.collections.ListChangeListener;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;

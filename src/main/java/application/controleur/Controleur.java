@@ -6,7 +6,7 @@ import application.modele.Ennemie;
 import application.modele.Environnement;
 import application.vue.ArmeVue;
 import application.vue.EtabliVue;
-import application.vue.ObjetVue;
+import application.vue.inventaire.ObjetVue;
 import application.vue.PersonnageVue;
 import application.vue.VieVue;
 import application.vue.EnvironnementVue;

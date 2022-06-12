@@ -82,11 +82,11 @@ public class EtabliVue {
     public void amelioration() {
         ((Label) bPaneEtabli.lookup("#labelEtabli")).setText("Etabli niveau " + etabli.getNiveau());
         Iterator iterator = etabli.getObjetsID().iterator();
-        String idArme;
+        String idObjet;
         while (iterator.hasNext()) {
-            idArme = (String) iterator.next();
-            if (Character.getNumericValue(idArme.charAt(idArme.length()-1)) == etabli.getNiveau()) {
-                ((ScrollPane) bPaneEtabli.lookup("#sPObjets")).getContent().lookup("#" + idArme).setOpacity(1);
+            idObjet = (String) iterator.next();
+            if (Character.getNumericValue(idObjet.charAt(idObjet.length()-1)) == etabli.getNiveau()) {
+                ((ScrollPane) bPaneEtabli.lookup("#sPObjets")).getContent().lookup("#" + idObjet).setOpacity(1);
             }
         }
     }

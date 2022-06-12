@@ -4,11 +4,14 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class ObjetInventaire {
+
+    private Inventaire inventaire;
     private Entite entite;
     private int placeInventaire;
     private IntegerProperty stackActuel;
 
-    public ObjetInventaire(Entite ent) {
+    public ObjetInventaire(Inventaire inventaire, Entite ent) {
+        this.inventaire = inventaire;
         this.entite = ent;
         this.stackActuel = new SimpleIntegerProperty(1);
 
@@ -37,10 +40,9 @@ public class ObjetInventaire {
 
     public void retirerDansStack() {
         this.stackActuel.setValue(this.stackActuel.getValue() - 1);
-    }
+        if (stackActuel.getValue() == 0)
+            inventaire.objetAZero(this);
 
-    public void ajouterDansStack(int valeur) {
-        this.stackActuel.setValue(valeur);
     }
 
     public Entite getEntite() {

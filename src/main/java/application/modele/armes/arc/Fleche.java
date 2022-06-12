@@ -10,7 +10,7 @@ import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class Fleche extends Entite {
     
-    private static int idMax = 0;
+    private static int idMax = 2;
     
     private String id;
     private Personnage perso;

@@ -10,7 +10,7 @@ import static application.modele.MapJeu.TUILE_TAILLE;
 public class FlecheVue {
 
     public FlecheVue(Pane root, Fleche fleche) {
-        ImageView spriteFleche = new ImageView(ChargeurRessources.iconObjets.get("Fleche"));
+        ImageView spriteFleche = new ImageView(ChargeurRessources.iconObjets.get("Fleche1"));
         spriteFleche.setId(fleche.getId());
         if (fleche.getDirection() == Direction.Gauche) spriteFleche.setScaleX(-1);
         spriteFleche.setFitWidth(TUILE_TAILLE);

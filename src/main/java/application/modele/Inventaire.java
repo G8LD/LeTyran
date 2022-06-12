@@ -41,7 +41,6 @@ public class Inventaire {
     }
 
     public ObservableList<ObjetInventaire> getObjets(){
-
         return objets;
     }
 
@@ -155,7 +154,7 @@ public class Inventaire {
             int placeTrouve = recupererPlaceDispo();
 
             if(placeTrouve >= 0) {
-                ObjetInventaire nouvObjet = new ObjetInventaire(ent);
+                ObjetInventaire nouvObjet = new ObjetInventaire(this, ent);
 
                 System.out.println("Place trouvé " + placeTrouve);
                 nouvObjet.setPlaceInventaire(placeTrouve);
@@ -185,6 +184,11 @@ public class Inventaire {
             //trierObjetInventaireParPlace();
         }
 
+    }
+
+    public void objetAZero(ObjetInventaire objetInventaire) {
+        libererPlacePrise(objetInventaire.getPlaceInventaire());
+        objets.remove(objetInventaire);
     }
 
     public void retirerObjet(ObjetInventaire objet) {

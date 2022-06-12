@@ -1,17 +1,15 @@
 package application.controleur;
 
-import application.controleur.listeners.ObjetSupprimeListener;
+import application.controleur.listeners.InventaireListener;
 import application.modele.Inventaire;
 import application.modele.Environnement;
-import application.modele.ObjetInventaire;
-import application.vue.InventaireVue;
-import application.vue.controls.InvItem;
+import application.vue.inventaire.InventaireVue;
+import application.vue.inventaire.InvItem;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 
@@ -32,7 +30,7 @@ public class InventaireControleur implements EventHandler<Event> {
 
         this.invVue = new InventaireVue(inv, this, inventaireMain, inventaireSac, inventaireEquip);
 
-        this.inv.getObjets().addListener(new ObjetSupprimeListener(this));
+        this.inv.getObjets().addListener(new InventaireListener(invVue));
 
         inventaireEquip.getChildren().get(0).setPickOnBounds(true);
         inventaireEquip.getChildren().get(0).setOnMouseClicked(mouseEvent -> {
@@ -88,10 +86,6 @@ public class InventaireControleur implements EventHandler<Event> {
 
     }
 
-    public void enleverObjetAffichage(int indexObjetInventaire) {
-
-    }
-
     public void echangerObjet(InvItem premier, InvItem second, int nouvPlacePrem, int nouvPlaceSec) {
         int placeEchange = second.getObjetInventaire().getPlaceInventaire();
 
@@ -104,4 +98,7 @@ public class InventaireControleur implements EventHandler<Event> {
 
     }
 
+    public InventaireVue getInvVue() {
+        return invVue;
+    }
 }
