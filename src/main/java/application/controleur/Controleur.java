@@ -31,7 +31,7 @@ public class Controleur implements Initializable {
 
     private Environnement env;
     private PersonnageVue personnageVue;
-    private EnvironnementVue mapVue;
+    private EnvironnementVue environnementVue;
     private ArmeVue armeVue;
     private VieVue vievue;
     private ObjetVue objetVue;
@@ -54,7 +54,6 @@ public class Controleur implements Initializable {
     @FXML private ImageView spriteArme;
     @FXML private BorderPane bPaneEtabli;
     @FXML private ImageView spriteEtabli;
-
     @FXML private Pane inventaireMain;
     @FXML private Pane inventaireSac;
     @FXML private Pane inventaireEquipement;
@@ -70,11 +69,11 @@ public class Controleur implements Initializable {
 
 
         personnageVue = new PersonnageVue(env.getJoueur(), spriteJoueur);
-        mapVue = new EnvironnementVue(env, root, tileSol, tileDecors, tileFond);
+        environnementVue = new EnvironnementVue(env, root, tileSol, tileDecors, tileFond);
         objetVue = new ObjetVue(this.env, this.root);
         armeVue = new ArmeVue(env.getJoueur(), spriteArme);
         vievue = new VieVue(root);
-        etabliVue = new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli, armeVue);
+        etabliVue = new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli);
         vueDialog = new VueDialogue(modeleDialogue, dialogFlow,  texteDialogue);
 
         //this.ennemie= new Ennemie(env, 500, 350);

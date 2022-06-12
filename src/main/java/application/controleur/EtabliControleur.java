@@ -15,14 +15,12 @@ import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class EtabliControleur {
 
-    private Pane root;
     private Environnement env;
     private EtabliVue etabliVue;
     private VBox vBoxObjets;
     Button boutonFabriquer;
 
     public EtabliControleur(Pane root, Environnement env, EtabliVue etabliVue) {
-        this.root = root;
         this.env = env;
         this.etabliVue = etabliVue;
         vBoxObjets = (VBox) ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPObjets")).getContent();

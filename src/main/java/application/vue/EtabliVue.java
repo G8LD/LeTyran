@@ -13,19 +13,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
+import static application.vue.ChargeurRessources.iconObjets;
 
 public class EtabliVue {
 
     private Etabli etabli;
     private BorderPane bPaneEtabli;
     private ImageView spriteEtabli;
-    private HashMap<String, Image> listeSprites;
 
-    public EtabliVue(Etabli etabli, ImageView spriteEtabli, BorderPane bPaneEtabli, ArmeVue armeVue) {
+    public EtabliVue(Etabli etabli, ImageView spriteEtabli, BorderPane bPaneEtabli) {
         this.etabli = etabli;
         this.spriteEtabli = spriteEtabli;
         this.bPaneEtabli = bPaneEtabli;
-        listeSprites = ChargeurRessources.iconObjets;
         initSpriteEtabli();
         bPaneEtabli.setVisible(false);
 
@@ -36,7 +35,6 @@ public class EtabliVue {
     }
 
     private void initSpriteEtabli() {
-        listeSprites.put("Etabli", new Image("file:src/main/resources/application/sprite_etabli.png"));
         spriteEtabli.setX(15 * TUILE_TAILLE);
         spriteEtabli.setY(11 * TUILE_TAILLE);
     }
@@ -48,13 +46,13 @@ public class EtabliVue {
 
     public void affichageInfosArmeSelected() {
         Node vBoxFabriquer = bPaneEtabli.lookup("#VboxFabriquer");
-        ((ImageView) vBoxFabriquer.lookup("#imgViewObjet")).setImage(listeSprites.get(etabli.getObjetSelected()));
+        ((ImageView) vBoxFabriquer.lookup("#imgViewObjet")).setImage(iconObjets.get(etabli.getObjetSelected()));
 
         Node paneMateriaux = vBoxFabriquer.lookup("#PaneMateriaux");
         int i = 0;
         for (String materiau : etabli.getListeMateriauxObjetSelected().keySet()) {
             i++;
-            ((ImageView) paneMateriaux.lookup("#imgViewMateriau" + i)).setImage(listeSprites.get(materiau));
+            ((ImageView) paneMateriaux.lookup("#imgViewMateriau" + i)).setImage(iconObjets.get(materiau));
             ((Label) paneMateriaux.lookup("#labelMateriau" + i)).setText(etabli.getListeMateriauxObjetSelected().get(materiau).toString());
         }
 

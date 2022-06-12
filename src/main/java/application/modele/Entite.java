@@ -86,8 +86,6 @@ public class Entite {
 
     public void decrementerPv() {
         pv.setValue(pv.getValue() - 1);
-        if (this instanceof Pioche)
-            System.out.println(pv);
         if (getPv() <= 0)
             detruire();
     }

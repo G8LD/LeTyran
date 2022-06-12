@@ -84,6 +84,11 @@ public abstract class Ennemi extends PNJ {
     }
 
     @Override
+    public void detruire() {
+        getEnv().getListeEnnemis().remove(this);
+    }
+
+    @Override
     protected int getHauteurMax() {
         return 2 * TUILE_TAILLE;
     }
