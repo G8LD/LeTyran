@@ -20,6 +20,7 @@ public class Environnement {
     private Joueur joueur;
     private MapJeu mapJeu;
     private Etabli etabli;
+    private FeuDeCamp feuDeCamp;
     private HashMap<String, ObservableList> hashMapListes;
 
     private Ennemie ennemie;
@@ -38,6 +39,7 @@ public class Environnement {
 
         mapJeu = new MapJeu();
         etabli = new Etabli(this);
+        feuDeCamp = new FeuDeCamp(this, 13 * TUILE_TAILLE, 8 * TUILE_TAILLE);
 
         ObjetJeu nouvObj = new ObjetJeu(this, "Epee", 1);
         ObjetJeu nouvObj2 = new ObjetJeu(this,  "Bois", 1);
@@ -241,6 +243,10 @@ public class Environnement {
 
     public Etabli getEtabli() {
         return etabli;
+    }
+
+    public FeuDeCamp getFeuDeCamp() {
+        return feuDeCamp;
     }
 
     public Ennemie getEnnemie(){

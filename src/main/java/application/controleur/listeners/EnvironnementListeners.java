@@ -6,8 +6,10 @@ import application.modele.objets.Arbre;
 import application.modele.objets.Coffre;
 import application.modele.objets.Materiau;
 import application.modele.personnages.ennemi.Ennemi;
+import application.vue.ArmeVue;
 import application.vue.EnvironnementVue;
 import application.vue.FlecheVue;
+import application.vue.PersonnageVue;
 import javafx.collections.ListChangeListener;
 
 import static application.modele.MapJeu.WIDTH;
@@ -39,6 +41,9 @@ public class EnvironnementListeners {
                change.next();
                for (int i = 0; i < change.getRemovedSize(); i++)
                     envVue.supprimerEnnemi(change.getRemoved().get(i).getId());
+
+                for (int i = 0; i < change.getAddedSize(); i++)
+                    new PersonnageListeners(change.getAddedSubList().get(i), new PersonnageVue(envVue.getRoot(), change.getAddedSubList().get(i)), new ArmeVue(envVue.getRoot(),  change.getAddedSubList().get(i)));
             }
         });
 

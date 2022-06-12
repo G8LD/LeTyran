@@ -36,6 +36,7 @@ public class Controleur implements Initializable {
     private VieVue vievue;
     private ObjetVue objetVue;
     private EtabliVue etabliVue;
+    private FeuDeCampVue feuDeCampVue;
     private EnnemieVue ennemieVue;
     private EnnemiControleur ennemiControleur;
     private  Ennemie ennemie;
@@ -54,6 +55,9 @@ public class Controleur implements Initializable {
     @FXML private ImageView spriteArme;
     @FXML private BorderPane bPaneEtabli;
     @FXML private ImageView spriteEtabli;
+    @FXML private Pane paneTransition;
+    @FXML private ImageView spriteFeuDeCamp;
+
     @FXML private Pane inventaireMain;
     @FXML private Pane inventaireSac;
     @FXML private Pane inventaireEquipement;
@@ -74,6 +78,7 @@ public class Controleur implements Initializable {
         armeVue = new ArmeVue(env.getJoueur(), spriteArme);
         vievue = new VieVue(root);
         etabliVue = new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli);
+        feuDeCampVue = new FeuDeCampVue(env.getFeuDeCamp(), spriteFeuDeCamp, paneTransition);
         vueDialog = new VueDialogue(modeleDialogue, dialogFlow,  texteDialogue);
 
         //this.ennemie= new Ennemie(env, 500, 350);
@@ -88,6 +93,7 @@ public class Controleur implements Initializable {
 
         this.env.getJoueur().getPVProperty().addListener(new VieListener(vievue, this.env.getJoueur()));
         new EtabliControleur(root,env, etabliVue);
+        new FeuDeCampControleur(env.getFeuDeCamp(), feuDeCampVue);
         new PersonnageListeners(env.getJoueur(), personnageVue, armeVue);
 
         initAnimation();
