@@ -6,10 +6,7 @@ import application.modele.armes.Arme;
 import application.modele.armes.Armure;
 import application.modele.armes.Hache;
 import application.vue.ChargeurRessources;
-import application.vue.inventaire.InvItem;
 import application.modele.Inventaire;
-import application.vue.inventaire.InvSlot;
-import javafx.collections.ListChangeListener;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -111,7 +108,7 @@ public class InventaireVue {
     public void lacherObjet(double positionYSouris) {
         if(this.paneSacInventaire != null) {
 
-            InvSlot seletecSlot = null;
+            InvSlot seletecSlot;
 
             int indexConteneurTrouve = -1;
 
@@ -143,7 +140,7 @@ public class InventaireVue {
 
                     this.controleur.echangerObjet(this.objPrit, selectSlotItem, indexConteneurTrouve, autrePlace);
 
-                } else {;
+                } else {
                     System.out.println("Slot attribué" + seletecSlot.getId());
                     this.controleur.objetPlaceInventaireChanger(objPrit, slotParent.getIndex(), seletecSlot.getIndex());
 
@@ -261,7 +258,7 @@ public class InventaireVue {
     }
 
     public void mettreEquipement(ObjetInventaire obj) {
-        String emplacement = "";
+        String emplacement;
 
         if(obj.getEntite() instanceof Hache) {
             emplacement = "#armeEquipement";
