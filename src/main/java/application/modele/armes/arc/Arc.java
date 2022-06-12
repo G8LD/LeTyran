@@ -1,6 +1,5 @@
 package application.modele.armes.arc;
 
-import application.modele.Direction;
 import application.modele.Environnement;
 import application.modele.armes.Arme;
 import application.modele.personnages.Joueur;
@@ -23,6 +22,7 @@ public class Arc extends Arme {
             if (i < ((Joueur) perso).getInventaire().getObjets().size()) {
                 getEnv().getListeFleches().add(new Fleche(getEnv(), perso, getDistance() * TUILE_TAILLE, nbDegat()));
                 ((Joueur) perso).getInventaire().getObjets().get(i).retirerDansStack();
+                decrementerPv();
             }
         } else
             getEnv().getListeFleches().add(new Fleche(getEnv(), perso, getDistance()*TUILE_TAILLE, nbDegat()));

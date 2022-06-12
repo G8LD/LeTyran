@@ -186,12 +186,12 @@ public class Inventaire {
 
     }
 
-    public void objetAZero(ObjetInventaire objetInventaire) {
+    public void retirerObjet(ObjetInventaire objetInventaire) {
         libererPlacePrise(objetInventaire.getPlaceInventaire());
         objets.remove(objetInventaire);
     }
 
-    public void retirerObjet(ObjetInventaire objet) {
+    public void lacherObjet(ObjetInventaire objet) {
         //On retire l'objet de l'inventaire
         Entite ent = objet.getEntite();
         objets.remove(objet);
@@ -204,6 +204,13 @@ public class Inventaire {
         this.env.getListeEntites().add(ent);
         ent.getCollider().setIgnoreCollision(false);
 
+    }
+
+    public ObjetInventaire getObjetCorrespondant(Entite entite) {
+        for (ObjetInventaire objet : objets)
+            if (objet.getEntite() == entite)
+                return objet;
+        return null;
     }
 
     public String toString() {

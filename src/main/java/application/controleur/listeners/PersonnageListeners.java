@@ -26,13 +26,6 @@ public class PersonnageListeners {
                 persoVue.inverserSprite();
                 armeVue.inverserSprite();
         });
-
-        //retire le sprite de l'ennemi si mort
-        if (perso instanceof Ennemi)
-            perso.getPVProperty().addListener((observableValue, number, t1) -> {
-                    if ((int) t1 <= 0)
-                        perso.getEnv().getListeEnnemis().remove(perso);
-            });
     }
 
     public PersonnageListeners(Personnage perso, PersonnageVue persoVue) {
@@ -46,12 +39,5 @@ public class PersonnageListeners {
         perso.getDirectionProperty().addListener((observableValue, o, t1) ->  {
                     persoVue.inverserSprite();
         });
-
-        //retire le sprite de l'ennemi si mort
-        if (perso instanceof Ennemi || perso.getClass().getSuperclass().getSimpleName().equals("Ennemi"))
-            perso.getPVProperty().addListener((observableValue, number, t1) -> {
-                if ((int) t1 <= 0)
-                    perso.getEnv().getListeEnnemis().remove(perso);
-            });
     }
 }

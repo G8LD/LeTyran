@@ -82,7 +82,7 @@ public class InventaireControleur implements EventHandler<Event> {
     }
 
     public void jeterObjet(InvItem vueObjet) {
-        this.inv.retirerObjet(vueObjet.getObjetInventaire());
+        this.inv.lacherObjet(vueObjet.getObjetInventaire());
 
     }
 

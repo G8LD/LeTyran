@@ -18,8 +18,11 @@ public class Joueur extends Personnage {
     private boolean freeze;
 
     public Joueur(Environnement env) {
-        super(env, new Pioche(env,3));
+        super(env, new Pioche(env,1));
         this.inventaire = new Inventaire(super.getEnv());
+        System.out.println(getArme());
+        this.inventaire.ajouterObjet(getArme());
+        System.out.println(inventaire.getObjets().get(0));
         freeze = false;
     }
 
@@ -47,7 +50,6 @@ public class Joueur extends Personnage {
         Arbre arbre = getEnv().getArbre(x,y);
         if (arbre != null) {
             arbre.estFrappe();
-            getArme().decrementerPV();
             return true;
         }
         return false;
@@ -57,7 +59,6 @@ public class Joueur extends Personnage {
         Materiau minerai = getEnv().getMinerai(x,y);
         if (minerai != null) {
             minerai.estFrappe();
-            getArme().decrementerPV();
             return true;
         }
         return false;

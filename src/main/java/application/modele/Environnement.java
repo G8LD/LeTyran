@@ -81,6 +81,7 @@ public class Environnement {
 
 
     private void initListeEnnemis() {
+        getListeEnnemis().clear();
         getListeEnnemis().add(new Archer(this, 1, 20, 11, 0));
         getListeEnnemis().add(new Lancier(this, 1, 15, 11, 0));
         getListeEnnemis().add(new Epeiste(this,1, 20, 0, 5));

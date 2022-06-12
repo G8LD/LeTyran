@@ -1,5 +1,7 @@
 package application.modele;
 
+import application.modele.armes.Arme;
+import application.modele.armes.Pioche;
 import application.modele.collisions.Collider;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
@@ -23,7 +25,7 @@ public class Entite {
         this.collider = new Collider(this);
         //this.getCollider().scaleCollider(32,32);
         this.env = env;
-        this.pv = new SimpleIntegerProperty(100);
+        this.pv = new SimpleIntegerProperty(30);
     }
 
 
@@ -82,12 +84,18 @@ public class Entite {
         }
     }
 
-    public void decrementerPV() {
+    public void decrementerPv() {
         pv.setValue(pv.getValue() - 1);
+        if (this instanceof Pioche)
+            System.out.println(pv);
+        if (getPv() <= 0)
+            detruire();
     }
 
-    public void decrementerPV(int degat) {
+    public void decrementerPv(int degat) {
         pv.setValue(pv.getValue() - degat);
+        if (getPv() <= 0)
+            detruire();
     }
 
     //Fonctions qui ont pour but d'être override

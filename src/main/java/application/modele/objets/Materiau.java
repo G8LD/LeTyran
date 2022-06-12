@@ -14,19 +14,13 @@ public abstract class Materiau extends Entite {
         super(env, x, y, pv);
     }
 
-    public void decrementerPv(int degat) {
-        super.setPv(super.getPv() - degat);
-    }
-
     //appelé quand le bloc est cliqué décremente selon la qualité si le joueur a la bonne arme sinon de 1
     public void estFrappe() {
         if (getEnv().getJoueur().getArme() instanceof Pioche)
             decrementerPv(getEnv().getJoueur().getArme().nbDegat());
         else
-            decrementerPv(1);
-
-        if (getPv() <= 0)
-            detruire();
+            decrementerPv();
+        getEnv().getJoueur().getArme().decrementerPv();
     }
 
     public void detruire() {

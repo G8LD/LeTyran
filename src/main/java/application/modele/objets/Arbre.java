@@ -15,23 +15,20 @@ public class Arbre extends Entite {
     public void estFrappe() {
         int nbDegats;
 
-        if (getEnv().getJoueur().getArme() instanceof Hache) {
+        if (getEnv().getJoueur().getArme() instanceof Hache)
             nbDegats = getEnv().getJoueur().getArme().nbDegat();
-        } else {
+        else
             nbDegats = 1;
-        }
 
         int nbBois = 0;
         for (int i = 0; i < nbDegats; i++) {
-            decrementerPV();
+            decrementerPv();
             if (getPv() % 4 == 0) nbBois++;
         }
+        getEnv().getJoueur().getArme().decrementerPv();
+
         for (int i = 0; i < nbBois; i++)
             getEnv().getListeEntites().add(new Bois(getEnv(), (int)getX() * 32, (int)getY() * 32));
-        if (getPv() <= 0) {
-            detruire();
-            System.out.println("arbre coupé");
-        }
     }
 
     @Override

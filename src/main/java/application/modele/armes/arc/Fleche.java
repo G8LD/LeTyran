@@ -6,8 +6,6 @@ import application.modele.Environnement;
 import application.modele.objets.Arbre;
 import application.modele.personnages.Personnage;
 
-import static application.modele.MapJeu.TUILE_TAILLE;
-
 public class Fleche extends Entite {
     
     private static int idMax = 2;
@@ -61,7 +59,7 @@ public class Fleche extends Entite {
         if (!touche && ent != perso && !(ent instanceof Fleche) && !(ent instanceof Arbre)) {
             System.out.println(ent);
             touche = true;
-            ent.decrementerPV(degat);
+            ent.decrementerPv(degat);
             getEnv().getListeFleches().remove(this);
         }
     }
