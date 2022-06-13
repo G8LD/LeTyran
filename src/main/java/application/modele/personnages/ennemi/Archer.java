@@ -19,8 +19,8 @@ public class Archer extends Ennemi {
     protected void deplacement() {
         if (!fuitJoueur() && (Math.abs(getEnv().getJoueur().getX() - (getX())) - 4 >= 4 * TUILE_TAILLE
                 || Math.abs(getEnv().getJoueur().getY() - getY()) > TUILE_TAILLE)
-                && (Math.abs(getX() - getOrigineX()) > 1 || Math.abs(getY() - getOrigineY()) > 1)) {
-            deplacementAllerRetour();
+                && (Math.abs(getX() - getOrigineX()) > 1)) {
+            retourOrigine();
             seDeplacer();
         }
     }

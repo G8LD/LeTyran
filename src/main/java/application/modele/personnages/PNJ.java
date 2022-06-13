@@ -27,7 +27,7 @@ public abstract class PNJ extends Personnage {
     protected void deplacementAllerRetour() {
         if (getX() >= origineX && getX() <= origineX + distance && getY() == origineY && estBloque())
             setDirection(getDirectionOpposee());
-        else if (((getX() < origineX && getDirection() == Gauche) || (getX() > origineX + distance && getDirection() == Droit)))
+        else if ((getX() < origineX && getDirection() == Gauche) || (getX() > origineX + distance && getDirection() == Droit))
             setDirection(getDirectionOpposee());
         else if (estBloque()) {
             if (getDirection() == Gauche)
@@ -56,6 +56,14 @@ public abstract class PNJ extends Personnage {
 
     public float getOrigineY() {
         return origineY;
+    }
+
+    public void setOrigineX(float origineX) {
+        this.origineX = origineX;
+    }
+
+    public void setOrigineY(float origineY) {
+        this.origineY = origineY;
     }
 
     public int getDistance() {

@@ -4,7 +4,11 @@ import application.modele.Direction;
 import application.modele.Entite;
 import application.modele.Environnement;
 import application.modele.objets.Arbre;
+import application.modele.objets.Materiau;
+import application.modele.personnages.Joueur;
 import application.modele.personnages.Personnage;
+
+import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class Fleche extends Entite {
     
@@ -37,17 +41,36 @@ public class Fleche extends Entite {
         while (i < 7 && distanceParcourue < distanceMax) {
             i++;
             switch (direction) {
-                case Droit: super.setX(super.getX() + 0.5f); break;
-                case Gauche: super.setX(super.getX() - 0.5f); break;
-                case Bas: super.setY(super.getY() + 0.5f); break;
-                case Haut: super.setY(super.getY() - 0.5f); break;
+                case Droit: setX(getX() + 0.5f); break;
+                case Gauche: setX(getX() - 0.5f); break;
+                case Bas: setY(getY() + 0.5f); break;
+                case Haut: setY(getY() - 0.5f); break;
             }
             distanceParcourue+=0.5f;
-            collide();
+            collision();
+            //collide();
         }
 
         if (i < 3)
             getEnv().getListeFleches().remove(this);
+    }
+
+    private void collision() {
+        Entite entite = null;
+        if (Math.abs(getEnv().getJoueur().getX() - getX()) < 1
+                && getEnv().getJoueur().getY() - getY() > 0 && getEnv().getJoueur().getY() - getY() < TUILE_TAILLE)
+            entite = getEnv().getJoueur();
+        else {
+            for (int j = 0; j < getEnv().getListeEnnemis().size() && entite == null; j++)
+                if (Math.abs(getEnv().getListeEnnemis().get(j).getX() - getX()) < 1
+                        && getEnv().getListeEnnemis().get(j).getY() - getY() > 0 && getEnv().getListeEnnemis().get(j).getY() - getY() < TUILE_TAILLE)
+                    entite = getEnv().getListeEnnemis().get(j);
+            if (entite == null)
+                entite = getEnv().getMinerai((int) (getX()/TUILE_TAILLE), (int) (getY()/TUILE_TAILLE)+1);
+        }
+
+        if (entite != null)
+            quandCollisionDetectee(entite);
     }
 
     public void update() {
@@ -57,9 +80,9 @@ public class Fleche extends Entite {
     @Override
     public void quandCollisionDetectee(Entite ent) {
         if (!touche && ent != perso && !(ent instanceof Fleche) && !(ent instanceof Arbre)) {
-            System.out.println(ent);
             touche = true;
-            ent.decrementerPv(degat);
+            if (!(ent instanceof Materiau))
+                ent.decrementerPv(degat);
             getEnv().getListeFleches().remove(this);
         }
     }

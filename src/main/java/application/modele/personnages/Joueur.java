@@ -6,6 +6,7 @@ import application.modele.Inventaire;
 import application.modele.ObjetJeu;
 import application.modele.armes.Pioche;
 import application.modele.armes.arc.Arc;
+import application.modele.armes.arc.Fleche;
 import application.modele.objets.Arbre;
 import application.modele.objets.Materiau;
 import application.modele.personnages.ennemi.Ennemi;
@@ -23,11 +24,9 @@ public class Joueur extends Personnage {
     private BooleanProperty avanceProperty;
 
     public Joueur(Environnement env) {
-        super(env, new Pioche(env, 1));
+        super(env, new Arc(env, 1));
         this.inventaire = new Inventaire(super.getEnv());
-        System.out.println(getArme());
         this.inventaire.ajouterObjet(getArme());
-        System.out.println(inventaire.getObjets().get(0));
         freeze = false;
         mortProperty = new SimpleBooleanProperty();
         delaiMort = 0;

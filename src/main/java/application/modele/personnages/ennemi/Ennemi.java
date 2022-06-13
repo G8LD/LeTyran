@@ -57,6 +57,15 @@ public abstract class Ennemi extends PNJ {
             retourZone = false;
     }
 
+    protected void retourOrigine() {
+        if ((getX() - getOrigineX() < -1 && getDirection() == Gauche) || (getX() - getOrigineX() > 1 && getDirection() == Droit))
+            setDirection(getDirectionOpposee());
+        //met une nouvelle origine s'il est bloqué
+        if (estBloque())
+            setOrigineX(getX());
+        if (getY() != getOrigineY()) setOrigineY(getY());
+    }
+
     protected void poursuiteJoueur() {
         if (!retourZone && !joueurEnFace() && Math.abs(getEnv().getJoueur().getX() - getX()) < 5 * TUILE_TAILLE && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE) {
                 if (getEnv().getJoueur().getX() - getX() > 0)

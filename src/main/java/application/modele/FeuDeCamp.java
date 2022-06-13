@@ -15,6 +15,7 @@ public class FeuDeCamp {
 
     public void seReposer() {
         env.initListeEnnemis();
+        env.getListeFleches().clear();
         env.getJoueur().setPv(30);
     }
 

@@ -15,16 +15,16 @@ public class Arc extends Arme {
 
     @Override
     public void frapper(Personnage perso, Personnage ennemi) {
-        if (perso instanceof Joueur) {
-            int i = 0;
-            while (i < ((Joueur) perso).getInventaire().getObjets().size()
-                    && !((Joueur) perso).getInventaire().getObjets().get(i).getEntite().getClass().getSimpleName().equals("Fleche")) i++;
-            if (i < ((Joueur) perso).getInventaire().getObjets().size()) {
-                getEnv().getListeFleches().add(new Fleche(getEnv(), perso, getDistance() * TUILE_TAILLE, nbDegat()));
-                ((Joueur) perso).getInventaire().getObjets().get(i).retirerDansStack();
-                decrementerPv();
-            }
-        } else
+//        if (perso instanceof Joueur) {
+//            int i = 0;
+//            while (i < ((Joueur) perso).getInventaire().getObjets().size()
+//                    && !((Joueur) perso).getInventaire().getObjets().get(i).getEntite().getClass().getSimpleName().equals("Fleche")) i++;
+//            if (i < ((Joueur) perso).getInventaire().getObjets().size()) {
+//                getEnv().getListeFleches().add(new Fleche(getEnv(), perso, getDistance() * TUILE_TAILLE, nbDegat()));
+//                ((Joueur) perso).getInventaire().getObjets().get(i).retirerDansStack();
+//                decrementerPv();
+//            }
+//        } else
             getEnv().getListeFleches().add(new Fleche(getEnv(), perso, getDistance()*TUILE_TAILLE, nbDegat()));
     }
 
