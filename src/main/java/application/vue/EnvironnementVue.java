@@ -1,11 +1,9 @@
 package application.vue;
 
-import application.controleur.listeners.EnvironnementListeners;
+import application.controleur.EnvironnementControleur;
 import application.controleur.listeners.PersonnageListeners;
 import application.modele.Environnement;
-import application.modele.MapJeu;
 import application.modele.personnages.ennemi.Ennemi;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -13,7 +11,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import static application.modele.MapJeu.*;
@@ -32,8 +29,6 @@ public class EnvironnementVue {
         this.tileSol = tileSol;
         this.tileDecors = tileDecors;
         this.tileFond = tileFond;
-
-        new EnvironnementListeners(this, env);
 
         construireMap();
         //construireDecor();
@@ -59,6 +54,15 @@ public class EnvironnementVue {
 
     private void construireDecor() {
         this.tileDecors.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+        ChargeurRessources.charger();
+        ImageView img;
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                int indexImg = env.getMapJeu().getTabMap()[i][j];
+                img = new ImageView(ChargeurRessources.tileMapAssets.get(indexImg));
+                tileDecors.getChildren().add(img);
+            }
+        }/*
         InputStream is = getClass().getResourceAsStream("/application/tiles/TileDecors.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;
@@ -94,7 +98,7 @@ public class EnvironnementVue {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 
     private void construireFond() {

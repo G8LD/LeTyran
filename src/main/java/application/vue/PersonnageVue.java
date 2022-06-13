@@ -3,7 +3,6 @@ package application.vue;
 import application.modele.Direction;
 import application.modele.personnages.Personnage;
 import application.modele.MapJeu;
-import application.modele.Personnage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -65,7 +64,7 @@ public class PersonnageVue {
         this.perso = perso;
         lastUpdate = System.currentTimeMillis();
         creationSprite();
-        root.getChildren().add(root.getChildren().size() - 2, spritePerso);
+        ((Pane) root.lookup("#paneEnnemis")).getChildren().add(spritePerso);
     }
 
     private void creationSprite() {
@@ -73,16 +72,15 @@ public class PersonnageVue {
         spritePerso.setId(perso.getId());
         spritePerso.setFitWidth(TUILE_TAILLE);
         spritePerso.setFitHeight(TUILE_TAILLE);
+        spritePerso.setImage(LISTE_SPRITES.get(perso.getClass().getSimpleName()).get(0));
+        spritePerso.translateXProperty().bind(perso.getXProperty());
+        spritePerso.translateYProperty().bind(perso.getYProperty());
     }
 
     private void construirePerso() {
         spritePerso.setImage(LISTE_SPRITES.get(perso.getClass().getSimpleName()).get(0));
-        spritePerso.translateXProperty().bind(perso.getXProperty());
-        spritePerso.translateYProperty().bind(perso.getYProperty());
-//        spriteJoueur.setImage(listeSprites.get(0));
-//        spriteJoueur.setTranslateX((MapJeu.WIDTH * MapJeu.TUILE_TAILLE) / 2);
-//        spriteJoueur.setTranslateY((MapJeu.HEIGHT * MapJeu.TUILE_TAILLE) / 2);
-//        new PersonnageListener(personnage, this);
+        spritePerso.setTranslateX((MapJeu.WIDTH * MapJeu.TUILE_TAILLE) / 2);
+        spritePerso.setTranslateY((MapJeu.HEIGHT * MapJeu.TUILE_TAILLE) / 2);
     }
 
     public void animerDeplacement() {

@@ -8,9 +8,8 @@ import static application.modele.MapJeu.TUILE_TAILLE;
 public class Lancier extends Ennemi {
 
     public Lancier(Environnement env, int niveau, int x, int y, int distance) {
-        super(env, x, y, distance);
+        super(env, x, y, distance, new Lance(env, niveau));
         setPv(niveau * 20);
-        setArme(new Lance(getEnv(), niveau));
     }
 
     protected void deplacement() {

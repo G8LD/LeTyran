@@ -2,9 +2,8 @@ package application.vue;
 
 import application.modele.Entite;
 import application.modele.Environnement;
-import application.modele.Personnage;
-import application.modele.objets.Materiau;
-import application.vue.controls.ObjetView;
+import application.modele.personnages.Joueur;
+import application.vue.inventaire.ObjetView;
 import javafx.collections.ListChangeListener;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -43,7 +42,7 @@ public class ObjetVue {
     public void enregistrerTousLesObjets() {
         for(int i = 0; i < this.env.getListeEntites().size(); i++) {
             Entite obj = this.env.getListeEntites().get(i);
-            if(!(obj instanceof Personnage)) {
+            if(!(obj instanceof Joueur)) {
                 ObjetView objView = new ObjetView(obj);
                 objetImageView.add(objView);
                 this.root.getChildren().add(objView);

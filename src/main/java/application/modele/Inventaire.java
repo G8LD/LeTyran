@@ -2,10 +2,14 @@ package application.modele;
 
 import application.modele.armes.Arme;
 import application.modele.armures.Armure;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.HashMap;
+
+import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class Inventaire {
     private ObservableList<ObjetInventaire> objets = FXCollections.observableArrayList();
@@ -21,7 +25,7 @@ public class Inventaire {
     private HashMap<Integer, Boolean> placesDisponible;
 
     private ObjetInventaire armure;
-    private ObjetInventaire arme;
+    private ObjectProperty<ObjetInventaire> armeProperty;
 
     private Environnement env;
 
@@ -37,6 +41,7 @@ public class Inventaire {
 
         objetMainIndex = 0;
 
+        armeProperty = new SimpleObjectProperty<>();
     }
 
     public ObservableList<ObjetInventaire> getObjets(){
@@ -44,16 +49,18 @@ public class Inventaire {
     }
 
     public Arme getArme() {
-        if(arme == null) {
+        if(armeProperty.getValue() == null)
             return null;
-        }
-        return (Arme)arme.getEntite();
+        return (Arme) armeProperty.getValue().getEntite();
+    }
+
+    public final ObjectProperty<ObjetInventaire> getArmeProperty() {
+        return armeProperty;
     }
 
     public Armure getArmure() {
-        if(armure == null) {
+        if(armure == null)
             return null;
-        }
         return (Armure)armure.getEntite();
     }
 
@@ -62,7 +69,7 @@ public class Inventaire {
             System.out.println("Vous vous êtes équiper de " + objetInventaire);
             armure = objetInventaire;
         } else if (objetInventaire.getEntite() instanceof Arme) {
-            arme = objetInventaire;
+            armeProperty.setValue(objetInventaire);
         }
     }
 
@@ -73,7 +80,7 @@ public class Inventaire {
 
     public void desequiperArme() {
         System.out.println("Vous déséquiper l'arme");
-        arme = null;
+        armeProperty = null;
     }
 
 

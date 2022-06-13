@@ -4,14 +4,18 @@ import application.modele.Entite;
 import application.modele.Environnement;
 import application.modele.Inventaire;
 import application.modele.ObjetJeu;
+import application.modele.armes.Arme;
 import application.modele.armes.Pioche;
 import application.modele.armes.arc.Arc;
 import application.modele.armes.arc.Fleche;
 import application.modele.objets.Arbre;
+import application.modele.objets.Bois;
+import application.modele.objets.Coffre;
 import application.modele.objets.Materiau;
 import application.modele.personnages.ennemi.Ennemi;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.media.AudioClip;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
 
@@ -23,20 +27,39 @@ public class Joueur extends Personnage {
     private long delaiMort;
     private BooleanProperty avanceProperty;
 
+    private AudioClip bruitCoffre = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
+
     public Joueur(Environnement env) {
-        super(env, new Arc(env, 1));
+        super(env);
         this.inventaire = new Inventaire(super.getEnv());
-        this.inventaire.ajouterObjet(getArme());
+        this.inventaire.ajouterObjet(new Pioche(getEnv(), 3));
         freeze = false;
         mortProperty = new SimpleBooleanProperty();
         delaiMort = 0;
         avanceProperty = new SimpleBooleanProperty(false);
     }
 
-    public void interagit(int x, int y) {
-        if (!frapper(x, y))
-            if (!miner(x, y))
-                couper(x, y);
+    public boolean interagit(int x, int y) {
+        if(this.inventaire.getArme() != null && (miner(x, y) || couper(x, y) || ouvert(x, y)))
+                return true;
+        return false;
+    }
+
+    private boolean ouvert(int x, int y){
+        Coffre coffre = getEnv().getCoffre(x, y);
+        Entite bois= new Bois(getEnv(), x, y);
+        if(coffre != null){
+            //On baisse le son de l'audio
+            bruitCoffre.setVolume(5. / 30.);
+            bruitCoffre.play();
+            this.getInventaire().ajouterObjet(bois);
+            getEnv().getListeCoffres().remove(coffre);
+            getEnv().getMapJeu().getTabMap()[y][x] = 59;
+            coffre.detruire();
+            System.out.println(this.getInventaire());
+            return  true;
+        }
+        return false;
     }
 
     private boolean frapper(int x, int y) {
@@ -146,5 +169,10 @@ public class Joueur extends Personnage {
 
     public void setAvance(boolean avance) {
         this.avanceProperty.setValue(avance);
+    }
+
+    @Override
+    public Arme getArme() {
+        return inventaire.getArme();
     }
 }

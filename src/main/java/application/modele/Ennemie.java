@@ -11,7 +11,7 @@ public class Ennemie extends Personnage {
     private int y ;
 
     public Ennemie(Environnement env, int x , int y) {
-        super(env, new Epee(env, 1));
+        super(env);
         this.x=x;
         this.y=y ;
         listeCadavres = FXCollections.observableArrayList();

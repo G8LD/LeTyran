@@ -3,6 +3,7 @@ package application.vue;
 import application.controleur.listeners.ArmeListener;
 import application.controleur.listeners.AttaqueListener;
 import application.modele.Direction;
+import application.modele.ObjetInventaire;
 import application.modele.armes.Lance;
 import application.modele.armes.arc.Arc;
 import application.modele.personnages.ennemi.Ennemi;
@@ -10,6 +11,8 @@ import application.modele.personnages.Joueur;
 import application.modele.personnages.Personnage;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -29,11 +32,11 @@ public class ArmeVue {
         this.perso = perso;
         this.spriteArme = spriteArme;
         spriteArme.setVisible(false);
-        spriteArme.setImage(ChargeurRessources.iconObjets.get(perso.getArme().getClass().getSimpleName() + perso.getArme().getQualite()));
+        //spriteArme.setImage(ChargeurRessources.iconObjets.get(perso.getArme().getClass().getSimpleName() + perso.getArme().getQualite()));
         rt = new RotateTransition(Duration.millis(90), spriteArme);
         tt = new TranslateTransition(Duration.millis(150), spriteArme);
-        initDirection(); initAnimation(); initTt();
-        perso.getArmeProperty().addListener(new ArmeListener(this));
+        initDirection(); /*initAnimation();*/ initTt();
+        ((Joueur) perso).getInventaire().getArmeProperty().addListener(new ArmeListener(this));
         rendreVisible = false;
     }
 
@@ -44,7 +47,7 @@ public class ArmeVue {
         tt = new TranslateTransition(Duration.millis(150), spriteArme);
         initDirection(); initAnimation();
         if (perso.getArme() instanceof Lance) initTt();
-        root.getChildren().add(root.getChildren().size() - 2, spriteArme);
+        ((Pane) root.lookup("#paneEnnemis")).getChildren().add(spriteArme);
         ((Ennemi) perso).getAttaqueProperty().addListener(new AttaqueListener(this));
         rendreVisible = false;
     }
@@ -143,10 +146,6 @@ public class ArmeVue {
     public void updatePositon() {
         spriteArme.setTranslateX(perso.getX() + dir * 10);
         spriteArme.setTranslateY(perso.getY());
-    }
-
-    public ImageView getSpriteArme() {
-        return spriteArme;
     }
 
     public void changementArme() {

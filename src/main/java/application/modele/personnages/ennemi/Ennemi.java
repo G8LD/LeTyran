@@ -1,6 +1,7 @@
 package application.modele.personnages.ennemi;
 
 import application.modele.Environnement;
+import application.modele.armes.Arme;
 import application.modele.personnages.PNJ;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -13,13 +14,15 @@ public abstract class Ennemi extends PNJ {
 
     private static int id = 0;
 
+    private Arme arme;
     private BooleanProperty attaqueProperty;
     private int delai;
     private boolean retourZone;
     private boolean poursuitJoueur;
 
-    public Ennemi(Environnement env, int x, int y, int distance) {
+    public Ennemi(Environnement env, int x, int y, int distance, Arme arme) {
         super(env, "Ennemi" + id++, x, y, distance);
+        this.arme = arme;
         attaqueProperty = new SimpleBooleanProperty(false);
         delai = 0;
         retourZone = false;
@@ -36,13 +39,13 @@ public abstract class Ennemi extends PNJ {
     protected void attaquer() {
         if (delai++ >= 30) {
             if (joueurEnFace())
-                getArme().frapper(this, getEnv().getJoueur());
+                arme.frapper(this, getEnv().getJoueur());
             attaqueProperty.setValue(false);
         }
     }
 
     protected boolean joueurEnFace() {
-        return Math.abs(getEnv().getJoueur().getX() - getX()) < getArme().getDistance() * TUILE_TAILLE
+        return Math.abs(getEnv().getJoueur().getX() - getX()) < arme.getDistance() * TUILE_TAILLE
                 && Math.abs(getEnv().getJoueur().getY() - getY()) < TUILE_TAILLE
                 && ((getDirection() == Gauche && getEnv().getJoueur().getX() - getX() < 1)
                 || (getDirection() == Droit && getEnv().getJoueur().getX() - getX() > -1));
@@ -121,5 +124,10 @@ public abstract class Ennemi extends PNJ {
 
     public boolean getPoursuitJoueur() {
         return poursuitJoueur;
+    }
+
+    @Override
+    public Arme getArme() {
+        return arme;
     }
 }

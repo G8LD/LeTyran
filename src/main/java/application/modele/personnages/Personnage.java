@@ -20,32 +20,14 @@ public abstract class Personnage extends Entite {
     private boolean tombe;
     private float hauteurSaut;
     private int distancePoussee;
-    private ObjectProperty<Arme> armeProperty;
 
-    private AudioClip bruitCoffre = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
-
-    public Personnage(Environnement env, Arme arme) {
+    public Personnage(Environnement env) {
         super(env);
         id = "Joueur";
         saute = false; tombe = false;
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
         hauteurSaut = 0;
         distancePoussee = 0;
-        armeProperty = new SimpleObjectProperty<>(arme);
-        //this.getCollider().scaleCollider(32,32);
-        //System.out.println(this.getCollider());
-        //System.out.println(this.getCollider().getHitBox());
-        //inventaire.ajouterObjet();
-    }
-
-    public Personnage(Environnement env, String id, Arme arme, int x, int y) {
-        super(env, x, y);
-        this.id = id;
-        saute = false; tombe = false;
-        directionProperty = new SimpleObjectProperty<>(Direction.Droit);
-        hauteurSaut = 0;
-        distancePoussee = 0;
-        armeProperty = new SimpleObjectProperty<>(arme);
         //this.getCollider().scaleCollider(32,32);
         //System.out.println(this.getCollider());
         //System.out.println(this.getCollider().getHitBox());
@@ -59,7 +41,6 @@ public abstract class Personnage extends Entite {
         directionProperty = new SimpleObjectProperty<>(Direction.Droit);
         hauteurSaut = 0;
         distancePoussee = 0;
-        armeProperty = new SimpleObjectProperty<>();
         //this.getCollider().scaleCollider(32,32);
         //System.out.println(this.getCollider());
         //System.out.println(this.getCollider().getHitBox());
@@ -166,18 +147,6 @@ public abstract class Personnage extends Entite {
         this.tombe = tombe;
     }
 
-    public final Arme getArme() {
-        return armeProperty.getValue();
-    }
-
-    public final ObjectProperty<Arme> getArmeProperty() {
-        return armeProperty;
-    }
-
-    public final void setArme(Arme arme) {
-        armeProperty.setValue(arme);
-    }
-
     public String getId() {
         return id;
     }
@@ -190,5 +159,8 @@ public abstract class Personnage extends Entite {
         this.distancePoussee = distancePoussee;
     }
 
+    public Arme getArme() {
+        return null;
+    }
     //endregion
 }

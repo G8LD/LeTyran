@@ -11,9 +11,8 @@ import static application.modele.MapJeu.TUILE_TAILLE;
 public class Archer extends Ennemi {
 
     public Archer(Environnement env, int niveau, int x, int y, int distance) {
-        super(env, x, y, distance);
+        super(env, x, y, distance, new Arc(env, niveau));
         setPv(niveau * 20);
-        setArme(new Arc(getEnv(), niveau));
     }
 
     protected void deplacement() {

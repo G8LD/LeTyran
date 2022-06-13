@@ -1,13 +1,12 @@
 package application.controleur.listeners;
 
-import application.modele.armes.Arme;
-import application.modele.armes.Lance;
+import application.modele.ObjetInventaire;
 import application.vue.ArmeVue;
-import application.vue.ChargeurRessources;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
-public class ArmeListener implements ChangeListener<Arme> {
+public class ArmeListener implements ChangeListener<ObjetInventaire> {
 
     private ArmeVue armeVue;
 
@@ -16,7 +15,7 @@ public class ArmeListener implements ChangeListener<Arme> {
     }
 
     @Override
-    public void changed(ObservableValue<? extends Arme> observableValue, Arme arme, Arme t1) {
+    public void changed(ObservableValue<? extends ObjetInventaire> observableValue, ObjetInventaire objetInventaire, ObjetInventaire t1) {
         armeVue.changementArme();
     }
 }

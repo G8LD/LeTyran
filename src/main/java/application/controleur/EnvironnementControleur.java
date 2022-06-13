@@ -1,5 +1,6 @@
-package application.controleur.listeners;
+package application.controleur;
 
+import application.controleur.listeners.PersonnageListeners;
 import application.modele.Environnement;
 import application.modele.armes.arc.Fleche;
 import application.modele.objets.Arbre;
@@ -11,12 +12,23 @@ import application.vue.EnvironnementVue;
 import application.vue.FlecheVue;
 import application.vue.PersonnageVue;
 import javafx.collections.ListChangeListener;
+import javafx.scene.layout.Pane;
 
-import static application.modele.MapJeu.WIDTH;
+import static application.modele.MapJeu.*;
 
-public class EnvironnementListeners {
+public class EnvironnementControleur {
 
-    public EnvironnementListeners(EnvironnementVue envVue, Environnement env) {
+    public EnvironnementControleur(Pane root, EnvironnementVue envVue, Environnement env) {
+
+        ((Pane) root.lookup("#paneEnnemis")).setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
+
+        root.lookup("#tileSol").translateXProperty().bind(env.getJoueur().getXProperty().multiply(-1).add(((TUILE_TAILLE * WIDTH)) / 2));
+        root.lookup("#tileSol").translateYProperty().bind(env.getJoueur().getYProperty().multiply(-1).add(((TUILE_TAILLE * HEIGHT)) / 2));
+        root.lookup("#paneDecors").translateXProperty().bind(env.getJoueur().getXProperty().multiply(-1).add(((TUILE_TAILLE * WIDTH)) /2));
+        root.lookup("#paneDecors").translateYProperty().bind(env.getJoueur().getYProperty().multiply(-1).add(((TUILE_TAILLE * HEIGHT)) / 2));
+        root.lookup("#paneEnnemis").translateXProperty().bind(env.getJoueur().getXProperty().multiply(-1).add(((TUILE_TAILLE * WIDTH)) / 2));
+        root.lookup("#paneEnnemis").translateYProperty().bind(env.getJoueur().getYProperty().multiply(-1).add(((TUILE_TAILLE * HEIGHT)) / 2));
+
         env.getListeMateriaux().addListener(new ListChangeListener<Materiau>() {
             @Override
             public void onChanged(Change<? extends Materiau> change) {
