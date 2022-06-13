@@ -3,6 +3,7 @@ package application.vue;
 import application.controleur.listeners.EnvironnementListeners;
 import application.controleur.listeners.PersonnageListeners;
 import application.modele.Environnement;
+import application.modele.MapJeu;
 import application.modele.personnages.ennemi.Ennemi;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -35,7 +36,7 @@ public class EnvironnementVue {
         new EnvironnementListeners(this, env);
 
         construireMap();
-        construireDecor();
+        //construireDecor();
         construireFond();
 
         for (Ennemi ennemi : env.getListeEnnemis()) {
@@ -106,7 +107,8 @@ public class EnvironnementVue {
         String line;
         String[] tabLine;
         ImageView img;
-        for (int i = 0; i < HEIGHT; i++) {
+
+        /*for (int i = 0; i < HEIGHT; i++) {
             try {
                 line = br.readLine();
                 tabLine = line.split(" ");
@@ -121,12 +123,16 @@ public class EnvironnementVue {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 
     public void supprimerBloc(int id) {
         ImageView img = (ImageView) tileSol.getChildren().get(id);
-        img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
+        int profondeur = id / WIDTH;
+        if(profondeur > (HEIGHT / 2) + 1)
+            img.setImage(ChargeurRessources.iconObjets.get("Terre"));
+        else
+            img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
     }
 
     public void supprimerArbre(int id) {

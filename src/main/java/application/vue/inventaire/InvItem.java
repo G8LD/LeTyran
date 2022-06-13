@@ -63,6 +63,7 @@ public class InvItem extends StackPane {
         color.setPaint(Color.color(0.3,0.3,.3,0.1));
 
         this.setOnMouseEntered(mouseEvent -> {
+            System.out.println(this.getParent().getLayoutX());
             mouseEntered();
         });
 

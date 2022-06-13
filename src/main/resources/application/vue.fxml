@@ -32,6 +32,16 @@
             <Image url="@sprite_feu_de_camp.gif" />
          </image>
       </ImageView>
+      <Pane fx:id="paneDecors" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="spriteEtabli" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@sprite_etabli.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+
       <ImageView fx:id="spriteJoueur" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="spriteArme" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" />
       <TextFlow fx:id="dialogFlow" layoutX="1.0" layoutY="278.0" prefHeight="108.0" prefWidth="598.0" styleClass="fondDialogue" stylesheets="@style.css" visible="false">
@@ -39,7 +49,7 @@
             <Text fx:id="texteDialogue" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="dialogText" translateX="10.0" />
          </children>
       </TextFlow>
-      <BorderPane fx:id="bPaneEtabli" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="457.0" style="-fx-background-color: #42280E; -fx-border-color: black; -fx-border-width: 5;">
+      <BorderPane fx:id="bPaneEtabli" layoutX="100.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="457.0" style="-fx-background-color: #42280E; -fx-border-color: black; -fx-border-width: 5;">
          <left>
             <ScrollPane fx:id="sPObjets" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="207.0" style="-fx-background-color: transparent; -fx-background: transparent;" BorderPane.alignment="CENTER">
                <content>
@@ -332,5 +342,7 @@
             </Pane>
          </children>
       </Pane>
+      <Pane fx:id="inventaireMain" prefHeight="32.0" prefWidth="200.0" />
+      <Pane fx:id="inventaireSac" prefHeight="32.0" prefWidth="200.0" />
    </children>
 </Pane>

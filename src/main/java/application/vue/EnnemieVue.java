@@ -1,28 +1,32 @@
 package application.vue;
 
 import application.modele.Ennemie;
+import application.modele.Environnement;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 
-public class EnnemieVue extends PersonnageVue {
-
-    private Pane root;
+public class EnnemieVue {
+    private Pane rootPane;
     private ImageView image;
+    private Pane paneDecors;
     private Ennemie ennemi;
 
 
-    public EnnemieVue(Pane root, Ennemie ennemi){
-        super(root, ennemi);
-        this.root = root;
-        this.ennemi=ennemi;
+    public EnnemieVue(Pane root, Pane tilesol, Ennemie ennemie){
+        this.rootPane=root;
+        this.paneDecors=tilesol;
+        this.ennemi=ennemie;
         afficherCadavres();
         image.setLayoutX(500);
         image.setLayoutY(350);
         image.setFitWidth(50);
         image.setFitHeight(45);
-        this.root.getChildren().add(image);
+
+        paneDecors.getChildren().add(image);
+
+
     }
     public void afficherCadavres(){
         this.image=new ImageView(new Image("file:src/main/resources/application/perso/mortChevalier.png"));
@@ -30,7 +34,7 @@ public class EnnemieVue extends PersonnageVue {
 
     public void supprimerCadavre() {
         System.out.println("remove cadavre");
-        this.root.getChildren().remove(image);
+        this.rootPane.getChildren().remove(image);
     }
 
     public ImageView getImage(){

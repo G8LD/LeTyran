@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import java.util.HashMap;
 
 public class Inventaire {
-    private int MAX_OBJET = 1;
     private ObservableList<ObjetInventaire> objets = FXCollections.observableArrayList();
 
     private int stackMax = 5;
@@ -44,6 +43,20 @@ public class Inventaire {
         return objets;
     }
 
+    public Arme getArme() {
+        if(arme == null) {
+            return null;
+        }
+        return (Arme)arme.getEntite();
+    }
+
+    public Armure getArmure() {
+        if(armure == null) {
+            return null;
+        }
+        return (Armure)armure.getEntite();
+    }
+
     public void mettreEquipement(ObjetInventaire objetInventaire) {
         if(objetInventaire.getEntite() instanceof Armure) {
             System.out.println("Vous vous êtes équiper de " + objetInventaire);
@@ -59,6 +72,7 @@ public class Inventaire {
     }
 
     public void desequiperArme() {
+        System.out.println("Vous déséquiper l'arme");
         arme = null;
     }
 
@@ -198,7 +212,7 @@ public class Inventaire {
 
 
         //On veut afficher l'objet sur la carte
-        ent.setX(this.env.getJoueur().getX() + 32);
+        ent.setX(this.env.getJoueur().getX() + TUILE_TAILLE);
         ent.setY(this.env.getJoueur().getY());
 
         this.env.getListeEntites().add(ent);
@@ -211,6 +225,41 @@ public class Inventaire {
             if (objet.getEntite() == entite)
                 return objet;
         return null;
+    }
+
+    public int recupererNombreRessources(String nom) {
+        int nombre = 0;
+        for(int i = 0; i < this.getObjets().size(); i++) {
+            ObjetInventaire obj = this.getObjets().get(i);
+            if(obj.getEntite().getClass().getSimpleName() == nom) {
+                nombre += obj.getNombre();
+            }
+        }
+
+        return nombre;
+    }
+
+    public boolean retirerNbRessources(String nom, int nombre) {
+        boolean aToutRetirer = false;
+        int i = 0;
+        int nbRetirer = 0;
+
+        while(i < this.getObjets().size() && !aToutRetirer) {
+            ObjetInventaire obj = this.getObjets().get(i);
+            if(obj.getEntite().getClass().getSimpleName() == nom) {
+                while(nbRetirer < nombre && obj.getNombre() > 0) {
+                    obj.retirerDansStack();
+                    nbRetirer += 1;
+                }
+
+                if(nbRetirer == nombre) {
+                    aToutRetirer = true;
+                }
+            }
+            i++;
+        }
+
+        return aToutRetirer;
     }
 
     public String toString() {

@@ -2,6 +2,8 @@ package application.vue;
 
 import application.modele.Direction;
 import application.modele.personnages.Personnage;
+import application.modele.MapJeu;
+import application.modele.Personnage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -47,21 +49,22 @@ public class PersonnageVue {
 
     private Personnage perso;
     private ImageView spritePerso;
-    private int indexSprite = 0;
+    private int indexSprite;
     private long lastUpdate;
+
+    public final static int POSITION_VUE_PERSONNAGE = (MapJeu.WIDTH * MapJeu.TUILE_TAILLE) / 2;
 
     public PersonnageVue(Personnage perso, ImageView spritesJoueur) {
         this.perso = perso;
         this.spritePerso = spritesJoueur;
         lastUpdate = System.currentTimeMillis();
+        indexSprite = 0;
         construirePerso();
     }
-
     public PersonnageVue(Pane root, Personnage perso) {
         this.perso = perso;
         lastUpdate = System.currentTimeMillis();
         creationSprite();
-        construirePerso();
         root.getChildren().add(root.getChildren().size() - 2, spritePerso);
     }
 
@@ -76,6 +79,10 @@ public class PersonnageVue {
         spritePerso.setImage(LISTE_SPRITES.get(perso.getClass().getSimpleName()).get(0));
         spritePerso.translateXProperty().bind(perso.getXProperty());
         spritePerso.translateYProperty().bind(perso.getYProperty());
+//        spriteJoueur.setImage(listeSprites.get(0));
+//        spriteJoueur.setTranslateX((MapJeu.WIDTH * MapJeu.TUILE_TAILLE) / 2);
+//        spriteJoueur.setTranslateY((MapJeu.HEIGHT * MapJeu.TUILE_TAILLE) / 2);
+//        new PersonnageListener(personnage, this);
     }
 
     public void animerDeplacement() {

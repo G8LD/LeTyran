@@ -26,6 +26,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
@@ -59,6 +60,8 @@ public class Controleur implements Initializable {
     @FXML private Label labelMort;
     @FXML private ImageView spriteFeuDeCamp;
 
+    @FXML private Pane paneDecors;
+
     @FXML private Pane inventaireMain;
     @FXML private Pane inventaireSac;
     @FXML private Pane inventaireEquipement;
@@ -82,9 +85,9 @@ public class Controleur implements Initializable {
         feuDeCampVue = new FeuDeCampVue(env.getFeuDeCamp(), spriteFeuDeCamp, labelMort);
         vueDialog = new VueDialogue(modeleDialogue, dialogFlow,  texteDialogue);
 
-        //this.ennemie= new Ennemie(env, 500, 350);
-        //this.ennemieVue= new EnnemieVue(root, ennemie);
-        //this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie,this.ennemieVue);
+        this.ennemie= new Ennemie(env, 500, 350);
+        this.ennemieVue= new EnnemieVue(root,tileSol,ennemie);
+        this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie,this.ennemieVue);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
@@ -96,6 +99,11 @@ public class Controleur implements Initializable {
         new EtabliControleur(root,env, etabliVue);
         new FeuDeCampControleur(env.getFeuDeCamp(), feuDeCampVue);
         new PersonnageListeners(env.getJoueur(), personnageVue, armeVue, feuDeCampVue);
+
+        tileSol.translateXProperty().bind(env.getPersonnage().getXProperty().multiply(-1).add(((MapJeu.TUILE_TAILLE * MapJeu.WIDTH)) / 2));
+        paneDecors.translateXProperty().bind(env.getPersonnage().getXProperty().multiply(-1).add(((MapJeu.TUILE_TAILLE * MapJeu.WIDTH)) /2));
+        tileSol.translateYProperty().bind(env.getPersonnage().getYProperty().multiply(-1).add(((MapJeu.TUILE_TAILLE * MapJeu.HEIGHT)) / 2));
+        paneDecors.translateYProperty().bind(env.getPersonnage().getYProperty().multiply(-1).add(((MapJeu.TUILE_TAILLE * MapJeu.HEIGHT)) / 2));
 
         initAnimation();
         gameLoop.play();

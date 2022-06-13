@@ -260,7 +260,7 @@ public class InventaireVue {
     public void mettreEquipement(ObjetInventaire obj) {
         String emplacement;
 
-        if(obj.getEntite() instanceof Hache) {
+        if(obj.getEntite() instanceof Arme) {
             emplacement = "#armeEquipement";
 
         } else {
