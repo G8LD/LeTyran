@@ -176,6 +176,7 @@ public class Inventaire {
                 definirPlacePrise(placeTrouve);
 
                 this.getObjets().add(nouvObjet);
+
                 ajouter = true;
             } else {
                 System.out.println("L'inventaire est rempli");

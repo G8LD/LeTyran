@@ -61,10 +61,14 @@ public class Controleur implements Initializable {
 
     @FXML private Text texteDialogue;
     @FXML private TextFlow dialogFlow;
+    @FXML private TextFlow conteneurQuetes;
+
+    private ControleurQuete controleurQuete;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.controleurQuete = new ControleurQuete(this, conteneurQuetes);
         env = new Environnement();
         modeleDialogue = new ModeleDialogue();
 
@@ -83,7 +87,7 @@ public class Controleur implements Initializable {
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
-        root.addEventHandler(Event.ANY, new InventaireControleur(root, env, inventaireMain, inventaireSac, inventaireEquipement));
+        root.addEventHandler(Event.ANY, new InventaireControleur(root, controleurQuete, env, inventaireMain, inventaireSac, inventaireEquipement));
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
         root.addEventHandler(Event.ANY, new DialogueControleur(vueDialog, modeleDialogue));
         this.env.getPersonnage().getPVProperty().addListener(new VieListener(vievue, this.env.getPersonnage()));
@@ -94,6 +98,8 @@ public class Controleur implements Initializable {
         paneDecors.translateYProperty().bind(env.getPersonnage().getYProperty().multiply(-1).add(((MapJeu.TUILE_TAILLE * MapJeu.HEIGHT)) / 2));
 
         new EtabliControleur(paneDecors,env, etabliVue);
+
+
 
         initAnimation();
         gameLoop.play();
