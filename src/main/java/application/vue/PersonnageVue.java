@@ -43,6 +43,14 @@ public class PersonnageVue {
             add(new Image("file:src/main/resources/application/perso/lapin/lapin_2.png"));
             add(new Image("file:src/main/resources/application/perso/lapin/lapin_3.png"));
         }});
+        put("Boss", new ArrayList<>() {{
+            add(new Image("file:src/main/resources/application/Boss/dodo.png"));
+            add(new Image("file:src/main/resources/application/Boss/debout1.png"));
+            add(new Image("file:src/main/resources/application/Boss/debout2.png"));
+            add(new Image("file:src/main/resources/application/Boss/marche.png"));
+            add(new Image("file:src/main/resources/application/Boss/debout3.png"));
+            add(new Image("file:src/main/resources/application/Boss/immobile.png"));
+        }});
     }};
 
     private Personnage perso;
@@ -63,6 +71,7 @@ public class PersonnageVue {
         creationSprite();
         construirePerso();
         root.getChildren().add(root.getChildren().size() - 2, spritePerso);
+
     }
 
     private void creationSprite() {

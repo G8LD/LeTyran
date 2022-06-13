@@ -3,10 +3,7 @@ package application.modele;
 import application.modele.armes.arc.Fleche;
 import application.modele.objets.*;
 import application.modele.personnages.*;
-import application.modele.personnages.ennemi.Archer;
-import application.modele.personnages.ennemi.Ennemi;
-import application.modele.personnages.ennemi.Epeiste;
-import application.modele.personnages.ennemi.Lancier;
+import application.modele.personnages.ennemi.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -88,6 +85,7 @@ public class Environnement {
         getListeEnnemis().add(new Lancier(this, 1, 15, 11, 0));
         getListeEnnemis().add(new Epeiste(this,1, 20, 0, 5));
         getListeEnnemis().add(new Epeiste(this,1, 18, 18, 10));
+        getListeEnnemis().add(new Boss(this,18, 20 , 20));
     }
 
     private void initListeCoffres() {

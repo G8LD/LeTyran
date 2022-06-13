@@ -22,7 +22,7 @@ public abstract class Personnage extends Entite {
     private int distancePoussee;
     private ObjectProperty<Arme> armeProperty;
 
-    private AudioClip bruitCoffre = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
+   // private AudioClip bruitCoffre = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
 
     public Personnage(Environnement env, Arme arme) {
         super(env);

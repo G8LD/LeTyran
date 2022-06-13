@@ -3,6 +3,7 @@ package application.vue;
 import application.controleur.listeners.EnvironnementListeners;
 import application.controleur.listeners.PersonnageListeners;
 import application.modele.Environnement;
+import application.modele.personnages.ennemi.Boss;
 import application.modele.personnages.ennemi.Ennemi;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -39,6 +40,9 @@ public class EnvironnementVue {
         construireFond();
 
         for (Ennemi ennemi : env.getListeEnnemis()) {
+                if (ennemi instanceof Boss){
+                    new PersonnageListeners(ennemi,new PersonnageVue(root,ennemi));
+                }
                 new PersonnageListeners(ennemi, new PersonnageVue(root, ennemi), new ArmeVue(root, ennemi));
         }
     }
