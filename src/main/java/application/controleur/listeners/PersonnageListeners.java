@@ -25,6 +25,7 @@ public class PersonnageListeners {
             perso.getPVProperty().addListener((observableValue, number, t1) -> {
                     if ((int) t1 <= 0)
                         perso.getEnv().getListeEnnemis().remove(perso);
+
             });
     }
 
