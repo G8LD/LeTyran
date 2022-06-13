@@ -66,7 +66,10 @@ public class Fleche extends Entite {
                         && getEnv().getListeEnnemis().get(j).getY() - getY() > 0 && getEnv().getListeEnnemis().get(j).getY() - getY() < TUILE_TAILLE)
                     entite = getEnv().getListeEnnemis().get(j);
             if (entite == null)
-                entite = getEnv().getMinerai((int) (getX()/TUILE_TAILLE), (int) (getY()/TUILE_TAILLE)+1);
+                if (direction == Direction.Gauche)
+                    entite = getEnv().getMinerai((int) (getX()/TUILE_TAILLE), (int) (getY()/TUILE_TAILLE)+1);
+                else
+                    entite = getEnv().getMinerai((int) (getX()/TUILE_TAILLE)+1, (int) (getY()/TUILE_TAILLE)+1);
         }
 
         if (entite != null)
