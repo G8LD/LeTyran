@@ -28,7 +28,6 @@ public class Joueur extends Personnage {
     private long delai;
     private BooleanProperty avanceProperty;
 
-    private AudioClip bruitCoffre = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
 
     public Joueur(Environnement env) {
         super(env);
@@ -68,20 +67,18 @@ public class Joueur extends Personnage {
 
     private boolean ouvrirCoffre(int x, int y){
         Coffre coffre = getEnv().getCoffre(x, y);
-        Entite bois= new Bois(getEnv(), x, y);
         if(coffre != null){
-            //On baisse le son de l'audio
-            bruitCoffre.setVolume(5. / 30.);
-            bruitCoffre.play();
-            this.getInventaire().ajouterObjet(bois);
+            for(int i=0 ; i<coffre.getLoot().size();i++) {
+                this.getInventaire().ajouterObjet(coffre.getLoot().get(i));
+            }
             getEnv().getListeCoffres().remove(coffre);
             getEnv().getMapJeu().getTabMap()[y][x] = 59;
             coffre.detruire();
-            System.out.println(this.getInventaire());
             return  true;
         }
         return false;
     }
+
 
     private boolean frapper(int x, int y) {
         if (getArme() instanceof Arc) {
