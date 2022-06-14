@@ -210,6 +210,7 @@ public class Inventaire {
     public void retirerObjet(ObjetInventaire objetInventaire) {
         libererPlacePrise(objetInventaire.getPlaceInventaire());
         objets.remove(objetInventaire);
+        armeProperty.setValue(null);
     }
 
     public void lacherObjet(ObjetInventaire objet) {

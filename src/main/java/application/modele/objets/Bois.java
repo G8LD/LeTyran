@@ -22,6 +22,7 @@ public class Bois extends Materiau {
             decrementerPv(2);
         else
             decrementerPv(1);
+        getEnv().getJoueur().getArme().decrementerPv();
 
         if (getPv() <= 0)
             detruire();

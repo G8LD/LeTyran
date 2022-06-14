@@ -16,6 +16,7 @@ public class Terre extends Materiau {
 
     @Override
     public void estFrappe() {
+        getEnv().getJoueur().getArme().decrementerPv();
         detruire();
     }
 

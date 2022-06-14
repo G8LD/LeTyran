@@ -25,7 +25,7 @@ public class Etabli {
     private String objetSelected;
 
     public Etabli(Environnement env) {
-        x = 15;
+        x = 5;
         y = 11;
         niveauProperty = new SimpleIntegerProperty(0);
         this.env = env;

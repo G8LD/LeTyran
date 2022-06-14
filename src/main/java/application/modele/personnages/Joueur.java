@@ -5,6 +5,7 @@ import application.modele.Environnement;
 import application.modele.Inventaire;
 import application.modele.ObjetJeu;
 import application.modele.armes.Arme;
+import application.modele.armes.Hache;
 import application.modele.armes.Pioche;
 import application.modele.armes.arc.Arc;
 import application.modele.armes.arc.Fleche;
@@ -32,7 +33,8 @@ public class Joueur extends Personnage {
     public Joueur(Environnement env) {
         super(env);
         this.inventaire = new Inventaire(super.getEnv());
-        this.inventaire.ajouterObjet(new Pioche(getEnv(), 3));
+        this.inventaire.ajouterObjet(new Pioche(getEnv(), 1));
+        this.inventaire.ajouterObjet(new Hache(getEnv(), 1));
         freeze = false;
         mortProperty = new SimpleBooleanProperty();
         delaiMort = 0;

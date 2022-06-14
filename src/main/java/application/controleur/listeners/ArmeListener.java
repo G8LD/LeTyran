@@ -16,6 +16,7 @@ public class ArmeListener implements ChangeListener<ObjetInventaire> {
 
     @Override
     public void changed(ObservableValue<? extends ObjetInventaire> observableValue, ObjetInventaire objetInventaire, ObjetInventaire t1) {
-        armeVue.changementArme();
+        if (t1 != null)
+            armeVue.changementArme();
     }
 }
