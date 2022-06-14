@@ -1,7 +1,7 @@
 package application.modele;
 
 import application.modele.armes.Arme;
-import application.modele.armures.Armure;
+import application.modele.armes.Armure;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
