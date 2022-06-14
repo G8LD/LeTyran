@@ -1,5 +1,7 @@
 package application.modele;
 
+import static application.modele.MapJeu.TUILE_TAILLE;
+
 public class FeuDeCamp {
 
     private Environnement env;
@@ -16,6 +18,8 @@ public class FeuDeCamp {
     public void seReposer() {
         env.initListeEnnemis();
         env.getListeFleches().clear();
+        env.getJoueur().setX(x * TUILE_TAILLE - TUILE_TAILLE);
+        env.getJoueur().setY(y * TUILE_TAILLE);
         env.getJoueur().setPv(30);
     }
 

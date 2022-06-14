@@ -20,8 +20,8 @@ public class FeuDeCampVue {
         this.spriteFeuDeCamp = spriteFeuDeCamp;
         this.labelMort = labelMort;
 
-        spriteFeuDeCamp.setX(feuDeCamp.getX());
-        spriteFeuDeCamp.setY(feuDeCamp.getY());
+        spriteFeuDeCamp.setX(feuDeCamp.getX() * TUILE_TAILLE);
+        spriteFeuDeCamp.setY(feuDeCamp.getY() * TUILE_TAILLE);
 
         labelMort.toBack();
         labelMort.setPrefSize(WIDTH * TUILE_TAILLE, HEIGHT * TUILE_TAILLE);
@@ -51,9 +51,5 @@ public class FeuDeCampVue {
             fade.play();
         });
         fade.play();
-    }
-
-    public ImageView getSpriteFeuDeCamp() {
-        return spriteFeuDeCamp;
     }
 }

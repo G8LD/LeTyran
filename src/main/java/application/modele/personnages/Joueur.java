@@ -158,8 +158,6 @@ public class Joueur extends Personnage {
             seReposeProperty.setValue(false);
         } else if (System.currentTimeMillis() - delai >= 2_000 && getX() != getEnv().getFeuDeCamp().getX()) {
             setSaute(false); setAvance(false); setDistancePoussee(0);
-            setX(getEnv().getFeuDeCamp().getX());
-            setY(getEnv().getFeuDeCamp().getY());
             getEnv().getFeuDeCamp().seReposer();
         }
     }
@@ -175,8 +173,7 @@ public class Joueur extends Personnage {
         } else if (System.currentTimeMillis() - delai >= 2_000 && getX() != getEnv().getFeuDeCamp().getX()) {
             setSaute(false); setAvance(false); setDistancePoussee(0);
             getArme().detruire();
-            setX(getEnv().getFeuDeCamp().getX());
-            setY(getEnv().getFeuDeCamp().getY());
+            inventaire.getArmure().detruire();
             getEnv().getFeuDeCamp().seReposer();
         }
     }
@@ -207,7 +204,6 @@ public class Joueur extends Personnage {
         return mortProperty;
     }
 
-
     public final boolean getAvance() {
         return avanceProperty.getValue();
     }
@@ -223,5 +219,9 @@ public class Joueur extends Personnage {
     @Override
     public Arme getArme() {
         return inventaire.getArme();
+    }
+
+    public BooleanProperty getSeReposeProperty() {
+        return seReposeProperty;
     }
 }

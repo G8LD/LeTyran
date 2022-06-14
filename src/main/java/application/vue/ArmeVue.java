@@ -49,6 +49,7 @@ public class ArmeVue {
         paneEnnemis.getChildren().add(spriteArme);
         ((Ennemi) perso).getAttaqueProperty().addListener(new AttaqueListener(this));
         rendreVisible = false;
+        updatePositon();
     }
 
     //region INITIALISATION

@@ -1,8 +1,6 @@
 package application.controleur.listeners;
 
-import application.controleur.FeuDeCampControleur;
 import application.modele.personnages.Joueur;
-import application.modele.personnages.ennemi.Ennemi;
 import application.modele.personnages.Personnage;
 import application.vue.ArmeVue;
 import application.vue.FeuDeCampVue;
@@ -19,6 +17,11 @@ public class PersonnageListeners {
         ((Joueur) perso).getMortProperty().addListener(((observableValue, aBoolean, t1) -> {
             if (t1)
                 feuDeCampVue.transition(true);
+        }));
+
+        ((Joueur) perso).getSeReposeProperty().addListener(((observableValue, aBoolean, t1) -> {
+            if (t1)
+                feuDeCampVue.transition(false);
         }));
 
         //si le joueur n'avance plus pour mettre le sprite du personnage immobile

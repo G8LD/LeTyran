@@ -39,7 +39,7 @@ public class Environnement {
 
         mapJeu = new MapJeu();
         etabli = new Etabli(this);
-        feuDeCamp = new FeuDeCamp(this, 13 * TUILE_TAILLE, 8 * TUILE_TAILLE);
+        feuDeCamp = new FeuDeCamp(this, 13, 8);
 
         ObjetJeu nouvObj = new ObjetJeu(this, "Epee", 1);
         ObjetJeu nouvObj2 = new ObjetJeu(this,  "Bois", 1);

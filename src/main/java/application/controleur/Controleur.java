@@ -97,7 +97,6 @@ public class Controleur implements Initializable {
 
         this.env.getJoueur().getPVProperty().addListener(new VieListener(vievue, this.env.getJoueur()));
         new EtabliControleur(root,env, etabliVue);
-        new FeuDeCampControleur(env.getFeuDeCamp(), feuDeCampVue);
         new PersonnageListeners(env.getJoueur(), personnageVue, armeVue, feuDeCampVue);
         new EnvironnementControleur(root, envVue, env);
 
