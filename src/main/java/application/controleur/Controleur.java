@@ -72,6 +72,8 @@ public class Controleur implements Initializable {
 
     private ControleurQuete controleurQuete;
 
+    private InventaireControleur inventaireControleur;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -93,14 +95,16 @@ public class Controleur implements Initializable {
 //        this.ennemie= new Ennemie(env, 500, 350);
 //        this.ennemieVue= new EnnemieVue(root,tileSol,ennemie);
 //        this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie,this.ennemieVue);
+        this.inventaireControleur = new InventaireControleur(root, controleurQuete, env, inventaireMain, inventaireSac, inventaireEquipement);
 
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
-        root.addEventHandler(Event.ANY, new InventaireControleur(root, controleurQuete, env, inventaireMain, inventaireSac, inventaireEquipement));
+        root.addEventHandler(Event.ANY, inventaireControleur);
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
         root.addEventHandler(Event.ANY, new DialogueControleur(vueDialog, modeleDialogue));
 
         this.env.getJoueur().getPVProperty().addListener(new VieListener(vievue, this.env.getJoueur()));
+
         new EtabliControleur(root,env, etabliVue);
         new FeuDeCampControleur(env.getFeuDeCamp(), feuDeCampVue);
         new PersonnageListeners(env.getJoueur(), personnageVue, armeVue, feuDeCampVue);
@@ -133,5 +137,9 @@ public class Controleur implements Initializable {
 
     public ArmeVue getArmeVue() {
         return armeVue;
+    }
+
+    public InventaireControleur getInventaireControleur() {
+        return this.inventaireControleur;
     }
 }

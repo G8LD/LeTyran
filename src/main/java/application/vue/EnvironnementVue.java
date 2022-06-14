@@ -2,6 +2,7 @@ package application.vue;
 
 import application.controleur.EnvironnementControleur;
 import application.controleur.listeners.PersonnageListeners;
+import application.modele.Entite;
 import application.modele.Environnement;
 import application.modele.personnages.ennemi.Ennemi;
 import javafx.scene.image.Image;
@@ -137,6 +138,13 @@ public class EnvironnementVue {
             img.setImage(ChargeurRessources.iconObjets.get("Sol"));
         else
             img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
+    }
+
+    public void ajouterBloc(int id, Entite ent) {
+        ImageView img = (ImageView) tileSol.getChildren().get(id);
+
+        //Temporaire
+        img.setImage(ChargeurRessources.iconObjets.get(ent.getClass().getSimpleName()));
     }
 
     public void supprimerArbre(int id) {
