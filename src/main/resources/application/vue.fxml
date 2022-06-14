@@ -31,7 +31,7 @@
       </Pane>
       <Pane fx:id="paneEnnemis" prefHeight="200.0" prefWidth="200.0" />
       <ImageView fx:id="spriteJoueur" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="spriteArme" fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="spriteArme" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" />
 
       <TextFlow fx:id="conteneurQuetes" layoutY="90.0" prefHeight="200.0" prefWidth="155.0" styleClass="fondQuete" stylesheets="@style.css">
          <children>
