@@ -24,7 +24,8 @@ public class Joueur extends Personnage {
     private Inventaire inventaire;
     private boolean freeze;
     private BooleanProperty mortProperty;
-    private long delaiMort;
+    private BooleanProperty seReposeProperty;
+    private long delai;
     private BooleanProperty avanceProperty;
 
     private AudioClip bruitCoffre = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
@@ -34,24 +35,32 @@ public class Joueur extends Personnage {
         this.inventaire = new Inventaire(super.getEnv());
         this.inventaire.ajouterObjet(new Pioche(getEnv(), 1));
         this.inventaire.ajouterObjet(new Hache(getEnv(), 1));
-        freeze = false;
-        mortProperty = new SimpleBooleanProperty();
-        delaiMort = 0;
+        mortProperty = new SimpleBooleanProperty(false);
+        seReposeProperty = new SimpleBooleanProperty(false);
         avanceProperty = new SimpleBooleanProperty(false);
+        freeze = false; delai = 0;
     }
 
     public boolean interagit(int x, int y) {
-        if(interactionEtabli(x, y) || (this.inventaire.getArme() != null && (frapper(x, y) || miner(x, y) || couper(x, y) || ouvrirCoffre(x, y))))
+        if(interactionFeuDeCamp(x,y) || interactionEtabli(x, y) || (this.inventaire.getArme() != null && (frapper(x, y) || miner(x, y) || couper(x, y) || ouvrirCoffre(x, y))))
                 return true;
+        return false;
+    }
+
+    private boolean interactionFeuDeCamp(int x, int y) {
+        if (x == getEnv().getFeuDeCamp().getX() && y == getEnv().getFeuDeCamp().getY()) {
+            if (!seReposeProperty.getValue()) {
+                seReposeProperty.setValue(true);
+                delai = System.currentTimeMillis();
+            }
+            return true;
+        }
         return false;
     }
 
     private boolean interactionEtabli(int x, int y) {
         if (x == getEnv().getEtabli().getX() && y == getEnv().getEtabli().getY()) {
-            if (!getEnv().getEtabli().getOuvert())
-                getEnv().getEtabli().ouvrir();
-            else
-                getEnv().getEtabli().fermer();
+            getEnv().getEtabli().interagir();
             return true;
         }
         return false;
@@ -118,6 +127,8 @@ public class Joueur extends Personnage {
         super.collide();
         if (mortProperty.getValue())
             detruire();
+        else if (seReposeProperty.getValue())
+            seReposer();
         else if (getDistancePoussee() != 0)
             estPoussee();
         else {
@@ -129,15 +140,39 @@ public class Joueur extends Personnage {
         }
     }
 
+    public void decrementerPv(int degat) {
+        int degatSubit;
+        if (degat < inventaire.getArmure().defendre())
+            degatSubit = 0;
+        else
+            degatSubit = degat - inventaire.getArmure().defendre();
+        setPv(getPv() - degatSubit);
+        if (getPv() <= 0)
+            detruire();
+    }
+
+    public void seReposer() {
+        if (System.currentTimeMillis() - delai >= 5_000) {
+            seReposeProperty.setValue(false);
+        } else if (System.currentTimeMillis() - delai >= 2_000 && getX() != getEnv().getFeuDeCamp().getX()) {
+            setSaute(false); setAvance(false); setDistancePoussee(0);
+            setX(getEnv().getFeuDeCamp().getX());
+            setY(getEnv().getFeuDeCamp().getY());
+            getEnv().getFeuDeCamp().seReposer();
+        }
+    }
+
+
     @Override
     public void detruire() {
         if (!mortProperty.getValue()) {
             mortProperty.setValue(true);
-            delaiMort = System.currentTimeMillis();
-        } else if (System.currentTimeMillis() - delaiMort >= 5_000) {
+            delai = System.currentTimeMillis();
+        } else if (System.currentTimeMillis() - delai >= 5_000) {
             mortProperty.setValue(false);
-        } else if (System.currentTimeMillis() - delaiMort >= 2_000 && getX() != getEnv().getFeuDeCamp().getX()) {
+        } else if (System.currentTimeMillis() - delai >= 2_000 && getX() != getEnv().getFeuDeCamp().getX()) {
             setSaute(false); setAvance(false); setDistancePoussee(0);
+            getArme().detruire();
             setX(getEnv().getFeuDeCamp().getX());
             setY(getEnv().getFeuDeCamp().getY());
             getEnv().getFeuDeCamp().seReposer();

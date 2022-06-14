@@ -15,14 +15,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import static application.modele.MapJeu.TUILE_TAILLE;
-
 public class Etabli {
 
     private int x;
     private int y;
     private BooleanProperty ouvertProperty;
-    private boolean fabricable;
+    private BooleanProperty fabricableProperty;
     private IntegerProperty niveauProperty;
     private Environnement env;
     private Inventaire inventaire;
@@ -34,7 +32,7 @@ public class Etabli {
         x = 5;
         y = 11;
         ouvertProperty = new SimpleBooleanProperty(false);
-        fabricable = true;
+        fabricableProperty = new SimpleBooleanProperty(false);
         niveauProperty = new SimpleIntegerProperty(0);
         this.env = env;
         inventaire = env.getJoueur().getInventaire();
@@ -128,15 +126,10 @@ public class Etabli {
         }});
     }
 
-    public void ouvrir() {
+    public void interagir() {
         env.getJoueur().freezer();
         peutFabriquer();
-        ouvertProperty.setValue(true);
-    }
-
-    public void fermer() {
-        env.getJoueur().freezer();
-        ouvertProperty.setValue(false);
+        ouvertProperty.setValue(!ouvertProperty.getValue());
     }
 
     public void fabriquer() {
@@ -166,6 +159,7 @@ public class Etabli {
             niveauProperty.setValue(niveauProperty.getValue() + 1);
         else
             inventaire.ajouterObjet(armeCorrespondant());
+        peutFabriquer();
     }
 
     public void peutFabriquer() {
@@ -193,7 +187,7 @@ public class Etabli {
                 fabricable = cpt == (int) materiau.getValue();
             } while (iterator.hasNext() && fabricable);
         }
-        this.fabricable = fabricable;
+        fabricableProperty.setValue(fabricable);
     }
 
     public String getObjetSelected() {
@@ -202,6 +196,7 @@ public class Etabli {
 
     public void setObjetSelected(String objetSelected) {
         this.objetSelected = objetSelected;
+        peutFabriquer();
     }
 
     private Entite armeCorrespondant() {
@@ -247,7 +242,11 @@ public class Etabli {
     }
 
     public boolean getFabricable() {
-        return fabricable;
+        return fabricableProperty.getValue();
+    }
+
+    public BooleanProperty getFabricableProperty() {
+        return fabricableProperty;
     }
 
     public final boolean getOuvert() {

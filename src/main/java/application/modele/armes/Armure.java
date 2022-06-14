@@ -10,7 +10,7 @@ public class Armure extends Entite {
     public Armure(Environnement env, int qualite) {
         super(env);
         this.qualite = qualite;
-        setPv(pv());
+        setPv(30 * qualite);
     }
 
     public int defendre() {
@@ -25,16 +25,12 @@ public class Armure extends Entite {
         return nbDefense;
     }
 
-    private int pv() {
-        if (qualite == 1)
-            return 30;
-        else if (qualite == 2)
-            return 60;
-        else
-            return 90;
-    }
-
     public int getQualite() {
         return qualite;
+    }
+
+    @Override
+    public void detruire() {
+        getEnv().getJoueur().getInventaire().retirerObjet(getEnv().getJoueur().getInventaire().getObjetCorrespondant(this));
     }
 }

@@ -15,31 +15,15 @@ import static application.modele.MapJeu.TUILE_TAILLE;
 
 public class EtabliControleur {
 
-    private Environnement env;
-    private EtabliVue etabliVue;
-    private VBox vBoxObjets;
-    Button boutonFabriquer;
-
     public EtabliControleur(Pane root, Environnement env, EtabliVue etabliVue) {
-        this.env = env;
-        this.etabliVue = etabliVue;
-        vBoxObjets = (VBox) ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPObjets")).getContent();
-        boutonFabriquer = (Button) etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer");
+        VBox vBoxObjets = (VBox) ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPObjets")).getContent();
+        Button boutonFabriquer = (Button) etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer");
 
         env.getEtabli().getOuvertProperty().addListener((observableValue, aBoolean, t1) -> {
-            if (t1) {
-                fabricable();
-            } else {
+            if (!t1)
                 root.requestFocus();
-            }
             etabliVue.affichageEtabli();
         });
-//        root.lookup("#spriteEtabli").setOnMouseClicked(mouseEvent -> {
-//            if (mouseEvent.getX() <= env.getJoueur().getX()+2*TUILE_TAILLE && mouseEvent.getX() >= env.getJoueur().getX()-TUILE_TAILLE
-//                    && mouseEvent.getY() <= env.getJoueur().getY()+2*TUILE_TAILLE && mouseEvent.getY() >= env.getJoueur().getY()-TUILE_TAILLE) {
-//
-//            }
-//        });
 
         vBoxObjets.getChildren().get(0).setOnMouseClicked(mouseEvent -> {
             etabliVue.affichageArmeSelected(Color.BLACK);
@@ -47,7 +31,7 @@ public class EtabliControleur {
             etabliVue.affichageArmeSelected(Color.WHITE);
             if (env.getEtabli().getNiveau() < 3)
                 etabliVue.affichageInfosArmeSelected();
-            fabricable();
+            env.getEtabli().peutFabriquer();
         });
 
         //pour afficher les infos d'une arme lorsque cliquée
@@ -57,7 +41,7 @@ public class EtabliControleur {
                 env.getEtabli().setObjetSelected(((HBox)mouseEvent.getSource()).getId());
                 etabliVue.affichageArmeSelected(Color.WHITE);
                 etabliVue.affichageInfosArmeSelected();
-                fabricable();
+                env.getEtabli().peutFabriquer();
             });
         }
 
@@ -69,31 +53,28 @@ public class EtabliControleur {
                     etabliVue.affichageInfosArmeSelected();
                 else
                     ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPObjets")).getContent().lookup("#Etabli").setOpacity(0.5);
-            fabricable();
             root.requestFocus();
         });
 
         ((Button) etabliVue.getbPaneEtabli().lookup("#boutonFermer")).setOnAction(actionEvent -> {
-            System.out.println("fermer");
-            env.getEtabli().fermer();
+            env.getEtabli().interagir();
         });
 
         env.getEtabli().getNiveauProperty().addListener(((observableValue, number, t1) -> etabliVue.amelioration()));
+
+        env.getEtabli().getFabricableProperty().addListener((observableValue, aBoolean, t1) -> {
+            if (env.getEtabli().getFabricable()) {
+                boutonFabriquer.setDisable(false);
+                etabliVue.affichageBouton(1);
+            } else {
+                boutonFabriquer.setDisable(true);
+                etabliVue.affichageBouton(0.5);
+            }
+        });
 
         //simule un clique pour l'initialisation
         vBoxObjets.lookup("#Etabli").fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
                 0, 0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
                 true, true, true, true, true, true, null));
-    }
-
-    private void fabricable() {
-        env.getEtabli().peutFabriquer();
-        if (env.getEtabli().getFabricable()) {
-            boutonFabriquer.setDisable(false);
-            etabliVue.affichageBouton(1);
-        } else {
-            boutonFabriquer.setDisable(true);
-            etabliVue.affichageBouton(0.5);
-        }
     }
 }
