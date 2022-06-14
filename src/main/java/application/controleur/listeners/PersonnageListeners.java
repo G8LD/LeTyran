@@ -11,7 +11,10 @@ import application.vue.PersonnageVue;
 public class PersonnageListeners {
 
     public PersonnageListeners(Personnage perso, PersonnageVue persoVue, ArmeVue armeVue, FeuDeCampVue feuDeCampVue) {
-        this(perso, persoVue, armeVue);
+        perso.getXProperty().addListener((observableValue, number, t1) -> {
+            if (((Joueur) perso).getAvance())
+                persoVue.animerDeplacement();
+        });
 
         ((Joueur) perso).getMortProperty().addListener(((observableValue, aBoolean, t1) -> {
             if (t1)
@@ -21,6 +24,11 @@ public class PersonnageListeners {
         //si le joueur n'avance plus pour mettre le sprite du personnage immobile
         ((Joueur) perso).getAvanceProperty().addListener((observableValue, aBoolean, t1) -> {if (!t1)
             persoVue.immobile();
+        });
+
+        perso.getDirectionProperty().addListener((observableValue, o, t1) ->  {
+            persoVue.inverserSprite();
+            armeVue.inverserSprite();
         });
     }
 

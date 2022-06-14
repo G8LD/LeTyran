@@ -33,7 +33,7 @@ public class FeuDeCampVue {
 
     public void transition(boolean mort) {
         if (mort)
-            labelMort.setText("VOUS ETES MORT");
+            labelMort.setText("VOUS ÊTES MORT");
         else
             labelMort.setText("");
         labelMort.toFront();

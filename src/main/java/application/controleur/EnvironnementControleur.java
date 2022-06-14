@@ -55,7 +55,7 @@ public class EnvironnementControleur {
                     envVue.supprimerEnnemi(change.getRemoved().get(i).getId());
 
                 for (int i = 0; i < change.getAddedSize(); i++)
-                    new PersonnageListeners(change.getAddedSubList().get(i), new PersonnageVue(envVue.getRoot(), change.getAddedSubList().get(i)), new ArmeVue(envVue.getRoot(),  change.getAddedSubList().get(i)));
+                    new PersonnageListeners(change.getAddedSubList().get(i), new PersonnageVue((Pane) root.lookup("#paneEnnemis"), change.getAddedSubList().get(i)), new ArmeVue((Pane) root.lookup("#paneEnnemis"),  change.getAddedSubList().get(i)));
             }
         });
 
@@ -73,7 +73,7 @@ public class EnvironnementControleur {
             public void onChanged(Change<? extends Fleche> change) {
                 change.next();
                 for (int i = 0; i < change.getAddedSize(); i++)
-                    new FlecheVue(envVue.getRoot(), change.getAddedSubList().get(i));
+                    new FlecheVue(((Pane) root.lookup("#paneEnnemis")), change.getAddedSubList().get(i));
                 for (int i = 0; i < change.getRemovedSize(); i++)
                     envVue.supprimerFleche(change.getRemoved().get(i).getId());
             }

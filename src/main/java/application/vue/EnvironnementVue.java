@@ -35,7 +35,7 @@ public class EnvironnementVue {
         construireFond();
 
         for (Ennemi ennemi : env.getListeEnnemis()) {
-                new PersonnageListeners(ennemi, new PersonnageVue(root, ennemi), new ArmeVue(root, ennemi));
+                new PersonnageListeners(ennemi, new PersonnageVue(((Pane) root.lookup("#paneEnnemis")), ennemi), new ArmeVue(((Pane) root.lookup("#paneEnnemis")), ennemi));
         }
     }
 
@@ -148,8 +148,8 @@ public class EnvironnementVue {
     }
 
     public void supprimerEnnemi(String id) {
-        root.getChildren().remove(root.lookup("#" + id));
-        root.getChildren().remove(root.lookup("#" + id + "Arme"));
+        ((Pane) root.lookup("#paneEnnemis")).getChildren().remove(root.lookup("#" + id));
+        ((Pane) root.lookup("#paneEnnemis")).getChildren().remove(root.lookup("#" + id + "Arme"));
     }
 
     public void changerImgCoffre(int id) {
@@ -158,7 +158,7 @@ public class EnvironnementVue {
     }
 
     public void supprimerFleche(String id) {
-        root.getChildren().remove(root.lookup("#" + id));
+        ((Pane) root.lookup("#paneEnnemis")).getChildren().remove(root.lookup("#" + id));
     }
 
     public Pane getRoot() {

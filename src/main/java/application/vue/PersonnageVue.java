@@ -51,7 +51,8 @@ public class PersonnageVue {
     private int indexSprite;
     private long lastUpdate;
 
-    public final static int POSITION_VUE_PERSONNAGE = (MapJeu.WIDTH * MapJeu.TUILE_TAILLE) / 2;
+    public final static int POSITION_VUE_JOUEUR_X = (MapJeu.WIDTH * MapJeu.TUILE_TAILLE) / 2;
+    public final static int POSITION_VUE_JOUEUR_Y = (MapJeu.HEIGHT * MapJeu.TUILE_TAILLE) / 2;
 
     public PersonnageVue(Personnage perso, ImageView spritesJoueur) {
         this.perso = perso;
@@ -60,11 +61,11 @@ public class PersonnageVue {
         indexSprite = 0;
         construirePerso();
     }
-    public PersonnageVue(Pane root, Personnage perso) {
+    public PersonnageVue(Pane paneEnnemis, Personnage perso) {
         this.perso = perso;
         lastUpdate = System.currentTimeMillis();
         creationSprite();
-        ((Pane) root.lookup("#paneEnnemis")).getChildren().add(spritePerso);
+        paneEnnemis.getChildren().add(spritePerso);
     }
 
     private void creationSprite() {
@@ -79,8 +80,8 @@ public class PersonnageVue {
 
     private void construirePerso() {
         spritePerso.setImage(LISTE_SPRITES.get(perso.getClass().getSimpleName()).get(0));
-        spritePerso.setTranslateX((MapJeu.WIDTH * MapJeu.TUILE_TAILLE) / 2);
-        spritePerso.setTranslateY((MapJeu.HEIGHT * MapJeu.TUILE_TAILLE) / 2);
+        spritePerso.setTranslateX(POSITION_VUE_JOUEUR_X);
+        spritePerso.setTranslateY(POSITION_VUE_JOUEUR_Y);
     }
 
     public void animerDeplacement() {

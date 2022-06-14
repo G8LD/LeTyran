@@ -3,7 +3,6 @@ package application.vue;
 import application.controleur.listeners.ArmeListener;
 import application.controleur.listeners.AttaqueListener;
 import application.modele.Direction;
-import application.modele.ObjetInventaire;
 import application.modele.armes.Lance;
 import application.modele.armes.arc.Arc;
 import application.modele.personnages.ennemi.Ennemi;
@@ -11,8 +10,6 @@ import application.modele.personnages.Joueur;
 import application.modele.personnages.Personnage;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -37,17 +34,19 @@ public class ArmeVue {
         tt = new TranslateTransition(Duration.millis(150), spriteArme);
         initDirection(); /*initAnimation();*/ initTt();
         ((Joueur) perso).getInventaire().getArmeProperty().addListener(new ArmeListener(this));
+        spriteArme.setX(PersonnageVue.POSITION_VUE_JOUEUR_X + dir * 10);
+        spriteArme.setY(PersonnageVue.POSITION_VUE_JOUEUR_Y);
         rendreVisible = false;
     }
 
-    public ArmeVue(Pane root, Personnage perso) {
+    public ArmeVue(Pane paneEnnemis, Personnage perso) {
         this.perso = perso;
         initSprite();
         rt = new RotateTransition(Duration.millis(90), spriteArme);
         tt = new TranslateTransition(Duration.millis(150), spriteArme);
         initDirection(); initAnimation();
         if (perso.getArme() instanceof Lance) initTt();
-        ((Pane) root.lookup("#paneEnnemis")).getChildren().add(spriteArme);
+        paneEnnemis.getChildren().add(spriteArme);
         ((Ennemi) perso).getAttaqueProperty().addListener(new AttaqueListener(this));
         rendreVisible = false;
     }
@@ -121,6 +120,8 @@ public class ArmeVue {
 
     //inverse l'image selon la direction
     public void inverserSprite() {
+        if (perso instanceof Joueur)
+            spriteArme.setTranslateX(spriteArme.getTranslateX() + dir * 10);
         if (rt.getCurrentRate() == 0 && tt.getCurrentRate() == 0) {
             spriteArme.setScaleX(dir);
             dir = -dir;
