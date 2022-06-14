@@ -62,12 +62,13 @@ public class EnvironnementControleur {
         env.getListeCoffres().addListener(new ListChangeListener<Coffre>() {
             @Override
             public void onChanged(Change<? extends Coffre> change) {
-                change.next();
-                for (int i = 0; i < change.getRemovedSize(); i++)
-                    envVue.changerImgCoffre((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
+                while (change.next()) {
+                    if (change.wasRemoved()) {
+                        envVue.changerImgCoffre((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
+                    }
+                }
             }
         });
-
         env.getListeFleches().addListener(new ListChangeListener<Fleche>() {
             @Override
             public void onChanged(Change<? extends Fleche> change) {
