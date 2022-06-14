@@ -85,7 +85,7 @@ public class Environnement {
         getListeEnnemis().add(new Lancier(this, 1, 15, 11, 0));
         getListeEnnemis().add(new Epeiste(this,1, 20, 0, 5));
         getListeEnnemis().add(new Epeiste(this,1, 18, 18, 10));
-        getListeEnnemis().add(new Boss(this,18, 20 , 20));
+        getListeEnnemis().add(new Boss(this,23, 9, 20));
     }
 
     private void initListeCoffres() {

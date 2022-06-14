@@ -26,7 +26,7 @@ public abstract class Ennemi extends PNJ {
         poursuitJoueur = false;
     }
 
-    protected void detectionJoueur() {
+    public void detectionJoueur() {
         if (joueurEnFace()) {
             attaqueProperty.setValue(true);
             delai = 0;
@@ -48,16 +48,16 @@ public abstract class Ennemi extends PNJ {
                 || (getDirection() == Droit && getEnv().getJoueur().getX() - getX() > -1));
     }
 
-    protected void retourneDansZone() {
+    public void retourneDansZone() {
         if (((getX() < getOrigineX() - 10 * TUILE_TAILLE && getDirection() == Gauche)
-                || (getX() > getOrigineX() + getDistance() + 10 * TUILE_TAILLE  && getDirection() == Droit)) && !getRetourZone()) {
+                || (getX() > getOrigineX() + getDistance() + 10 * TUILE_TAILLE && getDirection() == Droit)) && !getRetourZone()) {
             setDirection(getDirectionOpposee());
             retourZone = true;
         } else if (getX() >= getOrigineX() && getX() <= getOrigineX() + getDistance() && getY() == getOrigineY() && getRetourZone())
             retourZone = false;
     }
 
-    protected void retourOrigine() {
+    public void retourOrigine() {
         if ((getX() - getOrigineX() < -1 && getDirection() == Gauche) || (getX() - getOrigineX() > 1 && getDirection() == Droit))
             setDirection(getDirectionOpposee());
         //met une nouvelle origine s'il est bloqué
@@ -66,13 +66,13 @@ public abstract class Ennemi extends PNJ {
         if (getY() != getOrigineY()) setOrigineY(getY());
     }
 
-    protected void poursuiteJoueur() {
+    public void poursuiteJoueur() {
         if (!retourZone && !joueurEnFace() && Math.abs(getEnv().getJoueur().getX() - getX()) < 5 * TUILE_TAILLE && Math.abs(getEnv().getJoueur().getY() - getY()) < 2 * TUILE_TAILLE) {
-                if (getEnv().getJoueur().getX() - getX() > 0)
-                    setDirection(Droit);
-                else
-                    setDirection(Gauche);
-                poursuitJoueur = true;
+            if (getEnv().getJoueur().getX() - getX() > 0)
+                setDirection(Droit);
+            else
+                setDirection(Gauche);
+            poursuitJoueur = true;
         } else
             poursuitJoueur = false;
     }
@@ -110,7 +110,7 @@ public abstract class Ennemi extends PNJ {
     public final boolean getAttaque() {
         return attaqueProperty.getValue();
     }
-    
+
     public final BooleanProperty getAttaqueProperty() {
         return attaqueProperty;
     }
@@ -121,5 +121,9 @@ public abstract class Ennemi extends PNJ {
 
     public boolean getPoursuitJoueur() {
         return poursuitJoueur;
+    }
+
+    public int getDelai() {
+        return this.delai;
     }
 }

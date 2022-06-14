@@ -66,7 +66,7 @@ public abstract class Personnage extends Entite {
         //inventaire.ajouterObjet();
     }
 
-    protected void seDeplacer() {
+    public void seDeplacer() {
         int distance;
         if (tombe || saute)
             distance = getVitesse() - 1;

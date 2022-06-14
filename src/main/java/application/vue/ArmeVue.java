@@ -5,11 +5,13 @@ import application.controleur.listeners.AttaqueListener;
 import application.modele.Direction;
 import application.modele.armes.Lance;
 import application.modele.armes.arc.Arc;
+import application.modele.personnages.ennemi.Boss;
 import application.modele.personnages.ennemi.Ennemi;
 import application.modele.personnages.Joueur;
 import application.modele.personnages.Personnage;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -56,7 +58,10 @@ public class ArmeVue {
         spriteArme.setId(perso.getId() + "Arme");
         spriteArme.setFitWidth(28);
         spriteArme.setFitHeight(28);
-        spriteArme.setImage(ChargeurRessources.iconObjets.get(perso.getArme().getClass().getSimpleName() + perso.getArme().getQualite()));
+        if(perso instanceof Boss){
+        }else {
+            spriteArme.setImage(ChargeurRessources.iconObjets.get(perso.getArme().getClass().getSimpleName() + perso.getArme().getQualite()));
+        }
     }
 
     private void initDirection() {

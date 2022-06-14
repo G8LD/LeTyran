@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static application.modele.MapJeu.TUILE_TAILLE;
+import static application.modele.MapJeu.*;
 
 public class PersonnageVue {
 
@@ -79,6 +79,10 @@ public class PersonnageVue {
         spritePerso.setId(perso.getId());
         spritePerso.setFitWidth(TUILE_TAILLE);
         spritePerso.setFitHeight(TUILE_TAILLE);
+      /* if(perso.getClass().getSimpleName().equals("Boss")){
+            spritePerso.setFitWidth(TUILE_TAILLE*3);
+            spritePerso.setFitHeight(TUILE_TAILLE*2);
+        }*/
     }
 
     private void construirePerso() {

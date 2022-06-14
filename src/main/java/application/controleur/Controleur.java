@@ -96,7 +96,7 @@ public class Controleur implements Initializable {
         new EtabliControleur(root,env, etabliVue);
         new FeuDeCampControleur(env.getFeuDeCamp(), feuDeCampVue);
         new PersonnageListeners(env.getJoueur(), personnageVue, armeVue, feuDeCampVue);
-
+        new PersonnageListeners(env.getJoueur(),personnageVue);
         initAnimation();
         gameLoop.play();
     }
