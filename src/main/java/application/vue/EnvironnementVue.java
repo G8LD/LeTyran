@@ -35,7 +35,7 @@ public class EnvironnementVue {
         construireFond();
 
         for (Ennemi ennemi : env.getListeEnnemis()) {
-                new PersonnageListeners(ennemi, new PersonnageVue(((Pane) root.lookup("#paneEnnemis")), ennemi), new ArmeVue(((Pane) root.lookup("#paneEnnemis")), ennemi));
+            new PersonnageListeners(ennemi, new PersonnageVue(((Pane) root.lookup("#paneEnnemis")), ennemi), new ArmeVue(((Pane) root.lookup("#paneEnnemis")), ennemi));
         }
     }
 

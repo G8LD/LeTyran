@@ -120,11 +120,11 @@ public class ArmeVue {
 
     //inverse l'image selon la direction
     public void inverserSprite() {
-        if (perso instanceof Joueur)
-            spriteArme.setTranslateX(spriteArme.getTranslateX() + dir * 10);
         if (rt.getCurrentRate() == 0 && tt.getCurrentRate() == 0) {
             spriteArme.setScaleX(dir);
             dir = -dir;
+            if (perso instanceof Joueur)
+                spriteArme.setX(PersonnageVue.POSITION_VUE_JOUEUR_X + dir * 10);
             rt.setDuration(Duration.ONE);
             rt.setCycleCount(1);
             rt.setOnFinished(actionEvent1 -> {});
