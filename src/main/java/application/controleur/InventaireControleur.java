@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 
@@ -20,9 +21,10 @@ public class InventaireControleur implements EventHandler<Event> {
     private Inventaire inv;
 
 
+
     private InventaireVue invVue;
 
-    public InventaireControleur(Pane root, Environnement jeu, Pane inventaireMain, Pane inventaireSac, Pane inventaireEquip) {
+    public InventaireControleur(Pane root,ControleurQuete controleurQuete, Environnement jeu, Pane inventaireMain, Pane inventaireSac, Pane inventaireEquip) {
         this.root = root;
         this.jeu = jeu;
 
@@ -30,7 +32,8 @@ public class InventaireControleur implements EventHandler<Event> {
 
         this.invVue = new InventaireVue(inv, this, inventaireMain, inventaireSac, inventaireEquip);
 
-        this.inv.getObjets().addListener(new InventaireListener(invVue));
+        //this.inv.getObjets().addListener(new ObjetInventaireChanger(this, controleurQuete));
+        this.inv.getObjets().addListener(new InventaireListener(invVue, controleurQuete));
 
         inventaireEquip.getChildren().get(0).setPickOnBounds(true);
         inventaireEquip.getChildren().get(0).setOnMouseClicked(mouseEvent -> {
