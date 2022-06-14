@@ -68,7 +68,8 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.controleurQuete = new ControleurQuete(this, conteneurQuetes);
+
+        this.controleurQuete = new ControleurQuete(this.root.getScene(), conteneurQuetes);
         env = new Environnement();
         modeleDialogue = new ModeleDialogue();
 

@@ -24,9 +24,18 @@ public class ObjectifNombreNecessaire {
         this.nombreNecessaireProperty.setValue(nombreNecessaireProperty);
     }
 
-    public int getNombreActuelProperty() {
+    public IntegerProperty getNombreActuelProperty() {
+        return nombreActuelProperty;
+    }
+
+    public int getNombreActuel() {
         return nombreActuelProperty.getValue();
     }
+
+    public int getNombreNecessaire() {
+        return this.nombreNecessaireProperty.getValue();
+    }
+
 
     public IntegerProperty nombreActuelPropertyProperty() {
         return nombreActuelProperty;

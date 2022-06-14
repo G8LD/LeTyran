@@ -2,6 +2,8 @@ package application.modele;
 
 import application.modele.armes.Arme;
 import application.modele.armures.Armure;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -24,6 +26,7 @@ public class Inventaire {
     private ObjetInventaire arme;
 
     private Environnement env;
+
     public Inventaire(Environnement env) {
 
         placesDisponible = new HashMap<>();
@@ -33,9 +36,7 @@ public class Inventaire {
 
             placesDisponible.put(i, true);
         }
-
         objetMainIndex = 0;
-
     }
 
     public ObservableList<ObjetInventaire> getObjets(){
@@ -170,7 +171,6 @@ public class Inventaire {
             if(placeTrouve >= 0) {
                 ObjetInventaire nouvObjet = new ObjetInventaire(ent);
 
-                System.out.println("Place trouvé " + placeTrouve);
                 nouvObjet.setPlaceInventaire(placeTrouve);
 
                 definirPlacePrise(placeTrouve);
@@ -179,7 +179,7 @@ public class Inventaire {
 
                 ajouter = true;
             } else {
-                System.out.println("L'inventaire est rempli");
+
             }
         } else {
             this.getObjets().get(indexStack).ajouterDansStack();

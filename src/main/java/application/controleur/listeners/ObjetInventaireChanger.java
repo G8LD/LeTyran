@@ -29,6 +29,13 @@ public class ObjetInventaireChanger implements ListChangeListener {
 
             ObjetInventaire obj = (ObjetInventaire) change.getAddedSubList().get(i);
             this.controleurQuete.objetAEteAjouteeInventaire(obj);
+            //Pour chaque objet on verifie quand son nombre de stack evolue
+            obj.getStackActuelProperty().addListener(changement -> {
+                this.controleurQuete.objetAEteAjouteeInventaire(obj);
+            });
+
         }
+
+
     }
 }

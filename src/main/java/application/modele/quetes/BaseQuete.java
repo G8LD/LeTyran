@@ -19,6 +19,10 @@ public class BaseQuete {
         this.listeObjectifs = new HashMap<>();
     }
 
+    public String getNom() {
+        return this.nom;
+    }
+
     public void ajouterObjectif(QueteType.TYPE_QUETE type, String nom, int nombre) {
         if(this.listeObjectifs.get(type) == null) {
             this.listeObjectifs.put(type, new HashMap<>());

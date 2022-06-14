@@ -28,14 +28,15 @@ public class ModeleQuetes {
     }
 
     public void chargerQuetes() {
-        BaseQuete bq = new BaseQuete("Ramasser ressource");
+        BaseQuete bq = new BaseQuete("Trouver des trucs");
         bq.ajouterObjectif(QueteType.TYPE_QUETE.RAMASSER, "Bois", 3);
-        bq.ajouterObjectif(QueteType.TYPE_QUETE.RAMASSER, "Pierre", 3);
+        //bq.ajouterObjectif(QueteType.TYPE_QUETE.RAMASSER, "Pierre", 3);
+        //bq.ajouterObjectif(QueteType.TYPE_QUETE.RAMASSER, "Hache en bois", 5);
+        //bq.ajouterObjectif(QueteType.TYPE_QUETE.TUER, "ce sale cabot de ayoub ce chien", 5);
+        bq.ajouterObjectif(QueteType.TYPE_QUETE.RAMASSER, "Terre", 10);
 
         this.quetesDisponibles.add(bq);
 
-        System.out.println(bq.recupererListeObjectifs());
-        System.out.println(this.quetesDisponibles);
         /*File repertoire = new File("src/main/java/application/modele/quetes/listes");
         File[] quetesTrouvee = repertoire.listFiles((dir, name) -> {
             try {
