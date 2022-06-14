@@ -85,13 +85,13 @@ public class Joueur extends Personnage {
     }
 
     private boolean frapper(int x, int y) {
-        if (getArme() instanceof Arc) {
-            getArme().frapper(this, null);
+        if (inventaire.getArme() instanceof Arc) {
+            inventaire.getArme().frapper(this, null);
             return true;
         } else {
             Ennemi ennemi = getEnv().getEnnemi(x, y);
             if (ennemi != null) {
-                getArme().frapper(this, ennemi);
+                inventaire.getArme().frapper(this, ennemi);
                 return true;
             }
             return false;
@@ -173,8 +173,8 @@ public class Joueur extends Personnage {
             mortProperty.setValue(false);
         } else if (System.currentTimeMillis() - delai >= 2_000 && getX() != getEnv().getFeuDeCamp().getX()) {
             setSaute(false); setAvance(false); setDistancePoussee(0);
-            getArme().detruire();
-            inventaire.getArmure().detruire();
+            if (inventaire.getArme() != null) inventaire.getArme().detruire();
+            if (inventaire.getArmure() != null) inventaire.getArmure().detruire();
             getEnv().getFeuDeCamp().seReposer();
         }
     }
