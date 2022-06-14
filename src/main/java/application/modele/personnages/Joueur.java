@@ -8,7 +8,6 @@ import application.modele.armes.Arme;
 import application.modele.armes.Hache;
 import application.modele.armes.Pioche;
 import application.modele.armes.arc.Arc;
-import application.modele.armes.arc.Fleche;
 import application.modele.objets.Arbre;
 import application.modele.objets.Bois;
 import application.modele.objets.Coffre;
@@ -42,12 +41,23 @@ public class Joueur extends Personnage {
     }
 
     public boolean interagit(int x, int y) {
-        if(this.inventaire.getArme() != null && (frapper(x,y) || miner(x, y) || couper(x, y) || ouvert(x, y)))
+        if(interactionEtabli(x, y) || (this.inventaire.getArme() != null && (frapper(x, y) || miner(x, y) || couper(x, y) || ouvrirCoffre(x, y))))
                 return true;
         return false;
     }
 
-    private boolean ouvert(int x, int y){
+    private boolean interactionEtabli(int x, int y) {
+        if (x == getEnv().getEtabli().getX() && y == getEnv().getEtabli().getY()) {
+            if (!getEnv().getEtabli().getOuvert())
+                getEnv().getEtabli().ouvrir();
+            else
+                getEnv().getEtabli().fermer();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean ouvrirCoffre(int x, int y){
         Coffre coffre = getEnv().getCoffre(x, y);
         Entite bois= new Bois(getEnv(), x, y);
         if(coffre != null){

@@ -19,24 +19,19 @@ public class EtabliVue {
 
     private Etabli etabli;
     private BorderPane bPaneEtabli;
-    private ImageView spriteEtabli;
 
     public EtabliVue(Etabli etabli, ImageView spriteEtabli, BorderPane bPaneEtabli) {
         this.etabli = etabli;
-        this.spriteEtabli = spriteEtabli;
         this.bPaneEtabli = bPaneEtabli;
-        initSpriteEtabli();
+
+        spriteEtabli.setX(etabli.getX() * TUILE_TAILLE);
+        spriteEtabli.setY(etabli.getY() * TUILE_TAILLE);
         bPaneEtabli.setVisible(false);
 
         Iterator iterator = etabli.getObjetsID().iterator();
         while (iterator.hasNext()) {
             ((ScrollPane) bPaneEtabli.lookup("#sPObjets")).getContent().lookup("#" + iterator.next()).setOpacity(0.5);
         }
-    }
-
-    private void initSpriteEtabli() {
-        spriteEtabli.setX(etabli.getX() * TUILE_TAILLE);
-        spriteEtabli.setY(etabli.getY() * TUILE_TAILLE);
     }
 
     public void affichageArmeSelected(Color color) {

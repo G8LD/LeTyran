@@ -3,7 +3,9 @@ package application.modele;
 import application.modele.armes.*;
 import application.modele.armes.arc.Arc;
 import application.modele.armes.arc.Fleche;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
@@ -13,10 +15,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import static application.modele.MapJeu.TUILE_TAILLE;
+
 public class Etabli {
 
     private int x;
     private int y;
+    private BooleanProperty ouvertProperty;
+    private boolean fabricable;
     private IntegerProperty niveauProperty;
     private Environnement env;
     private Inventaire inventaire;
@@ -27,6 +33,8 @@ public class Etabli {
     public Etabli(Environnement env) {
         x = 5;
         y = 11;
+        ouvertProperty = new SimpleBooleanProperty(false);
+        fabricable = true;
         niveauProperty = new SimpleIntegerProperty(0);
         this.env = env;
         inventaire = env.getJoueur().getInventaire();
@@ -120,6 +128,17 @@ public class Etabli {
         }});
     }
 
+    public void ouvrir() {
+        env.getJoueur().freezer();
+        peutFabriquer();
+        ouvertProperty.setValue(true);
+    }
+
+    public void fermer() {
+        env.getJoueur().freezer();
+        ouvertProperty.setValue(false);
+    }
+
     public void fabriquer() {
         Set listeMateriaux;
         if (objetSelected.equals("Etabli"))
@@ -149,7 +168,8 @@ public class Etabli {
             inventaire.ajouterObjet(armeCorrespondant());
     }
 
-    public boolean peutFabriquer() {
+    public void peutFabriquer() {
+        boolean fabricable = false;
         Set listeMateriaux = null;
         if (objetSelected.equals("Etabli") && niveauProperty.getValue() < 3)
             listeMateriaux = this.listeMateriauxEtabli[niveauProperty.getValue()].entrySet();
@@ -157,7 +177,6 @@ public class Etabli {
             listeMateriaux = this.listeMateriauxObjets.get(objetSelected).entrySet();
 
         if (listeMateriaux != null) {
-            boolean fabricable;
             Iterator iterator = listeMateriaux.iterator();
             Map.Entry materiau;
             int cpt, i;
@@ -173,9 +192,8 @@ public class Etabli {
                 }
                 fabricable = cpt == (int) materiau.getValue();
             } while (iterator.hasNext() && fabricable);
-            return fabricable;
-        } else
-            return false;
+        }
+        this.fabricable = fabricable;
     }
 
     public String getObjetSelected() {
@@ -226,5 +244,17 @@ public class Etabli {
 
     public int getY() {
         return y;
+    }
+
+    public boolean getFabricable() {
+        return fabricable;
+    }
+
+    public final boolean getOuvert() {
+        return ouvertProperty.getValue();
+    }
+
+    public final BooleanProperty getOuvertProperty() {
+        return ouvertProperty;
     }
 }

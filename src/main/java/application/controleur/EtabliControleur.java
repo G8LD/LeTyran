@@ -26,14 +26,20 @@ public class EtabliControleur {
         vBoxObjets = (VBox) ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPObjets")).getContent();
         boutonFabriquer = (Button) etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer");
 
-        root.lookup("#spriteEtabli").setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getX() <= env.getJoueur().getX()+2*TUILE_TAILLE && mouseEvent.getX() >= env.getJoueur().getX()-TUILE_TAILLE
-                    && mouseEvent.getY() <= env.getJoueur().getY()+2*TUILE_TAILLE && mouseEvent.getY() >= env.getJoueur().getY()-TUILE_TAILLE) {
+        env.getEtabli().getOuvertProperty().addListener((observableValue, aBoolean, t1) -> {
+            if (t1) {
                 fabricable();
-                etabliVue.affichageEtabli();
-                env.getJoueur().freezer();
+            } else {
+                root.requestFocus();
             }
+            etabliVue.affichageEtabli();
         });
+//        root.lookup("#spriteEtabli").setOnMouseClicked(mouseEvent -> {
+//            if (mouseEvent.getX() <= env.getJoueur().getX()+2*TUILE_TAILLE && mouseEvent.getX() >= env.getJoueur().getX()-TUILE_TAILLE
+//                    && mouseEvent.getY() <= env.getJoueur().getY()+2*TUILE_TAILLE && mouseEvent.getY() >= env.getJoueur().getY()-TUILE_TAILLE) {
+//
+//            }
+//        });
 
         vBoxObjets.getChildren().get(0).setOnMouseClicked(mouseEvent -> {
             etabliVue.affichageArmeSelected(Color.BLACK);
@@ -68,9 +74,8 @@ public class EtabliControleur {
         });
 
         ((Button) etabliVue.getbPaneEtabli().lookup("#boutonFermer")).setOnAction(actionEvent -> {
-            etabliVue.affichageEtabli();
-            env.getJoueur().freezer();
-            root.requestFocus();
+            System.out.println("fermer");
+            env.getEtabli().fermer();
         });
 
         env.getEtabli().getNiveauProperty().addListener(((observableValue, number, t1) -> etabliVue.amelioration()));
@@ -82,7 +87,8 @@ public class EtabliControleur {
     }
 
     private void fabricable() {
-        if (env.getEtabli().peutFabriquer()) {
+        env.getEtabli().peutFabriquer();
+        if (env.getEtabli().getFabricable()) {
             boutonFabriquer.setDisable(false);
             etabliVue.affichageBouton(1);
         } else {
