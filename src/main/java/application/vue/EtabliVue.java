@@ -35,8 +35,8 @@ public class EtabliVue {
     }
 
     private void initSpriteEtabli() {
-        spriteEtabli.setX(15 * TUILE_TAILLE);
-        spriteEtabli.setY(11 * TUILE_TAILLE);
+        spriteEtabli.setX(etabli.getX() * TUILE_TAILLE);
+        spriteEtabli.setY(etabli.getY() * TUILE_TAILLE);
     }
 
     public void affichageArmeSelected(Color color) {

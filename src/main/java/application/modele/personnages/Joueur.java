@@ -40,7 +40,7 @@ public class Joueur extends Personnage {
     }
 
     public boolean interagit(int x, int y) {
-        if(this.inventaire.getArme() != null && (miner(x, y) || couper(x, y) || ouvert(x, y)))
+        if(this.inventaire.getArme() != null && (frapper(x,y) || miner(x, y) || couper(x, y) || ouvert(x, y)))
                 return true;
         return false;
     }

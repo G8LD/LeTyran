@@ -15,6 +15,8 @@ import java.util.Set;
 
 public class Etabli {
 
+    private int x;
+    private int y;
     private IntegerProperty niveauProperty;
     private Environnement env;
     private Inventaire inventaire;
@@ -23,6 +25,8 @@ public class Etabli {
     private String objetSelected;
 
     public Etabli(Environnement env) {
+        x = 15;
+        y = 11;
         niveauProperty = new SimpleIntegerProperty(0);
         this.env = env;
         inventaire = env.getJoueur().getInventaire();
@@ -216,5 +220,11 @@ public class Etabli {
         return niveauProperty;
     }
 
+    public int getX() {
+        return x;
+    }
 
+    public int getY() {
+        return y;
+    }
 }

@@ -26,22 +26,6 @@
       <TilePane fx:id="tileFond" prefHeight="200.0" prefWidth="200.0" />
       <TilePane fx:id="tileSol" prefHeight="200.0" prefWidth="200.0" />
       <TilePane fx:id="tileDecors" prefHeight="200.0" prefWidth="200.0" />
-      <Pane fx:id="inventaireMain" prefHeight="32.0" prefWidth="200.0" />
-      <Pane fx:id="inventaireSac" layoutY="168.0" prefHeight="32.0" prefWidth="200.0" />
-      <Pane fx:id="paneDecors" prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <ImageView fx:id="spriteEtabli" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@sprite_etabli.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="spriteFeuDeCamp" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@sprite_feu_de_camp.gif" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
       <Pane fx:id="paneEnnemis" prefHeight="200.0" prefWidth="200.0" />
 
       <ImageView fx:id="spriteJoueur" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
@@ -346,5 +330,19 @@
       </Pane>
       <Pane fx:id="inventaireMain" prefHeight="32.0" prefWidth="200.0" />
       <Pane fx:id="inventaireSac" prefHeight="32.0" prefWidth="200.0" />
+      <Pane fx:id="paneDecors" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="spriteEtabli" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@sprite_etabli.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="spriteFeuDeCamp" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@sprite_feu_de_camp.gif" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </Pane>
