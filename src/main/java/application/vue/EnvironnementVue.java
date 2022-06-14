@@ -134,7 +134,7 @@ public class EnvironnementVue {
         ImageView img = (ImageView) tileSol.getChildren().get(id);
         int profondeur = id / WIDTH;
         if(profondeur > (HEIGHT / 2) + 1)
-            img.setImage(ChargeurRessources.iconObjets.get("Terre"));
+            img.setImage(ChargeurRessources.iconObjets.get("Sol"));
         else
             img.setImage(new Image("file:src/main/resources/application/pack1/tile_transparent.png"));
     }

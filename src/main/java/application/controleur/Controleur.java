@@ -78,7 +78,7 @@ public class Controleur implements Initializable {
 
         personnageVue = new PersonnageVue(env.getJoueur(), spriteJoueur);
         envVue = new EnvironnementVue(env, root, tileSol, tileDecors, tileFond);
-        objetVue = new ObjetVue(this.env, this.root);
+        objetVue = new ObjetVue(this.env, paneDecors);
         armeVue = new ArmeVue(env.getJoueur(), spriteArme);
         vievue = new VieVue(root);
         etabliVue = new EtabliVue(env.getEtabli(), spriteEtabli, bPaneEtabli);

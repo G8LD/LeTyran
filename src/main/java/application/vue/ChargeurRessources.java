@@ -45,6 +45,7 @@ public class ChargeurRessources {
 //        iconObjets.put("Pierre", new Image("file:src/main/resources/application/ressources/Pierre.png"));
 //        iconObjets.put("Fer", new Image("file:src/main/resources/application/ressources/Fer.png"));
 //        iconObjets.put("Platine", new Image("file:src/main/resources/application/ressources/Platine.png"));
+        iconObjets.put("Sol", new Image("file:src/main/resources/application/pack1/Sol.png"));
         iconObjets.put("Terre", new Image("file:src/main/resources/application/pack1/Terre.png"));
         iconObjets.put("Bois", new Image("file:src/main/resources/application/pack1/Bois.png"));
         iconObjets.put("Pierre", new Image("file:src/main/resources/application/pack1/Pierre.png"));
