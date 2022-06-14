@@ -1,8 +1,10 @@
 package application.modele;
 
 import application.modele.armes.Arme;
-import application.modele.armes.Armure;
+import application.modele.armures.Armure;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +20,9 @@ public class Inventaire {
     public final static int PLACE_INVENTAIRE = 25;
     public final static int PLACE_MAIN_PERSONNAGE = 5;
 
-    private int objetMainIndex;
+
+    //Permet de savoir quel bloc le joueur a dans les mains
+    private IntegerProperty armeIndexProperty;
     private ObjetInventaire objetMain;
 
 
@@ -38,7 +42,7 @@ public class Inventaire {
             placesDisponible.put(i, true);
         }
 
-        objetMainIndex = 0;
+        armeIndexProperty = new SimpleIntegerProperty(0);
 
         armeProperty = new SimpleObjectProperty<>();
     }
@@ -49,7 +53,7 @@ public class Inventaire {
     }
 
     public Arme getArme() {
-        if(armeProperty.getValue() == null)
+        if(armeProperty == null || armeProperty.getValue() == null)
             return null;
         return (Arme) armeProperty.getValue().getEntite();
     }
@@ -70,7 +74,6 @@ public class Inventaire {
             System.out.println("Vous vous êtes équiper de " + objetInventaire);
             armure = objetInventaire;
         } else if (objetInventaire.getEntite() instanceof Arme) {
-            System.out.println(objetInventaire);
             armeProperty.setValue(objetInventaire);
         }
     }
@@ -102,16 +105,32 @@ public class Inventaire {
         }
     }
 
+    public void setArmeIndex(int valeur) {
+        this.armeIndexProperty.setValue(valeur);
+    }
+
+    public int getArmeIndex() {
+        return this.armeIndexProperty.getValue();
+    }
+
+    public IntegerProperty getArmeIndexProperty() {
+        return this.armeIndexProperty;
+    }
+
+    public void ajouterValeurArmeIndex(int valeur) {
+        this.armeIndexProperty.setValue(this.armeIndexProperty.getValue() + valeur);
+    }
+
     public void scrollObjetMain(int delta) {
-        objetMainIndex += delta;
-        if(objetMainIndex > PLACE_MAIN_PERSONNAGE - 1) {
-            objetMainIndex = 0;
-        } else if(objetMainIndex < 0) {
-            objetMainIndex = PLACE_MAIN_PERSONNAGE - 1;
+        this.ajouterValeurArmeIndex(delta);
+        if(this.getArmeIndex() > PLACE_MAIN_PERSONNAGE - 1) {
+            this.setArmeIndex(0);
+        } else if(this.getArmeIndex()  < 0) {
+            this.setArmeIndex(PLACE_MAIN_PERSONNAGE - 1);
         }
 
-        selectionnerObjetDansMain(objetMainIndex);
-        System.out.println("VOus vous équipez de l'objet situé à la place " + objetMainIndex + " " + objetMain);
+        selectionnerObjetDansMain(this.getArmeIndex());
+        System.out.println("VOus vous équipez de l'objet situé à la place " + armeIndexProperty + " " + objetMain);
     }
 
     public void definirPlacePrise(int place) {
@@ -212,6 +231,7 @@ public class Inventaire {
     public void retirerObjet(ObjetInventaire objetInventaire) {
         libererPlacePrise(objetInventaire.getPlaceInventaire());
         objets.remove(objetInventaire);
+        armeProperty.setValue(null);
     }
 
     public void lacherObjet(ObjetInventaire objet) {
@@ -236,29 +256,48 @@ public class Inventaire {
         return null;
     }
 
+    public ObjetInventaire getObjetInventaireSelectionnee() {
+        ObjetInventaire objet = null;
+        if(this.getObjets().size() > this.getArmeIndex()) {
+            objet = this.getObjets().get(this.getArmeIndex());
+        }
+
+        return objet;
+    }
+
     public int recupererNombreRessources(String nom) {
         int nombre = 0;
         for(int i = 0; i < this.getObjets().size(); i++) {
-            if(this.getObjets().get(i).getEntite().getClass().getSimpleName().equals(nom)) {
-                nombre += this.getObjets().get(i).getNombre();
+            ObjetInventaire obj = this.getObjets().get(i);
+            if(obj.getEntite().getClass().getSimpleName() == nom) {
+                nombre += obj.getNombre();
             }
         }
+
         return nombre;
     }
 
-    public void retirerNbRessource(String nomRessource, int nbRessource) {
-        int cpt = 0;
+    public boolean retirerNbRessources(String nom, int nombre) {
+        boolean aToutRetirer = false;
         int i = 0;
-        while (cpt < nbRessource && i < objets.size()) {
-            if (objets.get(i).getEntite().getClass().getSimpleName().equals(nomRessource)) {
-                int quantite = objets.get(i).getNombre();
-                for (int j = 0; j < quantite && cpt < nbRessource; j++) {
-                    objets.get(i).retirerDansStack();
-                    cpt++;
+        int nbRetirer = 0;
+
+        while(i < this.getObjets().size() && !aToutRetirer) {
+            ObjetInventaire obj = this.getObjets().get(i);
+            if(obj.getEntite().getClass().getSimpleName() == nom) {
+                while(nbRetirer < nombre && obj.getNombre() > 0) {
+                    obj.retirerDansStack();
+                    nbRetirer += 1;
+                }
+
+                if(nbRetirer == nombre) {
+                    aToutRetirer = true;
                 }
             }
             i++;
         }
+
+        return aToutRetirer;
     }
 
     public String toString() {
