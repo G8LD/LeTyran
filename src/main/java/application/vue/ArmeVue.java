@@ -155,6 +155,10 @@ public class ArmeVue {
 
     public void changementArme() {
         spriteArme.setImage(ChargeurRessources.iconObjets.get(perso.getArme().getClass().getSimpleName() + perso.getArme().getQualite()));
-        initAnimation();
+        RotateTransition rt = new RotateTransition(Duration.ONE, spriteArme);
+        rt.setFromAngle(0);
+        rt.setToAngle(0);
+        rt.setOnFinished(actionEvent -> initAnimation());
+        rt.play();
     }
 }
