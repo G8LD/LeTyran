@@ -40,6 +40,7 @@ public class Inventaire {
 
         objetMainIndex = 0;
 
+        armeProperty = new SimpleObjectProperty<>();
     }
 
     public ObservableList<ObjetInventaire> getObjets(){
