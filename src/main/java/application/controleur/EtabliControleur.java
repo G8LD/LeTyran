@@ -19,6 +19,9 @@ public class EtabliControleur {
         VBox vBoxObjets = (VBox) ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPObjets")).getContent();
         Button boutonFabriquer = (Button) etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer");
 
+        boutonFabriquer.setDisable(true);
+        etabliVue.affichageBouton(0.5);
+
         env.getEtabli().getOuvertProperty().addListener((observableValue, aBoolean, t1) -> {
             if (!t1)
                 root.requestFocus();
@@ -63,7 +66,8 @@ public class EtabliControleur {
         env.getEtabli().getNiveauProperty().addListener(((observableValue, number, t1) -> etabliVue.amelioration()));
 
         env.getEtabli().getFabricableProperty().addListener((observableValue, aBoolean, t1) -> {
-            if (env.getEtabli().getFabricable()) {
+            System.out.println(t1);
+            if (t1) {
                 boutonFabriquer.setDisable(false);
                 etabliVue.affichageBouton(1);
             } else {

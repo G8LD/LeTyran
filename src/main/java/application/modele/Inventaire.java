@@ -80,7 +80,7 @@ public class Inventaire {
 
     public void desequiperArme() {
         System.out.println("Vous déséquiper l'arme");
-        armeProperty = null;
+        armeProperty.setValue(null);
     }
 
 

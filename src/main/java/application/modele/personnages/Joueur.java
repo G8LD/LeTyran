@@ -142,7 +142,9 @@ public class Joueur extends Personnage {
 
     public void decrementerPv(int degat) {
         int degatSubit;
-        if (degat < inventaire.getArmure().defendre())
+        if (inventaire.getArmure() == null)
+            degatSubit = degat;
+        else if (degat < inventaire.getArmure().defendre())
             degatSubit = 0;
         else
             degatSubit = degat - inventaire.getArmure().defendre();

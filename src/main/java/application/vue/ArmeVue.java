@@ -75,7 +75,10 @@ public class ArmeVue {
             rt.setByAngle(dir * 233);
         else
             rt.setByAngle(dir * 50);
-        rt.setOnFinished(actionEvent -> inverserSprite());
+        rt.setOnFinished(actionEvent -> {
+            if (perso.getDirection() == Direction.Droit && dir == -1 || perso.getDirection() == Direction.Gauche && dir == 1)
+                inverserSprite();
+        });
         rt.play();
     }
 
