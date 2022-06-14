@@ -28,7 +28,6 @@ public class Inventaire {
     private ObjectProperty<ObjetInventaire> armeProperty;
 
     private Environnement env;
-
     public Inventaire(Environnement env) {
 
         placesDisponible = new HashMap<>();
@@ -45,6 +44,7 @@ public class Inventaire {
     }
 
     public ObservableList<ObjetInventaire> getObjets(){
+
         return objets;
     }
 
@@ -59,8 +59,9 @@ public class Inventaire {
     }
 
     public Armure getArmure() {
-        if(armure == null)
+        if(armure == null) {
             return null;
+        }
         return (Armure)armure.getEntite();
     }
 
