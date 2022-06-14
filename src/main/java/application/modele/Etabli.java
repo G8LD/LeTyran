@@ -138,23 +138,14 @@ public class Etabli {
             listeMateriaux = this.listeMateriauxEtabli[niveauProperty.getValue()].entrySet();
         else
             listeMateriaux = this.listeMateriauxObjets.get(objetSelected).entrySet();
+
         Iterator iterator = listeMateriaux.iterator();
         Map.Entry materiau;
-        int cpt, i;
         while (iterator.hasNext()) {
             materiau = (Map.Entry) iterator.next();
-            cpt = 0; i = 0;
-            while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
-                if (inventaire.getObjets().get(i).getEntite().getClass().getSimpleName().equals(materiau.getKey())) {
-                    int quantite = inventaire.getObjets().get(i).getNombre();
-                    for (int j = 0; j < quantite && cpt < (int) materiau.getValue(); j++) {
-                        inventaire.getObjets().get(i).retirerDansStack();
-                        cpt++;
-                    }
-                }
-                i++;
-            }
+            inventaire.retirerNbRessource((String) materiau.getKey(), (Integer) materiau.getValue());
         }
+
         if (objetSelected.equals("Etabli"))
             niveauProperty.setValue(niveauProperty.getValue() + 1);
         else
@@ -173,18 +164,9 @@ public class Etabli {
         if (listeMateriaux != null) {
             Iterator iterator = listeMateriaux.iterator();
             Map.Entry materiau;
-            int cpt, i;
             do {
                 materiau = (Map.Entry) iterator.next();
-                cpt = 0;
-                i = 0;
-                while (cpt < (int) materiau.getValue() && i < inventaire.getObjets().size()) {
-                    if (inventaire.getObjets().get(i).getEntite().getClass().getSimpleName().equals(materiau.getKey()))
-                        for (int j = 0; j < inventaire.getObjets().get(i).getNombre() && cpt < (int) materiau.getValue(); j++)
-                            cpt++;
-                    i++;
-                }
-                fabricable = cpt == (int) materiau.getValue();
+                fabricable = inventaire.recupererNombreRessources((String) materiau.getKey()) >= (int) materiau.getValue();
             } while (iterator.hasNext() && fabricable);
         }
         fabricableProperty.setValue(fabricable);

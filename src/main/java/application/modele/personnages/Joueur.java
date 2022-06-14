@@ -8,6 +8,7 @@ import application.modele.armes.Arme;
 import application.modele.armes.Hache;
 import application.modele.armes.Pioche;
 import application.modele.armes.arc.Arc;
+import application.modele.armes.arc.Fleche;
 import application.modele.objets.Arbre;
 import application.modele.objets.Bois;
 import application.modele.objets.Coffre;
@@ -35,6 +36,13 @@ public class Joueur extends Personnage {
         this.inventaire = new Inventaire(super.getEnv());
         this.inventaire.ajouterObjet(new Pioche(getEnv(), 1));
         this.inventaire.ajouterObjet(new Hache(getEnv(), 1));
+        this.inventaire.ajouterObjet(new Arc(getEnv(), 1));
+        this.inventaire.ajouterObjet(new Fleche());
+        this.inventaire.ajouterObjet(new Fleche());
+        this.inventaire.ajouterObjet(new Fleche());
+        this.inventaire.ajouterObjet(new Fleche());
+        this.inventaire.ajouterObjet(new Fleche());
+        this.inventaire.ajouterObjet(new Fleche());
         mortProperty = new SimpleBooleanProperty(false);
         seReposeProperty = new SimpleBooleanProperty(false);
         avanceProperty = new SimpleBooleanProperty(false);
@@ -43,7 +51,7 @@ public class Joueur extends Personnage {
 
     public boolean interagit(int x, int y) {
         if(interactionFeuDeCamp(x,y) || interactionEtabli(x, y) || (this.inventaire.getArme() != null && (frapper(x, y) || miner(x, y) || couper(x, y) || ouvrirCoffre(x, y))))
-                return true;
+            return true;
         return false;
     }
 

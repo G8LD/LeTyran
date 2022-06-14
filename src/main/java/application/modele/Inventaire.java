@@ -69,6 +69,7 @@ public class Inventaire {
             System.out.println("Vous vous êtes équiper de " + objetInventaire);
             armure = objetInventaire;
         } else if (objetInventaire.getEntite() instanceof Arme) {
+            System.out.println(objetInventaire);
             armeProperty.setValue(objetInventaire);
         }
     }
@@ -210,7 +211,6 @@ public class Inventaire {
     public void retirerObjet(ObjetInventaire objetInventaire) {
         libererPlacePrise(objetInventaire.getPlaceInventaire());
         objets.remove(objetInventaire);
-        armeProperty.setValue(null);
     }
 
     public void lacherObjet(ObjetInventaire objet) {
@@ -238,36 +238,26 @@ public class Inventaire {
     public int recupererNombreRessources(String nom) {
         int nombre = 0;
         for(int i = 0; i < this.getObjets().size(); i++) {
-            ObjetInventaire obj = this.getObjets().get(i);
-            if(obj.getEntite().getClass().getSimpleName() == nom) {
-                nombre += obj.getNombre();
+            if(this.getObjets().get(i).getEntite().getClass().getSimpleName().equals(nom)) {
+                nombre += this.getObjets().get(i).getNombre();
             }
         }
-
         return nombre;
     }
 
-    public boolean retirerNbRessources(String nom, int nombre) {
-        boolean aToutRetirer = false;
+    public void retirerNbRessource(String nomRessource, int nbRessource) {
+        int cpt = 0;
         int i = 0;
-        int nbRetirer = 0;
-
-        while(i < this.getObjets().size() && !aToutRetirer) {
-            ObjetInventaire obj = this.getObjets().get(i);
-            if(obj.getEntite().getClass().getSimpleName() == nom) {
-                while(nbRetirer < nombre && obj.getNombre() > 0) {
-                    obj.retirerDansStack();
-                    nbRetirer += 1;
-                }
-
-                if(nbRetirer == nombre) {
-                    aToutRetirer = true;
+        while (cpt < nbRessource && i < objets.size()) {
+            if (objets.get(i).getEntite().getClass().getSimpleName().equals(nomRessource)) {
+                int quantite = objets.get(i).getNombre();
+                for (int j = 0; j < quantite && cpt < nbRessource; j++) {
+                    objets.get(i).retirerDansStack();
+                    cpt++;
                 }
             }
             i++;
         }
-
-        return aToutRetirer;
     }
 
     public String toString() {
