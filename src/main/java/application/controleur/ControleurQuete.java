@@ -72,6 +72,9 @@ public class ControleurQuete {
 
         }
 
+
+        this.modeleQuetes.getQueteActuel().setCompletee(queteCompletee);
+
         System.out.println("L'objectif est completee : " + queteCompletee);
 
     }
