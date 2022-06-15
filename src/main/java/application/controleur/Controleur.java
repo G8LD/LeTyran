@@ -74,6 +74,8 @@ public class Controleur implements Initializable {
 
     private InventaireControleur inventaireControleur;
 
+    @FXML private Pane paneQuetes;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

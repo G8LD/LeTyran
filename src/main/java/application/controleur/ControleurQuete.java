@@ -35,6 +35,11 @@ public class ControleurQuete {
 
     }
 
+
+    /**
+     * Permet de vérifier si l'objet ramassé fait partie des objectifs de la quête, si c'est le cas, on indique qu'on a progressé dans la quête
+     * @param obj
+     */
     public void objetAEteAjouteeInventaire(ObjetInventaire obj) {
         HashMap<String, ObjectifNombreNecessaire> objectifs = this.modeleQuetes.getQueteActuel().listeObjectifs.get(QueteType.TYPE_QUETE.RAMASSER);
         String nomEntite = obj.getEntite().getClass().getSimpleName();
@@ -45,11 +50,17 @@ public class ControleurQuete {
                 nombreAAJoutee = obj.getStackActuelProperty().getValue() - obj.getStackActuelProperty().getValue();
             }*/
             objectifs.get(nomEntite).ajouterNombreObjectif(nombreAAJoutee + 1);
+
+            this.verifierQueteCompletee();
         }
 
-        this.verifierQueteCompletee();
+
     }
 
+
+    /**
+     * On vérifie à chaque fois qu'on a ramassé un objet nécessaire pour terminer la quête si cette dernière est complété après son ramassage
+     */
     public void verifierQueteCompletee() {
         boolean queteCompletee  = true;
 
@@ -75,7 +86,7 @@ public class ControleurQuete {
 
         this.modeleQuetes.getQueteActuel().setCompletee(queteCompletee);
 
-        System.out.println("L'objectif est completee : " + queteCompletee);
+        //System.out.println("L'objectif est completee : " + queteCompletee);
 
     }
 

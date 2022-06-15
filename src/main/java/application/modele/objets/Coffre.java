@@ -9,11 +9,11 @@ public class Coffre extends Entite {
         super(env, x, y);
 
     }
-    public float getX() {
+    public double getX() {
         return super.getX();
     }
 
-    public float getY() {
+    public double getY() {
         return super.getY();
     }
 

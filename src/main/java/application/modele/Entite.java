@@ -5,14 +5,13 @@ import application.modele.armes.Pioche;
 import application.modele.armes.arc.Arc;
 import application.modele.armes.arc.Fleche;
 import application.modele.collisions.Collider;
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import application.modele.objets.Materiau;
+import application.modele.personnages.Joueur;
+import javafx.beans.property.*;
 
 public class Entite {
-    private FloatProperty xProperty;
-    private FloatProperty yProperty;
+    private DoubleProperty xProperty;
+    private DoubleProperty yProperty;
     private Environnement env;
     private Collider collider;
     private IntegerProperty pv;
@@ -20,10 +19,13 @@ public class Entite {
 
     private boolean tombe = false;
 
+    private int forceVertical = 0;
+    private int forceHorizontal = 0;
+
     public Entite(Environnement env) {
         pv= new SimpleIntegerProperty(100);
-        this.xProperty = new SimpleFloatProperty(0);
-        this.yProperty = new SimpleFloatProperty(0);
+        this.xProperty = new SimpleDoubleProperty(0);
+        this.yProperty = new SimpleDoubleProperty(0);
         this.collider = new Collider(this);
         //this.getCollider().scaleCollider(32,32);
         this.env = env;
@@ -33,53 +35,156 @@ public class Entite {
 
     //Pour les matériaux
     public Entite(Environnement env, int x, int y) {
-        this.xProperty = new SimpleFloatProperty(x);
-        this.yProperty = new SimpleFloatProperty(y);
+        this.xProperty = new SimpleDoubleProperty(x);
+        this.yProperty = new SimpleDoubleProperty(y);
         this.env = env;
         this.collider = new Collider(this);
         this.pv = new SimpleIntegerProperty(100);
     }
 
     public Entite(Environnement env, int x, int y, int pv) {
-        this.xProperty = new SimpleFloatProperty(x);
-        this.yProperty = new SimpleFloatProperty(y);
+        this.xProperty = new SimpleDoubleProperty(x);
+        this.yProperty = new SimpleDoubleProperty(y);
         this.env = env;
         this.collider = new Collider(this);
         this.pv = new SimpleIntegerProperty(pv);
     }
 
     public Entite() {
-        this.xProperty = new SimpleFloatProperty(0);
-        this.yProperty = new SimpleFloatProperty(0);
+        this.xProperty = new SimpleDoubleProperty(0);
+        this.yProperty = new SimpleDoubleProperty(0);
+    }
+
+    public void ajouterForceHorizontal(double force) {
+        this.forceHorizontal += force;
+    }
+
+    public void ajouterForceVertical(double force) {
+        this.forceVertical += force;
     }
 
     public void update() {
+
+        //double forceTotal = gravite();
+        //System.out.println(forceTotal);
+
         if(this.getCollider() != null) {
             collide();
         }
-        tomber();
+
+
+
+        if(appliquerGravite()) {
+            //this.ajouterForceVertical(10);
+            this.setY(this.getY() + 1);
+            double valeurClampVertical = Mathematiques.clamp(forceVertical * 0.5f, -2, 2);
+            this.setY(this.getY() + valeurClampVertical);
+
+        }
+
+        double valeurClampeeVertical = Mathematiques.clamp(forceVertical * 0.5f, -2, 2);
+        if(forceVertical > 0) {
+
+            if(this.getCollider().tracerLigne(this.getX(), this.getY(), 32 - 10, valeurClampeeVertical * 32) == null) {
+                this.setY(this.getY() +  valeurClampeeVertical);
+            } else {
+                this.setY(this.getY() - valeurClampeeVertical);
+            }
+        } else if(forceVertical < 0) {
+            if(this.getCollider().tracerLigne(this.getX(), this.getY(), 32 - 10, valeurClampeeVertical * 32) == null) {
+                this.setY(this.getY() -  valeurClampeeVertical);
+            } else {
+                this.setY(this.getY() + valeurClampeeVertical);
+            }
+        }
+
+        if(forceHorizontal > 0) {
+            if(this.getCollider().tracerLigne(this.getX(), this.getY(), Mathematiques.clamp(forceHorizontal, 0, 1) * 32, 1 * 32 - 10) == null) {
+                this.setX(this.getX() + Mathematiques.clamp(forceHorizontal * 0.5f, -1, 1));
+            } else {
+                this.setX(this.getX() - Mathematiques.clamp(forceHorizontal * 0.5f, -1, 1));
+            }
+
+        } else if (forceHorizontal < 0){
+            if(this.getCollider().tracerLigne(this.getX() - 32, this.getY(), Mathematiques.clamp(forceHorizontal, -1, 0) * 32, 1 * 32 - 10) == null) {
+                this.setX(this.getX() + Mathematiques.clamp(forceHorizontal * 0.5f, -1, 1));
+            }
+            else {
+                this.setX(this.getX() - 10);
+            }
+        }
+
+
+
+        //this.getCollider().tracerLigne(this.getX(), this.getY(), 32,0);
+
+        forceVertical *= 0.5f;
+        forceHorizontal *= 0.5f;
+
+
+
+        //tomber();
+
+
     }
 
-    private void tomber() {
+    public boolean appliquerHorizontal() {
+        boolean doitAppliquer = true;
+
+        if (this instanceof Joueur) {
+            if (this.getCollider().tracerLigne(this.getX(), this.getY(), Mathematiques.clamp(forceHorizontal, -1, 1) * 32, 1 * 32 - 10) != null) {
+                doitAppliquer = false;
+            }
+        }
+
+        return doitAppliquer;
+    }
+
+
+    public boolean appliquerGravite() {
+        boolean doitAppliquer = true;
+        if (this instanceof Joueur) {
+            if (this.getCollider().tracerLigne(this.getX(), this.getY(), 32, 32) != null) {
+                doitAppliquer = false;
+            }
+        }
+
+        return doitAppliquer;
+    }
+
+    /*private void tomber() {
+        if (!(this instanceof Materiau));
+            this.setY(this.getY() + forceVertical);
+
+
+    }*/
+    /*private void tomber() {
         for (int i = 0; i < 3; i++)
         if (!env.entreEnCollision((int) this.getX(), (int)this.getY(), Direction.Bas)) {
             tombe = true;
             this.setY(this.getY() + 1);
         }
         tombe = false;
-    }
+
+    }*/
 
     public void detruire() {
     }
 
     public void collide() {
-        if(!this.getCollider().getIgnoreCollision()) {
+        if(!this.getCollider().getIgnoreCollision() && !(this instanceof Materiau)) {
             for (String nom : env.getHashMapListes().keySet())
-                if (nom.equals("listeEntites"))
+                if (nom.equals("listeEntites") || nom.equals("listeMateriaux"))
                 for (int i = 0; i < env.getHashMapListes().get(nom).size(); i++) {
                     Entite ent = (Entite) env.getHashMapListes().get(nom).get(i);
+                    //Pour éviter de faire trop de tour de boucle, on va vérifier aussi si les cases autour de l'entite peuvent potentiellement la bloquer,
+                    //ça sera utile quand on voudra vérifié la possibilité de se déplacer dans une direction
+
+
+                    //Là c'est surtout pour savoir si un objet est rentré dans l'entité (comme par exemple le joueur)
                     if (ent != this && !ent.getCollider().getIgnoreCollision() && this.getCollider().intersect(ent)) {
                         //System.out.println("x:" + this.getX() + " y : " + this.getY() + " x:" + ent.getX() + " y :" + ent.getY());
+                        //this.forceVertical = -1;
                         this.quandCollisionDetectee(ent);
                     }
                 }
@@ -102,7 +207,7 @@ public class Entite {
     public void quandCollisionDetectee(Entite ent) {}
 
     //region Getter & Setter
-    public float getX() {
+    public double getX() {
         return xProperty.getValue();
     }
 
@@ -110,23 +215,23 @@ public class Entite {
         return this.tombe;
     }
 
-    public float getY() {
+    public double getY() {
         return yProperty.getValue();
     }
 
-    public void setX(float valeur) {
+    public void setX(double valeur) {
         xProperty.setValue(valeur);
     };
 
-    public void setY(float valeur) {
+    public void setY(double valeur) {
         yProperty.setValue(valeur);
     };
 
-    public FloatProperty getYProperty() {
+    public DoubleProperty getYProperty() {
         return yProperty;
     }
 
-    public FloatProperty getXProperty() {
+    public DoubleProperty getXProperty() {
         return xProperty;
     }
 
@@ -152,6 +257,10 @@ public class Entite {
 
     public void setPv(int value) {
         this.pv.setValue(value);
+    }
+
+    public String toString() {
+        return "\n[" + this.getClass().getSimpleName() + "]\ny:" + this.getY() + "\nx:" + this.getX() + "\n";
     }
     //endregion
 }

@@ -30,12 +30,13 @@ public class EnvironnementControleur {
         root.lookup("#paneEnnemis").translateXProperty().bind(env.getJoueur().getXProperty().multiply(-1).add(((TUILE_TAILLE * WIDTH)) / 2));
         root.lookup("#paneEnnemis").translateYProperty().bind(env.getJoueur().getYProperty().multiply(-1).add(((TUILE_TAILLE * HEIGHT)) / 2));
 
+        //root.lookup("#tileSol").setVisible(false);
+
         env.getListeMateriaux().addListener(new ListChangeListener<Materiau>() {
             @Override
             public void onChanged(Change<? extends Materiau> change) {
                 change.next();
                 for (int i = 0; i < change.getRemovedSize(); i++) {
-                    System.out.println((int) change.getRemoved().get(i).getY() * WIDTH + (int) change.getRemoved().get(0).getX());
                     envVue.supprimerBloc((int) change.getRemoved().get(i).getY() * WIDTH + (int) change.getRemoved().get(0).getX());
                 }
 

@@ -16,7 +16,7 @@ import static application.modele.MapJeu.TUILE_TAILLE;
 public class Inventaire {
     private ObservableList<ObjetInventaire> objets = FXCollections.observableArrayList();
 
-    private int stackMax = 5;
+    private int stackMax = 120;
     public final static int PLACE_INVENTAIRE = 25;
     public final static int PLACE_MAIN_PERSONNAGE = 5;
 
@@ -206,7 +206,7 @@ public class Inventaire {
                 this.getObjets().add(nouvObjet);
                 ajouter = true;
             } else {
-                System.out.println("L'inventaire est rempli");
+                //System.out.println("L'inventaire est rempli");
             }
         } else {
             this.getObjets().get(indexStack).ajouterDansStack();
@@ -249,6 +249,7 @@ public class Inventaire {
 
     }
 
+
     public ObjetInventaire getObjetCorrespondant(Entite entite) {
         for (ObjetInventaire objet : objets)
             if (objet.getEntite() == entite)
@@ -256,6 +257,11 @@ public class Inventaire {
         return null;
     }
 
+
+    /**
+     * Perrmet de savoir quel objet est actuellement tenu dans les mains
+     * @return null ou ObjetInventaire en fonction de si on est équipé ou non
+     */
     public ObjetInventaire getObjetInventaireSelectionnee() {
         ObjetInventaire objet = null;
         if(this.getObjets().size() > this.getArmeIndex()) {
@@ -265,6 +271,12 @@ public class Inventaire {
         return objet;
     }
 
+
+    /**
+     * Permet de récupérer le nombre qu'on possède de la ressource demandé
+     * @param nom
+     * @return
+     */
     public int recupererNombreRessources(String nom) {
         int nombre = 0;
         for(int i = 0; i < this.getObjets().size(); i++) {
@@ -277,6 +289,12 @@ public class Inventaire {
         return nombre;
     }
 
+    /**
+     * Permet de retirer le nombre de ressources indiqués dans tout l'inventaire
+     * @param nom Nom de l'objet à retirer
+     * @param nombre Nombre à retirer
+     * @return si on a réussi à tout enlever
+     */
     public boolean retirerNbRessources(String nom, int nombre) {
         boolean aToutRetirer = false;
         int i = 0;

@@ -9,7 +9,7 @@ import javafx.scene.text.TextFlow;
 public class VueDialogue {
     private TextFlow dialogFlow;
 
-    private float caractereActuel;
+    private double caractereActuel;
     private Text dialogTxt;
 
     private int partieTexteAffiche = 0;

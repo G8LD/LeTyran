@@ -63,7 +63,6 @@ public class InvItem extends StackPane {
         color.setPaint(Color.color(0.3,0.3,.3,0.1));
 
         this.setOnMouseEntered(mouseEvent -> {
-            System.out.println(this.getParent().getLayoutX());
             mouseEntered();
         });
 
@@ -81,7 +80,7 @@ public class InvItem extends StackPane {
         this.setOnMousePressed(mouseEvent -> {
 
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
-                System.out.println("L'objet est situé à la place " + obj.getPlaceInventaire()  + " parent " + this.getParent());
+                //System.out.println("L'objet est situé à la place " + obj.getPlaceInventaire()  + " parent " + this.getParent());
                 this.invVue.definirObjetPrit(this);
                 dragActive = true;
             } else if (mouseEvent.getButton() == MouseButton.SECONDARY && !dragActive) {

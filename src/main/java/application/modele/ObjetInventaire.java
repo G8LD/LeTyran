@@ -22,7 +22,7 @@ public class ObjetInventaire {
     }
 
     public void setPlaceInventaire(int nouvellePlace) {
-        System.out.println("nouvelle place " + nouvellePlace);
+        //System.out.println("nouvelle place " + nouvellePlace);
         this.placeInventaire = nouvellePlace;
     }
 

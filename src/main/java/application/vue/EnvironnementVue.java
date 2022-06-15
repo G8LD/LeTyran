@@ -142,7 +142,6 @@ public class EnvironnementVue {
 
     public void ajouterBloc(int id, Entite ent) {
         ImageView img = (ImageView) tileSol.getChildren().get(id);
-
         //Temporaire
         img.setImage(ChargeurRessources.iconObjets.get(ent.getClass().getSimpleName()));
     }

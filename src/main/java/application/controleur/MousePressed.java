@@ -18,9 +18,9 @@ public class MousePressed implements EventHandler<MouseEvent> {
     }
     @Override
     public void handle(MouseEvent mouseEvent) {
-        
-        float persoPosX = env.getJoueur().getX() / TUILE_TAILLE;
-        float persoPosY = env.getJoueur().getY() / TUILE_TAILLE;
+
+        double persoPosX = env.getJoueur().getX() / TUILE_TAILLE;
+        double persoPosY = env.getJoueur().getY() / TUILE_TAILLE;
 
         int mouseX = ((int)mouseEvent.getX()/TUILE_TAILLE) - (WIDTH / 2) + (int)persoPosX;
         int mouseY = ((int)mouseEvent.getY() / TUILE_TAILLE) - (HEIGHT /2) + (int)persoPosY;

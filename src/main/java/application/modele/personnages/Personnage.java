@@ -3,6 +3,7 @@ package application.modele.personnages;
 import application.modele.Direction;
 import application.modele.Entite;
 import application.modele.Environnement;
+import application.modele.MapJeu;
 import application.modele.armes.Arme;
 import application.modele.armes.Pioche;
 import application.modele.objets.Arbre;
@@ -12,20 +13,22 @@ import application.modele.objets.Materiau;
 import javafx.beans.property.*;
 import javafx.scene.media.AudioClip;
 
+import static application.modele.Direction.*;
+
 public abstract class Personnage extends Entite {
 
     private String id;
     private ObjectProperty<Direction> directionProperty;
     private boolean saute;
     private boolean tombe;
-    private float hauteurSaut;
+    private double hauteurSaut;
     private int distancePoussee;
 
     public Personnage(Environnement env) {
         super(env);
         id = "Joueur";
         saute = false; tombe = false;
-        directionProperty = new SimpleObjectProperty<>(Direction.Droit);
+        directionProperty = new SimpleObjectProperty<>(Droit);
         hauteurSaut = 0;
         distancePoussee = 0;
         //this.getCollider().scaleCollider(32,32);
@@ -38,7 +41,7 @@ public abstract class Personnage extends Entite {
         super(env, x, y);
         this.id = id;
         saute = false; tombe = false;
-        directionProperty = new SimpleObjectProperty<>(Direction.Droit);
+        directionProperty = new SimpleObjectProperty<>(Droit);
         hauteurSaut = 0;
         distancePoussee = 0;
         //this.getCollider().scaleCollider(32,32);
@@ -48,33 +51,62 @@ public abstract class Personnage extends Entite {
     }
 
     protected void seDeplacer() {
-        int distance;
+        switch (directionProperty.getValue()) {
+            case Droit:
+                if(this.getCollider().tracerLigne(this.getX(), this.getY(), 32, 0) == null) {
+                    this.ajouterForceHorizontal(2);
+                }
+                break;
+            case Gauche:
+                this.ajouterForceHorizontal(-2);
+        }
+        /*int distance;
         if (tombe || saute)
             distance = getVitesse() - 1;
         else
             distance = getVitesse();
         int i = 0;
-        while (i < distance && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), directionProperty.getValue())) {
+
+        int x = 0;
+
+        switch (directionProperty.getValue()) {
+            case Droit:
+                x = 1;
+                break;
+            case Gauche:
+                x = -1;
+                break;
+
+        }
+        System.out.println(x);
+        if(this.getCollider().tracerLigne(this.getX(), this.getY(), x * MapJeu.TUILE_TAILLE, 0) == null) {
+            System.out.println("ok");
+            super.setX(super.getX() + x);
+        }
+        /*while (i < distance && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), directionProperty.getValue())) {
             i++;
             if (directionProperty.getValue() == Direction.Droit)
                 super.setX(super.getX() + 0.45f);
             else
                 super.setX(super.getX() - 0.45f);
-        }
+        }*/
     }
 
     protected void sauter() {
-        int i = 0;
-        while (i < getVitesse() && !tombe && hauteurSaut < getHauteurMax() && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Haut)) {
+        /*int i = 0;
+        while (i < getVitesse() && !tombe && hauteurSaut < getHauteurMax() && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Haut)) {
             i++;
             super.setY(super.getY() - 0.60f);
             hauteurSaut +=0.60f;
         }
         if (i < getVitesse())
-            saute = false;
+            saute = false;*/
+        if(this.getCollider().tracerLigne(this.getX(), this.getY(), 0, 64) != null) {
+        this.ajouterForceVertical(-300);
+        }
     }
 
-    protected void tomber() {
+    /*protected void tomber() {
         int i = 0;
         while (i < getVitesse() && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), Direction.Bas)) {
             i++;
@@ -86,19 +118,19 @@ public abstract class Personnage extends Entite {
             tombe = false;
             hauteurSaut = 0;
         }
-    }
+    }*/
 
     protected void estPoussee() {
         Direction direction;
         if (distancePoussee > 0)
-            direction = Direction.Droit;
+            direction = Droit;
         else
-            direction = Direction.Gauche;
+            direction = Gauche;
         int i = 0;
         while (i < 3 && distancePoussee != 0 && !super.getEnv().entreEnCollision((int)super.getX(), (int)super.getY(), direction)) {
             i++;
             tombe = true;
-            if (direction == Direction.Droit) {
+            if (direction == Droit) {
                 super.setX(super.getX() + 1);
                 distancePoussee--;
             } else {
@@ -112,7 +144,10 @@ public abstract class Personnage extends Entite {
         }
     }
 
-    public abstract void update();
+    public void update() {
+        super.update();
+        //seDeplacer();
+    }
 
     //region Getter & Setter
     protected abstract int getHauteurMax();

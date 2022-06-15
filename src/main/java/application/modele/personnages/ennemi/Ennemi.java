@@ -85,7 +85,7 @@ public abstract class Ennemi extends PNJ {
         if (getDistancePoussee() != 0)
             estPoussee();
         else {
-            tomber();
+
             if (getAttaque())
                 attaquer();
             if (!getAttaque())

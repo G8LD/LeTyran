@@ -22,7 +22,7 @@ public class Lapin extends Animal {
     
     @Override
     public void update() {
-        tomber();
+        //tomber();
         deplacement();
     }
 

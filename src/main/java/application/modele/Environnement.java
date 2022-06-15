@@ -43,12 +43,12 @@ public class Environnement {
 
         ObjetJeu nouvObj = new ObjetJeu(this, "Epee", 1);
         ObjetJeu nouvObj2 = new ObjetJeu(this,  "Bois", 1);
-        nouvObj.setX(2 * 32);
-        nouvObj.setY(4 * 32);
+        nouvObj.setX(13 * 32);
+        nouvObj.setY(10 * 32);
         nouvObj2.setX(2 * 32);
         nouvObj2.setY(2 * 32);
-        /*this.getListeEntites().add(nouvObj);
-        this.getListeEntites().add(nouvObj2);*/
+        this.getListeEntites().add(nouvObj);
+        //this.getListeEntites().add(nouvObj2);*/
         getListeEntites().add(joueur);
 
         initListeMinerais();
@@ -70,11 +70,22 @@ public class Environnement {
     private void initListeMinerais() {
         for (int i = 0; i < MapJeu.HEIGHT; i++) {
             for (int j = 0; j < MapJeu.WIDTH; j++) {
+                int posY = i * TUILE_TAILLE;
+
+                int posX = j * TUILE_TAILLE;
                 switch (mapJeu.getTabMap()[i][j]) {
-                    case 34: getListeMateriaux().add(new Terre(this, j, i)); break;
-                    case 52: getListeMateriaux().add(new Pierre(this, j, i)); break;
-                    case 53: getListeMateriaux().add(new Fer(this, j, i)); break;
-                    case 54: getListeMateriaux().add(new Platine(this, j, i)); break;
+                    case 34:
+                        getListeMateriaux().add(new Terre(this, posX, posY));
+                        break;
+                    case 52:
+                        getListeMateriaux().add(new Pierre(this, posX, posY));
+                        break;
+                    case 53:
+                        getListeMateriaux().add(new Fer(this, posX, posY));
+                        break;
+                    case 54:
+                        getListeMateriaux().add(new Platine(this, posX, posY));
+                        break;
                     default: break;
                 }
             }
@@ -101,7 +112,6 @@ public class Environnement {
     }
 
     public void supprimerObjetEnvironnement(Entite obj) {
-        System.out.println(this.getListeEntites().remove(obj));
     }
 
     public boolean entreEnCollision(int xPerso, int yPerso, Direction dir) {

@@ -34,9 +34,12 @@ public class Joueur extends Personnage {
         this.inventaire = new Inventaire(super.getEnv());
         this.inventaire.ajouterObjet(new Pioche(getEnv(), 1));
         this.inventaire.ajouterObjet(new Hache(getEnv(), 1));
+        this.getCollider().scaleCollider(1,1);
         mortProperty = new SimpleBooleanProperty(false);
         seReposeProperty = new SimpleBooleanProperty(false);
         avanceProperty = new SimpleBooleanProperty(false);
+        this.setX(12 * TUILE_TAILLE);
+        this.setY(6 * TUILE_TAILLE);
         freeze = false; delai = 0;
     }
 
@@ -99,7 +102,7 @@ public class Joueur extends Personnage {
             getEnv().getListeCoffres().remove(coffre);
             getEnv().getMapJeu().getTabMap()[y][x] = 59;
             coffre.detruire();
-            System.out.println(this.getInventaire());
+            //System.out.println(this.getInventaire());
             return  true;
         }
         return false;
@@ -146,7 +149,7 @@ public class Joueur extends Personnage {
 
     @Override
     public void update() {
-        super.collide();
+        super.update();
         if (mortProperty.getValue())
             detruire();
         else if (seReposeProperty.getValue())
@@ -156,9 +159,11 @@ public class Joueur extends Personnage {
         else {
             if (!freeze) {
                 if (getSaute()) sauter();
-                if (getAvance()) seDeplacer();
+                if (getAvance()) {
+                    seDeplacer();
+                }
             }
-            if (!getSaute()) tomber();
+            //if (!getSaute()) tomber();
         }
     }
 

@@ -63,7 +63,7 @@ public class Archer extends Ennemi {
         if (getDistancePoussee() != 0)
             estPoussee();
         else {
-            tomber();
+            //tomber();
             if (getAttaque())
                 attaquer();
             if (!getAttaque())

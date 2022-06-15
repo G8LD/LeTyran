@@ -10,8 +10,8 @@ import static application.modele.MapJeu.TUILE_TAILLE;
 
 public abstract class PNJ extends Personnage {
 
-    private float origineX;
-    private float origineY;
+    private double origineX;
+    private double origineY;
     private int distance;
 
     public PNJ(Environnement env, String id, int x, int y, int distance) {
@@ -50,19 +50,20 @@ public abstract class PNJ extends Personnage {
             return Droit;
     }
 
-    public float getOrigineX() {
+
+    public double getOrigineX() {
         return origineX;
     }
 
-    public float getOrigineY() {
+    public double getOrigineY() {
         return origineY;
     }
 
-    public void setOrigineX(float origineX) {
+    public void setOrigineX(double origineX) {
         this.origineX = origineX;
     }
 
-    public void setOrigineY(float origineY) {
+    public void setOrigineY(double origineY) {
         this.origineY = origineY;
     }
 

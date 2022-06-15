@@ -18,6 +18,7 @@ public abstract class Materiau extends Entite {
 
     public Materiau(Environnement env, int x, int y, int pv) {
         super(env, x, y, pv);
+        //System.out.println(this.getCollider().getHitBox());
     }
 
     //appelé quand le bloc est cliqué décremente selon la qualité si le joueur a la bonne arme sinon de 1
@@ -47,11 +48,11 @@ public abstract class Materiau extends Entite {
         getEnv().getListeMateriaux().remove(this);
     }
 
-    public float getX() {
+    public double getX() {
         return super.getX();
     }
 
-    public float getY() {
+    public double getY() {
         return super.getY();
     }
 

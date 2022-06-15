@@ -73,7 +73,7 @@ public class InventaireVue {
     //On va récupérer l'élément le plus proche dans le pane par rapport à l'objet déplacer
     public int regarderDansPane(Pane paneChoisi) {
         boolean trouver = false;
-        float minDist = 0;
+        double minDist = 0;
         int index = 0;
         int indexConteneurTrouve = -1;
 
@@ -82,11 +82,11 @@ public class InventaireVue {
             if(paneChoisi.getChildren().get(index) instanceof InvSlot) {
                 InvSlot img = (InvSlot) paneChoisi.getChildren().get(index);
                 InvSlot parent = (InvSlot)this.objPrit.getParent();
-                float distanceX = (float) Math.abs(img.getLayoutX() - this.objPrit.getLayoutX() - parent.getLayoutX());
-                float distanceY = (float) Math.abs(img.getLayoutY() - this.objPrit.getLayoutY() - parent.getLayoutY());
+                double distanceX = (double) Math.abs(img.getLayoutX() - this.objPrit.getLayoutX() - parent.getLayoutX());
+                double distanceY = (double) Math.abs(img.getLayoutY() - this.objPrit.getLayoutY() - parent.getLayoutY());
 
 
-                float totalDist = distanceX + distanceY;
+                double totalDist = distanceX + distanceY;
                 if(minDist == 0 || totalDist < minDist) {
                     minDist = totalDist;
                     indexConteneurTrouve = index;
@@ -121,7 +121,6 @@ public class InventaireVue {
                 //On vérifie si il y a un objet ou non dans la case la plus proche, si c'est le cas, on interverti les deux objets
                 if (seletecSlot.getChildren().size() > 1) {
                     //Code pour échanger deux items
-                    System.out.println(slotParent.getId());
                     int autrePlace = this.paneSacInventaire.getChildren().indexOf(slotParent);
 
                     InvItem selectSlotItem = (InvItem) seletecSlot.getChildren().get(1);
@@ -134,7 +133,7 @@ public class InventaireVue {
                     this.controleur.echangerObjet(this.objPrit, selectSlotItem, indexConteneurTrouve, autrePlace);
 
                 } else {
-                    System.out.println("Slot attribué" + seletecSlot.getId());
+                    //System.out.println("Slot attribué" + seletecSlot.getId());
                     this.controleur.objetPlaceInventaireChanger(objPrit, slotParent.getIndex(), seletecSlot.getIndex());
 
                     slotParent.getChildren().remove(this.objPrit);
@@ -174,7 +173,7 @@ public class InventaireVue {
 
             slot = (InvSlot) this.paneSacInventaire.lookup("#slot"+(obj.getPlaceInventaire()));
             //slot = (InvSlot) this.paneSacInventaire.lookup("#slot"+16);
-            System.out.println(slot);
+            //System.out.println(slot);
         }
 
 

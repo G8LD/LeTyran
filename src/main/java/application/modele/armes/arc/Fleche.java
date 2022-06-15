@@ -18,7 +18,7 @@ public class Fleche extends Entite {
     private Personnage perso;
     private Direction direction;
     private int distanceMax;
-    private float distanceParcourue;
+    private double distanceParcourue;
     private int degat;
     private boolean touche;
 
