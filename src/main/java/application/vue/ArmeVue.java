@@ -33,7 +33,6 @@ public class ArmeVue {
         rt = new RotateTransition(Duration.millis(90), spriteArme);
         tt = new TranslateTransition(Duration.millis(150), spriteArme);
         initDirection(); /*initAnimation();*/ initTt();
-        ((Joueur) perso).getInventaire().getArmeProperty().addListener(new ArmeListener(this));
         spriteArme.setX(PersonnageVue.POSITION_VUE_JOUEUR_X + dir * 10);
         spriteArme.setY(PersonnageVue.POSITION_VUE_JOUEUR_Y);
         rendreVisible = false;
@@ -70,6 +69,8 @@ public class ArmeVue {
     }
 
     public void initAnimation() {
+        rt.setDuration(Duration.ONE);
+        rt.setCycleCount(1);
         if (perso.getArme() instanceof Lance)
             rt.setByAngle(dir * 135);
         else if (perso.getArme() instanceof Arc)
@@ -160,5 +161,9 @@ public class ArmeVue {
         rt.setToAngle(0);
         rt.setOnFinished(actionEvent -> initAnimation());
         rt.play();
+    }
+
+    public void retirer() {
+        spriteArme.setImage(null);
     }
 }

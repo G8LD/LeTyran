@@ -275,8 +275,7 @@ public class InventaireVue {
             img.setImage(ChargeurRessources.iconObjets.get(obj.getEntite().getClass().getSimpleName() + ((Armure) obj.getEntite()).getQualite()));
     }
 
-    public void enleverEquipement(String type)
-    {
+    public void enleverEquipement(String type) {
         if(type.equals("armure")) {
             ImageView img = (ImageView) this.inventaireArmure.lookup("#armureEmplacement");
             img.setImage(null);

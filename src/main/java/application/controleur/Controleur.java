@@ -1,5 +1,6 @@
 package application.controleur;
 
+import application.controleur.listeners.ArmeListener;
 import application.controleur.listeners.PersonnageListeners;
 import application.controleur.listeners.VieListener;
 import application.modele.Ennemie;
@@ -11,6 +12,7 @@ import application.vue.VieVue;
 import application.vue.EnvironnementVue;
 import application.modele.ModeleDialogue;
 import application.vue.*;
+import application.vue.inventaire.InventaireVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.Event;
@@ -88,13 +90,14 @@ public class Controleur implements Initializable {
 //        this.ennemie= new Ennemie(env, 500, 350);
 //        this.ennemieVue= new EnnemieVue(root,tileSol,ennemie);
 //        this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie,this.ennemieVue);
-
+        InventaireControleur inventaireControleur = new InventaireControleur(root, env, inventaireMain, inventaireSac, inventaireEquipement);
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
-        root.addEventHandler(Event.ANY, new InventaireControleur(root, env, inventaireMain, inventaireSac, inventaireEquipement));
+        root.addEventHandler(Event.ANY, inventaireControleur);
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
         root.addEventHandler(Event.ANY, new DialogueControleur(vueDialog, modeleDialogue));
 
+        env.getJoueur().getInventaire().getArmeProperty().addListener(new ArmeListener(armeVue, inventaireControleur.getInvVue()));
         this.env.getJoueur().getPVProperty().addListener(new VieListener(vievue, this.env.getJoueur()));
         new EtabliControleur(root,env, etabliVue);
         new PersonnageListeners(env.getJoueur(), personnageVue, armeVue, feuDeCampVue);
