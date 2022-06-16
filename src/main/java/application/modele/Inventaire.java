@@ -2,7 +2,9 @@ package application.modele;
 
 import application.modele.armes.Arme;
 import application.modele.armes.Armure;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +28,7 @@ public class Inventaire {
 
     private HashMap<Integer, Boolean> placesDisponible;
 
-    private ObjetInventaire armure;
+    private ObjectProperty<ObjetInventaire> armureProperty;
     private ObjectProperty<ObjetInventaire> armeProperty;
 
     private Environnement env;
@@ -277,7 +279,7 @@ public class Inventaire {
         return nombre;
     }
 
-    public void retirerNbRessource(String nomRessource, int nbRessource) {
+    public void retirerNbRessources(String nomRessource, int nbRessource) {
         int cpt = 0;
         int i = 0;
         while (cpt < nbRessource && i < objets.size()) {
