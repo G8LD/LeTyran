@@ -17,7 +17,7 @@ public class Arc extends Arme {
     public void frapper(Personnage perso, Personnage ennemi) {
         if (perso instanceof Joueur) {
             if (((Joueur) perso).getInventaire().recupererNombreRessources("Fleche") > 0) {
-                ((Joueur) perso).getInventaire().retirerNbRessource("Fleche", 1);
+                ((Joueur) perso).getInventaire().retirerNbRessources("Fleche", 1);
                 getEnv().getListeFleches().add(new Fleche(getEnv(), perso, getDistance() * TUILE_TAILLE, nbDegat()));
                 decrementerPv();
             }
