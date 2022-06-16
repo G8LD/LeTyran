@@ -12,6 +12,8 @@ import javafx.scene.paint.Color;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import static application.Main.HEIGHT_FENETRE;
+import static application.Main.WIDTH_FENETRE;
 import static application.modele.MapJeu.TUILE_TAILLE;
 import static application.vue.ChargeurRessources.iconObjets;
 
@@ -24,9 +26,12 @@ public class EtabliVue {
         this.etabli = etabli;
         this.bPaneEtabli = bPaneEtabli;
 
+        bPaneEtabli.setLayoutX(WIDTH_FENETRE/2 - bPaneEtabli.getPrefWidth()/2);
+        bPaneEtabli.setLayoutY(HEIGHT_FENETRE/2 - bPaneEtabli.getPrefHeight()/2 - 50);
+        bPaneEtabli.setVisible(false);
+
         spriteEtabli.setX(etabli.getX() * TUILE_TAILLE);
         spriteEtabli.setY(etabli.getY() * TUILE_TAILLE);
-        bPaneEtabli.setVisible(false);
 
         Iterator iterator = etabli.getObjetsID().iterator();
         while (iterator.hasNext()) {

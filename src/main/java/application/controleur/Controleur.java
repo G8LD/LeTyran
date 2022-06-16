@@ -45,9 +45,9 @@ public class Controleur implements Initializable {
     private EnnemieVue ennemieVue;
     private EnnemiControleur ennemiControleur;
     private  Ennemie ennemie;
-
+    private ControleurQuete controleurQuete;
+    private InventaireControleur inventaireControleur;
     private VueDialogue vueDialog;
-
     private ModeleDialogue modeleDialogue;
 
     private Timeline gameLoop;
@@ -73,10 +73,8 @@ public class Controleur implements Initializable {
     @FXML private TextFlow dialogFlow;
     @FXML private TextFlow conteneurQuetes;
 
-    private ControleurQuete controleurQuete;
-
-    private InventaireControleur inventaireControleur;
-
+    @FXML private VBox vBoxPause;
+    @FXML private VBox vBoxSuicide;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -105,6 +103,7 @@ public class Controleur implements Initializable {
         root.addEventHandler(Event.ANY, inventaireControleur);
         root.addEventHandler(MouseEvent.MOUSE_PRESSED, new MousePressed(this, env));
         root.addEventHandler(Event.ANY, new DialogueControleur(vueDialog, modeleDialogue));
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new PauseControleur(env, root, vBoxPause, vBoxSuicide));
 
         env.getJoueur().getInventaire().getArmeProperty().addListener(new ArmeListener(armeVue, inventaireControleur.getInvVue()));
         env.getJoueur().getInventaire().getArmureProperty().addListener(new ArmureListener(inventaireControleur.getInvVue()));
@@ -128,11 +127,13 @@ public class Controleur implements Initializable {
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.017),
                 (ev ->{
-                    env.getJoueur().update();
-                    if (!env.getJoueur().getMort()) {
-                        objetVue.update();
-                        vueDialog.animer(0.017);
-                        this.env.update();
+                    if (!env.getPause()) {
+                        env.getJoueur().update();
+                        if (!env.getJoueur().getMort() && !env.getJoueur().getSeRepose()) {
+                            objetVue.update();
+                            vueDialog.animer(0.017);
+                            this.env.update();
+                        }
                     }
                 })
         );

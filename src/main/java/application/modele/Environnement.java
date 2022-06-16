@@ -7,6 +7,8 @@ import application.modele.personnages.ennemi.Archer;
 import application.modele.personnages.ennemi.Ennemi;
 import application.modele.personnages.ennemi.Epeiste;
 import application.modele.personnages.ennemi.Lancier;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,6 +19,7 @@ import static application.modele.MapJeu.WIDTH;
 
 public class Environnement {
 
+    private BooleanProperty pauseProperty;
     private Joueur joueur;
     private MapJeu mapJeu;
     private Etabli etabli;
@@ -26,6 +29,7 @@ public class Environnement {
     private Ennemie ennemie;
 
     public Environnement() {
+        pauseProperty = new SimpleBooleanProperty(false);
         hashMapListes = new HashMap<>() {{
             put("listeEntites", FXCollections.observableArrayList());
             put("listeMateriaux", FXCollections.observableArrayList());
@@ -252,6 +256,16 @@ public class Environnement {
     public Ennemie getEnnemie(){
         return this.ennemie;
     }
+
+    public final boolean getPause() {
+        return pauseProperty.getValue();
+    }
+
+    public boolean pauser() {
+        this.pauseProperty.setValue(!pauseProperty.getValue());
+        return pauseProperty.getValue();
+    }
+
     //endregion
 
 }

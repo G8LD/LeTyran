@@ -146,7 +146,7 @@ public class Joueur extends Personnage {
     public void update() {
         super.collide();
         if (mortProperty.getValue())
-            detruire();
+            mourir();
         else if (seReposeProperty.getValue())
             seReposer();
         else if (getDistancePoussee() != 0)
@@ -176,29 +176,30 @@ public class Joueur extends Personnage {
             detruire();
     }
 
-    public void seReposer() {
+    private void seReposer() {
         if (System.currentTimeMillis() - delai >= 5_000) {
             seReposeProperty.setValue(false);
-        } else if (System.currentTimeMillis() - delai >= 2_000 && getX() != getEnv().getFeuDeCamp().getX()) {
+        } else if (System.currentTimeMillis() - delai >= 2_000 && getX() + TUILE_TAILLE != getEnv().getFeuDeCamp().getX() * TUILE_TAILLE) {
             setSaute(false); setAvance(false); setDistancePoussee(0);
             getEnv().getFeuDeCamp().seReposer();
         }
     }
 
-
-    @Override
-    public void detruire() {
-        if (!mortProperty.getValue()) {
-            mortProperty.setValue(true);
-            delai = System.currentTimeMillis();
-        } else if (System.currentTimeMillis() - delai >= 5_000) {
+    private void mourir() {
+        if (System.currentTimeMillis() - delai >= 5_000) {
             mortProperty.setValue(false);
-        } else if (System.currentTimeMillis() - delai >= 2_000 && getX() != getEnv().getFeuDeCamp().getX()) {
+        } else if (System.currentTimeMillis() - delai >= 2_000 && getX() + TUILE_TAILLE != getEnv().getFeuDeCamp().getX() * TUILE_TAILLE) {
             setSaute(false); setAvance(false); setDistancePoussee(0);
             if (getArme() != null) getArme().detruire();
             if (inventaire.getArmure() != null) inventaire.getArmure().detruire();
             getEnv().getFeuDeCamp().seReposer();
         }
+    }
+
+    @Override
+    public void detruire() {
+        mortProperty.setValue(true);
+        delai = System.currentTimeMillis();
     }
 
     public void freezer() {
@@ -244,7 +245,11 @@ public class Joueur extends Personnage {
         return inventaire.getArme();
     }
 
-    public BooleanProperty getSeReposeProperty() {
+    public final boolean getSeRepose() {
+        return seReposeProperty.getValue();
+    }
+
+    public final BooleanProperty getSeReposeProperty() {
         return seReposeProperty;
     }
 }
