@@ -62,6 +62,49 @@ public class Collider {
         return false;
     }
 
+    public double verificationX(Entite ent, double forceX) {
+        double entRecX = ent.getX();
+        double entRecY = ent.getY();
+        double entColWidth = ent.getCollider().getHitBox().getWidth();
+        double entColHeight = ent.getCollider().getHitBox().getHeight();
+
+        double colRecX = this.getEnt().getX();
+        double colRecY = this.getEnt().getY();
+        double colWidth = this.getHitBox().getWidth();
+        double colRecHeight = this.getHitBox().getHeight();
+
+
+        if(colRecX + colWidth + forceX > entRecX
+                && colRecX + forceX < entRecX + entColWidth
+                && colRecY + colRecHeight > entRecY && colRecY < entRecY + entColHeight) {
+            forceX *= -1;
+        } /*else if(colRecX < 0 ||)*/
+
+        return forceX;
+    }
+
+    public double verificationY(Entite ent, double forceY) {
+        double entRecX = ent.getX();
+        double entRecY = ent.getY();
+        double entColWidth = ent.getCollider().getHitBox().getWidth();
+        double entColHeight = ent.getCollider().getHitBox().getHeight();
+
+        double colRecX = this.getEnt().getX();
+        double colRecY = this.getEnt().getY();
+        double colWidth = this.getHitBox().getWidth();
+        double colRecHeight = this.getHitBox().getHeight();
+
+
+        if(colRecX + colWidth > entRecX
+                && colRecX < entRecX + entColWidth
+                && colRecY + colRecHeight + forceY > entRecY &&
+                colRecY + forceY < entRecY + entColHeight) {
+            forceY *= -1;
+        } /*else if(colRecX < 0 ||)*/
+
+        return forceY;
+    }
+
     public boolean intersect(Entite ent, double ajoutX, double ajoutY) {
         if (ent.getCollider() != null) {
             Entite selfEnt = this.ent;
@@ -92,6 +135,20 @@ public class Collider {
 
 
     }*/
+
+    //public boolean LigneIntersectionLigne(double)
+    public Entite tracerLigne2(double origineX, double origineY, double finX, double finY) {
+        Entite entTrouvee = null;
+
+        for (String nom : this.ent.getEnv().getHashMapListes().keySet())
+            if (nom.equals("listeEntites") || nom.equals("listeMateriaux"))
+                for(int i = 0; i < this.ent.getEnv().getHashMapListes().get(nom).size(); i++) {
+                    Entite entAVerifier = (Entite) this.ent.getEnv().getHashMapListes().get(nom).get(i);
+
+                }
+
+        return null;
+    }
 
 
     public Entite tracerLigne(double origineX, double origineY, double longueurX, double longueurY) {

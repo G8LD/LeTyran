@@ -39,7 +39,7 @@ public class Joueur extends Personnage {
         seReposeProperty = new SimpleBooleanProperty(false);
         avanceProperty = new SimpleBooleanProperty(false);
         this.setX(12 * TUILE_TAILLE);
-        this.setY(6 * TUILE_TAILLE);
+        this.setY(5 * TUILE_TAILLE);
         freeze = false; delai = 0;
     }
 

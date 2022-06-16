@@ -19,8 +19,8 @@ public class Entite {
 
     private boolean tombe = false;
 
-    private int forceVertical = 0;
-    private int forceHorizontal = 0;
+    private double forceVertical = 0;
+    private double forceHorizontal = 0;
 
     public Entite(Environnement env) {
         pv= new SimpleIntegerProperty(100);
@@ -67,6 +67,12 @@ public class Entite {
 
         //double forceTotal = gravite();
         //System.out.println(forceTotal);
+        ajouterForceVertical(-5);
+
+        double ancienneForceV = forceVertical;
+        double ancienneForceH = forceHorizontal;
+
+        //System.out.println(ancienneForceH + " " + ancienneForceV);
 
         if(this.getCollider() != null) {
             collide();
@@ -74,47 +80,13 @@ public class Entite {
 
 
 
-        if(appliquerGravite()) {
-            //this.ajouterForceVertical(10);
-            this.setY(this.getY() + 1);
-            double valeurClampVertical = Mathematiques.clamp(forceVertical * 0.5f, -2, 2);
-            this.setY(this.getY() + valeurClampVertical);
 
+        if (forceHorizontal != 0 && ancienneForceH != forceHorizontal){
+            this.setX(this.getX() + forceHorizontal);
         }
-
-        double valeurClampeeVertical = Mathematiques.clamp(forceVertical * 0.5f, -2, 2);
-        if(forceVertical > 0) {
-
-            if(this.getCollider().tracerLigne(this.getX(), this.getY(), 32 - 10, valeurClampeeVertical * 32) == null) {
-                this.setY(this.getY() +  valeurClampeeVertical);
-            } else {
-                this.setY(this.getY() - valeurClampeeVertical);
-            }
-        } else if(forceVertical < 0) {
-            if(this.getCollider().tracerLigne(this.getX(), this.getY(), 32 - 10, valeurClampeeVertical * 32) == null) {
-                this.setY(this.getY() -  valeurClampeeVertical);
-            } else {
-                this.setY(this.getY() + valeurClampeeVertical);
-            }
+        if(forceVertical != 0 && ancienneForceV != forceVertical) {
+            this.setY(this.getY() + forceVertical);
         }
-
-        if(forceHorizontal > 0) {
-            if(this.getCollider().tracerLigne(this.getX(), this.getY(), Mathematiques.clamp(forceHorizontal, 0, 1) * 32, 1 * 32 - 10) == null) {
-                this.setX(this.getX() + Mathematiques.clamp(forceHorizontal * 0.5f, -1, 1));
-            } else {
-                this.setX(this.getX() - Mathematiques.clamp(forceHorizontal * 0.5f, -1, 1));
-            }
-
-        } else if (forceHorizontal < 0){
-            if(this.getCollider().tracerLigne(this.getX() - 32, this.getY(), Mathematiques.clamp(forceHorizontal, -1, 0) * 32, 1 * 32 - 10) == null) {
-                this.setX(this.getX() + Mathematiques.clamp(forceHorizontal * 0.5f, -1, 1));
-            }
-            else {
-                this.setX(this.getX() - 10);
-            }
-        }
-
-
 
         //this.getCollider().tracerLigne(this.getX(), this.getY(), 32,0);
 
@@ -128,7 +100,7 @@ public class Entite {
 
     }
 
-    public boolean appliquerHorizontal() {
+    /*public boolean appliquerHorizontal() {
         boolean doitAppliquer = true;
 
         if (this instanceof Joueur) {
@@ -150,7 +122,7 @@ public class Entite {
         }
 
         return doitAppliquer;
-    }
+    }*/
 
     /*private void tomber() {
         if (!(this instanceof Materiau));
@@ -179,6 +151,14 @@ public class Entite {
                     Entite ent = (Entite) env.getHashMapListes().get(nom).get(i);
                     //Pour éviter de faire trop de tour de boucle, on va vérifier aussi si les cases autour de l'entite peuvent potentiellement la bloquer,
                     //ça sera utile quand on voudra vérifié la possibilité de se déplacer dans une direction
+                    forceHorizontal = this.getCollider().verificationX(ent, forceHorizontal);
+
+                    double ancien = forceVertical;
+                    forceVertical = this.getCollider().verificationY(ent, forceVertical);
+                    if(forceVertical != ancien) {
+                        //this.setY(ent.getY() + forceVertica);
+                    }
+
 
 
                     //Là c'est surtout pour savoir si un objet est rentré dans l'entité (comme par exemple le joueur)
