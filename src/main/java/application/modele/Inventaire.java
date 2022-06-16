@@ -24,7 +24,7 @@ public class Inventaire {
 
     private HashMap<Integer, Boolean> placesDisponible;
 
-    private ObjetInventaire armure;
+    private ObjectProperty<ObjetInventaire> armureProperty;
     private ObjectProperty<ObjetInventaire> armeProperty;
 
     private Environnement env;
@@ -42,6 +42,7 @@ public class Inventaire {
         objetMainIndex = 0;
 
         armeProperty = new SimpleObjectProperty<>();
+        armureProperty = new SimpleObjectProperty<>();
     }
 
     public ObservableList<ObjetInventaire> getObjets(){
@@ -59,15 +60,19 @@ public class Inventaire {
     }
 
     public Armure getArmure() {
-        if(armure == null)
+        if(armureProperty.getValue() == null)
             return null;
-        return (Armure)armure.getEntite();
+        return (Armure) armureProperty.getValue().getEntite();
+    }
+
+    public final ObjectProperty<ObjetInventaire> getArmureProperty() {
+        return armureProperty;
     }
 
     public void mettreEquipement(ObjetInventaire objetInventaire) {
         if(objetInventaire.getEntite() instanceof Armure) {
             System.out.println("Vous vous êtes équiper de " + objetInventaire);
-            armure = objetInventaire;
+            armureProperty.setValue(objetInventaire);
         } else if (objetInventaire.getEntite() instanceof Arme) {
             System.out.println(objetInventaire);
             armeProperty.setValue(objetInventaire);
@@ -76,7 +81,7 @@ public class Inventaire {
 
     public void desequiperArmure() {
         System.out.println("Vous avez retirer l'objet");
-        armure = null;
+        armureProperty.setValue(null);
     }
 
     public void desequiperArme() {

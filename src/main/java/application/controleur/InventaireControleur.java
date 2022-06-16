@@ -35,12 +35,10 @@ public class InventaireControleur implements EventHandler<Event> {
         inventaireEquip.getChildren().get(0).setPickOnBounds(true);
         inventaireEquip.getChildren().get(0).setOnMouseClicked(mouseEvent -> {
             inv.desequiperArmure();
-            this.invVue.enleverEquipement("armure");
         });
 
         inventaireEquip.getChildren().get(1).setOnMouseClicked(mouseEvent -> {
             inv.desequiperArme();
-            this.invVue.enleverEquipement("arme");
         });
 
     }

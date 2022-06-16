@@ -1,6 +1,7 @@
 package application.controleur;
 
 import application.controleur.listeners.ArmeListener;
+import application.controleur.listeners.ArmureListener;
 import application.controleur.listeners.PersonnageListeners;
 import application.controleur.listeners.VieListener;
 import application.modele.Ennemie;
@@ -98,6 +99,7 @@ public class Controleur implements Initializable {
         root.addEventHandler(Event.ANY, new DialogueControleur(vueDialog, modeleDialogue));
 
         env.getJoueur().getInventaire().getArmeProperty().addListener(new ArmeListener(armeVue, inventaireControleur.getInvVue()));
+        env.getJoueur().getInventaire().getArmureProperty().addListener(new ArmureListener(inventaireControleur.getInvVue()));
         this.env.getJoueur().getPVProperty().addListener(new VieListener(vievue, this.env.getJoueur()));
         new EtabliControleur(root,env, etabliVue);
         new PersonnageListeners(env.getJoueur(), personnageVue, armeVue, feuDeCampVue);
