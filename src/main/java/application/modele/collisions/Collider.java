@@ -18,6 +18,7 @@ public class Collider {
         this.activeVerifCollision = false;
     }
 
+
     public boolean getIgnoreCollision() {
         return this.ignoreCollision;
     }

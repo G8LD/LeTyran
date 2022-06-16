@@ -8,6 +8,7 @@ import application.modele.collisions.Collider;
 import application.modele.objets.Materiau;
 import application.modele.personnages.Joueur;
 import javafx.beans.property.*;
+import javafx.geometry.Point2D;
 
 public class Entite {
     private DoubleProperty xProperty;
@@ -21,6 +22,19 @@ public class Entite {
 
     private double forceVertical = 0;
     private double forceHorizontal = 0;
+
+
+    private double ancienneValeurVertical;
+    private double ancienneValeurHorizontal;
+
+    //Mouvement
+
+    public double valeurVertical = 1;
+    public double valeurHorizontal = 1;
+
+    public boolean peutSauter = false;
+    public boolean peutTomber = false;
+
 
     public Entite(Environnement env) {
         pv= new SimpleIntegerProperty(100);
@@ -55,90 +69,93 @@ public class Entite {
         this.yProperty = new SimpleDoubleProperty(0);
     }
 
-    public void ajouterForceHorizontal(double force) {
-        this.forceHorizontal += force;
+    /*public void addTorque(double torqueForce) {
+        double newTorque = forceTorqueActuel + torqueForce;
+        if (torqueForce > 0) {
+            forceTorqueActuel = Math.min(newTorque, TORQUE_MAX);
+        } else {
+            forceTorqueActuel = Math.max(newTorque, -TORQUE_MAX);
+        }
     }
 
-    public void ajouterForceVertical(double force) {
-        this.forceVertical += force;
+
+    public void ajouterThrust(double scalaire) {
+        Point2D thrustVector = calculateNewThrustVector(scalaire, Math.toRadians(0));
+        thrustActuel = thrustActuel.add(thrustVector);
+        thrustActuel = clampToMaxSpeed(thrustActuel);
     }
+
+    private Point2D calculateNewThrustVector(double scalar, double angle) {
+        return new Point2D(
+                (double) (Math.sin(angle) * scalar),
+                (double) (Math.cos(angle) * scalar));
+    }
+
+    private Point2D clampToMaxSpeed(Point2D thrustVector) {
+        if (thrustVector.magnitude() > VITESSE_MAX) {
+            return thrustActuel = thrustVector.normalize().multiply(VITESSE_MAX);
+        } else {
+            return thrustActuel = thrustVector;
+        }
+    }
+
+    private void applyDrag() {
+        double movementDrag = thrustActuel.magnitude() < 0.5 ? 0.01f : 0.07f;
+        double rotationDrag = forceTorqueActuel < 0.2f ? 0.05f : 0.1f;
+        thrustActuel = new Point2D(
+                reduceTowardsZero((double) thrustActuel.getX(), movementDrag),
+                reduceTowardsZero((double) thrustActuel.getY(), movementDrag));
+
+        forceTorqueActuel = reduceTowardsZero(forceTorqueActuel, rotationDrag);
+    }
+
+    private double reduceTowardsZero(double value, double modifier) {
+        double newValue = 0;
+        if (value > modifier) {
+            newValue = value - modifier;
+        } else if (value < -modifier) {
+            newValue = value + modifier;
+        }
+        return newValue;
+    }*/
+
+    private void sedeplacer() {
+        //this.setX(this.getX() + forceTorqueActuel);
+        this.setX(this.getX() + valeurHorizontal);
+    }
+
+    private boolean tomber() {
+        if(peutTomber) {
+            this.setY(this.getY() + valeurVertical);
+
+            return true;
+        }
+
+        return false;
+    }
+
+
 
     public void update() {
+        valeurVertical -= 1;
+        collide();
+        //double ancienDeplace = peutseDeplace;
+        tomber();
+            //entiteSauter();
 
-        //double forceTotal = gravite();
-        //System.out.println(forceTotal);
-        ajouterForceVertical(-5);
+        sedeplacer();
 
-        double ancienneForceV = forceVertical;
-        double ancienneForceH = forceHorizontal;
-
-        //System.out.println(ancienneForceH + " " + ancienneForceV);
-
-        if(this.getCollider() != null) {
-            collide();
-        }
-
-
-
-
-        if (forceHorizontal != 0 && ancienneForceH != forceHorizontal){
-            this.setX(this.getX() + forceHorizontal);
-        }
-        if(forceVertical != 0 && ancienneForceV != forceVertical) {
-            this.setY(this.getY() + forceVertical);
-        }
-
-        //this.getCollider().tracerLigne(this.getX(), this.getY(), 32,0);
-
-        forceVertical *= 0.5f;
-        forceHorizontal *= 0.5f;
-
-
-
-        //tomber();
-
+        //valeurVertical;
+        valeurVertical *= 0.5f;
 
     }
 
-    /*public boolean appliquerHorizontal() {
-        boolean doitAppliquer = true;
 
-        if (this instanceof Joueur) {
-            if (this.getCollider().tracerLigne(this.getX(), this.getY(), Mathematiques.clamp(forceHorizontal, -1, 1) * 32, 1 * 32 - 10) != null) {
-                doitAppliquer = false;
-            }
+    public void entiteSauter() {
+        if(valeurVertical < 0 && !peutSauter) {
+            this.setY(this.getY() + valeurVertical);
         }
-
-        return doitAppliquer;
     }
-
-
-    public boolean appliquerGravite() {
-        boolean doitAppliquer = true;
-        if (this instanceof Joueur) {
-            if (this.getCollider().tracerLigne(this.getX(), this.getY(), 32, 32) != null) {
-                doitAppliquer = false;
-            }
-        }
-
-        return doitAppliquer;
-    }*/
-
-    /*private void tomber() {
-        if (!(this instanceof Materiau));
-            this.setY(this.getY() + forceVertical);
-
-
-    }*/
-    /*private void tomber() {
-        for (int i = 0; i < 3; i++)
-        if (!env.entreEnCollision((int) this.getX(), (int)this.getY(), Direction.Bas)) {
-            tombe = true;
-            this.setY(this.getY() + 1);
-        }
-        tombe = false;
-
-    }*/
 
     public void detruire() {
     }
@@ -151,13 +168,11 @@ public class Entite {
                     Entite ent = (Entite) env.getHashMapListes().get(nom).get(i);
                     //Pour éviter de faire trop de tour de boucle, on va vérifier aussi si les cases autour de l'entite peuvent potentiellement la bloquer,
                     //ça sera utile quand on voudra vérifié la possibilité de se déplacer dans une direction
-                    forceHorizontal = this.getCollider().verificationX(ent, forceHorizontal);
 
-                    double ancien = forceVertical;
-                    forceVertical = this.getCollider().verificationY(ent, forceVertical);
-                    if(forceVertical != ancien) {
-                        //this.setY(ent.getY() + forceVertica);
-                    }
+                    ancienneValeurVertical = valeurVertical;
+                    ancienneValeurHorizontal = valeurHorizontal;
+                    valeurHorizontal = this.getCollider().verificationX(ent, valeurHorizontal);
+                    valeurVertical = this.getCollider().verificationY(ent, valeurVertical);
 
 
 

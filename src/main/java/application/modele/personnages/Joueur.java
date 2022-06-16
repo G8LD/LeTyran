@@ -34,11 +34,12 @@ public class Joueur extends Personnage {
         this.inventaire = new Inventaire(super.getEnv());
         this.inventaire.ajouterObjet(new Pioche(getEnv(), 1));
         this.inventaire.ajouterObjet(new Hache(getEnv(), 1));
-        this.getCollider().scaleCollider(1,1);
+        this.getCollider().getHitBox().setHeight(32);
+        this.getCollider().getHitBox().setWidth(32);
         mortProperty = new SimpleBooleanProperty(false);
         seReposeProperty = new SimpleBooleanProperty(false);
         avanceProperty = new SimpleBooleanProperty(false);
-        this.setX(12 * TUILE_TAILLE);
+        this.setX(13 * TUILE_TAILLE);
         this.setY(5 * TUILE_TAILLE);
         freeze = false; delai = 0;
     }
@@ -48,6 +49,7 @@ public class Joueur extends Personnage {
             return true;
         return false;
     }
+
 
     private boolean interactionFeuDeCamp(int x, int y) {
         if (x == getEnv().getFeuDeCamp().getX() && y == getEnv().getFeuDeCamp().getY()) {

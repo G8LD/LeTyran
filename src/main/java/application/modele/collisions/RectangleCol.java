@@ -29,6 +29,15 @@ public class RectangleCol {
         return "RectangleCol x:" + this.x + ", y:" + this.y + ", longueur:" + this.width + ", largeur:" + this.height;
     }
 
+
+    public void setWidth(int valeur) {
+        width = valeur;
+    }
+
+    public void setHeight(int valeur) {
+        height = valeur;
+    }
+
     public int getX() {
         return this.x;
     }

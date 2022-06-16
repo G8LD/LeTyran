@@ -53,12 +53,16 @@ public abstract class Personnage extends Entite {
     protected void seDeplacer() {
         switch (directionProperty.getValue()) {
             case Droit:
+
                 if(this.getCollider().tracerLigne(this.getX(), this.getY(), 32, 0) == null) {
-                    this.ajouterForceHorizontal(-2);
+                    valeurHorizontal = -1;
                 }
                 break;
             case Gauche:
-                this.ajouterForceHorizontal(2);
+                if(this.getCollider().tracerLigne(this.getX() - 32, this.getY(), 0, 0) == null) {
+                    valeurHorizontal = 1;
+                }
+                //this.ajouterForceHorizontal(2);
         }
         /*int distance;
         if (tombe || saute)
@@ -102,7 +106,7 @@ public abstract class Personnage extends Entite {
         if (i < getVitesse())
             saute = false;*/
         //if(this.getCollider().tracerLigne(this.getX(), this.getY(), 0, 64) != null) {
-        this.ajouterForceVertical(10);
+        //this.ajouterThrust(-100f);
         //}
     }
 
