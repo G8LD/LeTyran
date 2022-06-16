@@ -41,7 +41,7 @@ public class Joueur extends Personnage {
     }
 
     public boolean interagit(int x, int y) {
-        if(interactionFeuDeCamp(x,y) || interactionEtabli(x, y) || (this.inventaire.getArme() != null && (frapper(x, y) || miner(x, y) || couper(x, y) || ouvrirCoffre(x, y))))
+        if(interactionFeuDeCamp(x,y) || interactionEtabli(x, y) || (this.inventaire.getArme() != null && (frapper(x, y) || miner(x, y) || couper(x, y))) || ouvrirCoffre(x, y))
                 return true;
         return false;
     }
