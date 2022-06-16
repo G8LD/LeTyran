@@ -1,6 +1,7 @@
 package application.controleur;
 
 import application.controleur.listeners.PersonnageListeners;
+import application.modele.Entite;
 import application.modele.Environnement;
 import application.modele.armes.arc.Fleche;
 import application.modele.objets.Arbre;
@@ -33,8 +34,19 @@ public class EnvironnementControleur {
             @Override
             public void onChanged(Change<? extends Materiau> change) {
                 change.next();
-                for (int i = 0; i < change.getRemovedSize(); i++)
-                    envVue.supprimerBloc((int)change.getRemoved().get(i).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
+                for (int i = 0; i < change.getRemovedSize(); i++) {
+                    System.out.println((int) change.getRemoved().get(i).getY() * WIDTH + (int) change.getRemoved().get(0).getX());
+                    envVue.supprimerBloc((int) change.getRemoved().get(i).getY() * WIDTH + (int) change.getRemoved().get(0).getX());
+                }
+
+                for(int i = 0; i < change.getAddedSize(); i++) {
+                    Entite ent = change.getAddedSubList().get(i);
+                    int x = (int)ent.getX() / TUILE_TAILLE;
+                    int y = (int)ent.getY() / TUILE_TAILLE;
+
+                    env.getMapJeu().getTabMap()[y][x] = 34;
+                    envVue.ajouterBloc((int)ent.getY()/TUILE_TAILLE * WIDTH + (int)ent.getX()/TUILE_TAILLE, ent);
+                }
             }
         });
 
@@ -62,12 +74,13 @@ public class EnvironnementControleur {
         env.getListeCoffres().addListener(new ListChangeListener<Coffre>() {
             @Override
             public void onChanged(Change<? extends Coffre> change) {
-                change.next();
-                for (int i = 0; i < change.getRemovedSize(); i++)
-                    envVue.changerImgCoffre((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
+                while (change.next()) {
+                    if (change.wasRemoved()) {
+                        envVue.changerImgCoffre((int)change.getRemoved().get(0).getY() * WIDTH + (int)change.getRemoved().get(0).getX());
+                    }
+                }
             }
         });
-
         env.getListeFleches().addListener(new ListChangeListener<Fleche>() {
             @Override
             public void onChanged(Change<? extends Fleche> change) {

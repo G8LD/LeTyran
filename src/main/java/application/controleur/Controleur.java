@@ -71,10 +71,17 @@ public class Controleur implements Initializable {
 
     @FXML private Text texteDialogue;
     @FXML private TextFlow dialogFlow;
+    @FXML private TextFlow conteneurQuetes;
+
+    private ControleurQuete controleurQuete;
+
+    private InventaireControleur inventaireControleur;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        this.controleurQuete = new ControleurQuete(this.root.getScene(), conteneurQuetes);
         env = new Environnement();
         modeleDialogue = new ModeleDialogue();
 
@@ -91,7 +98,8 @@ public class Controleur implements Initializable {
 //        this.ennemie= new Ennemie(env, 500, 350);
 //        this.ennemieVue= new EnnemieVue(root,tileSol,ennemie);
 //        this.ennemiControleur= new EnnemiControleur(root,env, tileSol,ennemie,this.ennemieVue);
-        InventaireControleur inventaireControleur = new InventaireControleur(root, env, inventaireMain, inventaireSac, inventaireEquipement);
+        this.inventaireControleur = new InventaireControleur(root, controleurQuete, env, inventaireMain, inventaireSac, inventaireEquipement);
+
         root.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(env));
         root.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(this, env));
         root.addEventHandler(Event.ANY, inventaireControleur);
@@ -101,9 +109,12 @@ public class Controleur implements Initializable {
         env.getJoueur().getInventaire().getArmeProperty().addListener(new ArmeListener(armeVue, inventaireControleur.getInvVue()));
         env.getJoueur().getInventaire().getArmureProperty().addListener(new ArmureListener(inventaireControleur.getInvVue()));
         this.env.getJoueur().getPVProperty().addListener(new VieListener(vievue, this.env.getJoueur()));
+
         new EtabliControleur(root,env, etabliVue);
         new PersonnageListeners(env.getJoueur(), personnageVue, armeVue, feuDeCampVue);
         new EnvironnementControleur(root, envVue, env);
+
+
 
         initAnimation();
         gameLoop.play();
@@ -130,5 +141,9 @@ public class Controleur implements Initializable {
 
     public ArmeVue getArmeVue() {
         return armeVue;
+    }
+
+    public InventaireControleur getInventaireControleur() {
+        return this.inventaireControleur;
     }
 }

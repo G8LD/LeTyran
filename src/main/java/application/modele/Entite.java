@@ -139,6 +139,10 @@ public class Entite {
         return env;
     }
 
+    public void setEnv(Environnement nouvEnv) {
+        this.env = nouvEnv;
+    }
+
     public int getPv() {
         return this.pv.getValue();
     }

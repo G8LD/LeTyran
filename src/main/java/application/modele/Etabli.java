@@ -143,7 +143,7 @@ public class Etabli {
         Map.Entry materiau;
         while (iterator.hasNext()) {
             materiau = (Map.Entry) iterator.next();
-            inventaire.retirerNbRessource((String) materiau.getKey(), (Integer) materiau.getValue());
+            inventaire.retirerNbRessources((String) materiau.getKey(), (Integer) materiau.getValue());
         }
 
         if (objetSelected.equals("Etabli"))

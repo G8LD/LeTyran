@@ -18,13 +18,15 @@ public class Inventaire {
     public final static int PLACE_INVENTAIRE = 25;
     public final static int PLACE_MAIN_PERSONNAGE = 5;
 
-    private int objetMainIndex;
+
+    //Permet de savoir quel bloc le joueur a dans les mains
+    private IntegerProperty armeIndexProperty;
     private ObjetInventaire objetMain;
 
 
     private HashMap<Integer, Boolean> placesDisponible;
 
-    private ObjectProperty<ObjetInventaire> armureProperty;
+    private ObjetInventaire armure;
     private ObjectProperty<ObjetInventaire> armeProperty;
 
     private Environnement env;
@@ -39,7 +41,7 @@ public class Inventaire {
             placesDisponible.put(i, true);
         }
 
-        objetMainIndex = 0;
+        armeIndexProperty = new SimpleIntegerProperty(0);
 
         armeProperty = new SimpleObjectProperty<>();
         armureProperty = new SimpleObjectProperty<>();
@@ -106,16 +108,32 @@ public class Inventaire {
         }
     }
 
+    public void setArmeIndex(int valeur) {
+        this.armeIndexProperty.setValue(valeur);
+    }
+
+    public int getArmeIndex() {
+        return this.armeIndexProperty.getValue();
+    }
+
+    public IntegerProperty getArmeIndexProperty() {
+        return this.armeIndexProperty;
+    }
+
+    public void ajouterValeurArmeIndex(int valeur) {
+        this.armeIndexProperty.setValue(this.armeIndexProperty.getValue() + valeur);
+    }
+
     public void scrollObjetMain(int delta) {
-        objetMainIndex += delta;
-        if(objetMainIndex > PLACE_MAIN_PERSONNAGE - 1) {
-            objetMainIndex = 0;
-        } else if(objetMainIndex < 0) {
-            objetMainIndex = PLACE_MAIN_PERSONNAGE - 1;
+        this.ajouterValeurArmeIndex(delta);
+        if(this.getArmeIndex() > PLACE_MAIN_PERSONNAGE - 1) {
+            this.setArmeIndex(0);
+        } else if(this.getArmeIndex()  < 0) {
+            this.setArmeIndex(PLACE_MAIN_PERSONNAGE - 1);
         }
 
-        selectionnerObjetDansMain(objetMainIndex);
-        System.out.println("VOus vous équipez de l'objet situé à la place " + objetMainIndex + " " + objetMain);
+        selectionnerObjetDansMain(this.getArmeIndex());
+        System.out.println("VOus vous équipez de l'objet situé à la place " + armeIndexProperty + " " + objetMain);
     }
 
     public void definirPlacePrise(int place) {
@@ -238,6 +256,15 @@ public class Inventaire {
             if (objet.getEntite() == entite)
                 return objet;
         return null;
+    }
+
+    public ObjetInventaire getObjetInventaireSelectionnee() {
+        ObjetInventaire objet = null;
+        if(this.getObjets().size() > this.getArmeIndex()) {
+            objet = this.getObjets().get(this.getArmeIndex());
+        }
+
+        return objet;
     }
 
     public int recupererNombreRessources(String nom) {
