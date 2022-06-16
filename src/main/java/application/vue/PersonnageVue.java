@@ -44,11 +44,11 @@ public class PersonnageVue {
             add(new Image("file:src/main/resources/application/perso/lapin/lapin_3.png"));
         }});
         put("Boss", new ArrayList<>() {{
-            add(new Image("file:src/main/resources/application/Boss/dodo.png"));
+           // add(new Image("file:src/main/resources/application/Boss/dodo.png"));
             add(new Image("file:src/main/resources/application/Boss/debout1.png"));
             add(new Image("file:src/main/resources/application/Boss/debout2.png"));
             add(new Image("file:src/main/resources/application/Boss/marche.png"));
-            add(new Image("file:src/main/resources/application/Boss/debout3.png"));
+           // add(new Image("file:src/main/resources/application/Boss/debout3.png"));
             add(new Image("file:src/main/resources/application/Boss/immobile.png"));
         }});
     }};

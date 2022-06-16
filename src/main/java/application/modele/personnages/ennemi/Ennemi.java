@@ -36,8 +36,12 @@ public abstract class Ennemi extends PNJ {
     protected void attaquer() {
         if (delai++ >= 30) {
             if (joueurEnFace())
-                getArme().frapper(this, getEnv().getJoueur());
-            attaqueProperty.setValue(false);
+                if( this instanceof Boss){
+                    ((Boss) this).attaqueDuBoss(this.getEnv().getJoueur(),this);
+                }else {
+                    getArme().frapper(this, getEnv().getJoueur());
+                    attaqueProperty.setValue(false);
+                }
         }
     }
 

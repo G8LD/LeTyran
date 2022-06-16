@@ -2,6 +2,8 @@ package application.modele.personnages.ennemi;
 
 
 import application.modele.Environnement;
+import application.modele.personnages.Joueur;
+import application.modele.personnages.Personnage;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
@@ -23,21 +25,27 @@ public class Boss extends Ennemi {
     public void attaquer() {
         if (delaiBoss++ >= 30) {
             if (joueurEnFace())
-            attaqueProperty.setValue(false);
+                attaqueDuBoss(this.getEnv().getJoueur(), this);
+            attaqueProperty.setValue(true);
         }
     }
     public boolean joueurEnFace() {
-        return Math.abs(getEnv().getJoueur().getX() - getX()) <20 * TUILE_TAILLE
+        return Math.abs(getEnv().getJoueur().getX() - getX()) <3 * TUILE_TAILLE
                 && Math.abs(getEnv().getJoueur().getY() - getY()) < TUILE_TAILLE
                 && ((getDirection() == Gauche && getEnv().getJoueur().getX() - getX() < 1)
                 || (getDirection() == Droit && getEnv().getJoueur().getX() - getX() > -1));
     }
     public void deplacement() {
+        retourneDansZone();
         poursuiteJoueur();
-        if (!(getPoursuitJoueur()))
-            retourOrigine();
-        if (getPoursuitJoueur() || getRetourZone() || (Math.abs(getX() - getOrigineX()) > 1)) {
-            seDeplacer();
-        }
+        if (!getPoursuitJoueur())
+            deplacementAllerRetour();
+        seDeplacer();
+    }
+
+    public void attaqueDuBoss(Personnage perso, Personnage ennemi) {
+        ennemi.decrementerPv(30);
+        if (perso instanceof Joueur)
+            decrementerPv();
     }
 }
