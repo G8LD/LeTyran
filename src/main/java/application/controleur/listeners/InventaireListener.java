@@ -14,6 +14,7 @@ public class InventaireListener implements ListChangeListener {
         this.invVue = invVue;
         this.controleurQuete = controleurQuete;
     }
+
     @Override
     public void onChanged(Change change) {
         change.next();

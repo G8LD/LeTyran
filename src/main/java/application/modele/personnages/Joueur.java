@@ -1,13 +1,11 @@
 package application.modele.personnages;
 
-import application.modele.Entite;
-import application.modele.Environnement;
-import application.modele.Inventaire;
-import application.modele.ObjetJeu;
+import application.modele.*;
 import application.modele.armes.Arme;
 import application.modele.armes.Hache;
 import application.modele.armes.Pioche;
 import application.modele.armes.arc.Arc;
+import application.modele.armes.arc.Fleche;
 import application.modele.objets.Arbre;
 import application.modele.objets.Bois;
 import application.modele.objets.Coffre;
@@ -18,6 +16,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.media.AudioClip;
 
 import static application.modele.MapJeu.TUILE_TAILLE;
+import static application.modele.MapJeu.WIDTH;
 
 public class Joueur extends Personnage {
 
@@ -28,6 +27,7 @@ public class Joueur extends Personnage {
     private long delai;
     private BooleanProperty avanceProperty;
 
+    private AudioClip bruitCoffre = new AudioClip(getClass().getResource("/application/sons/coffreBruit.mp3").toExternalForm());
 
     public Joueur(Environnement env) {
         super(env);
@@ -65,8 +65,32 @@ public class Joueur extends Personnage {
         return false;
     }
 
+    public boolean poserBlock(int x, int y) {
+        ObjetInventaire objetEquipe = this.getInventaire().getObjetInventaireSelectionnee();
+        if(objetEquipe != null && !(objetEquipe.getEntite() instanceof Arme)) {
+            try {
+
+                Materiau nouvBloc = (Materiau) objetEquipe.getEntite().getClass().getDeclaredConstructor().newInstance();
+                nouvBloc.setX(x * TUILE_TAILLE);
+                nouvBloc.setY(y * TUILE_TAILLE);
+                nouvBloc.setEnv(this.getEnv());
+
+                objetEquipe.retirerDansStack();
+
+                this.getEnv().getListeMateriaux().add(nouvBloc);
+                System.out.println("Bloc ajouté");
+            } catch(Exception exception) {
+                System.out.println("Impossible d'ajouter un bloc");
+                exception.printStackTrace();
+            }
+        }
+
+        return false;
+    }
+
     private boolean ouvrirCoffre(int x, int y){
         Coffre coffre = getEnv().getCoffre(x, y);
+        Entite bois= new Bois(getEnv(), x, y);
         if(coffre != null){
             for(int i=0 ; i<coffre.getLoot().size();i++) {
                 this.getInventaire().ajouterObjet(coffre.getLoot().get(i));
@@ -74,11 +98,11 @@ public class Joueur extends Personnage {
             getEnv().getListeCoffres().remove(coffre);
             getEnv().getMapJeu().getTabMap()[y][x] = 59;
             coffre.detruire();
+            System.out.println(this.getInventaire());
             return  true;
         }
         return false;
     }
-
 
     private boolean frapper(int x, int y) {
         if (getArme() instanceof Arc) {

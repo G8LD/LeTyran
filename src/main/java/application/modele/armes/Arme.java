@@ -35,6 +35,7 @@ public abstract class Arme extends Entite {
 
     @Override
     public void detruire() {
+        getEnv().getJoueur().getInventaire().desequiperArme();
         getEnv().getJoueur().getInventaire().retirerObjet(getEnv().getJoueur().getInventaire().getObjetCorrespondant(this));
     }
 }

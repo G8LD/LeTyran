@@ -13,6 +13,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.media.AudioClip;
+import javafx.scene.shape.Rectangle;
 
 import static application.modele.Inventaire.PLACE_INVENTAIRE;
 import static application.modele.Inventaire.PLACE_MAIN_PERSONNAGE;
@@ -29,6 +30,7 @@ public class InventaireVue {
 
     private InventaireControleur controleur;
     public final static int TAILLE_ICON_INVENTAIRE = 32;
+    public final static int DECALAGE_CASE_INVENTAIRE = 3;
 
     private AudioClip sound = new AudioClip(getClass().getResource("/application/sons/ui_menu_button_click_24.mp3").toExternalForm());
 
@@ -40,40 +42,31 @@ public class InventaireVue {
         this.paneSacInventaire = paneSacInventaire;
         this.inventaireArmure = inventaireArmure;
 
-        this.paneSacInventaire.setLayoutY(32);
+        this.paneSacInventaire.setLayoutY(52);
 
         this.paneInventaireMain.setPrefWidth(TAILLE_ICON_INVENTAIRE * PLACE_MAIN_PERSONNAGE);
         this.paneInventaireMain.setPrefHeight(TAILLE_ICON_INVENTAIRE);
 
-        this.paneInventaireMain.setBackground(Background.fill(Color.BLUE));
         this.paneSacInventaire.setVisible(false);
+
+
+        Rectangle rectangleSelection = new Rectangle();
+        rectangleSelection.setWidth(32);
+        rectangleSelection.setHeight(32);
+        rectangleSelection.setFill(Color.TRANSPARENT);
+        rectangleSelection.setStroke(Color.WHITE);
+        rectangleSelection.strokeWidthProperty().setValue(6);
+
+        rectangleSelection.layoutXProperty().bind(this.inv.getArmeIndexProperty().multiply(TAILLE_ICON_INVENTAIRE)
+                .add(this.inv.getArmeIndexProperty().multiply(DECALAGE_CASE_INVENTAIRE)));
+
+        this.paneInventaireMain.getChildren().add(rectangleSelection);
 
         this.ajouterListeObjetDansLaMain();
         this.ajouterListeObjetsSac();
 
 
-//        this.inv.getObjets().addListener(new ListChangeListener<ObjetInventaire>() {
-//            @Override
-//            public void onChanged(Change<? extends ObjetInventaire> change) {
-//                change.next();
-//
-//                if(change.getRemovedSize() > 0) {
-//                    System.out.println("des trucs on été retirés " + change.getRemoved().get(0).getEntite());
-//                    for (int i = 0; i < change.getRemovedSize(); i++) {
-//                        ObjetInventaire obj = change.getRemoved().get(i);
-//                        retirerObjetAffichage(obj);
-//
-//                    }
-//                } else if(change.getAddedSize() > 0) {
-//
-//                    for (int i = 0; i < change.getAddedSize(); i++) {
-//
-//                        ObjetInventaire obj = change.getAddedSubList().get(i);
-//                        ajouterUnObjet(obj);
-//                    }
-//                }
-//            }
-//        });
+
 
     }
 
@@ -205,7 +198,7 @@ public class InventaireVue {
                 InvSlot invSlot = new InvSlot(ChargeurRessources.iconObjets.get("inventaireSac"));
                 invSlot.setId("slot"+((i * 10) + j + PLACE_MAIN_PERSONNAGE));
                 invSlot.setSize(TAILLE_ICON_INVENTAIRE,TAILLE_ICON_INVENTAIRE);
-                invSlot.setLayoutX(TAILLE_ICON_INVENTAIRE * j);
+                invSlot.setLayoutX(TAILLE_ICON_INVENTAIRE * j + (j * DECALAGE_CASE_INVENTAIRE));
                 invSlot.setLayoutY(TAILLE_ICON_INVENTAIRE * i);
 
                 invSlot.setIndex(PLACE_MAIN_PERSONNAGE + (i *10) + j);
@@ -238,7 +231,7 @@ public class InventaireVue {
             invSlot.setId("slot"+j);
             invSlot.setIndex(j);
             invSlot.setSize(TAILLE_ICON_INVENTAIRE,TAILLE_ICON_INVENTAIRE);
-            invSlot.setLayoutX(TAILLE_ICON_INVENTAIRE * j);
+            invSlot.setLayoutX(TAILLE_ICON_INVENTAIRE * j + (j * 3));
 
             //Ajouter un autre conteneur pour les items
             this.paneInventaireMain.getChildren().add(invSlot);

@@ -25,12 +25,15 @@ public class MousePressed implements EventHandler<MouseEvent> {
         int mouseX = ((int)mouseEvent.getX()/TUILE_TAILLE) - (WIDTH / 2) + (int)persoPosX;
         int mouseY = ((int)mouseEvent.getY() / TUILE_TAILLE) - (HEIGHT /2) + (int)persoPosY;
 
-        if(mouseX > 0) {
+        if(mouseX >= 0) {
             if (mouseX <= persoPosX + 2 && mouseX >= persoPosX - 2
                     && mouseY <= persoPosY +2 && mouseY >= persoPosY - 2) {
 
-                if(env.getJoueur().interagit(mouseX, mouseY))
+                if(env.getJoueur().interagit(mouseX, mouseY)) {
                     controleur.getArmeVue().animationFrappe();
+                } else {
+                    env.getJoueur().poserBlock(mouseX, mouseY);
+                }
             }
         }
     }

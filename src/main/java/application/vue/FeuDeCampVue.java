@@ -11,13 +11,11 @@ import static application.modele.MapJeu.*;
 
 public class FeuDeCampVue {
 
-    private ImageView spriteFeuDeCamp;
     private Label labelMort;
     private FadeTransition fade;
 
 
     public FeuDeCampVue(FeuDeCamp feuDeCamp, ImageView spriteFeuDeCamp, Label labelMort) {
-        this.spriteFeuDeCamp = spriteFeuDeCamp;
         this.labelMort = labelMort;
 
         spriteFeuDeCamp.setX(feuDeCamp.getX() * TUILE_TAILLE);
@@ -31,6 +29,7 @@ public class FeuDeCampVue {
         fade.setDuration(Duration.seconds(2));
     }
 
+    //affiche un ecran noir pour la transition
     public void transition(boolean mort) {
         if (mort)
             labelMort.setText("VOUS ÊTES MORT");

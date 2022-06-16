@@ -19,15 +19,18 @@ public class EtabliControleur {
         VBox vBoxObjets = (VBox) ((ScrollPane) etabliVue.getbPaneEtabli().lookup("#sPObjets")).getContent();
         Button boutonFabriquer = (Button) etabliVue.getbPaneEtabli().lookup("#VboxFabriquer").lookup("#boutonFabriquer");
 
+        //pour empêcher le joueur de fabriquer
         boutonFabriquer.setDisable(true);
         etabliVue.affichageBouton(0.5);
 
+        //afficher ou cacher l'établi quand le joueur clique sur l'établi
         env.getEtabli().getOuvertProperty().addListener((observableValue, aBoolean, t1) -> {
             if (!t1)
                 root.requestFocus();
             etabliVue.affichageEtabli();
         });
 
+        //pour afficher les infos de l'etabli lorsque cliquée
         vBoxObjets.getChildren().get(0).setOnMouseClicked(mouseEvent -> {
             etabliVue.affichageArmeSelected(Color.BLACK);
             env.getEtabli().setObjetSelected(((HBox)mouseEvent.getSource()).getId());
@@ -59,12 +62,15 @@ public class EtabliControleur {
             root.requestFocus();
         });
 
+        //pour fermer l'etabli quand cliqué sur la croix
         ((Button) etabliVue.getbPaneEtabli().lookup("#boutonFermer")).setOnAction(actionEvent -> {
             env.getEtabli().interagir();
         });
 
+        //retire l'opacité des hboxs des armes dispo
         env.getEtabli().getNiveauProperty().addListener(((observableValue, number, t1) -> etabliVue.amelioration()));
 
+        //rend le bouton fabriquer utilisable ou non si l'arme selectionné est fabricable
         env.getEtabli().getFabricableProperty().addListener((observableValue, aBoolean, t1) -> {
             System.out.println(t1);
             if (t1) {

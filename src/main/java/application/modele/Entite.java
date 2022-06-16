@@ -2,6 +2,8 @@ package application.modele;
 
 import application.modele.armes.Arme;
 import application.modele.armes.Pioche;
+import application.modele.armes.arc.Arc;
+import application.modele.armes.arc.Fleche;
 import application.modele.collisions.Collider;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
@@ -134,6 +136,10 @@ public class Entite {
 
     public Environnement getEnv() {
         return env;
+    }
+
+    public void setEnv(Environnement nouvEnv) {
+        this.env = nouvEnv;
     }
 
     public int getPv() {
