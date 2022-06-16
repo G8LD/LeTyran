@@ -25,17 +25,6 @@ public class Arc extends Arme {
             getEnv().getListeFleches().add(new Fleche(getEnv(), perso, getDistance()*TUILE_TAILLE, nbDegat()));
     }
 
-    public int nbDegat() {
-        if (getQualite() == 1) {
-            return 3;
-        } else if (getQualite() == 2) {
-            return 6;
-        } else {
-            return 9;
-        }
-    }
-
-
     public int getDistance() {
         if (getQualite() == 1) {
             return 5;

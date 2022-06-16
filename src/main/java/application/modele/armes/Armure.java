@@ -10,19 +10,11 @@ public class Armure extends Entite {
     public Armure(Environnement env, int qualite) {
         super(env);
         this.qualite = qualite;
-        setPv(30 * qualite);
+        setPv(20 * qualite);
     }
 
     public int defendre() {
-        int nbDefense;
-        if (qualite == 1)
-            nbDefense = 3;
-        else if (qualite == 2)
-            nbDefense = 6;
-        else
-            nbDefense = 9;
-        setPv(getPv() - nbDefense);
-        return nbDefense;
+        return qualite * 2;
     }
 
     public int getQualite() {

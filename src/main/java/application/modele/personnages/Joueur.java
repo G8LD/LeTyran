@@ -144,10 +144,13 @@ public class Joueur extends Personnage {
         int degatSubit;
         if (inventaire.getArmure() == null)
             degatSubit = degat;
-        else if (degat < inventaire.getArmure().defendre())
+        else if (degat <= inventaire.getArmure().defendre()) {
             degatSubit = 0;
-        else
+            inventaire.getArmure().decrementerPv(degat);
+        } else {
             degatSubit = degat - inventaire.getArmure().defendre();
+            inventaire.getArmure().decrementerPv(inventaire.getArmure().defendre());
+        }
         setPv(getPv() - degatSubit);
         if (getPv() <= 0)
             detruire();
@@ -172,8 +175,8 @@ public class Joueur extends Personnage {
             mortProperty.setValue(false);
         } else if (System.currentTimeMillis() - delai >= 2_000 && getX() != getEnv().getFeuDeCamp().getX()) {
             setSaute(false); setAvance(false); setDistancePoussee(0);
-            getArme().detruire();
-            inventaire.getArmure().detruire();
+            if (getArme() != null) getArme().detruire();
+            if (inventaire.getArmure() != null) inventaire.getArmure().detruire();
             getEnv().getFeuDeCamp().seReposer();
         }
     }

@@ -24,16 +24,6 @@ public class Lance extends Arme {
             ennemi.setDistancePoussee(-(getQualite()+1) * TUILE_TAILLE);
     }
 
-    public int nbDegat() {
-        if (getQualite() == 1) {
-            return 3;
-        } else if (getQualite() == 2) {
-            return 6;
-        } else {
-            return 9;
-        }
-    }
-
     public int getDistance() {
         return 2;
     }

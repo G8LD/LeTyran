@@ -12,7 +12,7 @@ public abstract class Arme extends Entite {
     public Arme(Environnement env, int qualite) {
         super(env);
         this.qualite = qualite;
-        setPv(qualite * 10);
+        setPv(qualite * 15);
     }
 
 
@@ -23,8 +23,9 @@ public abstract class Arme extends Entite {
     }
 
     //renvoie les dégâts de l'arme selon la qualité
-    public  abstract int nbDegat();
-
+    public int nbDegat() {
+        return qualite*3;
+    }
     public int getQualite() {
         return qualite;
     }

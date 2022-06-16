@@ -1,6 +1,7 @@
 package application.modele;
 
 import application.modele.armes.Arme;
+import application.modele.armes.Hache;
 import application.modele.armes.Pioche;
 import application.modele.armes.arc.Arc;
 import application.modele.armes.arc.Fleche;
