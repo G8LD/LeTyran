@@ -23,11 +23,13 @@ public class Boss extends Ennemi {
         attaqueProperty = new SimpleBooleanProperty(false);}
 
     public void attaquer() {
+        System.out.println("rentre dans attaquer");
         if (delaiBoss++ >= 30) {
+            System.out.println("dans le if");
             if (joueurEnFace())
-                attaqueDuBoss(this.getEnv().getJoueur(), this);
-            attaqueProperty.setValue(true);
-        }
+                attaqueDuBoss(this.getEnv().getJoueur());
+            }
+                attaqueProperty.setValue (false);
     }
     public boolean joueurEnFace() {
         return Math.abs(getEnv().getJoueur().getX() - getX()) <3 * TUILE_TAILLE
@@ -43,9 +45,7 @@ public class Boss extends Ennemi {
         seDeplacer();
     }
 
-    public void attaqueDuBoss(Personnage perso, Personnage ennemi) {
-        ennemi.decrementerPv(30);
-        if (perso instanceof Joueur)
-            decrementerPv();
+    public void attaqueDuBoss(Personnage perso) {
+        perso.decrementerPv(30);
     }
 }

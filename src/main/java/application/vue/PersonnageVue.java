@@ -2,6 +2,7 @@ package application.vue;
 
 import application.modele.Direction;
 import application.modele.personnages.Personnage;
+import application.modele.personnages.ennemi.Boss;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -47,7 +48,7 @@ public class PersonnageVue {
            // add(new Image("file:src/main/resources/application/Boss/dodo.png"));
             add(new Image("file:src/main/resources/application/Boss/debout1.png"));
             add(new Image("file:src/main/resources/application/Boss/debout2.png"));
-            add(new Image("file:src/main/resources/application/Boss/marche.png"));
+            //add(new Image("file:src/main/resources/application/Boss/marche.png"));
            // add(new Image("file:src/main/resources/application/Boss/debout3.png"));
             add(new Image("file:src/main/resources/application/Boss/immobile.png"));
         }});
@@ -107,6 +108,11 @@ public class PersonnageVue {
             spritePerso.setScaleX(1);
         else
             spritePerso.setScaleX(-1);
+    }
+    public void animationAttaqueBoss(){
+        if(perso instanceof Boss){
+            spritePerso.setImage(new Image("file:src/main/resources/application/Boss/attaque2.png"));
+        }
     }
 
     public void immobile() {

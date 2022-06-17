@@ -48,6 +48,9 @@ public class PersonnageListeners {
             persoVue.animerDeplacement();
 
         });
+        perso.getYProperty().addListener((observableValue, number, t1) -> {
+          persoVue.animationAttaqueBoss();
+        });
 
         //retourne le sprite du perso
         perso.getDirectionProperty().addListener((observableValue, o, t1) ->  {
