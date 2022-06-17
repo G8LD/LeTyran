@@ -87,7 +87,7 @@ public abstract class Ennemi extends PNJ {
             estPoussee();
         else {
             tomber();
-            if (getAttaque())
+            if (getAttaque() && joueurEnFace() )
                 attaquer();
             if (!getAttaque())
                 detectionJoueur();

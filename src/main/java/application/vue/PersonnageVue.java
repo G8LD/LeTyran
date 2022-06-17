@@ -47,7 +47,7 @@ public class PersonnageVue {
         put("Boss", new ArrayList<>() {{
            // add(new Image("file:src/main/resources/application/Boss/dodo.png"));
             add(new Image("file:src/main/resources/application/Boss/debout1.png"));
-            add(new Image("file:src/main/resources/application/Boss/debout2.png"));
+            //add(new Image("file:src/main/resources/application/Boss/debout2.png"));
             //add(new Image("file:src/main/resources/application/Boss/marche.png"));
            // add(new Image("file:src/main/resources/application/Boss/debout3.png"));
             add(new Image("file:src/main/resources/application/Boss/immobile.png"));
@@ -80,10 +80,10 @@ public class PersonnageVue {
         spritePerso.setId(perso.getId());
         spritePerso.setFitWidth(TUILE_TAILLE);
         spritePerso.setFitHeight(TUILE_TAILLE);
-      /* if(perso.getClass().getSimpleName().equals("Boss")){
+       if(perso.getClass().getSimpleName().equals("Boss")){
             spritePerso.setFitWidth(TUILE_TAILLE*3);
             spritePerso.setFitHeight(TUILE_TAILLE*2);
-        }*/
+        }
     }
 
     private void construirePerso() {

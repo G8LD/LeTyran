@@ -24,11 +24,13 @@ public class Boss extends Ennemi {
 
     public void attaquer() {
         System.out.println("rentre dans attaquer");
-        if (delaiBoss++ >= 30) {
+        if (delaiBoss++ >= 60) {
             System.out.println("dans le if");
-            if (joueurEnFace())
+            if (joueurEnFace()) {
                 attaqueDuBoss(this.getEnv().getJoueur());
+                this.delaiBoss -= 60;
             }
+        }
                 attaqueProperty.setValue (false);
     }
     public boolean joueurEnFace() {
@@ -46,6 +48,7 @@ public class Boss extends Ennemi {
     }
 
     public void attaqueDuBoss(Personnage perso) {
-        perso.decrementerPv(30);
+        perso.decrementerPv(20);
     }
+
 }

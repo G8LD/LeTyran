@@ -78,7 +78,7 @@ public class Environnement {
         }
     }
 
-
+//initialisation de la liste d'ennemi
     public void initListeEnnemis() {
         getListeEnnemis().clear();
         getListeEnnemis().add(new Archer(this, 1, 20, 11, 0));
