@@ -190,8 +190,20 @@ public class Joueur extends Personnage {
             mortProperty.setValue(false);
         } else if (System.currentTimeMillis() - delai >= 2_000 && getX() + TUILE_TAILLE != getEnv().getFeuDeCamp().getX() * TUILE_TAILLE) {
             setSaute(false); setAvance(false); setDistancePoussee(0);
-            if (getArme() != null) getArme().detruire();
-            if (inventaire.getArmure() != null) inventaire.getArmure().detruire();
+//            if (getArme() != null) getArme().detruire();
+//            if (inventaire.getArmure() != null) inventaire.getArmure().detruire();
+
+            for (int i = inventaire.getObjets().size() - 1; i >= 0; i--)
+                if (inventaire.getObjets().get(i).getEntite() instanceof Materiau)
+                    inventaire.retirerObjet(inventaire.getObjets().get(i));
+
+            int i = 0;
+            while (i < inventaire.getObjets().size() && !(inventaire.getObjets().get(i).getEntite() instanceof Arme)) i++;
+
+            if (i == inventaire.getObjets().size()) {
+                this.inventaire.ajouterObjet(new Pioche(getEnv(), 1));
+                this.inventaire.ajouterObjet(new Hache(getEnv(), 1));
+            }
             getEnv().getFeuDeCamp().seReposer();
         }
     }
