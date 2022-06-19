@@ -87,6 +87,8 @@ public class Joueur extends Personnage {
         return false;
     }
 
+
+
     private boolean ouvrirCoffre(int x, int y){
         Coffre coffre = getEnv().getCoffre(x, y);
         Entite bois= new Bois(getEnv(), x, y);
@@ -171,6 +173,7 @@ public class Joueur extends Personnage {
             degatSubit = degat - inventaire.getArmure().defendre();
             inventaire.getArmure().decrementerPv(inventaire.getArmure().defendre());
         }
+        if (getPv()>0)
         setPv(getPv() - degatSubit);
         if (getPv() <= 0)
             detruire();

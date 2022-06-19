@@ -34,10 +34,12 @@ public class KeyPressed implements EventHandler<KeyEvent> {
                 }
                 break;
             case W:
-                this.env.getJoueur().setPv(this.env.getJoueur().getPv() - 10);
+                if (this.env.getJoueur().getPv()>0)
+                    this.env.getJoueur().setPv(this.env.getJoueur().getPv()-10);
                 break;
             case X:
-                this.env.getJoueur().setPv(this.env.getJoueur().getPv() + 10);
+                    if (this.env.getJoueur().getPv()<100)
+                        this.env.getJoueur().setPv(this.env.getJoueur().getPv()+10);
                 break;
             case R:
                 this.env.getJoueur().getInventaire().ajouterObjet(new Fleche());
